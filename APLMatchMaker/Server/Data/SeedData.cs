@@ -23,9 +23,11 @@ namespace APLMatchMaker.Server.Data
 
 
             //##-< Course >-###################################################################
-            // courses = (Name, Description, StartDate, EndDate)
-            var courses = new (string, string, DateTime, DateTime)[]
+            if (!db.Courses.Any())
             {
+                // courses = (Name, Description, StartDate, EndDate)
+                var courses = new (string, string, DateTime, DateTime)[]
+                {
                 (".NET23", "Systemutveckling fullstack i .NET miljö", DateTime.Parse("2023-09-11"), DateTime.Parse("2024-01-31")),
                 ("Python24", "Programmering med Python", DateTime.Parse("2024-03-04"), DateTime.Parse("2024-06-28")),
                 ("Adobe24", "Förberedande utbildning bildproduktion med Adobes olika verktyg.", DateTime.Parse("2024-03-04"), DateTime.Parse("2024-04-12")),
@@ -34,8 +36,9 @@ namespace APLMatchMaker.Server.Data
                 (".NET24", "Systemutveckling fullstack i .NET miljö", DateTime.Parse("2024-02-26"), DateTime.Parse("2024-06-28")),
                 ("SUPPORT24", "IT-supporttekniker", DateTime.Parse("2024-01-27"), DateTime.Parse("2024-03-27")),
                 (".NET24_2", "Systemutveckling fullstack i .NET miljö", DateTime.Parse("2024-09-02"), DateTime.Parse("2024-01-31"))
-            };
-            await AddCoursesAsync(courses);
+                };
+                await AddCoursesAsync(courses);
+            }
             //#################################################################################
         }
         //#####################################################################################
@@ -52,10 +55,10 @@ namespace APLMatchMaker.Server.Data
                 (name, description, startDate, endDate) = course;
                 await db.Courses.AddAsync(new Course
                 {
-                   Name = name,
-                   Description = description,
-                   StartDate = startDate,
-                   EndDate = endDate
+                    Name = name,
+                    Description = description,
+                    StartDate = startDate,
+                    EndDate = endDate
                 });
             }
             await db.SaveChangesAsync();
