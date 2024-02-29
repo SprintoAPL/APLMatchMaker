@@ -12,7 +12,7 @@ namespace Lexicon_LMS.Server.Extensions
                 var serviceProvider = scope.ServiceProvider;
                 var db = serviceProvider.GetRequiredService<ApplicationDbContext>();
 
-                db.Database.EnsureDeleted();
+                //db.Database.EnsureDeleted();
                 // Tillfälligt låta bli att tömma databasen varje gång.
                 // För att kunna behålla test data mellan sessioner.
                 db.Database.Migrate();
