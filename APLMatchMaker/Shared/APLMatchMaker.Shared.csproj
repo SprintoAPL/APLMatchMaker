@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Client\APLMatchMaker.Client.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 </Project>
