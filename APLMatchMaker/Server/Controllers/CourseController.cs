@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APLMatchMaker.Server.Controllers
 {
+    [ApiController]
+    [Route("api/course")]
     public class CourseController : Controller
     {
         private readonly ICourseService _courseService; 
@@ -13,7 +15,6 @@ namespace APLMatchMaker.Server.Controllers
         {
             _courseService = courseService;
         }
-        [HttpGet]
         [HttpGet]
         public async Task<IActionResult> GetCoursesAsync()
         {
