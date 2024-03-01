@@ -1,0 +1,26 @@
+﻿<h3>CoursList</h3>
+
+<table class="table">
+
+    <thead>
+
+        <tr>
+            <th scope="col">Course name</th>
+            <th scope="col">Start date</th>
+            <th scope="col">End date</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @foreach (var course in CompListOfCourses)
+        {
+            <tr>
+                <td scope="row">@course.Name</td>
+                <td scope="row">@course.StartDate.ToString("yyyy-MM-dd")</td>
+                <td scope="row">@course.EndDate.ToString("yyyy-MM-dd")</td>
+            </tr>
+        }
+    </tbody>
+</table>
