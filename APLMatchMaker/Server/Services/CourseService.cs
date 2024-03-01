@@ -1,6 +1,6 @@
 ﻿using APLMatchMaker.Server.Data;
 using APLMatchMaker.Server.Models.Entities;
-using APLMatchMaker.Shared.DTOs;
+using APLMatchMaker.Shared.DTOs.CoursesDTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace APLMatchMaker.Server.Services

@@ -1,4 +1,4 @@
-using APLMatchMaker.Shared.TempDTOs;
+using APLMatchMaker.Shared.DTOs.CoursesDTOs;
 using Microsoft.AspNetCore.Components;
 
 namespace APLMatchMaker.Client.Components
@@ -6,6 +6,6 @@ namespace APLMatchMaker.Client.Components
     public partial class CoursList
     {
         [Parameter]
-        public IEnumerable<TempCoursForListDTO> CompListOfCourses { get; set; } = new List<TempCoursForListDTO>();
+        public IEnumerable<CoursForShortListDTO> CompListOfCourses { get; set; } = new List<CoursForShortListDTO>();
     }
 }

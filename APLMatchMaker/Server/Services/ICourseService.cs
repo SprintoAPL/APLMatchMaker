@@ -1,4 +1,4 @@
-﻿using APLMatchMaker.Shared.DTOs;
+﻿using APLMatchMaker.Shared.DTOs.CoursesDTOs;
 namespace APLMatchMaker.Server.Services
 {
     public interface ICourseService
