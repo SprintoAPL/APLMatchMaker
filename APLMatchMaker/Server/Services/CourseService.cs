@@ -33,7 +33,7 @@ namespace APLMatchMaker.Server.Services
             var course = await _dbContext.Courses.FindAsync(id);
             if (course != null)
             {
-                _dbContext?.Courses.Remove(course);
+                _dbContext.Courses.Remove(course);
                 await _dbContext.SaveChangesAsync();
             }
         }
