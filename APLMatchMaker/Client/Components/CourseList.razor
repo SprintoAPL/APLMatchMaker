@@ -15,7 +15,7 @@
         @foreach (var course in CompListOfCourses)
         {
             <tr>
-                <td scope="row">@course.Name</td>
+                <td scope="row"><a href="@($"coursedetails/{course.Id}")">@course.Name</a></td>
                 <td scope="row">@course.StartDate.ToString("yyyy-MM-dd")</td>
                 <td scope="row">@course.EndDate.ToString("yyyy-MM-dd")</td>
             </tr>
