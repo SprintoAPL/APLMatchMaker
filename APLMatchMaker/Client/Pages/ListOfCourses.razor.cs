@@ -9,7 +9,7 @@ namespace APLMatchMaker.Client.Pages
     {
         [Inject]
         private HttpClient? Http { get; set; }
-        public List<CoursForShortListDTO>? PageListCourses { get; set; }
+        public List<CourseForShortListDTO>? PageListCourses { get; set; }
         private string? errorMessage;
         protected override async Task OnInitializedAsync()
         {
@@ -17,7 +17,7 @@ namespace APLMatchMaker.Client.Pages
 
             try
             {
-                PageListCourses = await Http!.GetFromJsonAsync<List<CoursForShortListDTO>>("/api/course");
+                PageListCourses = await Http!.GetFromJsonAsync<List<CourseForShortListDTO>>("/api/course");
             }
             catch (Exception exception)
             {
