@@ -1,8 +1,17 @@
 ﻿@page "/ListOfCourses"
 @using APLMatchMaker.Shared.DTOs.CoursesDTOs;
 @using APLMatchMaker.Client.Components;
-    using APLMatchMaker.Shared.DTOs.CoursesDTOs;
-<h3>ListOfCourses</h3>
+<h3>Kurslista</h3>
 
-<CoursList CompListOfCourses=PageListCourses.ListOfCourses></CoursList>
-
+@if (PageListCourses == null && errorMessage == null)
+{
+    <p>Hämtar...</p>
+}
+else if (errorMessage != null)
+{
+    <p class="alert alert-warning">@errorMessage</p>
+}
+else
+{
+    <CoursList CompListOfCourses=PageListCourses></CoursList>
+}
