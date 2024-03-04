@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace APLMatchMaker.Client.Components
 {
-    public partial class CoursList
+    public partial class CourseList
     {
         [Parameter]
-        public IEnumerable<CoursForShortListDTO> CompListOfCourses { get; set; } = new List<CoursForShortListDTO>();
+        public IEnumerable<CourseForShortListDTO> CompListOfCourses { get; set; } = new List<CourseForShortListDTO>();
     }
 }

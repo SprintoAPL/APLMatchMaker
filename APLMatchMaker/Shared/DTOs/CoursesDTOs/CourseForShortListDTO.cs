@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace APLMatchMaker.Shared.DTOs.CoursesDTOs
 {
-    public class CoursForShortListDTO
+    public class CourseForShortListDTO
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
