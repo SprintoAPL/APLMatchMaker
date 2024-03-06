@@ -10,6 +10,11 @@ namespace APLMatchMaker.Server.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
+        //####-<Data Tables>-#######################################################################
+        public DbSet<Course> Courses => Set<Course>();
+        public DbSet<ApplicationUser> ApplicationUsers => Set<ApplicationUser>();
+        //##########################################################################################
+
         public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
@@ -17,6 +22,5 @@ namespace APLMatchMaker.Server.Data
           
         }
 
-        public DbSet<Course> Courses { get; set; }
     }
 }
