@@ -17,7 +17,7 @@ namespace APLMatchMaker.Client.Pages
 
             try
             {
-                PageListCourses = await Http!.GetFromJsonAsync<List<CourseForShortListDTO>>("/api/course");
+                PageListCourses = await Http!.GetFromJsonAsync<List<CourseForShortListDTO>>("/api/course/GetCoursesAsync");
             }
             catch (Exception exception)
             {
