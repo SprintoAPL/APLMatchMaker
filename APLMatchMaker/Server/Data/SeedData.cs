@@ -1,6 +1,8 @@
 ﻿using APLMatchMaker.Server.Models;
 using APLMatchMaker.Server.Models.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace APLMatchMaker.Server.Data
 {
@@ -22,7 +24,7 @@ namespace APLMatchMaker.Server.Data
             //#################################################################################
 
 
-            //##-< Course >-###################################################################
+            //##-< Seed Course Data >-#########################################################
             if (!db.Courses.Any())
             {
                 // courses = (Name, Description, StartDate, EndDate)
@@ -42,21 +44,35 @@ namespace APLMatchMaker.Server.Data
             //#################################################################################
 
 
-            //##-< Course >-###################################################################
-            if(!db.ApplicationUsers.Any(a => a.IsStudent == true))
+            //##-< Seed Students data >-#######################################################
+            if (await db.ApplicationUsers.Where(au => au.IsStudent == true).FirstOrDefaultAsync() == null)
             {
-                if (!db.Roles.Any(r => r.Name == "Student"))
+                //##-< Seed Student Role >-####################################################
+                if (!await roleManager.RoleExistsAsync("Student"))
                 {
-
+                    var roleNames = new[] { "Student" };
+                    await AddRolesAsync(roleNames);
                 }
+                //#############################################################################
+
+                // (Email, Pw, FirstName, LastName, SosSecNo, Address, Status, CV, KnowledgeLevel, CommentByTeacher, Language, Nationality
+                var students = new (string, string, string, string, string, string, string, string, int, string, string, string)[]
+                {
+                    ("test1@test.se","P@sw0rd1","Eric","Larsson","770404-0099","Sturegatan 12","Går på kurs","Jätte bra CV", 3, "Ducktig stunet","Svenska","Svensk"),
+                    ("test2@test.se","P@sw0rd2","Stina","Pettersson","970404-4069","Sturegatan 12","Går på kurs","Jätte bra CV", 3, "Ducktig stunet","Svenska","Svensk"),
+                    ("test3@test.se","P@sw0rd3","Eric","Larsson","770404-0099","Sturegatan 12","Går på kurs","Jätte bra CV", 3, "Ducktig stunet","Svenska","Svensk"),
+                    ("test4@test.se","P@sw0rd4","Eric","Larsson","770404-0099","Sturegatan 12","Går på kurs","Jätte bra CV", 3, "Ducktig stunet","Svenska","Svensk")
+                };
+                await AddStudentsAsync(students);
             }
             //#################################################################################
         }
+
         //#####################################################################################
 
 
 
-        //##-< Seed Courses Method >-#####################################################################
+        //##-< Seed Courses Method >-##########################################################
         private static async Task AddCoursesAsync((string, string, DateTime, DateTime)[] courses)
         {
             string name, description; DateTime startDate, endDate;
@@ -73,6 +89,74 @@ namespace APLMatchMaker.Server.Data
                 });
             }
             await db.SaveChangesAsync();
+        }
+        //#####################################################################################
+
+
+
+        //##-< Seed Roles Method >-############################################################
+        private static async Task AddRolesAsync(string[] roleNames)
+        {
+            foreach (var roleName in roleNames)
+            {
+                if (await roleManager.RoleExistsAsync(roleName)) continue;
+                var role = new IdentityRole { Name = roleName };
+                var result = await roleManager.CreateAsync(role);
+
+                if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
+
+            }
+            await db.SaveChangesAsync();
+        }
+        //#####################################################################################
+
+
+
+        //##-< Seed Students Method >-#########################################################
+        private static async Task AddStudentsAsync((string, string, string, string, string, string, string, string, int, string, string, string)[] students)
+        {
+            string email, pw, firstName, lastName, sosSecNo, address, status, cV, commentByTeacher, language, nationality; int knowledgeLevel;
+            foreach (var student in students)
+            {
+                // (Email, Pw, FirstName, LastName, SosSecNo, Address, Status, CV, KnowledgeLevel, CommentByTeacher, Language, Nationality
+                (email, pw, firstName, lastName, sosSecNo, address, status, cV, knowledgeLevel, commentByTeacher, language, nationality) = student;
+                var newStudent = new ApplicationUser
+                {
+                    IsStudent = true,
+                    UserName = email,
+                    Email = email,
+                    EmailConfirmed = true,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    StudentSocSecNo = sosSecNo,
+                    Address = address,
+                    Status = status,
+                    CV = cV,
+                    KnowledgeLevel = knowledgeLevel,
+                    CommentByTeacher = commentByTeacher,
+                    Language = language,
+                    Nationality = nationality
+                };
+                var result = await userManager.CreateAsync(newStudent, pw);
+
+                if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
+
+                await AddUserToRoleAsync(newStudent, "Student");
+            }
+            await db.SaveChangesAsync();
+        }
+        //#####################################################################################
+
+
+
+        //##-< Method to connect a User to a Role >-#########################################################
+        private static async Task AddUserToRoleAsync(ApplicationUser user, string roleName)
+        {
+            if (!await userManager.IsInRoleAsync(user, roleName))
+            {
+                var result = await userManager.AddToRoleAsync(user, roleName);
+                if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
+            }
         }
         //#####################################################################################
     }
