@@ -6,7 +6,7 @@ using AutoMapper;
 
 namespace APLMatchMaker.Server.Services
 {
-    public class StudentService
+    public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentRepository;
         private readonly IMapper _mapper;
