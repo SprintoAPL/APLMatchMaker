@@ -1,0 +1,36 @@
+﻿@page "/students"
+
+<h3>List of students:</h3>
+
+<table class="table">
+
+    <thead>
+
+        <tr>
+            <th scope="col">Förnamn</th>
+            <th scope="col">Efternamn</th>
+            <th scope="col">Epost</th>
+            <th scope="col">Telefonnummer</th>
+            <th scope="col">Personnummer</th>
+            <th scope="col">Adress</th>
+            <th scope="col"></th> @* Space for the "delete" button. *@
+        </tr>
+
+    </thead>
+
+    <tbody>
+        @foreach(var student in students)
+        {
+        <tr>
+            <td scope="row">@student.FirstName</td>
+                <td scope="row">@student.LastName</td>
+                <td scope="row">@student.Email</td>
+                <td scope="row">@student.PhoneNumber</td>
+                <td scope="row">@student.StudentSocSecNo</td>
+                <td scope="row">@student.Address</td>
+        </tr>
+
+        }
+        
+    </tbody>
+    </table>
