@@ -1,0 +1,16 @@
+﻿
+
+
+@if(Course != null)
+{
+    <div>
+        <h3>@Course.Name</h3>
+        <p><strong>Beskrivning: </strong>@Course.Description</p>
+        <p><strong>Start datum: </strong>@Course.StartDate.ToShortDateString()</p>
+        <p><strong>Slut datum: </strong>@Course.EndDate.ToShortDateString()</p>
+    </div>
+}
+else
+{
+    <p>Ingen information om kursen tillgänglig....</p>
+}
