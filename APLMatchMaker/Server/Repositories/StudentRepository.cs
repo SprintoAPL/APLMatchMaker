@@ -13,7 +13,7 @@ namespace APLMatchMaker.Server.Repositories
         }
         public async Task<List<ApplicationUser>> GetAsync()
         {
-            return await _db.ApplicationUsers.ToListAsync();
+            return await _db.ApplicationUsers.Where(au => au.IsStudent == true).ToListAsync();
 
         }
         public async Task<ApplicationUser?> GetAsync(string id)

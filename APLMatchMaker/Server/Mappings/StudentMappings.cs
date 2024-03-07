@@ -8,7 +8,10 @@ namespace APLMatchMaker.Server.Mappings
     {
         public StudentMappings()
         {
-            CreateMap<ApplicationUser, StudentForListDTO>();
+            CreateMap<ApplicationUser, StudentForListDTO>()
+                .ForMember(
+                dest => dest.FullName,
+                from => from.MapFrom(au => $"{au.FirstName} {au.LastName}"));
         }
     }
 }
