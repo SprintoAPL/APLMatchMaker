@@ -1,5 +1,6 @@
 ﻿using APLMatchMaker.Server.Data;
 using APLMatchMaker.Server.Models;
+using Humanizer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +28,7 @@ namespace APLMatchMaker.Server.Repositories
         public async Task AddAsync(ApplicationUser _applicationUser, string password)
         {
             await _userManager.CreateAsync(_applicationUser, password);
+            await _userManager.AddToRoleAsync(_applicationUser, "Student");
         }
 
         public void Update(ApplicationUser _applicationUser)
@@ -34,9 +36,25 @@ namespace APLMatchMaker.Server.Repositories
             _db.ApplicationUsers.Update(_applicationUser);
         }
 
-        public void Remove(ApplicationUser _applicationUser)
+        public async Task<bool> RemoveAsync(string _Id)
         {
-            _db.ApplicationUsers.Remove(_applicationUser);
+            var _au = await _db.ApplicationUsers.FindAsync(_Id);
+
+            if (_au == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                _db.ApplicationUsers.Remove(_au);
+                await CompleteAsync();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
         }
 
         public async Task CompleteAsync()

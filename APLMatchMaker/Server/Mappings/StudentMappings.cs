@@ -20,16 +20,16 @@ namespace APLMatchMaker.Server.Mappings
                 from => from.MapFrom(au => $"{au.FirstName} {au.LastName}"));
 
 
-            CreateMap<StudentForCreateDTO, ApplicationUser>()
-                .ForMember(
-                dest => dest.UserName,
-                from => from.MapFrom(st => st.Email))
-                .ForMember(
-                dest => dest.IsStudent,
-                from => from.MapFrom(st => true))
-                .ForMember(
-                dest => dest.EmailConfirmed,
-                from => from.MapFrom(st => true));
+            //CreateMap<StudentForCreateDTO, ApplicationUser>()
+            //    .ForMember(
+            //    dest => dest.UserName,
+            //    from => from.MapFrom(st => st.Email))
+            //    .ForMember(
+            //    dest => dest.IsStudent,
+            //    from => from.MapFrom(st => true))
+            //    .ForMember(
+            //    dest => dest.EmailConfirmed,
+            //    from => from.MapFrom(st => true));
         }
     }
 }

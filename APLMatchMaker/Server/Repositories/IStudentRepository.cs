@@ -7,8 +7,7 @@ namespace APLMatchMaker.Server.Repositories
         Task AddAsync(ApplicationUser _applicationUser, string password);
         Task<List<ApplicationUser>> GetAsync();
         Task<ApplicationUser?> GetAsync(string id);
-        void Remove(ApplicationUser _applicationUser);
-        void Update(ApplicationUser _applicationUser);
+        Task<bool> RemoveAsync(string id);
         Task CompleteAsync();
     }
 }

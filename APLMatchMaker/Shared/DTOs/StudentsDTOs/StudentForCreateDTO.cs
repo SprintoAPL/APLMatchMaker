@@ -14,6 +14,7 @@ namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
         [Required]
         public string LastName { get; set; } = string.Empty;
         [Required]
+        [MaxLength(256)]
         public string Email { get; set; } = string.Empty;
         [Required]
         public string Password { get; set; } = string.Empty;

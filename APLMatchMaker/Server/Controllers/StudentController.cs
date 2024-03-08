@@ -40,5 +40,14 @@ namespace APLMatchMaker.Server.Controllers
             var studentToReturn = await _studentService.PostAsync(dto);
             return Ok(studentToReturn);
         }
+
+
+        // DELETE: api/student/id
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteStudentAsync(string id)
+        {
+            var result = await _studentService.RemoveAsync(id);
+            return result ? Ok() : BadRequest();
+        }
     }
 }
