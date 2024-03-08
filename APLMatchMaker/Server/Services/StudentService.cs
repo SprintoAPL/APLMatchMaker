@@ -31,12 +31,12 @@ namespace APLMatchMaker.Server.Services
             return _mapper.Map<StudentForDetailsDTO>(_student);
         }
 
-        public async Task<StudentForListDTO> PostAsync(StudentForListDTO dto)
+        public async Task<StudentForDetailsDTO> PostAsync(StudentForCreateDTO dto)
         {
             var _student = _mapper.Map<ApplicationUser>(dto);
-            await _studentRepository.AddAsync(_student);
+            await _studentRepository.AddAsync(_student, dto.Password);
             await _studentRepository.CompleteAsync();
-            return _mapper.Map<StudentForListDTO>(_student);
+            return _mapper.Map<StudentForDetailsDTO>(_student);
         }
 
         public async Task UpdateAsync(string id, StudentForListDTO dto)

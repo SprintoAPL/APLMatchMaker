@@ -6,7 +6,7 @@ namespace APLMatchMaker.Server.Services
     {
         Task<IEnumerable<StudentForListDTO>> GetAsync();
         Task<StudentForDetailsDTO> GetAsync(string id);
-        Task<StudentForListDTO> PostAsync(StudentForListDTO dto);
+        Task<StudentForDetailsDTO> PostAsync(StudentForCreateDTO dto);
         Task UpdateAsync(string id, StudentForListDTO dto);
     }
 }

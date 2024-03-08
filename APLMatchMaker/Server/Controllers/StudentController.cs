@@ -31,5 +31,14 @@ namespace APLMatchMaker.Server.Controllers
         {
             return Ok(await _studentService.GetAsync(id));
         }
+
+
+        // POST: api/student
+        [HttpPost]
+        public async Task<ActionResult<StudentForDetailsDTO>> PostStudentAsync(StudentForCreateDTO dto)
+        {
+            var studentToReturn = await _studentService.PostAsync(dto);
+            return Ok(studentToReturn);
+        }
     }
 }
