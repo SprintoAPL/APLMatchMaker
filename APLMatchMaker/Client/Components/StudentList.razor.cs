@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
-using APLMatchMaker.Shared.DTOs.CoursesDTOs;
 
 namespace APLMatchMaker.Client.Components
 {
