@@ -1,6 +1,8 @@
 using APLMatchMaker.Server.Data;
 using APLMatchMaker.Server.Models;
 using APLMatchMaker.Server.Services;
+using APLMatchMaker.Server.Repositories;
+using APLMatchMaker.Server.Mappings;
 using Lexicon_LMS.Server.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -34,6 +36,9 @@ namespace APLMatchMaker
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
             builder.Services.AddScoped<ICourseService, CourseService>();
+            builder.Services.AddScoped<IStudentService, StudentService>();
+            builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+            builder.Services.AddAutoMapper(typeof(StudentMappings));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
