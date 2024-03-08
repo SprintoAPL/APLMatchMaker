@@ -11,6 +11,8 @@ else
             <tr>
                 <th scope="col">Full Namn</th>
                 <th scope="col">E-post</th>
+                <th scope="col">Personnummer</th>
+                <th scope="col">Adress</th>
                 <th scope="col"> Kunskapsnivå</th>
                 <th scope="col">Språk</th>
                 <th scope="col"></th> @* Space for the "delete" button. *@
@@ -23,6 +25,8 @@ else
                 <tr>
                     <td>@student.FullName</td>
                     <td>@student.Email</td>
+                    <td>@student.StudentSocSecNo</td>
+                    <td>@student.Address</td>
                     <td>@GetKnowledgeLevelString(student.KnowledgeLevel)</td>
                     <td>@student.Language</td>
                     <td scope="row">
