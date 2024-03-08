@@ -11,7 +11,7 @@ namespace APLMatchMaker.Client.Pages
         [Inject]
         private HttpClient Http { get; set; }
         
-        public IEnumerable<StudentForListDTO> PageListStudents;
+        public List<StudentForListDTO> PageListStudents;
 
         private string errorMessage;
 
@@ -21,7 +21,7 @@ namespace APLMatchMaker.Client.Pages
 
             try
             {
-                PageListStudents = await Http.GetFromJsonAsync<IEnumerable<StudentForListDTO>>("api/student");
+                PageListStudents = await Http.GetFromJsonAsync<List<StudentForListDTO>>("/api/student");
             }
             catch (Exception ex)
             {
