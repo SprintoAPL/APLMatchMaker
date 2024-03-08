@@ -5,7 +5,12 @@
 
 <h3>Student List</h3>
 
-@if (errorMessage != null)
+@if (PageListStudents == null && errorMessage == null)
+{
+    <p>Loading...</p>
+}
+
+else if (errorMessage != null)
 {
     <p class="alert alert-danger">Error: @errorMessage</p>
 }
