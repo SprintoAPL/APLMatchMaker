@@ -18,7 +18,7 @@ namespace APLMatchMaker.Server.Repositories
         }
         public async Task<ApplicationUser?> GetAsync(string id)
         {
-            return await _db.ApplicationUsers.FirstOrDefaultAsync(c => c.Id == id);
+            return await _db.ApplicationUsers.FirstOrDefaultAsync(au => au.Id == id && au.IsStudent == true);
         }
 
         public async Task AddAsync(ApplicationUser _applicationUser)

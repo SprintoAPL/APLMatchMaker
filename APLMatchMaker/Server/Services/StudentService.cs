@@ -25,10 +25,10 @@ namespace APLMatchMaker.Server.Services
             return dtos;
         }
 
-        public async Task<StudentForListDTO> GetAsync(string id)
+        public async Task<StudentForDetailsDTO> GetAsync(string id)
         {
             var _student = await _studentRepository.GetAsync(id) ?? throw new StudentNotFoundException(id);
-            return _mapper.Map<StudentForListDTO>(_student);
+            return _mapper.Map<StudentForDetailsDTO>(_student);
         }
 
         public async Task<StudentForListDTO> PostAsync(StudentForListDTO dto)

@@ -17,11 +17,19 @@ namespace APLMatchMaker.Server.Controllers
             _studentService = studentService;
         }
 
-        // GET: api/Student
+        // GET: api/student
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StudentForListDTO>>> GetStudentsAsync()
         {
             return Ok(await _studentService.GetAsync());
+        }
+
+
+        // GET: api/student/id
+        [HttpGet("{id}")]
+        public async Task<ActionResult<StudentForDetailsDTO>> GetStudentsAsync(string id)
+        {
+            return Ok(await _studentService.GetAsync(id));
         }
     }
 }

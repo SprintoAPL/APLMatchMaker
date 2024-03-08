@@ -12,6 +12,12 @@ namespace APLMatchMaker.Server.Mappings
                 .ForMember(
                 dest => dest.FullName,
                 from => from.MapFrom(au => $"{au.FirstName} {au.LastName}"));
+
+
+            CreateMap<ApplicationUser, StudentForDetailsDTO>()
+                .ForMember(
+                dest => dest.FullName,
+                from => from.MapFrom(au => $"{au.FirstName} {au.LastName}"));
         }
     }
 }
