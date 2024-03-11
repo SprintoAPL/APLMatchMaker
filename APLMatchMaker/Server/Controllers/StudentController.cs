@@ -29,7 +29,12 @@ namespace APLMatchMaker.Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<StudentForDetailsDTO>> GetStudentsAsync(string id)
         {
-            return Ok(await _studentService.GetAsync(id));
+            var student = await _studentService.GetAsync(id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            return Ok(student);
         }
 
 
