@@ -25,26 +25,39 @@ namespace APLMatchMaker.Server.Services
             return dtos;
         }
 
-        public async Task<StudentForListDTO> GetAsync(string id)
+        public async Task<StudentForDetailsDTO> GetAsync(string id)
         {
             var _student = await _studentRepository.GetAsync(id) ?? throw new StudentNotFoundException(id);
-            return _mapper.Map<StudentForListDTO>(_student);
+            return _mapper.Map<StudentForDetailsDTO>(_student);
         }
 
-        public async Task<StudentForListDTO> PostAsync(StudentForListDTO dto)
+        public async Task<StudentForDetailsDTO> PostAsync(StudentForCreateDTO dto)
         {
-            var _student = _mapper.Map<ApplicationUser>(dto);
-            await _studentRepository.AddAsync(_student);
+            var _student = new ApplicationUser
+            {
+                IsStudent = true,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Email = dto.Email,
+                UserName = dto.Email,
+                EmailConfirmed = true,
+                PhoneNumber = dto.PhoneNumber,
+                StudentSocSecNo = dto.StudentSocSecNo!,
+                Address = dto.Address!,
+                Language = dto.Language!,
+                Nationality = dto.Nationality!
+            };
+            
+            //var _student = _mapper.Map<ApplicationUser>(dto);
+            await _studentRepository.AddAsync(_student, dto.Password);
             await _studentRepository.CompleteAsync();
-            return _mapper.Map<StudentForListDTO>(_student);
+            return _mapper.Map<StudentForDetailsDTO>(_student);
         }
 
-        public async Task UpdateAsync(string id, StudentForListDTO dto)
+        public async Task<bool> RemoveAsync(string id)
         {
-            var _student = await _studentRepository.GetAsync(id) ?? throw new StudentNotFoundException(id);
-            _mapper.Map(dto, _student);
-            _studentRepository.Update(_student);
-            await _studentRepository.CompleteAsync();
+            var result = await _studentRepository.RemoveAsync(id);
+            return result;
         }
 
     }
