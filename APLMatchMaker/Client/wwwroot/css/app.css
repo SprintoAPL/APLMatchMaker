@@ -13,6 +13,8 @@ a, .btn-link {
 }
 
 .btn-primary {
+    /*Länkknapp(primary)*/
+
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
@@ -98,4 +100,13 @@ a, .btn-link {
 
     .loading-progress-text:after {
         content: var(--blazor-load-percentage-text, "Loading");
-    }   
+    }
+
+/*.btn-primary {
+    color: #fff;*/ /* Textfärg */
+    /*background-color: #143286;*/ /* bakgrundsfärg */
+    /*border-color: #127e53;*/ /* Färg på kantlinjen */
+    /*border-radius: 10px;*/ /* Rundade hörn med en radie på X px */
+    /*font-size: 14px;
+    padding: 10px 14px;
+}*/
