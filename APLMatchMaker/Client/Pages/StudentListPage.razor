@@ -1,0 +1,40 @@
+﻿@page "/ListOfStudents"
+
+@using APLMatchMaker.Shared.DTOs.StudentsDTOs
+@using APLMatchMaker.Client.Components
+
+<h3>Student List</h3>
+
+@if (PageListStudents == null && errorMessage == null)
+{
+    <p>Loading...</p>
+}
+
+else if (errorMessage != null)
+{
+    <p class="alert alert-danger">Error: @errorMessage</p>
+}
+else
+{
+    <StudentList Students="PageListStudents" />
+}
+
+@code {
+    [Inject]
+    private HttpClient? Http { get; set; }
+
+    private IEnumerable<StudentForListDTO>? PageListStudents;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            PageListStudents = await Http!.GetFromJsonAsync<IEnumerable<StudentForListDTO>>("api/student");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+    }
+}
