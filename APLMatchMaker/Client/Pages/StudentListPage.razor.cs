@@ -11,9 +11,9 @@ namespace APLMatchMaker.Client.Pages
         [Inject]
         private HttpClient Http { get; set; }
         
-        public List<StudentForListDTO> PageListStudents;
+        public List<StudentForListDTO>? PageListStudents;
 
-        private string errorMessage;
+        private string? errorMessage;
 
         protected override async Task OnInitializedAsync()
         {
@@ -21,7 +21,7 @@ namespace APLMatchMaker.Client.Pages
 
             try
             {
-                PageListStudents = await Http.GetFromJsonAsync<List<StudentForListDTO>>("/api/student");
+                PageListStudents = await Http!.GetFromJsonAsync<List<StudentForListDTO>>("/api/student");
             }
             catch (Exception ex)
             {
