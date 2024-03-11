@@ -33,7 +33,10 @@ namespace APLMatchMaker
             builder.Services.AddAuthentication()
                 .AddIdentityServerJwt();
 
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(configure =>
+            {
+                configure.ReturnHttpNotAcceptable = true;
+            });
             builder.Services.AddRazorPages();
             builder.Services.AddScoped<ICourseService, CourseService>();
             builder.Services.AddScoped<IStudentService, StudentService>();
@@ -50,7 +53,15 @@ namespace APLMatchMaker
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler(appBuilder =>
+                {
+                    appBuilder.Run(async context =>
+                    {
+                        context.Response.StatusCode = 500;
+                        await context.Response.WriteAsync(
+                            "An unexpected fault happened. Try again later.");
+                    });
+                });
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }

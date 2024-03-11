@@ -53,8 +53,12 @@ namespace APLMatchMaker.Server.Services
             };
             
             //var _student = _mapper.Map<ApplicationUser>(dto);
-            await _studentRepository.AddAsync(_student, dto.Password);
-            await _studentRepository.CompleteAsync();
+            var ok = await _studentRepository.AddAsync(_student, dto.Password);
+            ok = ok && await _studentRepository.CompleteAsync();
+            if (!ok) 
+            {
+                throw new CouldNotCreateStudentException();
+            }
             return _mapper.Map<StudentForDetailsDTO>(_student);
         }
 

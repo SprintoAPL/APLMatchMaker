@@ -25,10 +25,18 @@ namespace APLMatchMaker.Server.Repositories
             return await _db.ApplicationUsers.FirstOrDefaultAsync(au => au.Id == id && au.IsStudent == true);
         }
 
-        public async Task AddAsync(ApplicationUser _applicationUser, string password)
+        public async Task<bool> AddAsync(ApplicationUser _applicationUser, string password)
         {
-            await _userManager.CreateAsync(_applicationUser, password);
-            await _userManager.AddToRoleAsync(_applicationUser, "Student");
+            try
+            {
+                await _userManager.CreateAsync(_applicationUser, password);
+                await _userManager.AddToRoleAsync(_applicationUser, "Student");
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public void Update(ApplicationUser _applicationUser)
@@ -57,9 +65,17 @@ namespace APLMatchMaker.Server.Repositories
             return true;
         }
 
-        public async Task CompleteAsync()
+        public async Task<bool> CompleteAsync()
         {
-            await _db.SaveChangesAsync();
+            try
+            {
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

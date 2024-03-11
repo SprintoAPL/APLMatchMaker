@@ -26,7 +26,7 @@ namespace APLMatchMaker.Server.Controllers
 
 
         // GET: api/student/id
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetStudent")]
         public async Task<ActionResult<StudentForDetailsDTO>> GetStudentsAsync(string id)
         {
             var student = await _studentService.GetAsync(id);
@@ -43,7 +43,7 @@ namespace APLMatchMaker.Server.Controllers
         public async Task<ActionResult<StudentForDetailsDTO>> PostStudentAsync(StudentForCreateDTO dto)
         {
             var studentToReturn = await _studentService.PostAsync(dto);
-            return Ok(studentToReturn);
+            return CreatedAtRoute("GetStudent", new { Id = studentToReturn.Id },studentToReturn);
         }
 
 
@@ -52,7 +52,7 @@ namespace APLMatchMaker.Server.Controllers
         public async Task<ActionResult> DeleteStudentAsync(string id)
         {
             var result = await _studentService.RemoveAsync(id);
-            return result ? Ok() : BadRequest();
+            return result ? NoContent() : NotFound();
         }
     }
 }
