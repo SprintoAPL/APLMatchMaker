@@ -1,0 +1,55 @@
+﻿@using APLMatchMaker.Shared.DTOs.StudentsDTOs
+
+@if (Students == null || !Students.Any())
+{
+    <p>No students found.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Full Namn</th>
+                <th scope="col">E-post</th>
+                <th scope="col">Personnummer</th>
+                <th scope="col">Adress</th>
+                <th scope="col"> Kunskapsnivå</th>
+                <th scope="col">Språk</th>
+                <th scope="col"></th> @* Space for the "delete" button. *@
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Students)
+            {
+                <tr>
+                    <td>@student.FullName</td>
+                    <td>@student.Email</td>
+                    <td>@student.StudentSocSecNo</td>
+                    <td>@student.Address</td>
+                    <td>@GetKnowledgeLevelString(student.KnowledgeLevel)</td>
+                    <td>@student.Language</td>
+                    <td scope="row">
+                        <a href="@($"deletestudent/{student.Id}")" class="btn btn-danger m-1">Radera elev</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    
+
+    private string GetKnowledgeLevelString(int knowledgeLevel)
+    {
+        return knowledgeLevel switch
+        {
+            0 => "Not set",
+            1 => "Red",
+            2 => "Yellow",
+            3 => "Green",
+            _ => "Unknown",
+        };
+    }
+}
