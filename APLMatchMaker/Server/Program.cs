@@ -1,6 +1,11 @@
 using APLMatchMaker.Server.Data;
 using APLMatchMaker.Server.Models;
+using APLMatchMaker.Server.Services;
+using APLMatchMaker.Server.Repositories;
+using APLMatchMaker.Server.Mappings;
+using Lexicon_LMS.Server.Extensions;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +13,7 @@ namespace APLMatchMaker
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +24,7 @@ namespace APLMatchMaker
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddIdentityServer()
@@ -29,7 +35,10 @@ namespace APLMatchMaker
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
-
+            builder.Services.AddScoped<ICourseService, CourseService>();
+            builder.Services.AddScoped<IStudentService, StudentService>();
+            builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+            builder.Services.AddAutoMapper(typeof(StudentMappings));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -37,6 +46,7 @@ namespace APLMatchMaker
             {
                 app.UseMigrationsEndPoint();
                 app.UseWebAssemblyDebugging();
+                await app.SeedDataAsync();
             }
             else
             {

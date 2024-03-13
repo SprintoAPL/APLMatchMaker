@@ -1,3 +1,7 @@
+/*Note: the commented out attributes, like colors, are from previous versions so that it's easy to revert back if needed
+I generally try to keep the style similar to the Figma wireframes (same hex codes etc)
+*/
+
 .page {
     position: relative;
     display: flex;
@@ -5,23 +9,39 @@
 }
 
 main {
+    /*The main background */
     flex: 1;
+    background-color: #e4E8e9;
+}
+
+.content {
+    /*The box that is displayed behind the "Hello World" message on Home */
+
+    background-color: #e4E8e9;
 }
 
 .sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    /*Main navbar to the left*/
+
+    /*background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);*/
+    background-color: #0e0f24
 }
 
 .top-row {
-    background-color: #f7f7f7;
+    /*Top nav bar*/
+
+    /*background-color: #f7f7f7;*/
+    background-color: #0C1321;
     border-bottom: 1px solid #d6d5d5;
     justify-content: flex-end;
-    height: 3.5rem;
+    /* Default: height: 3.5rem;*/
+    height: 6rem;
     display: flex;
     align-items: center;
 }
 
     .top-row ::deep a, .top-row ::deep .btn-link {
+        color: #e2e2e2; /*Link color for top bar*/
         white-space: nowrap;
         margin-left: 1.5rem;
         text-decoration: none;
@@ -79,3 +99,18 @@ main {
         padding-right: 1.5rem !important;
     }
 }
+
+table > tbody > :nth-child(odd) {
+    /*Alternating row colors for tables*/
+
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+/*.btn-primary {
+    color: #fff;*/ /* Textfärg */
+    /*background-color: #127e53;*/ /* bakgrundsfärg */
+    /*border-color: #224477;*/ /* Färg på kantlinjen */
+    /*border-radius: 10px;*/ /* Rundade hörn med en radie på X px */
+    /*font-size: 14px;
+    padding: 10px 14px;
+}*/
