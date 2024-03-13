@@ -2,7 +2,7 @@
 
 namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
 {
-    public class StudentForCreateDTO
+    public class StudentForCreateDTO : IValidatableObject
     {
         [Required(ErrorMessage = "You should give the student a first name.")]
         public string FirstName { get; set; } = string.Empty;
