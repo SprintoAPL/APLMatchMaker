@@ -16,7 +16,7 @@ else
                 <th scope="col"> Kunskapsnivå</th>
                 <th scope="col">Språk</th>
                 <th scope="col"></th> @* Space for the "delete" button. *@
-
+                <th scope="col"></th> @* Space for the "details" button. *@
             </tr>
         </thead>
         <tbody>
@@ -31,6 +31,9 @@ else
                     <td>@student.Language</td>
                     <td scope="row">
                         <a href="@($"deletestudent/{student.Id}")" class="btn btn-danger m-1">Radera elev</a>
+                    </td>
+                    <td scope="row">
+                        <a href="@($"studentdetails/{student.Id}")" class="btn btn-danger m-1">Om elev</a>
                     </td>
                 </tr>
             }
