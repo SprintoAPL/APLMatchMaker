@@ -2,47 +2,47 @@
 I generally try to keep the style similar to the Figma wireframes (same hex codes etc)
 */
 
-.page {
+/*.page {
     position: relative;
     display: flex;
     flex-direction: column;
 }
 
-main {
+main {*/
     /*The main background */
-    flex: 1;
+    /*flex: 1;
     background-color: #e4E8e9;
 }
 
-.content {
+.content {*/
     /*The box that is displayed behind the "Hello World" message on Home */
 
-    background-color: #e4E8e9;
+    /*background-color: #e4E8e9;
 }
 
-.sidebar {
+.sidebar {*/
     /*Main navbar to the left*/
 
     /*background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);*/
-    background-color: #0e0f24
+    /*background-color: #0e0f24
 }
 
-.top-row {
+.top-row {*/
     /*Top nav bar*/
 
     /*background-color: #f7f7f7;*/
-    background-color: #0C1321;
+    /*background-color: #0C1321;
     border-bottom: 1px solid #d6d5d5;
-    justify-content: flex-end;
+    justify-content: flex-end;*/
     /* Default: height: 3.5rem;*/
-    height: 6rem;
+    /*height: 6rem;
     display: flex;
     align-items: center;
 }
 
     .top-row ::deep a, .top-row ::deep .btn-link {
-        color: #e2e2e2; /*Link color for top bar*/
-        white-space: nowrap;
+        color: #e2e2e2;*/ /*Link color for top bar*/
+        /*white-space: nowrap;
         margin-left: 1.5rem;
         text-decoration: none;
     }
@@ -100,11 +100,11 @@ main {
     }
 }
 
-table > tbody > :nth-child(odd) {
+table > tbody > :nth-child(odd) {*/
     /*Alternating row colors for tables*/
 
-    background-color: rgba(0, 0, 0, 0.03);
-}
+    /*background-color: rgba(0, 0, 0, 0.03);
+}*/
 
 /*.btn-primary {
     color: #fff;*/ /* Textfärg */
