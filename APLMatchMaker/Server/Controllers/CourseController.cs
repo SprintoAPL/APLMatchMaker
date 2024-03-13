@@ -1,5 +1,7 @@
 ﻿using APLMatchMaker.Server.Services;
 using APLMatchMaker.Shared.DTOs;
+using APLMatchMaker.Shared.DTOs.CoursesDTOs;
+using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,79 +32,70 @@ namespace APLMatchMaker.Server.Controllers
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
-        // GET: CourseController
-        public ActionResult Index()
+        // GET: api/course/id
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CourseDto>> GetCoursesAsync(int id)
         {
-            return View();
+            return Ok(await _courseService.GetCourseByIdAsync(id));
         }
-
-        // GET: CourseController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: CourseController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: CourseController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> AddCourseAsync(CourseDto courseDto)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (courseDto == null)
+                {
+                    return BadRequest("Bad Request: CourseDto is null");
+                }
+
+                await _courseService.AddCourseAsync(courseDto);
+
+                return CreatedAtAction("GetCourseByIdAsync", new { id = courseDto.Id }, courseDto);
+
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
 
-        // GET: CourseController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CourseController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CourseController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CourseController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCourseAsync(int id, CourseDto courseDto)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (courseDto == null || courseDto.Id != id)
+                {
+                    return BadRequest("Bad Request: Invalid CourseDto or ID mismatch");
+                }
+
+                await _courseService.UpdateCourseAsync(courseDto);
+                return Ok();
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCourseAsync(int id)
+        {
+            try
+            {
+                await _courseService.DeleteCourseAsync(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+        }
+       
+
+        
+
+      
+        
     }
 }
