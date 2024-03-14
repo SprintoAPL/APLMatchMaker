@@ -3,6 +3,7 @@ using APLMatchMaker.Server.Repositories;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using APLMatchMaker.Server.Exceptions;
 using AutoMapper;
+using APLMatchMaker.Server.ResourceParameters;
 
 namespace APLMatchMaker.Server.Services
 {
@@ -21,6 +22,13 @@ namespace APLMatchMaker.Server.Services
         public async Task<IEnumerable<StudentForListDTO>> GetAsync()
         {
             var _students = await _studentRepository.GetAsync();
+            var dtos = _mapper.Map<IEnumerable<StudentForListDTO>>(_students);
+            return dtos;
+        }
+
+        public async Task<IEnumerable<StudentForListDTO>> GetAsync(StudentResourceParameters? studentResourceParameters)
+        {
+            var _students = await _studentRepository.GetAsync(studentResourceParameters);
             var dtos = _mapper.Map<IEnumerable<StudentForListDTO>>(_students);
             return dtos;
         }

@@ -89,6 +89,56 @@ namespace APLMatchMaker.Server.Repositories
                 studentCollection = studentCollection.Where(sc =>
                 sc.PhoneNumber!.Contains(studentResourceParameters.PhoneNumber.Trim()));
             }
+            
+            if (!string.IsNullOrWhiteSpace(studentResourceParameters.StudentSocSecNo))
+            {
+                studentCollection = studentCollection.Where(sc =>
+                sc.StudentSocSecNo.Contains(studentResourceParameters.StudentSocSecNo.Trim()));
+            }
+            
+            if (!string.IsNullOrWhiteSpace(studentResourceParameters.Address))
+            {
+                studentCollection = studentCollection.Where(sc =>
+                sc.Address.Contains(studentResourceParameters.Address.Trim()));
+            }
+            
+            if (!string.IsNullOrWhiteSpace(studentResourceParameters.Status))
+            {
+                studentCollection = studentCollection.Where(sc =>
+                sc.Status.Contains(studentResourceParameters.Status.Trim()));
+            }
+            
+            if (!string.IsNullOrWhiteSpace(studentResourceParameters.CV))
+            {
+                studentCollection = studentCollection.Where(sc =>
+                sc.CV.Contains(studentResourceParameters.CV.Trim()));
+            }
+            
+            if (studentResourceParameters.KnowledgeLevel.HasValue)
+            {
+                studentCollection = studentCollection.Where(sc =>
+                sc.KnowledgeLevel == studentResourceParameters.KnowledgeLevel);
+            }
+            
+            if (studentResourceParameters.CVIntro.HasValue)
+            {
+                studentCollection = studentCollection.Where(sc =>
+                sc.CVIntro == studentResourceParameters.CVIntro);
+            }
+            
+            if (!string.IsNullOrWhiteSpace(studentResourceParameters.SearchQuery))
+            {
+                studentCollection = studentCollection.Where(sc =>
+                sc.FirstName.Contains(studentResourceParameters.SearchQuery.Trim()) ||
+                sc.LastName.Contains(studentResourceParameters.SearchQuery.Trim()) ||
+                sc.Email!.Contains(studentResourceParameters.SearchQuery.Trim()) ||
+                sc.Address.Contains(studentResourceParameters.SearchQuery.Trim()) ||
+                sc.CommentByTeacher.Contains(studentResourceParameters.SearchQuery.Trim()) ||
+                sc.Language.Contains(studentResourceParameters.SearchQuery.Trim()) ||
+                sc.Nationality.Contains(studentResourceParameters.SearchQuery.Trim()) ||
+                sc.Miscellaneous.Contains(studentResourceParameters.SearchQuery.Trim())
+                );
+            }
 
             return await studentCollection.ToListAsync();
         }

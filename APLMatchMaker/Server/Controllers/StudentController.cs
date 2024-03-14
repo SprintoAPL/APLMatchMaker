@@ -1,4 +1,5 @@
 ﻿using APLMatchMaker.Server.Services;
+using APLMatchMaker.Server.ResourceParameters;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,9 +20,10 @@ namespace APLMatchMaker.Server.Controllers
 
         // GET: api/student
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<StudentForListDTO>>> GetStudentsAsync()
+        public async Task<ActionResult<IEnumerable<StudentForListDTO>>> GetStudentsAsync(
+            [FromQuery] StudentResourceParameters? studentResourceParameters)
         {
-            return Ok(await _studentService.GetAsync());
+            return Ok(await _studentService.GetAsync(studentResourceParameters));
         }
 
 
@@ -43,7 +45,7 @@ namespace APLMatchMaker.Server.Controllers
         public async Task<ActionResult<StudentForDetailsDTO>> PostStudentAsync(StudentForCreateDTO dto)
         {
             var studentToReturn = await _studentService.PostAsync(dto);
-            return CreatedAtRoute("GetStudent", new { Id = studentToReturn.Id },studentToReturn);
+            return CreatedAtRoute("GetStudent", new { Id = studentToReturn.Id }, studentToReturn);
         }
 
 
