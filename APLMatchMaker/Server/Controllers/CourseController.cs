@@ -36,7 +36,24 @@ namespace APLMatchMaker.Server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CourseDto>> GetCoursesAsync(int id)
         {
-            return Ok(await _courseService.GetCourseByIdAsync(id));
+            var courseDto = await _courseService.GetCourseByIdAsync(id);
+
+            if (courseDto == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                try
+                {
+                    //return Ok(await _courseService.GetCourseByIdAsync(id));
+                    return Ok(courseDto);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, $"Internal Server Error: {ex.Message}");
+                }
+            }
         }
         [HttpPost]
         public async Task<IActionResult> AddCourseAsync(CourseDto courseDto)
