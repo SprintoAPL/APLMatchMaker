@@ -11,7 +11,7 @@ namespace APLMatchMaker.Client.Pages
         [Parameter]
         public int Id { get; set; }
         public CourseDto courseDetails = new CourseDto();
-        public string ErrorMessage { get; set; } = string.Empty;
+        public string? ErrorMessage { get; set; }
 
         protected override async Task OnInitializedAsync()
         {

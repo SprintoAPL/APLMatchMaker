@@ -14,7 +14,7 @@ namespace APLMatchMaker.Client.Pages
         public int Id { get; set; }
         private CourseDto CourseToDelete = new CourseDto();
         private ListOfCoursesDTO Courses = new ListOfCoursesDTO();
-        private string ErrorMessage { get; set; } = string.Empty;
+        private string? ErrorMessage { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -39,8 +39,8 @@ namespace APLMatchMaker.Client.Pages
         {
             try
             {
-                var response = await Http!.DeleteAsync($"api/course/" + Id);
-                if (response.IsSuccessStatusCode)
+                var response = await Http!.DeleteAsync($"api/course/{Id}");
+                if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                 {
                     NavManager!.NavigateTo($"/ListOfCourses");
                 }
