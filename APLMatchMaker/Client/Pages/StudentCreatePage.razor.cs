@@ -1,9 +1,6 @@
 ﻿using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 
 namespace APLMatchMaker.Client.Pages
 {
@@ -24,7 +21,7 @@ namespace APLMatchMaker.Client.Pages
             {
                 var response = await Http!.PostAsJsonAsync("api/student", student);
                 response.EnsureSuccessStatusCode();
-                NavigationManager!.NavigateTo("/student-list");
+                NavigationManager!.NavigateTo("/ListOfStudents");
             }
             catch (Exception ex)
             {
