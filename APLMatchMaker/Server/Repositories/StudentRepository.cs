@@ -71,61 +71,61 @@ namespace APLMatchMaker.Server.Repositories
                 sc.FirstName.Contains(studentResourceParameters.FullName.Trim()) ||
                 sc.LastName.Contains(studentResourceParameters.FullName.Trim()));
             }
-            
+
             if (!string.IsNullOrWhiteSpace(studentResourceParameters.UserName))
             {
                 studentCollection = studentCollection.Where(sc =>
                 sc.UserName!.Contains(studentResourceParameters.UserName.Trim()));
             }
-            
+
             if (!string.IsNullOrWhiteSpace(studentResourceParameters.Email))
             {
                 studentCollection = studentCollection.Where(sc =>
-                sc.Email!.Contains(studentResourceParameters.Email.Trim()));
+                sc.Email!.Contains(studentResourceParameters.Email.ToLower().Trim()));
             }
-            
+
             if (!string.IsNullOrWhiteSpace(studentResourceParameters.PhoneNumber))
             {
                 studentCollection = studentCollection.Where(sc =>
                 sc.PhoneNumber!.Contains(studentResourceParameters.PhoneNumber.Trim()));
             }
-            
+
             if (!string.IsNullOrWhiteSpace(studentResourceParameters.StudentSocSecNo))
             {
                 studentCollection = studentCollection.Where(sc =>
                 sc.StudentSocSecNo.Contains(studentResourceParameters.StudentSocSecNo.Trim()));
             }
-            
+
             if (!string.IsNullOrWhiteSpace(studentResourceParameters.Address))
             {
                 studentCollection = studentCollection.Where(sc =>
                 sc.Address.Contains(studentResourceParameters.Address.Trim()));
             }
-            
+
             if (!string.IsNullOrWhiteSpace(studentResourceParameters.Status))
             {
                 studentCollection = studentCollection.Where(sc =>
                 sc.Status.Contains(studentResourceParameters.Status.Trim()));
             }
-            
+
             if (!string.IsNullOrWhiteSpace(studentResourceParameters.CV))
             {
                 studentCollection = studentCollection.Where(sc =>
                 sc.CV.Contains(studentResourceParameters.CV.Trim()));
             }
-            
+
             if (studentResourceParameters.KnowledgeLevel.HasValue)
             {
                 studentCollection = studentCollection.Where(sc =>
                 sc.KnowledgeLevel == studentResourceParameters.KnowledgeLevel);
             }
-            
+
             if (studentResourceParameters.CVIntro.HasValue)
             {
                 studentCollection = studentCollection.Where(sc =>
                 sc.CVIntro == studentResourceParameters.CVIntro);
             }
-            
+
             if (!string.IsNullOrWhiteSpace(studentResourceParameters.SearchQuery))
             {
                 studentCollection = studentCollection.Where(sc =>
@@ -214,6 +214,14 @@ namespace APLMatchMaker.Server.Repositories
             {
                 return false;
             }
+        }
+        //#################################################################################
+
+
+        //##-< EmailExist >-###############################################################
+        public async Task<bool> EmailExistAsync(string email)
+        {
+            return (bool)await _db.ApplicationUsers.Where(au => au.Email == email.ToLower().Trim()).AnyAsync();
         }
         //#################################################################################
 
