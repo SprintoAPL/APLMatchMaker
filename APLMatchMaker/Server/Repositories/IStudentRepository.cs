@@ -11,5 +11,6 @@ namespace APLMatchMaker.Server.Repositories
         Task<ApplicationUser?> GetAsync(string id);
         Task<bool> RemoveAsync(string id);
         Task<bool> CompleteAsync();
+        Task<bool> EmailExistAsync(string email);
     }
 }

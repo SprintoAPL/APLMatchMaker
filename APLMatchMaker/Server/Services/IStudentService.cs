@@ -10,5 +10,6 @@ namespace APLMatchMaker.Server.Services
         Task<StudentForDetailsDTO?> GetAsync(string id);
         Task<StudentForDetailsDTO> PostAsync(StudentForCreateDTO dto);
         Task<bool> RemoveAsync(string id);
+        Task<bool> EmailExistAsync(string email);
     }
 }

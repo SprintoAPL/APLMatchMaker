@@ -76,5 +76,10 @@ namespace APLMatchMaker.Server.Services
             return result;
         }
 
+        public async Task<bool> EmailExistAsync(string email)
+        {
+            return await _studentRepository.EmailExistAsync(email);
+        }
+
     }
 }

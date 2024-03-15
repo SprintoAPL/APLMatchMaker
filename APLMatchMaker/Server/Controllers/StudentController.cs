@@ -44,6 +44,10 @@ namespace APLMatchMaker.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<StudentForDetailsDTO>> PostStudentAsync(StudentForCreateDTO dto)
         {
+            if (await _studentService.EmailExistAsync(dto.Email))
+            {
+                return UnprocessableEntity("Email exists!");
+            }
             var studentToReturn = await _studentService.PostAsync(dto);
             return CreatedAtRoute("GetStudent", new { Id = studentToReturn.Id }, studentToReturn);
         }
