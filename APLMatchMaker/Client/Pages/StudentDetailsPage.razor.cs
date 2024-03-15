@@ -35,5 +35,7 @@ namespace APLMatchMaker.Client.Pages
                 ErrorMessage = ex.Message;
             }
         }
+
+        
     }
 }
