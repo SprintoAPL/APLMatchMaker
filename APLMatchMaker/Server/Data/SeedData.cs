@@ -16,9 +16,6 @@ namespace APLMatchMaker.Server.Data
         {
             //##-< Setup >-####################################################################
             db = context;
-
-            // if (db.Roles.Any()) return; // Code from earlier project.
-
             userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
             roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
             //#################################################################################
