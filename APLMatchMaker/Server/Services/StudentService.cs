@@ -48,16 +48,16 @@ namespace APLMatchMaker.Server.Services
             var _student = new ApplicationUser
             {
                 IsStudent = true,
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                Email = dto.Email,
-                UserName = dto.Email,
+                FirstName = dto.FirstName.Trim(),
+                LastName = dto.LastName.Trim(),
+                Email = dto.Email.ToLower().Trim(),
+                UserName = dto.Email.Trim(),
                 EmailConfirmed = true,
-                PhoneNumber = dto.PhoneNumber,
-                StudentSocSecNo = dto.StudentSocSecNo!,
-                Address = dto.Address!,
-                Language = dto.Language!,
-                Nationality = dto.Nationality!
+                PhoneNumber = dto.PhoneNumber!.Trim(),
+                StudentSocSecNo = dto.StudentSocSecNo!.Trim(),
+                Address = dto.Address!.Trim(),
+                Language = dto.Language!.Trim(),
+                Nationality = dto.Nationality!.Trim()
             };
             
             //var _student = _mapper.Map<ApplicationUser>(dto);

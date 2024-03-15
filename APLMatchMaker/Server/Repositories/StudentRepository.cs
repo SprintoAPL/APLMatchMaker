@@ -221,7 +221,7 @@ namespace APLMatchMaker.Server.Repositories
         //##-< EmailExist >-###############################################################
         public async Task<bool> EmailExistAsync(string email)
         {
-            return (bool)await _db.ApplicationUsers.Where(au => au.Email == email).AnyAsync();
+            return (bool)await _db.ApplicationUsers.Where(au => au.Email == email.ToLower().Trim()).AnyAsync();
         }
         //#################################################################################
 

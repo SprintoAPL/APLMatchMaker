@@ -120,20 +120,20 @@ namespace APLMatchMaker.Server.Data
                 var newStudent = new ApplicationUser
                 {
                     IsStudent = true,
-                    UserName = email,
-                    Email = email,
+                    UserName = email.Trim(),
+                    Email = email.ToLower().Trim(),
                     EmailConfirmed = true,
-                    FirstName = firstName,
-                    LastName = lastName,
-                    StudentSocSecNo = sosSecNo,
-                    PhoneNumber = phoneNo,
-                    Address = address,
-                    Status = status,
-                    CV = cV,
+                    FirstName = firstName.Trim(),
+                    LastName = lastName.Trim(),
+                    StudentSocSecNo = sosSecNo.Trim(),
+                    PhoneNumber = phoneNo.Trim(),
+                    Address = address.Trim(),
+                    Status = status.Trim(),
+                    CV = cV.Trim(),
                     KnowledgeLevel = knowledgeLevel,
-                    CommentByTeacher = commentByTeacher,
-                    Language = language,
-                    Nationality = nationality
+                    CommentByTeacher = commentByTeacher.Trim(),
+                    Language = language.Trim(),
+                    Nationality = nationality.Trim()
                 };
                 var result = await userManager.CreateAsync(newStudent, pw);
 
