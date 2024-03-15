@@ -81,7 +81,7 @@ namespace APLMatchMaker.Server.Repositories
             if (!string.IsNullOrWhiteSpace(studentResourceParameters.Email))
             {
                 studentCollection = studentCollection.Where(sc =>
-                sc.Email!.Contains(studentResourceParameters.Email.Trim()));
+                sc.Email!.Contains(studentResourceParameters.Email.ToLower().Trim()));
             }
 
             if (!string.IsNullOrWhiteSpace(studentResourceParameters.PhoneNumber))
