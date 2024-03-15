@@ -3,6 +3,7 @@ using APLMatchMaker.Server.Repositories;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using APLMatchMaker.Server.Exceptions;
 using AutoMapper;
+using APLMatchMaker.Server.ResourceParameters;
 
 namespace APLMatchMaker.Server.Services
 {
@@ -25,9 +26,20 @@ namespace APLMatchMaker.Server.Services
             return dtos;
         }
 
-        public async Task<StudentForDetailsDTO> GetAsync(string id)
+        public async Task<IEnumerable<StudentForListDTO>> GetAsync(StudentResourceParameters? studentResourceParameters)
         {
-            var _student = await _studentRepository.GetAsync(id) ?? throw new StudentNotFoundException(id);
+            var _students = await _studentRepository.GetAsync(studentResourceParameters);
+            var dtos = _mapper.Map<IEnumerable<StudentForListDTO>>(_students);
+            return dtos;
+        }
+
+        public async Task<StudentForDetailsDTO?> GetAsync(string id)
+        {
+            var _student = await _studentRepository.GetAsync(id);
+            if (_student == null)
+            {
+                return null;
+            }
             return _mapper.Map<StudentForDetailsDTO>(_student);
         }
 
@@ -36,21 +48,25 @@ namespace APLMatchMaker.Server.Services
             var _student = new ApplicationUser
             {
                 IsStudent = true,
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                Email = dto.Email,
-                UserName = dto.Email,
+                FirstName = dto.FirstName.Trim(),
+                LastName = dto.LastName.Trim(),
+                Email = dto.Email.ToLower().Trim(),
+                UserName = dto.Email.Trim(),
                 EmailConfirmed = true,
-                PhoneNumber = dto.PhoneNumber,
-                StudentSocSecNo = dto.StudentSocSecNo!,
-                Address = dto.Address!,
-                Language = dto.Language!,
-                Nationality = dto.Nationality!
+                PhoneNumber = dto.PhoneNumber!.Trim(),
+                StudentSocSecNo = dto.StudentSocSecNo!.Trim(),
+                Address = dto.Address!.Trim(),
+                Language = dto.Language!.Trim(),
+                Nationality = dto.Nationality!.Trim()
             };
             
             //var _student = _mapper.Map<ApplicationUser>(dto);
-            await _studentRepository.AddAsync(_student, dto.Password);
-            await _studentRepository.CompleteAsync();
+            var ok = await _studentRepository.AddAsync(_student, dto.Password);
+            ok = ok && await _studentRepository.CompleteAsync();
+            if (!ok) 
+            {
+                throw new CouldNotCreateStudentException();
+            }
             return _mapper.Map<StudentForDetailsDTO>(_student);
         }
 
@@ -58,6 +74,11 @@ namespace APLMatchMaker.Server.Services
         {
             var result = await _studentRepository.RemoveAsync(id);
             return result;
+        }
+
+        public async Task<bool> EmailExistAsync(string email)
+        {
+            return await _studentRepository.EmailExistAsync(email);
         }
 
     }
