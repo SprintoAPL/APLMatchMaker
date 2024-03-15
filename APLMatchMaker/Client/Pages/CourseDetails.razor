@@ -4,7 +4,7 @@
 
 <h3>Informationer om kursen</h3>
 
-@if (Course == null && ErrorMessage == null)
+@if (courseDetails == null && ErrorMessage == null)
 {
     <p>Hämtar....</p>
 }
@@ -15,10 +15,10 @@ else if(ErrorMessage !=null)
 else
 {
     <div>
-        <p><strong>Namn: </strong>@Course.Name</p>
-        <p><strong>Beskrivning: </strong>@Course.Description</p>
-        <p><strong>Start datum: </strong>@Course.StartDate.ToString("yyyy-MM-dd")</p>
-        <p><strong>Slut datum: </strong>@Course.EndDate.ToString("yyyy-MM-dd")</p>
+        <p><strong>Namn: </strong>@courseDetails!.Name</p>
+        <p><strong>Beskrivning: </strong>@courseDetails.Description</p>
+        <p><strong>Start datum: </strong>@courseDetails.StartDate.ToString("yyyy-MM-dd")</p>
+        <p><strong>Slut datum: </strong>@courseDetails.EndDate.ToString("yyyy-MM-dd")</p>
         <button>Redigera</button>
         <a href="@($"/ListOfCourses")" class="btn btn-danger m-1">Tillbaka till kurslistan</a>
     </div>

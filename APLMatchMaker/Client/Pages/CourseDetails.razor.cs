@@ -10,7 +10,7 @@ namespace APLMatchMaker.Client.Pages
         public HttpClient? Http { get; set; }
         [Parameter]
         public int Id { get; set; }
-        public CourseDto Course { get; set; } = new CourseDto();
+        public CourseDto courseDetails = new CourseDto();
         public string ErrorMessage { get; set; } = string.Empty;
 
         protected override async Task OnInitializedAsync()
@@ -20,7 +20,7 @@ namespace APLMatchMaker.Client.Pages
                 var response = await Http!.GetFromJsonAsync<CourseDto>($"api/course/{Id}");
                 if (response != null)
                 {
-                    Course = response;
+                    courseDetails = response;
                 }
                 else
                 {

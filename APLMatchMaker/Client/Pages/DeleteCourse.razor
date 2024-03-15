@@ -1,0 +1,24 @@
+﻿@page "/deletecourse/{Id}"
+
+<h3>Ta bort en kurs</h3>
+
+@if (CourseToDelete == null && ErrorMessage == null)
+{
+    <p>Hämtar...</p>
+}
+else if (ErrorMessage != null)
+{
+    <p class="alert alert-danger">Fel vid datahämtning: @ErrorMessage</p>
+}
+else
+{
+    <div>
+        <h4>Vill du ta bort kursen?</h4>
+        <p><strong>Namn:  </strong>@CourseToDelete.Name</p>
+        <p><strong>Start datum: </strong>@CourseToDelete.StartDate.ToString("yyyy-mm-dd")</p>
+        <p><strong>Slut datum: </strong>@CourseToDelete.EndDate.ToString("yyyy-mm-dd")</p>
+        <p><strong>Bekräfta genom att klicka på Ta bort knappen.</strong></p>
+        <button class="btn btn-danger" @onclick="Delete">Ta bort</button>
+        <a href="@($"/ListOfCourses")" class="btn btn-danger m-1">Avbryta</a>
+    </div>
+}
