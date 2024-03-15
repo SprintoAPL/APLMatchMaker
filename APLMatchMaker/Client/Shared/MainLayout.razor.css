@@ -100,11 +100,6 @@ main {*/
     }
 }
 
-table > tbody > :nth-child(odd) {*/
-    /*Alternating row colors for tables*/
-
-    /*background-color: rgba(0, 0, 0, 0.03);
-}*/
 
 /*.btn-primary {
     color: #fff;*/ /* Textfärg */
