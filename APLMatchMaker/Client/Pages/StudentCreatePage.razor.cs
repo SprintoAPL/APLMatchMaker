@@ -28,5 +28,10 @@ namespace APLMatchMaker.Client.Pages
                 errorMessage = ex.Message;
             }
         }
+
+        private void Cancel()
+        {
+            NavigationManager?.NavigateTo("/ListOfStudents");
+        }
     }
 }

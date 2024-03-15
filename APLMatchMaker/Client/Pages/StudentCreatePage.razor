@@ -13,51 +13,51 @@
     <div class="card-body">
 
         <div class="form-group">
-            <label for="firstName">First Name:</label>
+            <label for="firstName">FörNamn:</label>
             <input type="text" class="form-control" @bind="student.FirstName" id="firstName" required />
         </div>
 
         <div class="form-group">
-            <label for="lastName">Last Name:</label>
+            <label for="lastName">EfterNamn:</label>
             <input type="text" class="form-control" @bind="student.LastName" id="lastName" required />
         </div>
 
         <div class="form-group">
-            <label for="email">Email:</label>
+            <label for="email">E-post:</label>
             <input type="email" class="form-control" @bind="student.Email" id="email" required />
         </div>
 
         <div class="form-group">
-            <label for="password">Password:</label>
+            <label for="password">Lösenord:</label>
             <input type="password" class="form-control" @bind="student.Password" id="password" required />
         </div>
 
         <div class="form-group">
-            <label for="studentSocSecNo">Phone Number:</label>
+            <label for="studentSocSecNo">TelefonNummer:</label>
             <input type="text" class="form-control" @bind="student.PhoneNumber" id="PhoneNumber" />
         </div>
 
         <div class="form-group">
-            <label for="studentSocSecNo">Social Security Number:</label>
+            <label for="studentSocSecNo">PersonNummer:</label>
             <input type="text" class="form-control" @bind="student.StudentSocSecNo" id="studentSocSecNo" />
         </div>
 
         <div class="form-group">
-            <label for="address">Address:</label>
+            <label for="address">Adress:</label>
             <input type="text" class="form-control" @bind="student.Address" id="address" />
         </div>
 
         <div class="form-group">
-            <label for="language">Language:</label>
+            <label for="language">Språk:</label>
             <input type="text" class="form-control" @bind="student.Language" id="language" />
         </div>
 
         <div class="form-group">
-            <label for="nationality">Nationality:</label>
+            <label for="nationality">Nationalitet:</label>
             <input type="text" class="form-control" @bind="student.Nationality" id="nationality" />
         </div>
 
-        <button type="submit" class="btn btn-primary" @onclick="() => CreateStudent(student)">Save</button>
-        <a href="/student-list" class="btn btn-secondary ml-2">Cancel</a>
+        <button type="submit" class="btn btn-primary" @onclick="() => CreateStudent(student)">Skicka in</button>
+        <button type="button" class="btn btn-secondary ml-2" @onclick="Cancel">Avbryt</button>
     </div>
 </div>
