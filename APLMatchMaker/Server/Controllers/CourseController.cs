@@ -1,8 +1,5 @@
 ﻿using APLMatchMaker.Server.Services;
-using APLMatchMaker.Shared.DTOs;
 using APLMatchMaker.Shared.DTOs.CoursesDTOs;
-using APLMatchMaker.Shared.DTOs.StudentsDTOs;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APLMatchMaker.Server.Controllers
