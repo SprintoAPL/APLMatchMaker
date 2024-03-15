@@ -8,6 +8,7 @@ namespace APLMatchMaker.Client.Pages
     {
         [Inject]
         private HttpClient? Http { get; set; }
+        [Inject]
         private NavigationManager? NavManager { get; set; }
 
         [Parameter]
@@ -37,10 +38,12 @@ namespace APLMatchMaker.Client.Pages
 
         private async Task Delete()
         {
+            HttpResponseMessage response;
+
             try
             {
-                var response = await Http!.DeleteAsync($"api/course/{Id}");
-                if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                response = await Http!.DeleteAsync($"api/course/{Id}");
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     NavManager!.NavigateTo($"/ListOfCourses");
                 }
