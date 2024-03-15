@@ -13,7 +13,7 @@ else
                 <th scope="col">E-post</th>
                 <th scope="col">Personnummer</th>
                 <th scope="col">Adress</th>
-                <th scope="col"> Kunskapsnivå</th>
+                <th scope="col">Kunskapsnivå</th>
                 <th scope="col">Språk</th>
                 <th scope="col"></th> @* Space for the "delete" button. *@
                 <th scope="col"></th> @* Space for the "details" button. *@
@@ -41,8 +41,18 @@ else
     </table>
 }
 
+<button class="btn btn-primary" @onclick="CreateNewStudent">Create New Student</button>
+
 @code {
-    
+    [Inject]
+    private NavigationManager? NavigationManager { get; set; }
+
+    // Define Students property
+    private  void CreateNewStudent()
+    {
+        // Navigate to the create student page
+        NavigationManager?.NavigateTo("/create-student");
+    }
 
     private string GetKnowledgeLevelString(int knowledgeLevel)
     {
