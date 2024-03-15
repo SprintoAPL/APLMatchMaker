@@ -1,0 +1,63 @@
+﻿@page "/create-student"
+@using APLMatchMaker.Shared.DTOs.StudentsDTOs
+@using System.Net.Http.Json
+
+<h3>Create New Student</h3>
+
+@if (errorMessage != null)
+{
+    <p class="alert alert-danger">Error: @errorMessage</p>
+}
+
+<div class="card mt-3">
+    <div class="card-body">
+
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" class="form-control" @bind="student.FirstName" id="firstName" required />
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" class="form-control" @bind="student.LastName" id="lastName" required />
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" @bind="student.Email" id="email" required />
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" @bind="student.Password" id="password" required />
+        </div>
+
+        <div class="form-group">
+            <label for="studentSocSecNo">Phone Number:</label>
+            <input type="text" class="form-control" @bind="student.PhoneNumber" id="PhoneNumber" />
+        </div>
+
+        <div class="form-group">
+            <label for="studentSocSecNo">Social Security Number:</label>
+            <input type="text" class="form-control" @bind="student.StudentSocSecNo" id="studentSocSecNo" />
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address:</label>
+            <input type="text" class="form-control" @bind="student.Address" id="address" />
+        </div>
+
+        <div class="form-group">
+            <label for="language">Language:</label>
+            <input type="text" class="form-control" @bind="student.Language" id="language" />
+        </div>
+
+        <div class="form-group">
+            <label for="nationality">Nationality:</label>
+            <input type="text" class="form-control" @bind="student.Nationality" id="nationality" />
+        </div>
+
+        <button type="submit" class="btn btn-primary" @onclick="() => CreateStudent(student)">Save</button>
+        <a href="/student-list" class="btn btn-secondary ml-2">Cancel</a>
+    </div>
+</div>
