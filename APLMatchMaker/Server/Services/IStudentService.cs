@@ -1,5 +1,6 @@
 ﻿using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using APLMatchMaker.Server.ResourceParameters;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace APLMatchMaker.Server.Services
 {
@@ -11,5 +12,6 @@ namespace APLMatchMaker.Server.Services
         Task<StudentForDetailsDTO> PostAsync(StudentForCreateDTO dto);
         Task<bool> RemoveAsync(string id);
         Task<bool> EmailExistAsync(string email);
+        Task<StudentForDetailsDTO?> PartiallyUpdateStudentAsync(string id, JsonPatchDocument<StudentForUpdateDTO> dto);
     }
 }

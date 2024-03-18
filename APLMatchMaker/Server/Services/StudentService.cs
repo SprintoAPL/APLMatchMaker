@@ -4,6 +4,8 @@ using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using APLMatchMaker.Server.Exceptions;
 using AutoMapper;
 using APLMatchMaker.Server.ResourceParameters;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace APLMatchMaker.Server.Services
 {
@@ -59,15 +61,35 @@ namespace APLMatchMaker.Server.Services
                 Language = dto.Language!.Trim(),
                 Nationality = dto.Nationality!.Trim()
             };
-            
+
             //var _student = _mapper.Map<ApplicationUser>(dto);
             var ok = await _studentRepository.AddAsync(_student, dto.Password);
             ok = ok && await _studentRepository.CompleteAsync();
-            if (!ok) 
+            if (!ok)
             {
                 throw new CouldNotCreateStudentException();
             }
             return _mapper.Map<StudentForDetailsDTO>(_student);
+        }
+
+        public async Task<StudentForDetailsDTO?> PartiallyUpdateStudentAsync(string id, JsonPatchDocument<StudentForUpdateDTO> _patchDocument)
+        {
+            var _studentFromRepo = await _studentRepository.GetStudentToUpdateAsync(id);
+            if (_studentFromRepo == null)
+            {
+                return null;
+            }
+            StudentForUpdateDTO _studentToPatch = _mapper.Map<StudentForUpdateDTO>(_studentFromRepo);
+            _patchDocument.ApplyTo(_studentToPatch);
+            ApplicationUser _StudentToUpdate = _mapper.Map(_studentToPatch, _studentFromRepo);
+            var _ok = await _studentRepository.UpdateStudentAsync(_StudentToUpdate);
+            _ok = _ok && await _studentRepository.CompleteAsync();
+
+            if (_ok)
+            {
+                return _mapper.Map<StudentForDetailsDTO>(_StudentToUpdate);
+            }
+            return null;
         }
 
         public async Task<bool> RemoveAsync(string id)
@@ -80,6 +102,5 @@ namespace APLMatchMaker.Server.Services
         {
             return await _studentRepository.EmailExistAsync(email);
         }
-
     }
 }

@@ -3,6 +3,7 @@ using APLMatchMaker.Server.ResourceParameters;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace APLMatchMaker.Server.Controllers
 {
@@ -49,6 +50,19 @@ namespace APLMatchMaker.Server.Controllers
                 return UnprocessableEntity("Email exists!");
             }
             var studentToReturn = await _studentService.PostAsync(dto);
+            return CreatedAtRoute("GetStudent", new { Id = studentToReturn.Id }, studentToReturn);
+        }
+
+
+        // PATCH: api/student/id
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<StudentForDetailsDTO>> PartiallyUpdateStudentAsync(string id, JsonPatchDocument<StudentForUpdateDTO> dto)
+        {
+            var studentToReturn = await _studentService.PartiallyUpdateStudentAsync(id, dto);
+            if (studentToReturn == null)
+            {
+                return BadRequest();
+            }
             return CreatedAtRoute("GetStudent", new { Id = studentToReturn.Id }, studentToReturn);
         }
 
