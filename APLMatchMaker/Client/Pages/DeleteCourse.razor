@@ -13,12 +13,12 @@ else if (ErrorMessage != null)
 else
 {
     <div>
-        <h4>Vill du ta bort kursen?</h4>
+        <p><b>Vill du ta bort kursen @CourseToDelete!.Name?</b></p>
         <p><strong>Namn:  </strong>@CourseToDelete.Name</p>
         <p><strong>Start datum: </strong>@CourseToDelete.StartDate.ToString("yyyy-mm-dd")</p>
         <p><strong>Slut datum: </strong>@CourseToDelete.EndDate.ToString("yyyy-mm-dd")</p>
         <p><strong>Bekräfta genom att klicka på Ta bort knappen.</strong></p>
         <button class="btn btn-danger" @onclick="Delete">Ta bort</button>
-        <a href="@($"/ListOfCourses")" class="btn btn-danger m-1">Avbryta</a>
+        <a href="@($"/ListOfCourses")" class="btn btn-primary m-1">Avbryta</a>
     </div>
 }

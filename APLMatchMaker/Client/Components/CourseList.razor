@@ -28,11 +28,15 @@ else
                     <td scope="row">@course.StartDate.ToString("yyyy-MM-dd")</td>
                     <td scope="row">@course.EndDate.ToString("yyyy-MM-dd")</td>
                     <td scope="row">
-                        <a href="@($"deletecourse/{course.Id}")" class="btn btn-danger m-1">Radera kurs</a>
+                        <a href="@($"editcourse/{course.Id}")" class="btn btn-secondary m-1">Redigera</a>
+                    </td>
+                    <td scope="row">
+                        <a href="@($"deletecourse/{course.Id}")" class="btn btn-danger m-1">Radera</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+    <button class="btn btn-primary" onclick="CreateCourse">Lägg till en ny kurs</button>
     
 }

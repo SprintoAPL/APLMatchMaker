@@ -13,8 +13,7 @@ namespace APLMatchMaker.Client.Pages
 
         [Parameter]
         public int Id { get; set; }
-        private CourseDto CourseToDelete = new CourseDto();
-        private ListOfCoursesDTO Courses = new ListOfCoursesDTO();
+        private CourseDto CourseToDelete = new();
         private string? ErrorMessage { get; set; }
 
         protected override async Task OnInitializedAsync()
