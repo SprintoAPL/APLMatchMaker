@@ -1,4 +1,5 @@
-﻿@using APLMatchMaker.Shared.DTOs.StudentsDTOs
+﻿@using APLMatchMaker.Client.Helpers
+@using APLMatchMaker.Shared.DTOs.StudentsDTOs
 
 @if (Students == null || !Students.Any())
 {
@@ -27,7 +28,7 @@ else
                     <td>@student.Email</td>
                     <td>@student.StudentSocSecNo</td>
                     <td>@student.Address</td>
-                    <td>@GetKnowledgeLevelString(student.KnowledgeLevel)</td>
+                    <td>@StudentHelper.GetKnowledgeLevelString(student.KnowledgeLevel)</td>
                     <td>@student.Language</td>
                     <td scope="row">
                         <a href="@($"deletestudent/{student.Id}")" class="btn btn-danger m-1">Radera elev</a>
@@ -54,15 +55,5 @@ else
         NavigationManager?.NavigateTo("/create-student");
     }
 
-    private string GetKnowledgeLevelString(int knowledgeLevel)
-    {
-        return knowledgeLevel switch
-        {
-            0 => "Not set",
-            1 => "Red",
-            2 => "Yellow",
-            3 => "Green",
-            _ => "Unknown",
-        };
-    }
+    
 }

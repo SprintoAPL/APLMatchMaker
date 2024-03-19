@@ -22,11 +22,11 @@
                 <th scope="col">Adress</th>
                 <th scope="col"> Kunskapsnivå</th>
                 <th scope="col">Språk</th>
-                </tr>
-                </thead>
-                <tbody>
+            </tr>
+        </thead>
+        <tbody>
                     <tr>
-                        <td scope="row">@studentDelete.FullName</td>
+            <td scope="row">@studentDelete.FullName</td>
             <td scope="row">@studentDelete.Email</td>
             <td scope="row">@studentDelete.StudentSocSecNo</td>
             <td scope="row">@studentDelete.Address</td>
@@ -36,6 +36,6 @@
                 <button class="btn btn-danger" @onclick="Delete">Radera</button>
             </td>
             </tr>
-            </tbody>
-            </table>
+        </tbody>
+</table>
 <a href="@($"/ListOfStudents")" class="btn btn-danger m-1">Tillbaka till elevlistan</a>

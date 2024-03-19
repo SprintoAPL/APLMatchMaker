@@ -1,5 +1,6 @@
 ﻿@page "/studentdetails/{Id}"
 
+@using APLMatchMaker.Client.Helpers
 @using APLMatchMaker.Shared.DTOs.StudentsDTOs
 
 <h3>Student Details:</h3>
@@ -11,7 +12,7 @@
         <b>Personnummer:</b> @studentDetails.StudentSocSecNo<br />
         <b>Status:</b> @studentDetails.Status<br />
         <b>Adress:</b> @studentDetails.Address<br />
-        <b>kunskapsnivå:</b> @GetKnowledgeLevelString(studentDetails.KnowledgeLevel)<br />
+        <b>kunskapsnivå:</b> @StudentHelper.GetKnowledgeLevelString(studentDetails.KnowledgeLevel)<br />
         <b>CV:</b> @studentDetails.CV<br />
         <b>Nationalitet:</b> @studentDetails.Nationality<br />
         <b>Språk:</b> @studentDetails.Language<br />
@@ -21,19 +22,3 @@
 </div>
 <a href="@($"editstudent/{studentDetails.Id}")" class="btn btn-danger m-1">Redigera elev</a>
 <a href="@($"/ListOfStudents")" class="btn btn-danger m-1">Tillbaka till elevlistan</a>
-
-@code {
-    
-
-    private string GetKnowledgeLevelString(int knowledgeLevel)
-    {
-        return knowledgeLevel switch
-        {
-            0 => "Not set",
-            1 => "Red",
-            2 => "Yellow",
-            3 => "Green",
-            _ => "Unknown",
-        };
-    }
-}
