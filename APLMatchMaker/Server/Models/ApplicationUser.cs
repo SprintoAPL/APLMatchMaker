@@ -21,5 +21,7 @@ namespace APLMatchMaker.Server.Models
         public string Language { get; set; } = string.Empty;
         public string Nationality { get; set; } = string.Empty;
         public string Miscellaneous { get; set; } = string.Empty;
+        //public override string? Email { get => base.Email; set => base.Email = value; }
+        //public override string? PhoneNumber { get => base.PhoneNumber; set => base.PhoneNumber = value; }
     }
 }
