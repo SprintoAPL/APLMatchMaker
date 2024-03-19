@@ -4,6 +4,7 @@ using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace APLMatchMaker.Server.Controllers
 {
@@ -59,11 +60,19 @@ namespace APLMatchMaker.Server.Controllers
         public async Task<ActionResult<StudentForDetailsDTO>> PartiallyUpdateStudentAsync(string id, JsonPatchDocument<StudentForUpdateDTO> dto)
         {
             var studentToReturn = await _studentService.PartiallyUpdateStudentAsync(id, dto);
+
             if (studentToReturn == null)
             {
                 return BadRequest();
             }
-            return CreatedAtRoute("GetStudent", new { Id = studentToReturn.Id }, studentToReturn);
+
+            if (!TryValidateModel(studentToReturn))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            return Ok(studentToReturn);
+            //return CreatedAtRoute("GetStudent", new { Id = studentToReturn.Id }, studentToReturn);
         }
 
 
