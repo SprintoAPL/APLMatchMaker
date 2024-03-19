@@ -32,7 +32,7 @@ namespace APLMatchMaker.Server.Mappings
             //    from => from.MapFrom(st => true));
 
 
-            CreateMap<ApplicationUser, StudentForUpdateDTO>().ReverseMap();
+            //CreateMap<ApplicationUser, StudentForUpdateDTO>().ReverseMap();
 
         }
     }
