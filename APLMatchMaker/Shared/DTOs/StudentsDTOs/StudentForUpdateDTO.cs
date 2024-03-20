@@ -4,7 +4,9 @@ namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
 {
     public class StudentForUpdateDTO : IValidatableObject
     {
+        [Required]
         public string? FirstName { get; set; }
+        [Required]
         public string? LastName { get; set; }
         //[MaxLength(256, ErrorMessage = "The email address can contain a maximum of 256 characters.")]
         //public string? Email { get; set; } = null!;

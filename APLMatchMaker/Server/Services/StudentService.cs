@@ -108,22 +108,23 @@ namespace APLMatchMaker.Server.Services
 
 
         //##-< ???????????? >-#############################################################
-        public async Task<StudentForDetailsDTO?> PartiallyUpdateStudentAsync(string id, JsonPatchDocument<StudentForUpdateDTO> _patchDocument)
+        public async Task<StudentForDetailsDTO?> UpdateStudentAsync(string _id, StudentForUpdateDTO _studentToPatch)
         {
-            var _studentFromRepo = await _studentRepository.GetAsync(id);
-            if (_studentFromRepo == null)
+            var _StudentFromRepo = await _studentRepository.GetAsync(_id);
+
+            if (_StudentFromRepo == null)
             {
                 return null;
             }
-            StudentForUpdateDTO _studentToPatch = _mapper.Map<StudentForUpdateDTO>(_studentFromRepo);
-            _patchDocument.ApplyTo(_studentToPatch);
-            ApplicationUser _StudentToUpdate = _mapper.Map(_studentToPatch, _studentFromRepo);
-            var _ok = _studentRepository.UpdateStudent(_StudentToUpdate);
-            _ok = _ok && await _studentRepository.CompleteAsync();
 
-            if (_ok)
+            _mapper.Map(_studentToPatch, _StudentFromRepo);
+
+            var ok = _studentRepository.UpdateStudent(_StudentFromRepo);
+            ok = ok && await _studentRepository.CompleteAsync();
+
+            if (ok)
             {
-                return _mapper.Map<StudentForDetailsDTO>(_StudentToUpdate);
+                return _mapper.Map<StudentForDetailsDTO>(_StudentFromRepo);
             }
             return null;
         }
