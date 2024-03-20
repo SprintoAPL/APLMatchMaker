@@ -171,16 +171,8 @@ namespace APLMatchMaker.Server.Repositories
         //#################################################################################
 
 
-        //##-< Get student to update >-####################################################
-        async Task<ApplicationUser?> IStudentRepository.GetStudentToUpdateAsync(string id)
-        {
-            return await _db.ApplicationUsers.Where(au => au.Id == id && au.IsStudent == true).FirstOrDefaultAsync();
-        }
-        //#################################################################################
-
-
         //##-< Update student >-#############################################################
-        async Task<bool> IStudentRepository.UpdateStudentAsync(ApplicationUser studentToUpdate)
+        public bool UpdateStudent(ApplicationUser studentToUpdate)
         {
             try
             {
