@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Http.HttpResults;
+using APLMatchMaker.Server.Models;
+using System.Xml.XPath;
 
 namespace APLMatchMaker.Server.Controllers
 {
@@ -57,21 +59,21 @@ namespace APLMatchMaker.Server.Controllers
 
         // PATCH: api/student/id
         [HttpPatch("{id}")]
-        public async Task<ActionResult<StudentForDetailsDTO>> PartiallyUpdateStudentAsync(string id, JsonPatchDocument<StudentForUpdateDTO> dto)
+        public async Task<ActionResult<StudentForDetailsDTO>> PartiallyUpdateStudentAsync(string id, JsonPatchDocument<StudentForUpdateDTO> _patchDocument)
         {
-            var studentToReturn = await _studentService.PartiallyUpdateStudentAsync(id, dto);
-
-            if (studentToReturn == null)
+            var _studentToPatch = await _studentService.GetForUpdateAsync(id);
+            if (_studentToPatch == null)
             {
-                return BadRequest();
+                return NoContent();
             }
+            _patchDocument.ApplyTo(_studentToPatch, ModelState);
 
-            if (!TryValidateModel(studentToReturn))
+            if (!TryValidateModel(_studentToPatch))
             {
                 return ValidationProblem(ModelState);
             }
 
-            return Ok(studentToReturn);
+            return Ok(await _studentService.UpdateStudentAsync(id, _studentToPatch));
             //return CreatedAtRoute("GetStudent", new { Id = studentToReturn.Id }, studentToReturn);
         }
 
