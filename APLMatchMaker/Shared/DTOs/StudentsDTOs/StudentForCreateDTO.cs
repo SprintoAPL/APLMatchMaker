@@ -6,7 +6,7 @@ namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
     {
         [Required(ErrorMessage = "You should give the student a first name.")]
         public string FirstName { get; set; } = string.Empty;
-        [Required(ErrorMessage = "You should give the student a first name.")]
+        [Required(ErrorMessage = "You should give the student a last name.")]
         public string LastName { get; set; } = string.Empty;
         [Required(ErrorMessage = "You should give the student a e-mail.")]
         [MaxLength(256, ErrorMessage = "The email address can contain a maximum of 256 characters.")]
