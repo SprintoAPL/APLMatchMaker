@@ -3,6 +3,7 @@ using APLMatchMaker.Server.Repositories;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using APLMatchMaker.Server.Exceptions;
 using AutoMapper;
+using APLMatchMaker.Server.ResourceParameters;
 
 namespace APLMatchMaker.Server.Services
 {
@@ -25,26 +26,59 @@ namespace APLMatchMaker.Server.Services
             return dtos;
         }
 
-        public async Task<StudentForListDTO> GetAsync(string id)
+        public async Task<IEnumerable<StudentForListDTO>> GetAsync(StudentResourceParameters? studentResourceParameters)
         {
-            var _student = await _studentRepository.GetAsync(id) ?? throw new StudentNotFoundException(id);
-            return _mapper.Map<StudentForListDTO>(_student);
+            var _students = await _studentRepository.GetAsync(studentResourceParameters);
+            var dtos = _mapper.Map<IEnumerable<StudentForListDTO>>(_students);
+            return dtos;
         }
 
-        public async Task<StudentForListDTO> PostAsync(StudentForListDTO dto)
+        public async Task<StudentForDetailsDTO?> GetAsync(string id)
         {
-            var _student = _mapper.Map<ApplicationUser>(dto);
-            await _studentRepository.AddAsync(_student);
-            await _studentRepository.CompleteAsync();
-            return _mapper.Map<StudentForListDTO>(_student);
+            var _student = await _studentRepository.GetAsync(id);
+            if (_student == null)
+            {
+                return null;
+            }
+            return _mapper.Map<StudentForDetailsDTO>(_student);
         }
 
-        public async Task UpdateAsync(string id, StudentForListDTO dto)
+        public async Task<StudentForDetailsDTO> PostAsync(StudentForCreateDTO dto)
         {
-            var _student = await _studentRepository.GetAsync(id) ?? throw new StudentNotFoundException(id);
-            _mapper.Map(dto, _student);
-            _studentRepository.Update(_student);
-            await _studentRepository.CompleteAsync();
+            var _student = new ApplicationUser
+            {
+                IsStudent = true,
+                FirstName = dto.FirstName.Trim(),
+                LastName = dto.LastName.Trim(),
+                Email = dto.Email.ToLower().Trim(),
+                UserName = dto.Email.Trim(),
+                EmailConfirmed = true,
+                PhoneNumber = dto.PhoneNumber!.Trim(),
+                StudentSocSecNo = dto.StudentSocSecNo!.Trim(),
+                Address = dto.Address!.Trim(),
+                Language = dto.Language!.Trim(),
+                Nationality = dto.Nationality!.Trim()
+            };
+            
+            //var _student = _mapper.Map<ApplicationUser>(dto);
+            var ok = await _studentRepository.AddAsync(_student, dto.Password);
+            ok = ok && await _studentRepository.CompleteAsync();
+            if (!ok) 
+            {
+                throw new CouldNotCreateStudentException();
+            }
+            return _mapper.Map<StudentForDetailsDTO>(_student);
+        }
+
+        public async Task<bool> RemoveAsync(string id)
+        {
+            var result = await _studentRepository.RemoveAsync(id);
+            return result;
+        }
+
+        public async Task<bool> EmailExistAsync(string email)
+        {
+            return await _studentRepository.EmailExistAsync(email);
         }
 
     }

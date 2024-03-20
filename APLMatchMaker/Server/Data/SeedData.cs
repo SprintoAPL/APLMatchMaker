@@ -16,9 +16,6 @@ namespace APLMatchMaker.Server.Data
         {
             //##-< Setup >-####################################################################
             db = context;
-
-            // if (db.Roles.Any()) return; // Code from earlier project.
-
             userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
             roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
             //#################################################################################
@@ -55,13 +52,13 @@ namespace APLMatchMaker.Server.Data
                 }
                 //#############################################################################
 
-                // (Email, Pw, FirstName, LastName, SosSecNo, Address, Status, CV, KnowledgeLevel, CommentByTeacher, Language, Nationality
-                var students = new (string, string, string, string, string, string, string, string, int, string, string, string)[]
+                // (Email, Pw, FirstName, LastName, SosSecNo, PhoneNo, Address, Status, CV, KnowledgeLevel, CommentByTeacher, Language, Nationality
+                var students = new (string, string, string, string, string, string, string, string, string, int, string, string, string)[]
                 {
-                    ("test1@test.se","P@sw0rd1","Eric","Larsson","770404-0099","Sturegatan 12","Går på kurs","Jätte bra CV", 3, "Ducktig stunet","Svenska","Svensk"),
-                    ("test2@test.se","P@sw0rd2","Stina","Pettersson","970404-4069","Sturegatan 12","Går på kurs","Jätte bra CV", 3, "Ducktig stunet","Svenska","Svensk"),
-                    ("test3@test.se","P@sw0rd3","Eric","Larsson","770404-0099","Sturegatan 12","Går på kurs","Jätte bra CV", 3, "Ducktig stunet","Svenska","Svensk"),
-                    ("test4@test.se","P@sw0rd4","Eric","Larsson","770404-0099","Sturegatan 12","Går på kurs","Jätte bra CV", 3, "Ducktig stunet","Svenska","Svensk")
+                    ("test1@test.se","P@sw0rd1","Eric","Larsson","770404-0099","070-46 46 506","Sturegatan 12","Går på kurs","Jätte bra CV", 3, "Ducktig stunet","Svenska","Svensk"),
+                    ("test2@test.se","P@sw0rd2","Stina","Pettersson","970404-4069","070-46 46 506","Sturegatan 12","Går på kurs","Jätte bra CV", 3, "Ducktig stunet","Svenska","Svensk"),
+                    ("test3@test.se","P@sw0rd3","Eric","Larsson","770404-0099","070-46 46 506","Sturegatan 12","Går på kurs","Jätte bra CV", 3, "Ducktig stunet","Svenska","Svensk"),
+                    ("test4@test.se","P@sw0rd4","Eric","Larsson","770404-0099","070-46 46 506","Sturegatan 12","Går på kurs","Jätte bra CV", 3, "Ducktig stunet","Svenska","Svensk")
                 };
                 await AddStudentsAsync(students);
             }
@@ -113,29 +110,30 @@ namespace APLMatchMaker.Server.Data
 
 
         //##-< Seed Students Method >-#########################################################
-        private static async Task AddStudentsAsync((string, string, string, string, string, string, string, string, int, string, string, string)[] students)
+        private static async Task AddStudentsAsync((string, string, string, string, string, string, string, string, string, int, string, string, string)[] students)
         {
-            string email, pw, firstName, lastName, sosSecNo, address, status, cV, commentByTeacher, language, nationality; int knowledgeLevel;
+            string email, pw, firstName, lastName, sosSecNo, phoneNo, address, status, cV, commentByTeacher, language, nationality; int knowledgeLevel;
             foreach (var student in students)
             {
-                // (Email, Pw, FirstName, LastName, SosSecNo, Address, Status, CV, KnowledgeLevel, CommentByTeacher, Language, Nationality
-                (email, pw, firstName, lastName, sosSecNo, address, status, cV, knowledgeLevel, commentByTeacher, language, nationality) = student;
+                // (Email, Pw, FirstName, LastName, SosSecNo, PhoneNo, Address, Status, CV, KnowledgeLevel, CommentByTeacher, Language, Nationality
+                (email, pw, firstName, lastName, sosSecNo, phoneNo, address, status, cV, knowledgeLevel, commentByTeacher, language, nationality) = student;
                 var newStudent = new ApplicationUser
                 {
                     IsStudent = true,
-                    UserName = email,
-                    Email = email,
+                    UserName = email.Trim(),
+                    Email = email.ToLower().Trim(),
                     EmailConfirmed = true,
-                    FirstName = firstName,
-                    LastName = lastName,
-                    StudentSocSecNo = sosSecNo,
-                    Address = address,
-                    Status = status,
-                    CV = cV,
+                    FirstName = firstName.Trim(),
+                    LastName = lastName.Trim(),
+                    StudentSocSecNo = sosSecNo.Trim(),
+                    PhoneNumber = phoneNo.Trim(),
+                    Address = address.Trim(),
+                    Status = status.Trim(),
+                    CV = cV.Trim(),
                     KnowledgeLevel = knowledgeLevel,
-                    CommentByTeacher = commentByTeacher,
-                    Language = language,
-                    Nationality = nationality
+                    CommentByTeacher = commentByTeacher.Trim(),
+                    Language = language.Trim(),
+                    Nationality = nationality.Trim()
                 };
                 var result = await userManager.CreateAsync(newStudent, pw);
 

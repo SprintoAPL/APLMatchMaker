@@ -1,14 +1,16 @@
 ﻿using APLMatchMaker.Server.Models;
+using APLMatchMaker.Server.ResourceParameters;
 
 namespace APLMatchMaker.Server.Repositories
 {
     public interface IStudentRepository
     {
-        Task AddAsync(ApplicationUser _applicationUser);
+        Task<bool> AddAsync(ApplicationUser _applicationUser, string password);
         Task<List<ApplicationUser>> GetAsync();
+        Task<List<ApplicationUser>> GetAsync(StudentResourceParameters? studentResourceParameters);
         Task<ApplicationUser?> GetAsync(string id);
-        void Remove(ApplicationUser _applicationUser);
-        void Update(ApplicationUser _applicationUser);
-        Task CompleteAsync();
+        Task<bool> RemoveAsync(string id);
+        Task<bool> CompleteAsync();
+        Task<bool> EmailExistAsync(string email);
     }
 }
