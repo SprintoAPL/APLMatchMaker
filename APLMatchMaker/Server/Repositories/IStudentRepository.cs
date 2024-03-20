@@ -13,7 +13,6 @@ namespace APLMatchMaker.Server.Repositories
         Task<bool> RemoveAsync(string id);
         Task<bool> CompleteAsync();
         Task<bool> EmailExistAsync(string email);
-        Task<ApplicationUser?> GetStudentToUpdateAsync(string id);
-        Task<bool> UpdateStudentAsync(ApplicationUser studentToUpdate);
+        bool UpdateStudent(ApplicationUser studentToUpdate);
     }
 }

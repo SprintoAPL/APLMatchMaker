@@ -9,6 +9,7 @@ namespace APLMatchMaker.Server.Services
         Task<IEnumerable<StudentForListDTO>> GetAsync();
         Task<IEnumerable<StudentForListDTO>> GetAsync(StudentResourceParameters? studentResourceParameters);
         Task<StudentForDetailsDTO?> GetAsync(string id);
+        Task<StudentForUpdateDTO?> GetForUpdateAsync(string id);
         Task<StudentForDetailsDTO> PostAsync(StudentForCreateDTO dto);
         Task<bool> RemoveAsync(string id);
         Task<bool> EmailExistAsync(string email);
