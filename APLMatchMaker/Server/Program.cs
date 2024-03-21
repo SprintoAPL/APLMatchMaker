@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Serialization;
 
 namespace APLMatchMaker
 {
@@ -41,6 +42,11 @@ namespace APLMatchMaker
             builder.Services.AddControllersWithViews(configure =>
             {
                 configure.ReturnHttpNotAcceptable = true;
+            })
+            .AddNewtonsoftJson(setupAction =>
+            {
+                setupAction.SerializerSettings.ContractResolver =
+                    new CamelCasePropertyNamesContractResolver();
             })
             .ConfigureApiBehaviorOptions(setupAction =>
             {

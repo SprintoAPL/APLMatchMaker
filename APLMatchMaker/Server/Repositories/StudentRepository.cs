@@ -1,6 +1,7 @@
 ﻿using APLMatchMaker.Server.Data;
 using APLMatchMaker.Server.Models;
 using APLMatchMaker.Server.ResourceParameters;
+using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Humanizer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -170,10 +171,18 @@ namespace APLMatchMaker.Server.Repositories
         //#################################################################################
 
 
-        //##-< Update one existing student >-##############################################
-        public void Update(ApplicationUser _applicationUser)
+        //##-< Update student >-#############################################################
+        public bool UpdateStudent(ApplicationUser studentToUpdate)
         {
-            //_db.ApplicationUsers.Update(_applicationUser);
+            try
+            {
+                _db.ApplicationUsers.Update(studentToUpdate);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         //#################################################################################
 

@@ -30,6 +30,10 @@ namespace APLMatchMaker.Server.Mappings
             //    .ForMember(
             //    dest => dest.EmailConfirmed,
             //    from => from.MapFrom(st => true));
+
+
+            CreateMap<ApplicationUser, StudentForUpdateDTO>().ReverseMap();
+
         }
     }
 }

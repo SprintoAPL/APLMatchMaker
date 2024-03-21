@@ -3,6 +3,13 @@ using APLMatchMaker.Server.ResourceParameters;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Http.HttpResults;
+using APLMatchMaker.Server.Models;
+using System.Xml.XPath;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Options;
 
 namespace APLMatchMaker.Server.Controllers
 {
@@ -11,12 +18,20 @@ namespace APLMatchMaker.Server.Controllers
     //[Authorize]
     public class StudentController : ControllerBase
     {
+        //##-< Properties >-###############################################################
         private readonly IStudentService _studentService;
+        //#################################################################################
 
+
+        //##-< Constructor >-##############################################################
         public StudentController(IStudentService studentService)
         {
             _studentService = studentService;
         }
+        //#################################################################################
+
+
+        //##-< Get list of students (includes search and filter) >-########################
 
         // GET: api/student
         [HttpGet]
@@ -25,7 +40,10 @@ namespace APLMatchMaker.Server.Controllers
         {
             return Ok(await _studentService.GetAsync(studentResourceParameters));
         }
+        //#################################################################################
 
+
+        //##-< Gets an student with id >-##################################################
 
         // GET: api/student/id
         [HttpGet("{id}", Name = "GetStudent")]
@@ -38,7 +56,10 @@ namespace APLMatchMaker.Server.Controllers
             }
             return Ok(student);
         }
+        //#################################################################################
 
+
+        //##-< Posts a new student >-######################################################
 
         // POST: api/student
         [HttpPost]
@@ -51,7 +72,34 @@ namespace APLMatchMaker.Server.Controllers
             var studentToReturn = await _studentService.PostAsync(dto);
             return CreatedAtRoute("GetStudent", new { Id = studentToReturn.Id }, studentToReturn);
         }
+        //#################################################################################
 
+
+        //##-< Updates a student (with PATCH:) with id >-##################################
+
+        // PATCH: api/student/id
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<StudentForDetailsDTO>> PartiallyUpdateStudentAsync(string id, JsonPatchDocument<StudentForUpdateDTO> _patchDocument)
+        {
+            var _studentToPatch = await _studentService.GetForUpdateAsync(id);
+            if (_studentToPatch == null)
+            {
+                return NoContent();
+            }
+            _patchDocument.ApplyTo(_studentToPatch, ModelState);
+
+            if (!TryValidateModel(_studentToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            return Ok(await _studentService.UpdateStudentAsync(id, _studentToPatch));
+            //return CreatedAtRoute("GetStudent", new { Id = studentToReturn.Id }, studentToReturn);
+        }
+        //#################################################################################
+
+
+        //##-< Removes a student with id >-################################################
 
         // DELETE: api/student/id
         [HttpDelete("{id}")]
@@ -60,5 +108,24 @@ namespace APLMatchMaker.Server.Controllers
             var result = await _studentService.RemoveAsync(id);
             return result ? NoContent() : NotFound();
         }
+        //#################################################################################
+
+
+        //##-< ???????????? >-#############################################################
+        // New methods goes here.
+        //#################################################################################
+
+
+        //##-< Improve returned validation messages >-#####################################
+        public override ActionResult ValidationProblem(
+            [ActionResultObjectValue] ModelStateDictionary modelStateDictionary)
+        {
+            var options = HttpContext.RequestServices
+                .GetRequiredService<IOptions<ApiBehaviorOptions>>();
+
+            return (ActionResult)options.Value
+                .InvalidModelStateResponseFactory(ControllerContext);
+        }
+        //#################################################################################
     }
 }
