@@ -9,8 +9,23 @@ h1:focus {
 }
 
 a, .btn-link {
-    color: #0071c1;
+    color: #ffffff;
 }
+
+    /* visited link */
+/*    a:visited {
+        color: #656565
+    }*/
+
+    /* mouse over link */
+    a:hover {
+        color: hotpink;
+    }
+
+    /* selected link */
+    a:active {
+        color: blue;
+    }
 
 .btn-primary {
     /*Länkknapp(primary)*/
@@ -166,13 +181,27 @@ a, .btn-link {
     align-items: center; /* Align content vertically */
 }
 
-/*.login-display {
+.logo-img {
+    max-width: 200px;
+}
+    .logo-img img {
+        width: 100%;
+        height: auto;
+    }
+
+.login-display {
     background-color: #ffffff;
     padding: 8px;
     border: 1px solid #ced4da;
     border-radius: 4px;
-}*/
+}
+    .login-display .nav-link {
+        color: red; /* Change the color of navigation links */
+    }
 
+    .login-display .user-name {
+        font-weight: bold; /* Make the username text bold */
+    }
 /*.btn-primary {
     color: #fff;*/ /* Textfärg */
     /*background-color: #143286;*/ /* bakgrundsfärg */
