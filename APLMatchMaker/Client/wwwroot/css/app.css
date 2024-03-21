@@ -173,21 +173,23 @@ a, .btn-link {
 
 .logo-bar {
     /*Top nav bar with logo*/
-    background-color: #0C1321; /* Background color */
+    background-color: #1d1d1d; /* Background color */
     color: #fff; /* Text color */
     padding: 30px; /* Padding around content */
+    height: 200px;
     display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Align content horizontally */
+    /*justify-content: space-between;*/ /* Align content horizontally */
     align-items: center; /* Align content vertically */
 }
 
-.logo-img {
-    max-width: 200px;
+.logo {
+    width: 150px; /* Width of your element */
+    height: 150px; /* Height of your element */
+    background-image: url('../images/LEXICON_trsp.png');
+    background-size: contain; /* Scale the background image to fit within the element */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    background-position: center; /* Center the background image */
 }
-    .logo-img img {
-        width: 100%;
-        height: auto;
-    }
 
 .login-display {
     background-color: #ffffff;
