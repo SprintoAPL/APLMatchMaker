@@ -1,0 +1,31 @@
+﻿@using APLMatchMaker.Client.Helpers
+@using APLMatchMaker.Shared.DTOs.StudentsDTOs
+
+<div>
+    @if (studentDetails != null)
+    {
+        <p>
+            <b>FullNamn:</b> @studentDetails.FullName<br />
+            <b>Epost:</b> @studentDetails.Email<br />
+            <b>Telefon:</b> @studentDetails.PhoneNumber<br />
+            <b>Personnummer:</b> @studentDetails.StudentSocSecNo<br />
+            <b>Status:</b> @studentDetails.Status<br />
+            <b>Adress:</b> @studentDetails.Address<br />
+            <b>kunskapsnivå:</b> @StudentHelper.GetKnowledgeLevelString(studentDetails.KnowledgeLevel)<br />
+            <b>CV:</b> @studentDetails.CV<br />
+            <b>Nationalitet:</b> @studentDetails.Nationality<br />
+            <b>Språk:</b> @studentDetails.Language<br />
+            <b>LinkedIn Intro:</b> @studentDetails.LinkedinIntro<br />
+            <b>Kommentar från Läraren:</b> @studentDetails.CommentByTeacher<br />
+        </p>
+    }
+    else
+    {
+        <p>Inga studentuppgifter hittades.</p>
+    }
+</div>
+@code {
+    [Parameter]
+    public StudentForDetailsDTO studentDetails { get; set; } = new StudentForDetailsDTO();
+
+}
