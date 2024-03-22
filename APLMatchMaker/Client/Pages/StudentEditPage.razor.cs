@@ -38,7 +38,7 @@ namespace APLMatchMaker.Client.Pages
                 var response = await Http!.PatchAsJsonAsync($"api/student/{Id}", editStudent);
                 if (!response.IsSuccessStatusCode)
                 {
-                    NavigationManager!.NavigateTo("/studentdetails");
+                    NavigationManager!.NavigateTo("/ListOfStudents");
                 }
                 else
                 {
