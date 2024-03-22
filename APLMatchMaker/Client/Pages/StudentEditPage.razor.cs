@@ -6,7 +6,7 @@ namespace APLMatchMaker.Client.Pages
 {
     public partial class StudentEditPage
     {
-        private StudentForUpdateDTO editStudent = new StudentForUpdateDTO();
+        private StudentForUpdateDTO? editStudent ;
 
         private string? ErrorMessage;
 
@@ -36,21 +36,22 @@ namespace APLMatchMaker.Client.Pages
             try
             {
                 var response = await Http!.PatchAsJsonAsync($"api/student/{Id}", editStudent);
-                if (!response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
                 {
-                    NavigationManager!.NavigateTo("/studentdetails");
+                    NavigationManager!.NavigateTo("/ListOfStudents");
                 }
                 else
                 {
-                    ErrorMessage = "Kunde inte redigera eleven!";
+                    var errorResponse = await response.Content.ReadAsStringAsync();
+                    ErrorMessage = string.IsNullOrEmpty(errorResponse) ? "An error occurred while updating the student." : errorResponse;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                ErrorMessage = "An exception occurred: " + ex.Message;
             }
-            
         }
+
 
         private void Cancel()
         {

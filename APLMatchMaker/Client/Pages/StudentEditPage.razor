@@ -10,7 +10,9 @@
         @ErrorMessage
     </div>
 }
-
+@if (editStudent != null)
+{
+    
 <EditForm Model="@editStudent">
     <DataAnnotationsValidator/>
     <div class="form-group">
@@ -81,3 +83,8 @@
     <button type="submit" class="btn btn-primary" @onclick="HandleValidSubmit">Spara</button>
     <button type="button" class="btn btn-secondary ml-2" @onclick="Cancel">Avbryt</button>
 </EditForm>
+}
+else
+{
+    <p>No student details found.</p>
+}
