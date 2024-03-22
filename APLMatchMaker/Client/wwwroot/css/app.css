@@ -27,9 +27,8 @@ a, .btn-link {
         color: blue;
     }
 
+/*Länkknapp(primary)*/
 .btn-primary {
-    /*Länkknapp(primary)*/
-
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
@@ -158,17 +157,21 @@ a, .btn-link {
         background-color: rgba(0, 0, 0, 0.03);
     }
 
-.top-row {
-    
+/*.top-row {*/
     /*Top nav bar with links*/
-    /*Default background-color: #f7f7f7;*/
-    background-color: #0C1321;
+    /*background-color: #0C1321;
     border-bottom: 1px solid #d6d5d5;
-    justify-content: flex-end;
-   /* Default: height: 3.5rem;*/
-    height: 6rem;
+    text-align: center;
+    justify-content: flex-end;*/
+    /* Default: height: 3.5rem;*/
+    /*height: 6rem;
     display: flex;
     align-items: center;
+}*/
+
+.navbar-expand {
+    /*Want to edit the link bar but doesnt work*/
+    text-align: center;
 }
 
 .logo-bar {
@@ -179,10 +182,12 @@ a, .btn-link {
     height: 200px;
     display: flex; /* Use flexbox for layout */
     /*justify-content: space-between;*/ /* Align content horizontally */
-    align-items: center; /* Align content vertically */
+    /*align-items: center;*/ /* Align content vertically */
+    text-align: center !important;
 }
 
 .logo {
+    /*Logo image*/
     width: 150px; /* Width of your element */
     height: 150px; /* Height of your element */
     background-image: url('../images/LEXICON_trsp.png');
