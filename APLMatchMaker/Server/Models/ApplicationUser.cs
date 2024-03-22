@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using APLMatchMaker.Server.Models.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace APLMatchMaker.Server.Models
 {
@@ -21,7 +22,9 @@ namespace APLMatchMaker.Server.Models
         public string Language { get; set; } = string.Empty;
         public string Nationality { get; set; } = string.Empty;
         public string Miscellaneous { get; set; } = string.Empty;
-        //public override string? Email { get => base.Email; set => base.Email = value; }
-        //public override string? PhoneNumber { get => base.PhoneNumber; set => base.PhoneNumber = value; }
+
+
+        // Navigation properties.
+        public ICollection<Enrollment> Course { get; set; } = new List<Enrollment>();
     }
 }

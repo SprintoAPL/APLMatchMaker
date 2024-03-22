@@ -13,14 +13,30 @@ namespace APLMatchMaker.Server.Data
         //####-<Data Tables>-#######################################################################
         public DbSet<Course> Courses => Set<Course>();
         public DbSet<ApplicationUser> ApplicationUsers => Set<ApplicationUser>();
+        public DbSet<Company> Companies => Set<Company>();
+        public DbSet<Enrollment> Enrollments => Set<Enrollment>();
         //##########################################################################################
 
+
+
+        //####-<?????????????>-#####################################################################
         public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
-          
+
         }
+        //##########################################################################################
+
+
+
+        //####-<Combine multiple foreign keys in to one primary key>-###############################
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<Enrollment>().HasKey(en => new { en.CourseId, en.ApplicationUserId });
+        }
+        //##########################################################################################
 
     }
 }
