@@ -4,8 +4,6 @@ namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
 {
     public class StudentForUpdateDTO : IValidatableObject
     {
-        [MaxLength(400)]
-        public string? Id { get; set; }
         [Required(ErrorMessage = "You should give the student a first name.")]
         public string? FirstName { get; set; }
         [Required(ErrorMessage = "You should give the student a last name.")]
