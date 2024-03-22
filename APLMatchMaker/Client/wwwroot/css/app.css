@@ -102,6 +102,10 @@ a, .btn-link {
         content: var(--blazor-load-percentage-text, "Loading");
     }
 
+table > tbody > :nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
 /*.btn-primary {
     color: #fff;*/ /* Textfärg */
     /*background-color: #143286;*/ /* bakgrundsfärg */

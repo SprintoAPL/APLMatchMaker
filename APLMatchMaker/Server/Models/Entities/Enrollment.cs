@@ -7,7 +7,7 @@
 
 
         // Navigation properties.
-        public ApplicationUser Student { get; set; } = new();
-        public Course Course { get; set; } = new();
+        public ApplicationUser? Student { get; set; } = null!;
+        public Course? Course { get; set; } = null!;
     }
 }
