@@ -1,13 +1,13 @@
 ﻿using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.JsonPatch;
 using System.Net.Http.Json;
 
 namespace APLMatchMaker.Client.Pages
 {
     public partial class StudentEditPage
     {
-        private StudentForUpdateDTO? editStudent ;
-
+        private StudentForUpdateDTO? editStudent;
         private string? ErrorMessage;
 
         [Inject]
@@ -35,29 +35,45 @@ namespace APLMatchMaker.Client.Pages
         {
             try
             {
-                var response = await Http!.PatchAsJsonAsync($"api/student/{Id}", editStudent);
-                if (response.IsSuccessStatusCode)
+                // Check if editStudent is not null
+                if (editStudent != null)
                 {
-                    NavigationManager!.NavigateTo("/ListOfStudents");
+                    // Construct the JSON patch document
+                    var patchDocument = new JsonPatchDocument<StudentForUpdateDTO>();
+                    patchDocument.Replace(s => s.FirstName, editStudent.FirstName);
+                    patchDocument.Replace(s => s.LastName, editStudent.LastName);
+
+                    // Send the PATCH request with the JSON patch document
+                    var response = await Http!.PatchAsync($"api/student/{Id}", JsonContent.Create(patchDocument));
+
+                    // Check if the response is successful
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // If successful, navigate to the list of students
+                        NavigationManager?.NavigateTo("/ListOfStudents");
+                    }
+                    else
+                    {
+                        // If not successful, parse the error response and display error message
+                        var errorResponse = await response.Content.ReadAsStringAsync();
+                        ErrorMessage = string.IsNullOrEmpty(errorResponse) ? "An error occurred while updating the student." : errorResponse;
+                    }
                 }
                 else
                 {
-                    var errorResponse = await response.Content.ReadAsStringAsync();
-                    ErrorMessage = string.IsNullOrEmpty(errorResponse) ? "An error occurred while updating the student." : errorResponse;
+                    ErrorMessage = "Student data is missing.";
                 }
             }
             catch (Exception ex)
             {
-                ErrorMessage = "An exception occurred: " + ex.Message;
+                // If an exception occurs during the API call, display the exception message
+                ErrorMessage = ex.Message;
             }
         }
-
 
         private void Cancel()
         {
             NavigationManager?.NavigateTo("/ListOfStudents");
         }
-
-
     }
 }
