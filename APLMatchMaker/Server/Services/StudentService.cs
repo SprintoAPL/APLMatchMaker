@@ -82,7 +82,6 @@ namespace APLMatchMaker.Server.Services
                 Nationality = dto.Nationality!.Trim()
             };
 
-            //var _student = _mapper.Map<ApplicationUser>(dto);
             var ok = await _studentRepository.AddAsync(_student, dto.Password);
             ok = ok && await _studentRepository.CompleteAsync();
             if (!ok)

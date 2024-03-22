@@ -1,8 +1,6 @@
 ﻿using APLMatchMaker.Server.Data;
 using APLMatchMaker.Server.Models;
 using APLMatchMaker.Server.ResourceParameters;
-using APLMatchMaker.Shared.DTOs.StudentsDTOs;
-using Humanizer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,11 +8,13 @@ namespace APLMatchMaker.Server.Repositories
 {
     public class StudentRepository : IStudentRepository
     {
+        //##-< Properties >-###############################################################
         private readonly ApplicationDbContext _db;
         public static UserManager<ApplicationUser> _userManager = default!;
+        //#################################################################################
 
 
-        //##-< Constructor >-#############################################################
+        //##-< Constructor >-##############################################################
         public StudentRepository(ApplicationDbContext dbContext, IServiceProvider services)
         {
             _db = dbContext;
