@@ -1,4 +1,5 @@
 ﻿@page "/coursedetails/{Id:int}"
+@using APLMatchMaker.Client.Components
 @using APLMatchMaker.Shared.DTOs.CoursesDTOs
 
 
@@ -19,11 +20,12 @@ else
         <p><strong>Beskrivning: </strong>@courseDetails.Description</p>
         <p><strong>Start datum: </strong>@courseDetails.StartDate.ToString("yyyy-MM-dd")</p>
         <p><strong>Slut datum: </strong>@courseDetails.EndDate.ToString("yyyy-MM-dd")</p>
-        <div>
-            <button class="btn btn-secondary">Redigera</button>
-            <a href="@($"deletecourse/{courseDetails.Id}")" class="btn btn-danger m-1">Radera</a>
-            <a href="@($"/ListOfCourses")" class="btn btn-primary m-1">Tillbaka till kurslistan</a>
-        </div>
+        <button>Redigera</button>
+        @if (courseDetails.students != null && courseDetails.students.Count > 0)
+        {
+            <StudentList Students="courseDetails.students"></StudentList>
+        }
+        <a href="@($"/ListOfCourses")" class="btn btn-danger m-1">Tillbaka till kurslistan</a>
     </div>
 }
 
