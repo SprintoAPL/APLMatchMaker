@@ -18,7 +18,7 @@ namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
         public string? Status { get; set; } = null!;
         public string? CV { get; set; } = null!;
         [Required]
-        [Range(0, 4, ErrorMessage = "Knowledge level must be between 0 and 3.")]
+        [Range(0, 4, ErrorMessage = "Knowledge level must be between 0 and 4.")]
         public int? KnowledgeLevel { get; set; } = null!; // 0 = "Not set", 1 = "Red", 2 = "Yellow", 3 = "Green"
         public bool? CVIntro { get; set; } = null!;
         public bool? LinkedinIntro { get; set; } = null!;

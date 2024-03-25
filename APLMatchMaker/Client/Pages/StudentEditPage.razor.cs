@@ -48,10 +48,8 @@ namespace APLMatchMaker.Client.Pages
 
                     // Send the PATCH request with the JSON patch document
                     var serializedPatchDoc = JsonConvert.SerializeObject(patchDocument);
-                    // var response = await Http!.PatchAsync($"api/student/{Id}", new StringContent(serializedPatchDoc));
 
                     var request = new HttpRequestMessage(HttpMethod.Patch, $"api/student/{Id}");
-                  //  request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     request.Content = new StringContent(serializedPatchDoc);
                     request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 

@@ -43,48 +43,45 @@ namespace APLMatchMaker
             {
                 configure.ReturnHttpNotAcceptable = true;
             })
-            .AddNewtonsoftJson();// setupAction =>
-            //{
-            //    setupAction.SerializerSettings.ContractResolver =
-            //        new CamelCasePropertyNamesContractResolver();
-            //})
-            //.ConfigureApiBehaviorOptions(setupAction =>
-            //{
-            //    setupAction.InvalidModelStateResponseFactory = context =>
-            //    {
-            //        // create a validation problem details object
-            //        var problemDetailsFactory = context.HttpContext.RequestServices
-            //            .GetRequiredService<ProblemDetailsFactory>();
+            .AddNewtonsoftJson(setupAction =>
+            {
+                setupAction.SerializerSettings.ContractResolver =
+                    new CamelCasePropertyNamesContractResolver();
+            })
+            .ConfigureApiBehaviorOptions(setupAction =>
+            {
+                setupAction.InvalidModelStateResponseFactory = context =>
+                {
+                    // create a validation problem details object
+                    var problemDetailsFactory = context.HttpContext.RequestServices
+                        .GetRequiredService<ProblemDetailsFactory>();
 
-            //        var validationProblemDetails = problemDetailsFactory
-            //            .CreateValidationProblemDetails(
-            //                context.HttpContext,
-            //                context.ModelState);
+                    var validationProblemDetails = problemDetailsFactory
+                        .CreateValidationProblemDetails(
+                            context.HttpContext,
+                            context.ModelState);
 
-            //        // add additional info not added by default
-            //        validationProblemDetails.Detail =
-            //            "See the errors field for details.";
-            //        validationProblemDetails.Instance =
-            //            context.HttpContext.Request.Path;
+                    // add additional info not added by default
+                    validationProblemDetails.Detail =
+                        "See the errors field for details.";
+                    validationProblemDetails.Instance =
+                        context.HttpContext.Request.Path;
 
-            //        // report invalid model state responses as validation issues
-            //        validationProblemDetails.Type =
-            //            "https://courselibrary.com/modelvalidationproblem";
-            //        validationProblemDetails.Status =
-            //            StatusCodes.Status422UnprocessableEntity;
-            //        validationProblemDetails.Title =
-            //            "One or more validation errors occurred.";
+                    // report invalid model state responses as validation issues
+                    validationProblemDetails.Type =
+                        "https://courselibrary.com/modelvalidationproblem";
+                    validationProblemDetails.Status =
+                        StatusCodes.Status422UnprocessableEntity;
+                    validationProblemDetails.Title =
+                        "One or more validation errors occurred.";
 
-            //        return new UnprocessableEntityObjectResult(
-            //            validationProblemDetails)
-            //        {
-            //            ContentTypes = { "application/problem+json" }
-            //        };
-            //    };
-            //});
-
-
-
+                    return new UnprocessableEntityObjectResult(
+                        validationProblemDetails)
+                    {
+                        ContentTypes = { "application/problem+json" }
+                    };
+                };
+            });
 
             builder.Services.AddRazorPages();
             builder.Services.AddScoped<ICourseService, CourseService>();
