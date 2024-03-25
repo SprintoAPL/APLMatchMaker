@@ -169,7 +169,7 @@ a, .btn-link {
     align-items: center;
 }*/
 
-.navbar-expand {
+.navbar-expand-md {
     /*Want to edit the link bar but doesnt work*/
     text-align: center;
 }

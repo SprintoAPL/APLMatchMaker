@@ -1,0 +1,15 @@
+.login-display {
+    background-color: #ffffff;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    text-align: center;
+}
+
+    .login-display .nav-link {
+        color: red; /* Change the color of navigation links */
+    }
+
+    .login-display .user-name {
+        font-weight: bold; /* Make the username text bold */
+    }
