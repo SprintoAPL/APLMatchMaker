@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
+using APLMatchMaker.Server.Helpers;
 
 namespace APLMatchMaker.Server.Services
 {
@@ -32,21 +33,22 @@ namespace APLMatchMaker.Server.Services
 
 
         //##-< Get full list of students >-################################################
-        public async Task<IEnumerable<StudentForListDTO>> GetAsync()
-        {
-            var _students = await _studentRepository.GetAsync();
-            var dtos = _mapper.Map<IEnumerable<StudentForListDTO>>(_students);
-            return dtos;
-        }
+        //public async Task<IEnumerable<StudentForListDTO>> GetAsync()
+        //{
+        //    var _students = await _studentRepository.GetAsync();
+        //    var dtos = _mapper.Map<IEnumerable<StudentForListDTO>>(_students);
+        //    return dtos;
+        //}
         //#################################################################################
 
 
         //##-< Get filtered list of students >-############################################
-        public async Task<IEnumerable<StudentForListDTO>> GetAsync(StudentResourceParameters? studentResourceParameters)
+        public async Task<(IEnumerable<StudentForListDTO>, PagingFactoids)> GetAsync(StudentResourceParameters? studentResourceParameters)
         {
             var _students = await _studentRepository.GetAsync(studentResourceParameters);
+            var _pagingFactoids = new PagingFactoids(_students.CurrentPage, _students.TotalPages, _students.TotalCount, _students.PageSize);
             var dtos = _mapper.Map<IEnumerable<StudentForListDTO>>(_students);
-            return dtos;
+            return (dtos, _pagingFactoids);
         }
         //#################################################################################
 

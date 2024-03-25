@@ -1,11 +1,15 @@
 ﻿using APLMatchMaker.Server.Services;
 using APLMatchMaker.Server.ResourceParameters;
+using APLMatchMaker.Server.Helpers;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
+using System.Drawing.Printing;
+using static Duende.IdentityServer.Models.IdentityResources;
+using System.Text.Json;
 
 namespace APLMatchMaker.Server.Controllers
 {
@@ -30,11 +34,106 @@ namespace APLMatchMaker.Server.Controllers
         //##-< Get list of students (includes search and filter) >-########################
 
         // GET: api/student
-        [HttpGet]
+        [HttpGet(Name = "GetStudents")] // Plural
         public async Task<ActionResult<IEnumerable<StudentForListDTO>>> GetStudentsAsync(
             [FromQuery] StudentResourceParameters? studentResourceParameters)
         {
-            return Ok(await _studentService.GetAsync(studentResourceParameters));
+            PagingFactoids _pagingFactoids; IEnumerable<StudentForListDTO> _studentsForList;
+            (_studentsForList, _pagingFactoids) = await _studentService.GetAsync(studentResourceParameters);
+
+            var _previousPageLink = _pagingFactoids.HasPrevious
+                ? CreateStudentsResourceUri(
+                    studentResourceParameters!,
+                    ResourceUriType.PreviousPage) : null;
+
+            var _nextPageLink = _pagingFactoids.HasNext
+                ? CreateStudentsResourceUri(
+                    studentResourceParameters!,
+                    ResourceUriType.NextPage) : null;
+
+            var paginationMetadata = new
+            {
+                totalCount = _pagingFactoids.TotalCount,
+                pageSize =  _pagingFactoids.PageSize,
+                currentPage = _pagingFactoids.CurrentPage,
+                totalPages = _pagingFactoids.TotalPages,
+                previousPageLink = _previousPageLink,
+                nextPageLink = _nextPageLink
+            };
+
+            Response.Headers.Add("X-Pagination",
+                JsonSerializer.Serialize(paginationMetadata));
+
+            return Ok(_studentsForList);
+        }
+        //#################################################################################
+
+
+        //##-< Resource helper >-##########################################################
+        private string? CreateStudentsResourceUri(
+            StudentResourceParameters studentResourceParameters,
+            ResourceUriType type)
+        {
+            switch (type)
+            {
+                case ResourceUriType.NextPage:
+                    return Url.Link("GetStudents",
+                        new
+                        {
+                            PageNumber = studentResourceParameters.PageNumber + 1,
+                            PageSize = studentResourceParameters.PageSize,
+
+                            Address = studentResourceParameters.Address,
+                            Status = studentResourceParameters.Status,
+                            KnowledgeLevel = studentResourceParameters.KnowledgeLevel,
+                            CVIntro = studentResourceParameters.CVIntro,
+                            LinkedinIntro = studentResourceParameters.LinkedinIntro,
+                            Workshopdag = studentResourceParameters.Workshopdag,
+                            APLSamtal = studentResourceParameters.APLSamtal,
+                            Language = studentResourceParameters.Language,
+                            Nationality = studentResourceParameters.Nationality,
+
+                            SearchQuery = studentResourceParameters.SearchQuery,
+                        });
+                case ResourceUriType.PreviousPage:
+                    return Url.Link("GetStudents",
+                        new
+                        {
+                            PageNumber = studentResourceParameters.PageNumber - 1,
+                            PageSize = studentResourceParameters.PageSize,
+
+                            Address = studentResourceParameters.Address,
+                            Status = studentResourceParameters.Status,
+                            KnowledgeLevel = studentResourceParameters.KnowledgeLevel,
+                            CVIntro = studentResourceParameters.CVIntro,
+                            LinkedinIntro = studentResourceParameters.LinkedinIntro,
+                            Workshopdag = studentResourceParameters.Workshopdag,
+                            APLSamtal = studentResourceParameters.APLSamtal,
+                            Language = studentResourceParameters.Language,
+                            Nationality = studentResourceParameters.Nationality,
+
+                            SearchQuery = studentResourceParameters.SearchQuery,
+                        });
+                default:
+                    return Url.Link("GetStudents",
+                        new
+                        {
+                            PageNumber = studentResourceParameters.PageNumber,
+                            PageSize = studentResourceParameters.PageSize,
+
+                            Address = studentResourceParameters.Address,
+                            Status = studentResourceParameters.Status,
+                            KnowledgeLevel = studentResourceParameters.KnowledgeLevel,
+                            CVIntro = studentResourceParameters.CVIntro,
+                            LinkedinIntro = studentResourceParameters.LinkedinIntro,
+                            Workshopdag = studentResourceParameters.Workshopdag,
+                            APLSamtal = studentResourceParameters.APLSamtal,
+                            Language = studentResourceParameters.Language,
+                            Nationality = studentResourceParameters.Nationality,
+
+                            SearchQuery = studentResourceParameters.SearchQuery,
+                        });
+            }
         }
         //#################################################################################
 
@@ -42,7 +141,7 @@ namespace APLMatchMaker.Server.Controllers
         //##-< Gets an student with id >-##################################################
 
         // GET: api/student/id
-        [HttpGet("{id}", Name = "GetStudent")]
+        [HttpGet("{id}", Name = "GetStudent")]  // Singular
         public async Task<ActionResult<StudentForDetailsDTO>> GetStudentsAsync(string id)
         {
             var student = await _studentService.GetAsync(id);
