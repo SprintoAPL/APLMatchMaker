@@ -1,12 +1,8 @@
 ﻿using APLMatchMaker.Server.Services;
 using APLMatchMaker.Server.ResourceParameters;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.Http.HttpResults;
-using APLMatchMaker.Server.Models;
-using System.Xml.XPath;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
