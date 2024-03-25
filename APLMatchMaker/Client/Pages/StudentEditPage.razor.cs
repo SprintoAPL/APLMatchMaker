@@ -45,6 +45,7 @@ namespace APLMatchMaker.Client.Pages
                     var patchDocument = new JsonPatchDocument<StudentForUpdateDTO>();
                     patchDocument.Replace(s => s.FirstName, editStudent.FirstName);
                     patchDocument.Replace(s => s.LastName, editStudent.LastName);
+                    patchDocument.Replace(s => s.KnowledgeLevel, editStudent.KnowledgeLevel);
 
                     // Send the PATCH request with the JSON patch document
                     var serializedPatchDoc = JsonConvert.SerializeObject(patchDocument);
