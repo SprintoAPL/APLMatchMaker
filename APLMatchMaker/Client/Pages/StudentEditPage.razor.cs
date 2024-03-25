@@ -1,6 +1,9 @@
 ﻿using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.JsonPatch;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
 namespace APLMatchMaker.Client.Pages
@@ -44,7 +47,16 @@ namespace APLMatchMaker.Client.Pages
                     patchDocument.Replace(s => s.LastName, editStudent.LastName);
 
                     // Send the PATCH request with the JSON patch document
-                    var response = await Http!.PatchAsync($"api/student/{Id}", JsonContent.Create(patchDocument));
+                    var serializedPatchDoc = JsonConvert.SerializeObject(patchDocument);
+                    // var response = await Http!.PatchAsync($"api/student/{Id}", new StringContent(serializedPatchDoc));
+
+                    var request = new HttpRequestMessage(HttpMethod.Patch, $"api/student/{Id}");
+                  //  request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    request.Content = new StringContent(serializedPatchDoc);
+                    request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                    var response = await Http!.SendAsync(request);
+
 
                     // Check if the response is successful
                     if (response.IsSuccessStatusCode)
