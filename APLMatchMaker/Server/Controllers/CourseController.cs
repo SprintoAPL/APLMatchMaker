@@ -65,7 +65,8 @@ namespace APLMatchMaker.Server.Controllers
 
                 await _courseService.AddCourseAsync(courseDto);
 
-                return CreatedAtAction("GetCourseByIdAsync", new { id = courseDto.Id }, courseDto);
+                //return CreatedAtAction("GetCourseByIdAsync", new { id = courseDto.Id }, courseDto);
+                return Ok($"{courseDto.Name} is added.");
 
             }
             catch (Exception ex)
@@ -85,7 +86,7 @@ namespace APLMatchMaker.Server.Controllers
                 }
 
                 await _courseService.UpdateCourseAsync(courseDto);
-                return Ok();
+                return Ok($"{courseDto.Name} is updated.");
             }
             catch (Exception ex)
             {
@@ -99,7 +100,7 @@ namespace APLMatchMaker.Server.Controllers
             try
             {
                 await _courseService.DeleteCourseAsync(id);
-                return Ok();
+                return Ok("The course has been removed.");
             }
             catch (Exception ex)
             {

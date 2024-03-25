@@ -8,9 +8,10 @@ namespace APLMatchMaker.Client.Pages
     {
         [Inject]
         public HttpClient? Http { get; set; }
+        
         [Parameter]
         public int Id { get; set; }
-        public CourseDto courseDetails = new CourseDto();
+        public CourseDto courseDetails = new();
         public string? ErrorMessage { get; set; }
 
         protected override async Task OnInitializedAsync()
@@ -32,6 +33,5 @@ namespace APLMatchMaker.Client.Pages
                 ErrorMessage = ex.Message;
             }
         }
-
     }
 }

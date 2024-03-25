@@ -1,5 +1,6 @@
 ﻿using APLMatchMaker.Server.Models;
 using APLMatchMaker.Server.ResourceParameters;
+using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 
 namespace APLMatchMaker.Server.Repositories
 {
@@ -12,5 +13,6 @@ namespace APLMatchMaker.Server.Repositories
         Task<bool> RemoveAsync(string id);
         Task<bool> CompleteAsync();
         Task<bool> EmailExistAsync(string email);
+        bool UpdateStudent(ApplicationUser studentToUpdate);
     }
 }

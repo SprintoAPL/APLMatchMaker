@@ -4,7 +4,7 @@ using System.Net.Http.Json;
 
 namespace APLMatchMaker.Client.Pages
 {
-    public partial class StudentDetailsPage
+    public partial class StudentDetailsPage : ComponentBase
     {
         [Inject]
         public HttpClient? Http { get; set; }
@@ -12,7 +12,7 @@ namespace APLMatchMaker.Client.Pages
         [Parameter]
         public string? Id { get; set; }
 
-        public StudentForDetailsDTO studentDetails = new StudentForDetailsDTO();
+        private StudentForDetailsDTO studentDetails = new StudentForDetailsDTO();
 
         private string? ErrorMessage;
 
@@ -21,7 +21,7 @@ namespace APLMatchMaker.Client.Pages
             try
             {
                 var response = await Http!.GetFromJsonAsync<StudentForDetailsDTO>($"api/student/{Id}");
-                if(response != null)
+                if (response != null)
                 {
                     studentDetails = response;
                 }
@@ -35,7 +35,5 @@ namespace APLMatchMaker.Client.Pages
                 ErrorMessage = ex.Message;
             }
         }
-
-        
     }
 }

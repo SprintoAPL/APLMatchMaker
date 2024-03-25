@@ -1,7 +1,6 @@
 ﻿using APLMatchMaker.Server.Data;
 using APLMatchMaker.Server.Models;
 using APLMatchMaker.Server.ResourceParameters;
-using Humanizer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,11 +8,13 @@ namespace APLMatchMaker.Server.Repositories
 {
     public class StudentRepository : IStudentRepository
     {
+        //##-< Properties >-###############################################################
         private readonly ApplicationDbContext _db;
         public static UserManager<ApplicationUser> _userManager = default!;
+        //#################################################################################
 
 
-        //##-< Constructor >-#############################################################
+        //##-< Constructor >-##############################################################
         public StudentRepository(ApplicationDbContext dbContext, IServiceProvider services)
         {
             _db = dbContext;
@@ -170,10 +171,18 @@ namespace APLMatchMaker.Server.Repositories
         //#################################################################################
 
 
-        //##-< Update one existing student >-##############################################
-        public void Update(ApplicationUser _applicationUser)
+        //##-< Update student >-#############################################################
+        public bool UpdateStudent(ApplicationUser studentToUpdate)
         {
-            //_db.ApplicationUsers.Update(_applicationUser);
+            try
+            {
+                _db.ApplicationUsers.Update(studentToUpdate);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         //#################################################################################
 

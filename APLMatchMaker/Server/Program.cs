@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Serialization;
 
 namespace APLMatchMaker
 {
@@ -41,6 +42,11 @@ namespace APLMatchMaker
             builder.Services.AddControllersWithViews(configure =>
             {
                 configure.ReturnHttpNotAcceptable = true;
+            })
+            .AddNewtonsoftJson(setupAction =>
+            {
+                setupAction.SerializerSettings.ContractResolver =
+                    new CamelCasePropertyNamesContractResolver();
             })
             .ConfigureApiBehaviorOptions(setupAction =>
             {
@@ -77,14 +83,19 @@ namespace APLMatchMaker
                 };
             });
 
-
-
-
             builder.Services.AddRazorPages();
+
             builder.Services.AddScoped<ICourseService, CourseService>();
+
             builder.Services.AddScoped<IStudentService, StudentService>();
             builder.Services.AddScoped<IStudentRepository, StudentRepository>();
             builder.Services.AddAutoMapper(typeof(StudentMappings));
+
+            builder.Services.AddScoped<ICompanyService, CompanyService>();
+            builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+            builder.Services.AddAutoMapper(typeof(CompanyMappings));
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
