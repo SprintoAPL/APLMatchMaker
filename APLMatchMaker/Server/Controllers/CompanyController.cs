@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
+using APLMatchMaker.Server.Models.Entities;
 
 namespace APLMatchMaker.Server.Controllers
 {
@@ -32,7 +33,7 @@ namespace APLMatchMaker.Server.Controllers
             return await _companyService.GetCompaniesListAsync();
         }
         // GET: api/company/{id}
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetCompany")]
         public async Task<ActionResult<CompanyForListDTO>> GetCompanyByIdAsync(int id)
         {
             var company = await _companyService.GetCompanyByIdAsync(id);
@@ -52,6 +53,14 @@ namespace APLMatchMaker.Server.Controllers
             var company = await _companyService.RemoveCompanyByIdAsync(id);
             return company ? Ok(company) : NotFound();
 
+        }
+
+        //POST: api/company
+        [HttpPost]
+        public async Task<ActionResult<Company>> PostCompanyAsync(CompanyForCreateDTO dto)
+        {
+            var companyToReturn = await _companyService.PostAsync(dto);
+            return CreatedAtAction("GetCompany", new { id = companyToReturn.Id }, companyToReturn);
         }
     }
 }

@@ -14,7 +14,6 @@ namespace APLMatchMaker.Shared.DTOs.CompanyDTOs
         [Required(ErrorMessage ="Company should have a valid name")]
         public string CompanyName { get; set; } = string.Empty;
         [MaxLength(15)]
-        [Required]
         public string OrganizationNumber { get; set; } = string.Empty;
         
         public string Website { get; set; } = string.Empty;
