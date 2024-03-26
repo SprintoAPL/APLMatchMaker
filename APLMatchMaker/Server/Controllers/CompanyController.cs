@@ -31,6 +31,19 @@ namespace APLMatchMaker.Server.Controllers
         {
             return await _companyService.GetCompaniesListAsync();
         }
+        // GET: api/company/{id}
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CompanyForListDTO>> GetCompanyByIdAsync(int id)
+        {
+            var company = await _companyService.GetCompanyByIdAsync(id);
+
+            if (company == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(company);
+        }
 
     }
 }

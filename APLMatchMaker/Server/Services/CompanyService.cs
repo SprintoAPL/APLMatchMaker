@@ -27,5 +27,12 @@ namespace APLMatchMaker.Server.Services
                 await _companyRepository.GetCompaniesListAsync());
         }
 
+        // Get a company by ID
+        public async Task<CompanyForListDTO> GetCompanyByIdAsync(int id)
+        {
+            var company = await _companyRepository.GetCompanyByIdAsync(id);
+            return _mapper.Map<CompanyForListDTO>(company);
+        }
+
     }
 }
