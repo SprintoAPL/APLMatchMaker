@@ -52,5 +52,22 @@ namespace APLMatchMaker.Server.Repositories
                 return false;
             }
         }
+
+        //Adding a new company
+
+        public async Task<bool> AddCompanyAsync(Company company)
+        {
+            if(company!=null)
+            {
+                await _db.AddAsync(company);
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
     }
 }

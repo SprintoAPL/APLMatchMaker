@@ -9,5 +9,7 @@ namespace APLMatchMaker.Server.Services
 
         Task<bool> RemoveCompanyByIdAsync(int id);
 
+        Task<CompanyForCreateDTO> PostAsync(CompanyForCreateDTO dto);
+
     }
 }

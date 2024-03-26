@@ -2,6 +2,8 @@
 using APLMatchMaker.Server.Mappings;
 using APLMatchMaker.Server.Repositories;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using APLMatchMaker.Server.Models.Entities;
 
 
 namespace APLMatchMaker.Server.Services
@@ -41,6 +43,30 @@ namespace APLMatchMaker.Server.Services
             var company=await _companyRepository.RemoveCompanyByIdAsync(id);
             return company;
         }
+
+        public async Task<CompanyForCreateDTO> PostAsync(CompanyForCreateDTO dto)
+        {
+                   var company = new Company
+                    {
+                        CompanyName = dto.CompanyName,
+                        CompanyEmail = dto.CompanyEmail,
+                        OrganizationNumber = dto.OrganizationNumber,
+                        Phone = dto.Phone,
+                        Website = dto.Website,
+                        PostalAdress = dto.PostalAdress,
+                        PostalNumber = dto.PostalNumber,
+                        City = dto.City,
+                        //Notes = dto.Notes,
+                    };
+                    var ok= await _companyRepository.AddCompanyAsync(company);
+            if(!ok)
+            {
+                throw new Exception("Could not add Company!");
+            }
+            return _mapper.Map<CompanyForCreateDTO>(company);   
+
+        }
+
 
     }
 }
