@@ -7,5 +7,9 @@ namespace APLMatchMaker.Server.Repositories
         Task<IEnumerable<Company>> GetCompaniesListAsync();
         Task<Company> GetCompanyByIdAsync(int id);
 
+        Task<bool> RemoveCompanyByIdAsync(int id);
+
+
+
     }
 }

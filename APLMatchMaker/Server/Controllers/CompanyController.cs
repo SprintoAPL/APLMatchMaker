@@ -45,5 +45,13 @@ namespace APLMatchMaker.Server.Controllers
             return Ok(company);
         }
 
+        //DELETE: api/company/{id}
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteCompanyByIdAsync(int id)
+        {
+            var company = await _companyService.RemoveCompanyByIdAsync(id);
+            return company ? Ok(company) : NotFound();
+
+        }
     }
 }

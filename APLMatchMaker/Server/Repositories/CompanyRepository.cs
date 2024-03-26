@@ -32,5 +32,25 @@ namespace APLMatchMaker.Server.Repositories
             return company;
         }
 
+        //Removing a company by ID
+
+        public async Task<bool> RemoveCompanyByIdAsync(int id)
+        {
+            var company = _db.Companies.FirstOrDefault(c => c.Id == id);
+            if(company == null)
+            {
+                return false;
+            }
+            try
+            {
+                _db.Companies.Remove(company);
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

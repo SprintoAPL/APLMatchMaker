@@ -34,5 +34,13 @@ namespace APLMatchMaker.Server.Services
             return _mapper.Map<CompanyForListDTO>(company);
         }
 
+        //Remove a company by ID
+
+        public async Task<bool> RemoveCompanyByIdAsync(int id)
+        {
+            var company=await _companyRepository.RemoveCompanyByIdAsync(id);
+            return company;
+        }
+
     }
 }

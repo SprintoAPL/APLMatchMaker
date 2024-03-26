@@ -7,5 +7,7 @@ namespace APLMatchMaker.Server.Services
         Task<IEnumerable<CompanyForListDTO>> GetCompaniesListAsync();
         Task<CompanyForListDTO> GetCompanyByIdAsync(int id);
 
+        Task<bool> RemoveCompanyByIdAsync(int id);
+
     }
 }
