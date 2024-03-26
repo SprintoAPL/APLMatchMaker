@@ -53,12 +53,12 @@ namespace APLMatchMaker.Server.Controllers
 
             var paginationMetadata = new
             {
-                totalCount = _pagingFactoids.TotalCount,
-                pageSize =  _pagingFactoids.PageSize,
-                currentPage = _pagingFactoids.CurrentPage,
-                totalPages = _pagingFactoids.TotalPages,
-                previousPageLink = _previousPageLink,
-                nextPageLink = _nextPageLink
+                TotalCount = _pagingFactoids.TotalCount,
+                PageSize =  _pagingFactoids.PageSize,
+                CurrentPage = _pagingFactoids.CurrentPage,
+                TotalPages = _pagingFactoids.TotalPages,
+                PreviousPageLink = _previousPageLink,
+                NextPageLink = _nextPageLink
             };
 
             Response.Headers.Add("X-Pagination",

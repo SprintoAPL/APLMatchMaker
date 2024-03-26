@@ -41,19 +41,3 @@ else
         </tbody>
     </table>
 }
-
-<button class="btn btn-primary" @onclick="CreateNewStudent">Lägg till ny student</button>
-
-@code {
-    [Inject]
-    private NavigationManager? NavigationManager { get; set; }
-
-    // Define Students property
-    private  void CreateNewStudent()
-    {
-        // Navigate to the create student page
-        NavigationManager?.NavigateTo("/create-student");
-    }
-
-    
-}

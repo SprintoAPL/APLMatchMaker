@@ -3,20 +3,43 @@
 @using APLMatchMaker.Shared.DTOs.StudentsDTOs
 @using APLMatchMaker.Client.Components
 
-<h3>Studentlista</h3>
+<h3 class="m3">Studentlista</h3>
 
 @if (PageListStudents == null && errorMessage == null)
 {
     <p>Läser in...</p>
 }
-
 else if (errorMessage != null)
 {
     <p class="alert alert-danger">Error: @errorMessage</p>
 }
 else
 {
-    <StudentList Students="PageListStudents" />
+    <h7 class="alert alert-warning m-3 p-0">Add a search box here</h7>
+
+    <div class="m-3">
+        <StudentList Students="PageListStudents" />
+    </div>
+    <p>
+        Sidan @paginationMetadata!.CurrentPage av @paginationMetadata.TotalPages sidor.<br />
+        Visar @paginationMetadata.PageSize elever per sida.<br />
+        Totalt @paginationMetadata.TotalCount elever.<br />
+        @if (!(paginationMetadata.PreviousPageLink == null))
+        {
+            <a href="@paginationMetadata.PreviousPageLink">Föregående sida</a> <span>&nbsp</span>
+        }
+        @if (!(paginationMetadata.NextPageLink == null))
+        {
+            <a href="@paginationMetadata.NextPageLink">Nästa sida</a>
+        }
+    </p>
+    <button class="btn btn-primary" @onclick="CreateNewStudent">Lägg till ny student</button>
 }
 
-
+@if (debug)
+{
+    <div class="alert alert-warning">
+        <p>Pagination Json:<br />@pagination</p>
+        <p>Deserialization error:<br />@errorMessageTest</p>
+    </div>
+}
