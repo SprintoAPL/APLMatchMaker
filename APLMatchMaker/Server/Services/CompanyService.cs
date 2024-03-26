@@ -8,32 +8,24 @@ namespace APLMatchMaker.Server.Services
 {
     public class CompanyService : ICompanyService
     {
-        //##-< Properties >-###############################################################
+        //-< Properties >-
         private ICompanyRepository _companyRepository;
         private IMapper _mapper;
-        //#################################################################################
 
 
-        //##-< Constructor >-##############################################################
+        //-< Constructor >-
         public CompanyService(ICompanyRepository companyRepository, IMapper mapper)
         {
             _companyRepository = companyRepository;
             _mapper = mapper;
         }
-        //#################################################################################
-
-
-        //##-< Get all companies as list >-################################################
+        
+        //-< Get all companies as list >-
         public async Task<IEnumerable<CompanyForListDTO>> GetCompaniesListAsync()
         {
             return _mapper.Map<IEnumerable<CompanyForListDTO>>(
                 await _companyRepository.GetCompaniesListAsync());
         }
-        //#################################################################################
 
-
-        //##-< ???????????? >-#############################################################
-        // New methods goes here.
-        //#################################################################################
     }
 }

@@ -10,29 +10,20 @@ namespace APLMatchMaker.Server.Repositories
 {
     public class CompanyRepository : ICompanyRepository
     {
-        //##-< Properties >-###############################################################
+        //-< Properties >-
         ApplicationDbContext _db;
-        //#################################################################################
 
-
-        //##-< Constructor >-##############################################################
+        //-< Constructor >-
         public CompanyRepository(ApplicationDbContext db)
         {
             _db = db;
         }
-        //#################################################################################
 
-
-        //##-< Get all companies as list >-################################################
+        //-< Get all companies as list >-
         public async Task<IEnumerable<Company>> GetCompaniesListAsync()
         {
             return await _db.Companies.ToListAsync();
         }
-        //#################################################################################
 
-
-        //##-< ???????????? >-#############################################################
-        // New methods goes here.
-        //#################################################################################
     }
 }

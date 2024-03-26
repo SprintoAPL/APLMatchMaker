@@ -12,22 +12,18 @@ namespace APLMatchMaker.Server.Controllers
     [Route("api/company")]
     [ApiController]
     //[Authorize]
+
     public class CompanyController : ControllerBase
     {
-        //##-< Properties >-###############################################################
+        //-< Properties >-
         private ICompanyService _companyService;
-        //#################################################################################
 
 
-        //##-< Constructor >-##############################################################
+        //-< Constructor >-
         public CompanyController(ICompanyService companyService)
         {
             _companyService = companyService;
         }
-        //#################################################################################
-
-
-        //##-< Get all companies as list >-################################################
 
         // GET: api/company
         [HttpGet]
@@ -35,11 +31,6 @@ namespace APLMatchMaker.Server.Controllers
         {
             return await _companyService.GetCompaniesListAsync();
         }
-        //#################################################################################
 
-
-        //##-< ???????????? >-#############################################################
-        // New methods goes here.
-        //#################################################################################
     }
 }
