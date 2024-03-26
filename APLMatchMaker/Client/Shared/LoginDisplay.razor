@@ -4,13 +4,17 @@
 
 <AuthorizeView>
     <Authorized>
+        <div class="login-display">
         <a href="authentication/profile">Välkommen, @context.User.Identity?.Name!</a>
         <button class="nav-link btn btn-link" @onclick="BeginLogOut">Logga ut</button>
+        </div>
     </Authorized>
     <NotAuthorized>
-        <a href="authentication/register">Registrera</a>
-        <a href="authentication/login">Logga in</a>
+        <div class="login-display">
+            <a href="authentication/register" class="btn btn-dark m-1">Registrera </a>
+            <a href="authentication/login" class="btn btn-dark m-1">Logga in</a>
         @* class="btn btn-primary" - Link button *@
+        </div>
     </NotAuthorized>
 </AuthorizeView>
 

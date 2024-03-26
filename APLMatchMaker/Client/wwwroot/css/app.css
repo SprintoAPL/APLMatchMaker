@@ -179,21 +179,24 @@ a, .btn-link {
     background-color: #1d1d1d; /* Background color */
     color: #fff; /* Text color */
     padding: 30px; /* Padding around content */
-    height: 120px;
+    height: 100px;
     display: flex; /* Use flexbox for layout */
     /*justify-content: space-between;*/ /* Align content horizontally */
     /*align-items: center;*/ /* Align content vertically */
     text-align: center !important;
+    display: flex;
 }
 
 .logo {
     /*Logo image*/
-    width: 120px; /* Width of your element */
-    height: 120px; /* Height of your element */
+    width: 150px; /* Width of your element */
+    height: 150px; /* Height of your element */
     background-image: url('../images/LEXICON_trsp.png');
     background-size: contain; /* Scale the background image to fit within the element */
     background-repeat: no-repeat; /* Prevent the background image from repeating */
-    background-position: center; /* Center the background image */
+    /*background-position: center;*/
+    margin: auto;
+    left: 15px;
 }
 
 /*.btn-primary {
