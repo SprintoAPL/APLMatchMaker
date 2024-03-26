@@ -6,11 +6,11 @@
         {
             return knowledgeLevel switch
             {
-                0 => "Not set",
-                1 => "Red",
-                2 => "Yellow",
-                3 => "Green",
-                _ => "Unknown",
+                0 => "Ej angivet",
+                1 => "Röd",
+                2 => "Gul",
+                3 => "Grön",
+                _ => "Okänd",
             };
         }
     }
