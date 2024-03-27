@@ -6,13 +6,14 @@
     <Authorized>
         <div class="login-display">
         <a href="authentication/profile">Välkommen, @context.User.Identity?.Name!</a>
-        <button class="nav-link btn btn-link" @onclick="BeginLogOut">Logga ut</button>
+            <button class="btn btn-dark m-1" @onclick="BeginLogOut">Logga Ut</button>
+           @*  class="nav-link btn btn-link" = Old Button *@
         </div>
     </Authorized>
     <NotAuthorized>
         <div class="login-display">
             <a href="authentication/register" class="btn btn-dark m-1">Registrera </a>
-            <a href="authentication/login" class="btn btn-dark m-1">Logga in</a>
+            <a href="authentication/login" class="btn btn-dark m-1">Logga In</a>
         @* class="btn btn-primary" - Link button *@
         </div>
     </NotAuthorized>
