@@ -16,11 +16,11 @@ namespace APLMatchMaker.Server.Controllers
 
     public class CompanyController : ControllerBase
     {
-        //-< Properties >-
+        // Properties 
         private ICompanyService _companyService;
 
 
-        //-< Constructor >-
+        // Constructor 
         public CompanyController(ICompanyService companyService)
         {
             _companyService = companyService;
@@ -32,6 +32,8 @@ namespace APLMatchMaker.Server.Controllers
         {
             return await _companyService.GetCompaniesListAsync();
         }
+
+
         // GET: api/company/{id}
         [HttpGet("{id}", Name = "GetCompany")]
         public async Task<ActionResult<CompanyForListDTO>> GetCompanyByIdAsync(int id)
@@ -40,27 +42,65 @@ namespace APLMatchMaker.Server.Controllers
 
             if (company == null)
             {
-                return NotFound();
+                return NotFound("Company not found."); // Not Found
             }
 
-            return Ok(company);
+            return Ok(new { message = "Company found successfully", company }); // Company found successfully
         }
+
+
+        //POST: api/company
+        [HttpPost]
+        public async Task<ActionResult<Company>> PostCompanyAsync(CompanyForCreateDTO dto)
+        {
+            try
+            {
+                var companyToReturn = await _companyService.PostAsync(dto);
+                return CreatedAtAction("GetCompany", new { id = companyToReturn.Id }, "Company added successfully");
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An error occurred while processing your request."); // Internal Server Error
+            }
+        }
+
+
+        // PUT: api/company/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCompany(int id, [FromBody] CompanyUpdateDTO companyUpdateDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await _companyService.UpdateCompanyAsync(id, companyUpdateDTO);
+
+            if (result)
+            {
+                return Ok("Company updated successfully."); // Company updated successfully
+            }
+            else
+            {
+                return NotFound("Company not found."); // Company not found
+            }
+        }
+
 
         //DELETE: api/company/{id}
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteCompanyByIdAsync(int id)
         {
             var company = await _companyService.RemoveCompanyByIdAsync(id);
-            return company ? Ok(company) : NotFound();
-
+            if (company)
+            {
+                return Ok("Company deleted successfully."); // OK
+            }
+            else
+            {
+                return NotFound("Company not found."); // Not Found
+            }
         }
 
-        //POST: api/company
-        [HttpPost]
-        public async Task<ActionResult<Company>> PostCompanyAsync(CompanyForCreateDTO dto)
-        {
-            var companyToReturn = await _companyService.PostAsync(dto);
-            return CreatedAtAction("GetCompany", new { id = companyToReturn.Id }, companyToReturn);
-        }
     }
 }
