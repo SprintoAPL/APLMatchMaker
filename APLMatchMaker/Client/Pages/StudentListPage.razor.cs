@@ -11,23 +11,45 @@ namespace APLMatchMaker.Client.Pages
     {
         [Inject]
         private HttpClient? Http { get; set; }
-        //[Inject]
-        //private JsonSerializer? Json { get; set; }
         [Inject]
         private NavigationManager? NavigationManager { get; set; }
+
+        private string? navLink { get; set; }
 
         private IEnumerable<StudentForListDTO>? PageListStudents;
         private string? errorMessage;
         private string? errorMessageTest;
         private string? pagination;
-        private bool debug = false;
+        private bool debug = true;
         private PaginationMetadata? paginationMetadata;
 
         protected override async Task OnInitializedAsync()
         {
+            await GetDataAsync();
+            //await base.OnInitializedAsync();
+        }
+
+        protected override async Task OnParametersSetAsync()
+        {
+            await GetDataAsync();
+            //await base.OnParametersSetAsync();
+        }
+
+        protected async Task GetDataAsync()
+        {
+            HttpResponseMessage response;
+            if (string.IsNullOrEmpty(navLink))
+            {
+                navLink = "api/student?PageNumber=2&PageSize=10".Trim();
+            }
+            else
+            {
+                navLink = navLink.Trim();
+            }
+
             try
             {
-                var response = await Http!.GetAsync("api/student");
+                response = await Http!.GetAsync(navLink);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -35,16 +57,16 @@ namespace APLMatchMaker.Client.Pages
                     var temp = response.Headers.GetValues("X-Pagination").FirstOrDefault().ToJson().Replace("\\\\u0026", "&").Replace("\\", "").Substring(1);
                     var lenth = temp.Length;
                     pagination = temp.Remove(lenth - 1);
-                    //var test = JsonSerializer.Deserialize<PaginationMetadata>(response.Headers.GetValues("X-Pagination").FirstOrDefault().ToJson());
                 }
             }
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
             }
+
             try
             {
-                paginationMetadata = pagination!.FromJson<PaginationMetadata>(); //JsonSerializer.Deserialize<PaginationMetadata>(pagination!);
+                paginationMetadata = pagination!.FromJson<PaginationMetadata>();
             }
             catch (Exception ex)
             {
@@ -56,7 +78,21 @@ namespace APLMatchMaker.Client.Pages
         private void CreateNewStudent()
         {
             // Navigate to the create student page
-            NavigationManager?.NavigateTo("/create-student");
+            NavigationManager!.NavigateTo("/create-student");
+        }
+
+        private void GoToPrevious()
+        {
+            navLink = paginationMetadata!.PreviousPageLink;
+
+            NavigationManager!.NavigateTo($"/ListOfStudents");
+        }
+
+        private void GoToNext()
+        {
+            navLink = paginationMetadata!.NextPageLink;
+
+            NavigationManager!.NavigateTo($"/ListOfStudents");
         }
     }
 }

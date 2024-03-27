@@ -26,11 +26,11 @@ else
         Totalt @paginationMetadata.TotalCount elever.<br />
         @if (!(paginationMetadata.PreviousPageLink == null))
         {
-            <a href="@paginationMetadata.PreviousPageLink">Föregående sida</a> <span>&nbsp</span>
+            <a @onclick="GoToPrevious">Föregående sida</a> <span>&nbsp</span>
         }
         @if (!(paginationMetadata.NextPageLink == null))
         {
-            <a href="@paginationMetadata.NextPageLink">Nästa sida</a>
+            <a @onclick="GoToNext">Nästa sida</a>
         }
     </p>
     <button class="btn btn-primary" @onclick="CreateNewStudent">Lägg till ny student</button>
@@ -40,6 +40,7 @@ else
 {
     <div class="alert alert-warning">
         <p>Pagination Json:<br />@pagination</p>
+        <p>navLink:<br />@navLink</p>
         <p>Deserialization error:<br />@errorMessageTest</p>
     </div>
 }
