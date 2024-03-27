@@ -20,7 +20,7 @@ else
         <p><strong>Beskrivning: </strong>@courseDetails.Description</p>
         <p><strong>Start datum: </strong>@courseDetails.StartDate.ToString("yyyy-MM-dd")</p>
         <p><strong>Slut datum: </strong>@courseDetails.EndDate.ToString("yyyy-MM-dd")</p>
-        <button>Redigera</button>
+        <a href="@($"/EditCourse/{Id}")" class="btn btn-danger m-1">Redigera</a>
     </div>
     <div>
         @if (courseDetails.students != null && courseDetails.students.Count > 0)
