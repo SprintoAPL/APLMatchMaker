@@ -85,9 +85,15 @@ namespace APLMatchMaker.Server.Services
         //Remove a company by ID
         public async Task<bool> RemoveCompanyByIdAsync(int id)
         {
-            var company=await _companyRepository.RemoveCompanyByIdAsync(id);
-            return company;
+            try
+            {
+                var company = await _companyRepository.RemoveCompanyByIdAsync(id);
+                return company;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to remove company with ID {id}.", ex);
+            }
         }
-
     }
 }
