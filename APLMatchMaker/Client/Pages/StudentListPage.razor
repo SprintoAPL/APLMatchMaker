@@ -5,7 +5,7 @@
 
 <h3 class="m3">Studentlista</h3>
 
-@if (PageListStudents == null && errorMessage == null)
+@if ((PageListStudents == null || !PageListStudents.Any()) && errorMessage == null)
 {
     <p>Läser in...</p>
 }
@@ -15,7 +15,7 @@ else if (errorMessage != null)
 }
 else
 {
-    <h7 class="alert alert-warning m-3 p-0">Add a search box here</h7>
+    <h7 class="alert alert-warning m-3 p-1">Add a search box here</h7>
 
     <div class="m-3">
         <StudentList Students="PageListStudents" />

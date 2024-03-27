@@ -28,6 +28,7 @@ namespace APLMatchMaker.Client.Pages
             try
             {
                 var response = await Http!.GetAsync("api/student");
+
                 if (response.IsSuccessStatusCode)
                 {
                     PageListStudents = await response.Content.ReadFromJsonAsync<IEnumerable<StudentForListDTO>>();
