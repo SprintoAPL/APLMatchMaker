@@ -9,7 +9,7 @@ namespace APLMatchMaker.Shared.DTOs.CompanyDTOs
 {
     public class CompanyForCreateDTO
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         [Required(ErrorMessage ="Company should have a valid name")]
         public string CompanyName { get; set; } = string.Empty;
