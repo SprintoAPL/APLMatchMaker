@@ -2,6 +2,7 @@
 
 namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
 {
+
     public class StudentForUpdateDTO : IValidatableObject
     {
         [Required(ErrorMessage = "You should give the student a first name.")]
@@ -14,10 +15,10 @@ namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
         [Required(ErrorMessage = "You should give the student a social security number.")]
         public string? StudentSocSecNo { get; set; } = null!;
         public string? Address { get; set; } = null!;
-        public string? Status { get; set; }=null!;
+        public string? Status { get; set; } = null!;
         public string? CV { get; set; } = null!;
         [Required]
-        [Range(1, 3, ErrorMessage = "Knowledge level must be between 1 and 3.")]
+        [Range(0, 4, ErrorMessage = "Knowledge level must be between 0 and 4.")]
         public int? KnowledgeLevel { get; set; } = null!; // 0 = "Not set", 1 = "Red", 2 = "Yellow", 3 = "Green"
         public bool? CVIntro { get; set; } = null!;
         public bool? LinkedinIntro { get; set; } = null!;
@@ -34,13 +35,13 @@ namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
 
 
         public IEnumerable<ValidationResult> Validate(
-            ValidationContext validationContext)
+            ValidationContext validationcontext)
         {
             if (FirstName == LastName)
             {
                 yield return new ValidationResult(
-                "The student must have different first and last names.",
-                new[] { "Student" });
+                "the student must have different first and last names.",
+                new[] { "student" });
             }
         }
     }
