@@ -40,7 +40,7 @@ namespace APLMatchMaker.Server.Services
 
 
         //Add a New Company 
-        public async Task<CompanyForCreateDTO> PostAsync(CompanyForCreateDTO dto)
+        public async Task<CompanyForListDTO> PostAsync(CompanyForCreateDTO dto)
         {
             var company = new Company
             {
@@ -59,7 +59,7 @@ namespace APLMatchMaker.Server.Services
             {
                 throw new Exception("Could not add Company!");
             }
-            return _mapper.Map<CompanyForCreateDTO>(company);
+            return _mapper.Map<CompanyForListDTO>(company);
 
         }
 
