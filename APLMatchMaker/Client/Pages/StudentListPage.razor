@@ -4,6 +4,7 @@
 @using APLMatchMaker.Client.Components
 
 <h3 class="m3">Studentlista</h3>
+<h7 class="alert alert-warning m-3 p-1">Add a search box here</h7>
 
 @if ((PageListStudents == null || !PageListStudents.Any()) && errorMessage == null)
 {
@@ -15,7 +16,6 @@ else if (errorMessage != null)
 }
 else
 {
-    <h7 class="alert alert-warning m-3 p-1">Add a search box here</h7>
 
     <div class="m-3">
         <StudentList Students="PageListStudents" />
@@ -26,11 +26,11 @@ else
         Totalt @paginationMetadata.TotalCount elever.<br />
         @if (!(paginationMetadata.PreviousPageLink == null))
         {
-            <a @onclick="GoToPrevious">Föregående sida</a> <span>&nbsp</span>
+            <a class="link" @onclick="GoToPrevious">Föregående sida</a> <span>&nbsp</span>
         }
         @if (!(paginationMetadata.NextPageLink == null))
         {
-            <a @onclick="GoToNext">Nästa sida</a>
+            <a class="link" @onclick="GoToNext">Nästa sida</a>
         }
     </p>
     <button class="btn btn-primary" @onclick="CreateNewStudent">Lägg till ny student</button>

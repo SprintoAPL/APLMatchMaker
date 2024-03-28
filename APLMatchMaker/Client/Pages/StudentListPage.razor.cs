@@ -14,13 +14,14 @@ namespace APLMatchMaker.Client.Pages
         [Inject]
         private NavigationManager? NavigationManager { get; set; }
 
-        private string? navLink { get; set; }
+        [Parameter]
+        public string? navLink { get; set; }
 
         private IEnumerable<StudentForListDTO>? PageListStudents;
         private string? errorMessage;
         private string? errorMessageTest;
         private string? pagination;
-        private bool debug = true;
+        private bool debug = false;
         private PaginationMetadata? paginationMetadata;
 
         protected override async Task OnInitializedAsync()
@@ -40,7 +41,7 @@ namespace APLMatchMaker.Client.Pages
             HttpResponseMessage response;
             if (string.IsNullOrEmpty(navLink))
             {
-                navLink = "api/student?PageNumber=2&PageSize=10".Trim();
+                navLink = "api/student".Trim();
             }
             else
             {
@@ -81,18 +82,16 @@ namespace APLMatchMaker.Client.Pages
             NavigationManager!.NavigateTo("/create-student");
         }
 
-        private void GoToPrevious()
+        private async Task GoToPrevious()
         {
             navLink = paginationMetadata!.PreviousPageLink;
-
-            NavigationManager!.NavigateTo($"/ListOfStudents");
+            await OnParametersSetAsync();
         }
 
-        private void GoToNext()
+        private async Task GoToNext()
         {
             navLink = paginationMetadata!.NextPageLink;
-
-            NavigationManager!.NavigateTo($"/ListOfStudents");
+            await OnParametersSetAsync();
         }
     }
 }
