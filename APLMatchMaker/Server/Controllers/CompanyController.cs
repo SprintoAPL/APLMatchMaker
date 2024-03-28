@@ -51,17 +51,14 @@ namespace APLMatchMaker.Server.Controllers
 
         //POST: api/company
         [HttpPost]
-        public async Task<ActionResult<Company>> PostCompanyAsync(CompanyForCreateDTO dto)
+        public async Task<ActionResult<CompanyForListDTO>> PostCompanyAsync(CompanyForCreateDTO dto)
         {
-            try
+            var companyToReturn = await _companyService.PostAsync(dto);
+            if(companyToReturn != null)
             {
-                var companyToReturn = await _companyService.PostAsync(dto);
-                return CreatedAtAction("GetCompany", new { id = companyToReturn.Id }, "Company added successfully");
+                return Ok(companyToReturn);
             }
-            catch (Exception)
-            {
-                return StatusCode(500, "An error occurred while processing your request."); // Internal Server Error
-            }
+            return CreatedAtAction("GetCompany", new { Id = companyToReturn.Id }, companyToReturn);
         }
 
 
