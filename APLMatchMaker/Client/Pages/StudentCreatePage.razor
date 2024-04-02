@@ -2,7 +2,7 @@
 @using APLMatchMaker.Shared.DTOs.StudentsDTOs
 @using System.Net.Http.Json
 
-<h3>Create New Student</h3>
+<h3>Lägg till ny student</h3>
 
 @if (errorMessage != null)
 {
@@ -33,7 +33,7 @@
         </div>
 
         <div class="form-group">
-            <label for="studentSocSecNo">TelefonNummer:</label>
+            <label for="<phonNumber">TelefonNummer:</label>
             <input type="text" class="form-control" @bind="student.PhoneNumber" id="PhoneNumber" />
         </div>
 

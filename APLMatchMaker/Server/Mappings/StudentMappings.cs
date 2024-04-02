@@ -14,22 +14,11 @@ namespace APLMatchMaker.Server.Mappings
                 from => from.MapFrom(au => $"{au.FirstName} {au.LastName}"));
 
 
-            CreateMap<ApplicationUser, StudentForDetailsDTO>()
-                .ForMember(
-                dest => dest.FullName,
-                from => from.MapFrom(au => $"{au.FirstName} {au.LastName}"));
+            CreateMap<ApplicationUser, StudentForDetailsDTO>();
 
 
-            //CreateMap<StudentForCreateDTO, ApplicationUser>()
-            //    .ForMember(
-            //    dest => dest.UserName,
-            //    from => from.MapFrom(st => st.Email))
-            //    .ForMember(
-            //    dest => dest.IsStudent,
-            //    from => from.MapFrom(st => true))
-            //    .ForMember(
-            //    dest => dest.EmailConfirmed,
-            //    from => from.MapFrom(st => true));
+            CreateMap<ApplicationUser, StudentForUpdateDTO>().ReverseMap();
+
         }
     }
 }
