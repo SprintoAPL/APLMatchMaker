@@ -32,16 +32,6 @@ namespace APLMatchMaker.Server.Services
         //#################################################################################
 
 
-        //##-< Get full list of students >-################################################
-        //public async Task<IEnumerable<StudentForListDTO>> GetAsync()
-        //{
-        //    var _students = await _studentRepository.GetAsync();
-        //    var dtos = _mapper.Map<IEnumerable<StudentForListDTO>>(_students);
-        //    return dtos;
-        //}
-        //#################################################################################
-
-
         //##-< Get filtered list of students >-############################################
         public async Task<(IEnumerable<StudentForListDTO>, PagingFactoids)> GetAsync(StudentResourceParameters? studentResourceParameters)
         {

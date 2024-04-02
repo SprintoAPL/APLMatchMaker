@@ -1,4 +1,4 @@
-﻿namespace APLMatchMaker.Server.Services
+﻿namespace APLMatchMaker.Server.Repositories
 {
     public class PropertyMapping<TSource, TDestination> : IPropertyMapping
     {

@@ -1,5 +1,4 @@
-﻿
-namespace APLMatchMaker.Server.Services
+﻿namespace APLMatchMaker.Server.Repositories
 {
     public interface IPropertyMappingService
     {

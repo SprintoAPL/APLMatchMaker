@@ -2,6 +2,7 @@
 using APLMatchMaker.Server.Models;
 using APLMatchMaker.Server.ResourceParameters;
 using APLMatchMaker.Server.Helpers;
+using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,25 +12,27 @@ namespace APLMatchMaker.Server.Repositories
     {
         //##-< Properties >-###############################################################
         private readonly ApplicationDbContext _db;
-        public static UserManager<ApplicationUser> _userManager = default!;
+        private readonly UserManager<ApplicationUser> _userManager = default!;
+        private readonly IPropertyMappingService _propertyMappingService;
         //#################################################################################
 
 
         //##-< Constructor >-##############################################################
-        public StudentRepository(ApplicationDbContext dbContext, IServiceProvider services)
+        public StudentRepository(ApplicationDbContext dbContext, IServiceProvider services, IPropertyMappingService propertyMappingService)
         {
             _db = dbContext;
             _userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+            _propertyMappingService = propertyMappingService;
         }
         //#################################################################################
 
 
         //##-< Get all students as list >-#################################################
-        public async Task<List<ApplicationUser>> GetAsync()
-        {
-            return await _db.ApplicationUsers.Where(au => au.IsStudent == true).ToListAsync();
+        //public async Task<List<ApplicationUser>> GetAsync()
+        //{
+        //    return await _db.ApplicationUsers.Where(au => au.IsStudent == true).ToListAsync();
 
-        }
+        //}
         //#################################################################################
 
 
@@ -95,6 +98,13 @@ namespace APLMatchMaker.Server.Repositories
                 sc.Nationality.Contains(studentResourceParameters.SearchQuery.Trim()) ||
                 sc.Miscellaneous.Contains(studentResourceParameters.SearchQuery.Trim())
                 );
+            }
+
+            if (!string.IsNullOrWhiteSpace (studentResourceParameters.OrderBy)) 
+            {
+                var studentPropertyMappingDictionary = _propertyMappingService
+                    .GetPropertyMapping<StudentForListDTO, ApplicationUser>();
+
             }
 
             return await PagedList<ApplicationUser>.CreateAsync(studentCollection,

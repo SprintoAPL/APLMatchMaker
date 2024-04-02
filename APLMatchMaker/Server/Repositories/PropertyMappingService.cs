@@ -1,7 +1,7 @@
 ﻿using APLMatchMaker.Server.Models;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 
-namespace APLMatchMaker.Server.Services
+namespace APLMatchMaker.Server.Repositories
 {
     public class PropertyMappingService : IPropertyMappingService
     {
