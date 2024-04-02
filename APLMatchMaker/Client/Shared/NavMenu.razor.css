@@ -66,3 +66,13 @@
         overflow-y: auto;
     }
 }*/
+
+.navbar {
+    text-align: center;
+
+}
+.navbar.navbar-expand-md.navbar-dark.bg-dark.mb-4 {
+        font-size: 1.2rem;
+        background: black;
+
+}
