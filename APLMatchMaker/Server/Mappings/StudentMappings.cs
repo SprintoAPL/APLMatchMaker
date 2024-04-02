@@ -10,7 +10,7 @@ namespace APLMatchMaker.Server.Mappings
         {
             CreateMap<ApplicationUser, StudentForListDTO>()
                 .ForMember(
-                dest => dest.FullName,
+                dest => dest.Name,
                 from => from.MapFrom(au => $"{au.FirstName} {au.LastName}"));
 
 

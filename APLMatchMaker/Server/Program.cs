@@ -1,9 +1,9 @@
 using APLMatchMaker.Server.Data;
+using APLMatchMaker.Server.Extensions;
 using APLMatchMaker.Server.Models;
 using APLMatchMaker.Server.Services;
 using APLMatchMaker.Server.Repositories;
 using APLMatchMaker.Server.Mappings;
-using Lexicon_LMS.Server.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -94,6 +94,8 @@ namespace APLMatchMaker
             builder.Services.AddScoped<ICompanyService, CompanyService>();
             builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
             builder.Services.AddAutoMapper(typeof(CompanyMappings));
+
+            builder.Services.AddTransient<IPropertyMappingService, PropertyMappingService>();
 
 
             var app = builder.Build();
