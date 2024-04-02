@@ -9,6 +9,9 @@ namespace APLMatchMaker.Server.Mappings
         public CompanyMappings()
         {
             CreateMap<Company, CompanyForListDTO>();
+            CreateMap<Company,CompanyForCreateDTO>();
+            CreateMap<CompanyUpdateDTO, Company>(); 
+
         }
     }
 }

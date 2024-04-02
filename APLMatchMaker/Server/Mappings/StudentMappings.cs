@@ -14,10 +14,7 @@ namespace APLMatchMaker.Server.Mappings
                 from => from.MapFrom(au => $"{au.FirstName} {au.LastName}"));
 
 
-            CreateMap<ApplicationUser, StudentForDetailsDTO>()
-                .ForMember(
-                dest => dest.FullName,
-                from => from.MapFrom(au => $"{au.FirstName} {au.LastName}"));
+            CreateMap<ApplicationUser, StudentForDetailsDTO>();
 
 
             CreateMap<ApplicationUser, StudentForUpdateDTO>().ReverseMap();

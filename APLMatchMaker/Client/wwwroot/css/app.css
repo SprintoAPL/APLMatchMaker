@@ -9,7 +9,7 @@ h1:focus {
 }
 
 a, .btn-link {
-    color: #ffffff;
+    color: black;
 }
 
     /* visited link */
@@ -169,7 +169,7 @@ a, .btn-link {
     align-items: center;
 }*/
 
-.navbar-expand {
+.navbar-expand-md {
     /*Want to edit the link bar but doesnt work*/
     text-align: center;
 }
@@ -179,11 +179,12 @@ a, .btn-link {
     background-color: #1d1d1d; /* Background color */
     color: #fff; /* Text color */
     padding: 30px; /* Padding around content */
-    height: 200px;
+    height: 100px;
     display: flex; /* Use flexbox for layout */
     /*justify-content: space-between;*/ /* Align content horizontally */
     /*align-items: center;*/ /* Align content vertically */
     text-align: center !important;
+    display: flex;
 }
 
 .logo {
@@ -193,22 +194,11 @@ a, .btn-link {
     background-image: url('../images/LEXICON_trsp.png');
     background-size: contain; /* Scale the background image to fit within the element */
     background-repeat: no-repeat; /* Prevent the background image from repeating */
-    background-position: center; /* Center the background image */
+    /*background-position: center;*/
+    margin: auto;
+    left: 15px;
 }
 
-.login-display {
-    background-color: #ffffff;
-    padding: 8px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-}
-    .login-display .nav-link {
-        color: red; /* Change the color of navigation links */
-    }
-
-    .login-display .user-name {
-        font-weight: bold; /* Make the username text bold */
-    }
 /*.btn-primary {
     color: #fff;*/ /* Textfärg */
     /*background-color: #143286;*/ /* bakgrundsfärg */

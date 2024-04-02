@@ -1,59 +1,36 @@
 ﻿@using APLMatchMaker.Client.Helpers
 @using APLMatchMaker.Shared.DTOs.StudentsDTOs
 
-@if (Students == null || !Students.Any())
-{
-    <p>Inga elever hittades.</p>
-}
-else
-{
-    <table> @* class="table"> *@
-        <thead>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Full Namn</th>
+            <th scope="col">E-post</th>
+            <th scope="col">Personnummer</th>
+            <th scope="col">Adress</th>
+            <th scope="col">Kunskapsnivå</th>
+            <th scope="col">Språk</th>
+            <th scope="col"></th> @* Space for the "delete" button. *@
+            <th scope="col"></th> @* Space for the "details" button. *@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Students)
+        {
             <tr>
-                <th scope="col">Full Namn</th>
-                <th scope="col">E-post</th>
-                <th scope="col">Personnummer</th>
-                <th scope="col">Adress</th>
-                <th scope="col">Kunskapsnivå</th>
-                <th scope="col">Språk</th>
-                <th scope="col"></th> @* Space for the "delete" button. *@
-                <th scope="col"></th> @* Space for the "details" button. *@
+                <td>@student.FullName</td>
+                <td>@student.Email</td>
+                <td>@student.StudentSocSecNo</td>
+                <td>@student.Address</td>
+                <td>@StudentHelper.GetKnowledgeLevelString(student.KnowledgeLevel)</td>
+                <td>@student.Language</td>
+                <td scope="row">
+                    <a href="@($"deletestudent/{student.Id}")" class="btn btn-danger m-1">Radera elev</a>
+                </td>
+                <td scope="row">
+                    <a href="@($"studentdetails/{student.Id}")" class="btn btn-info m-1">Om elev</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var student in Students)
-            {
-                <tr>
-                    <td>@student.FullName</td>
-                    <td>@student.Email</td>
-                    <td>@student.StudentSocSecNo</td>
-                    <td>@student.Address</td>
-                    <td>@StudentHelper.GetKnowledgeLevelString(student.KnowledgeLevel)</td>
-                    <td>@student.Language</td>
-                    <td scope="row">
-                        <a href="@($"deletestudent/{student.Id}")" class="btn btn-danger m-1">Radera elev</a>
-                    </td>
-                    <td scope="row">
-                        <a href="@($"studentdetails/{student.Id}")" class="btn btn-info m-1">Om elev</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-
-<button class="btn btn-primary" @onclick="CreateNewStudent">Lägg till ny student</button>
-
-@code {
-    [Inject]
-    private NavigationManager? NavigationManager { get; set; }
-
-    // Define Students property
-    private  void CreateNewStudent()
-    {
-        // Navigate to the create student page
-        NavigationManager?.NavigateTo("/create-student");
-    }
-
-    
-}
+        }
+    </tbody>
+</table>

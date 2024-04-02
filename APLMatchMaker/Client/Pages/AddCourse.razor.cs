@@ -18,7 +18,7 @@ namespace APLMatchMaker.Client.Pages
         {
             try
             {
-                var response = await Http?.PostAsJsonAsync("api/course/", course);
+                var response = await Http!.PostAsJsonAsync("api/course/", course);
                 if (response.IsSuccessStatusCode)
                 {
                     NavManager?.NavigateTo($"/ListOfCourses");

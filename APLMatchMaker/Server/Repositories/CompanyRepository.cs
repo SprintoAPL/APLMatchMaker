@@ -10,29 +10,81 @@ namespace APLMatchMaker.Server.Repositories
 {
     public class CompanyRepository : ICompanyRepository
     {
-        //##-< Properties >-###############################################################
+        // Properties 
         ApplicationDbContext _db;
-        //#################################################################################
 
-
-        //##-< Constructor >-##############################################################
+        // Constructor 
         public CompanyRepository(ApplicationDbContext db)
         {
             _db = db;
         }
-        //#################################################################################
 
-
-        //##-< Get all companies as list >-################################################
+        // Get all companies as list 
         public async Task<IEnumerable<Company>> GetCompaniesListAsync()
         {
             return await _db.Companies.ToListAsync();
         }
-        //#################################################################################
 
 
-        //##-< ???????????? >-#############################################################
-        // New methods goes here.
-        //#################################################################################
+        // Get a company by ID
+        public async Task<Company> GetCompanyByIdAsync(int id)
+        {
+            var company = await _db.Companies.FirstOrDefaultAsync(c => c.Id == id) ?? throw new Exception($"Company with ID {id} not found.");
+            return company;
+        }
+
+
+        //Adding a new company
+        public async Task<bool> AddCompanyAsync(Company company)
+        {
+            if(company!=null)
+            {
+                await _db.AddAsync(company);
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+
+        //Update a company 
+        public async Task<bool> UpdateCompanyAsync(Company company)
+        {
+            try
+            {
+                _db.Entry(company).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception )
+            {
+                return false;
+            }
+        }
+
+
+        //Removing a company by ID
+        public async Task<bool> RemoveCompanyByIdAsync(int id)
+        {
+            var company = _db.Companies.FirstOrDefault(c => c.Id == id);
+            if (company == null)
+            {
+                return false;
+            }
+            try
+            {
+                _db.Companies.Remove(company);
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        } 
     }
 }

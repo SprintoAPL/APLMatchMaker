@@ -61,6 +61,7 @@ namespace APLMatchMaker.Server.Controllers
                 {
                     return BadRequest("Bad Request: CourseDto is null");
                 }
+        
 
                 await _courseService.AddCourseAsync(courseDto);
 

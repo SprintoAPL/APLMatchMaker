@@ -1,19 +1,30 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace APLMatchMaker.Server.Models.Entities
+
+namespace APLMatchMaker.Shared.DTOs.CompanyDTOs
 {
-    public class Company
+    public class CompanyUpdateDTO
     {
-        public int Id { get; set; }
+        [Required(ErrorMessage = "Company Name is required")]
         public string CompanyName { get; set; } = string.Empty;
+
+        [MaxLength(15)]
         public string OrganizationNumber { get; set; } = string.Empty;
+
         public string Website { get; set; } = string.Empty;
+
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string CompanyEmail { get; set; } = string.Empty;
-        public string Phone { get; set; } = string.Empty; // The company's exchange telephone number.
+
+        public string Phone { get; set; } = string.Empty;
+
         public string PostalAdress { get; set; } = string.Empty;
+
         public int PostalNumber { get; set; }
+
         public string City { get; set; } = string.Empty;
-        public string Notes { get; set; } = string.Empty;
+
+        //public string Notes { get; set; } = string.Empty;
     }
 }
+
