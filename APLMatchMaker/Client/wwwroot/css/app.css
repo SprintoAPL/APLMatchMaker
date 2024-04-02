@@ -2,6 +2,7 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #e0e5ea
 }
 
 h1:focus {
@@ -9,23 +10,23 @@ h1:focus {
 }
 
 a, .btn-link {
-    color: black;
+    color: #1b6ec2;
 }
 
-    /* visited link */
-/*    a:visited {
-        color: #656565
-    }*/
+     visited link 
+    a:visited {
+        color: purple;
+    }
 
     /* mouse over link */
     a:hover {
-        color: hotpink;
+        color: #4783bf;
     }
 
     /* selected link */
-    a:active {
+/*    a:active {
         color: blue;
-    }
+    }*/
 
 /*Länkknapp(primary)*/
 .btn-primary {
@@ -169,34 +170,31 @@ a, .btn-link {
     align-items: center;
 }*/
 
-.navbar-expand-md {
-    /*Want to edit the link bar but doesnt work*/
-    text-align: center;
-}
-
 .logo-bar {
     /*Top nav bar with logo*/
     background-color: #1d1d1d; /* Background color */
     color: #fff; /* Text color */
     padding: 30px; /* Padding around content */
     height: 100px;
-    display: flex; /* Use flexbox for layout */
+    /*display: flex;*/ /* Use flexbox for layout */
     /*justify-content: space-between;*/ /* Align content horizontally */
     /*align-items: center;*/ /* Align content vertically */
-    text-align: center !important;
-    display: flex;
+    text-align: center;
+    /*display: flex;*/
+    border-bottom: 2px solid #888;
 }
 
 .logo {
     /*Logo image*/
-    width: 150px; /* Width of your element */
-    height: 150px; /* Height of your element */
+    /*border: solid 5px;*/
+    width: 180px; /* Width of your element */
+    height: 180px; /* Height of your element */
     background-image: url('../images/LEXICON_trsp.png');
-    background-size: contain; /* Scale the background image to fit within the element */
+    background-size: contain; /* scale the background image to fit within the element */
     background-repeat: no-repeat; /* Prevent the background image from repeating */
     /*background-position: center;*/
-    margin: auto;
-    left: 15px;
+    /*margin: auto;*/
+    
 }
 
 /*.btn-primary {

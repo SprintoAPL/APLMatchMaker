@@ -1,9 +1,14 @@
 .login-display {
+    width: 450px;
+    height: auto;
+    float: right;
     color: white;
-/*    padding: 8px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;*/
+    /*    padding: 8px;*/
+    /*border: 6px inset #808080;*/
+    /*border-radius: 4px;*/
     text-align: center;
+    right: 0px;
+    top: 50px;
 }
 
     .login-display .nav-link {
