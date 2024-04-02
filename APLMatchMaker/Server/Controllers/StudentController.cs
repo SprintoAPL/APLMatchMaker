@@ -170,6 +170,22 @@ namespace APLMatchMaker.Server.Controllers
         //#################################################################################
 
 
+        //##-< Updates a student (with PUT:) with id >-####################################
+
+        // PUT: api/student/id
+        [HttpPut("{id}")]
+        public async Task<ActionResult<StudentForDetailsDTO>> FullyUpdateStudentAsync(string id, StudentForUpdateDTO updatedStudent)
+        {
+            var result = await _studentService.UpdateStudentAsync(id, updatedStudent);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return Ok(result);
+        }
+        //#################################################################################
+
+
         //##-< Updates a student (with PATCH:) with id >-##################################
 
         // PATCH: api/student/id
@@ -188,8 +204,7 @@ namespace APLMatchMaker.Server.Controllers
                 return ValidationProblem(ModelState);
             }
 
-            return Ok(await _studentService.UpdateStudentAsync(id, _studentToPatch));
-            //return CreatedAtRoute("GetStudent", new { Id = studentToReturn.Id }, studentToReturn);
+            return Ok(await _studentService.PatchStudentAsync(id, _studentToPatch));
         }
         //#################################################################################
 

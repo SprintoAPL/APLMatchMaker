@@ -108,24 +108,50 @@ namespace APLMatchMaker.Server.Services
         //#################################################################################
 
 
-        //##-< Update a student >-#############################################################
-        public async Task<StudentForDetailsDTO?> UpdateStudentAsync(string _id, StudentForUpdateDTO _studentToPatch)
+        //##-< Update a student >-#########################################################
+        public async Task<StudentForDetailsDTO?> UpdateStudentAsync(string _id, StudentForUpdateDTO _updatedStudent)
         {
-            var _StudentFromRepo = await _studentRepository.GetAsync(_id);
-
-            if (_StudentFromRepo == null)
+            if (string.IsNullOrWhiteSpace(_id) || _updatedStudent == null)
             {
                 return null;
             }
+            var _studentFromRepo = await _studentRepository.GetAsync(_id);
+            if (_studentFromRepo == null)
+            {
+                return null;
+            }
+            _mapper.Map(_updatedStudent, _studentFromRepo);
 
-            _mapper.Map(_studentToPatch, _StudentFromRepo);
-
-            var ok = _studentRepository.UpdateStudent(_StudentFromRepo);
+            var ok = _studentRepository.UpdateStudent(_studentFromRepo);
             ok = ok && await _studentRepository.CompleteAsync();
 
             if (ok)
             {
-                return _mapper.Map<StudentForDetailsDTO>(_StudentFromRepo);
+                return _mapper.Map<StudentForDetailsDTO>(_studentFromRepo);
+            }
+            return null;
+        }
+        //#################################################################################
+
+
+        //##-< Patch a student >-##########################################################
+        public async Task<StudentForDetailsDTO?> PatchStudentAsync(string _id, StudentForUpdateDTO _studentPatch)
+        {
+            var _studentFromRepo = await _studentRepository.GetAsync(_id);
+
+            if (_studentFromRepo == null)
+            {
+                return null;
+            }
+
+            _mapper.Map(_studentPatch, _studentFromRepo);
+
+            var ok = _studentRepository.UpdateStudent(_studentFromRepo);
+            ok = ok && await _studentRepository.CompleteAsync();
+
+            if (ok)
+            {
+                return _mapper.Map<StudentForDetailsDTO>(_studentFromRepo);
             }
             return null;
         }
