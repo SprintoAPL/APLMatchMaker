@@ -5,6 +5,7 @@ using APLMatchMaker.Server.Helpers;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 namespace APLMatchMaker.Server.Repositories
 {
@@ -116,7 +117,8 @@ namespace APLMatchMaker.Server.Repositories
         //##-< Get one student, by id >-###################################################
         public async Task<ApplicationUser?> GetAsync(string id)
         {
-            return await _db.ApplicationUsers.FirstOrDefaultAsync(au => au.Id == id && au.IsStudent == true);
+            return await _db.ApplicationUsers.Where(au => au.Id == id && au.IsStudent == true)
+                .Include(au => au.Course).ThenInclude(en => en.Course).FirstOrDefaultAsync();
         }
         //#################################################################################
 
