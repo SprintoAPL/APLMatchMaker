@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using APLMatchMaker.Server.Models.Entities;
 using NuGet.Protocol.Core.Types;
+using APLMatchMaker.Server.ResourceParameters;
 
 
 namespace APLMatchMaker.Server.Services
@@ -28,6 +29,13 @@ namespace APLMatchMaker.Server.Services
         {
             return _mapper.Map<IEnumerable<CompanyForListDTO>>(
                 await _companyRepository.GetCompaniesListAsync());
+        }
+
+        //supporting filter&Sort
+        public async Task<IEnumerable<CompanyForListDTO>> GetCompaniesListAsync(CompanyResourceParameters? companyResourceParameters)
+        {
+            var companies = await _companyRepository.GetCompaniesListAsync(companyResourceParameters);
+            return  _mapper.Map<IEnumerable<CompanyForListDTO>>(companies);
         }
 
 
