@@ -73,7 +73,7 @@ namespace APLMatchMaker.Server.Helpers
                     orderByString = orderByString
                         + (string.IsNullOrWhiteSpace(orderByString) ? string.Empty : ", ")
                         + destinationProperty
-                        + (orderDescending ? " descending" : " ascendong");
+                        + (orderDescending ? " descending" : " ascending");
                 }
             }
 
