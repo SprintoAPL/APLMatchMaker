@@ -11,7 +11,7 @@ namespace APLMatchMaker.Shared.DTOs.CoursesDTOs
     {
         [Required(ErrorMessage ="Du måste ange ett namn för kursen.") ]
         public string Name { get; set; } = string.Empty;
-        [MaxLength(100, ErrorMessage ="Beskrivningen kan enbart innehålla 100 tecken.")]
+        //[MaxLength(100, ErrorMessage ="Beskrivningen kan enbart innehålla 100 tecken.")]
         public string Description { get; set; } = string.Empty;
         [Required(ErrorMessage ="Du måste ange ett startdatum.")]
         public DateTime StartDate { get; set; }
