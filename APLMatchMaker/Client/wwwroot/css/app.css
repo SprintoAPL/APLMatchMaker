@@ -2,7 +2,18 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background-color: #e0e5ea
+    /*background-color: #343642; */
+    background-image: url('../images/LEXICON_bg.jpg');
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    background-size: cover;
+}
+
+.background {
+    height: 500px;
+    width: 500px;
+    background-image: url('../images/LEXICON_bg2.jpg');
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    background-size: contain; /* scale the background image to fit within the element */
 }
 
 h1:focus {
@@ -119,8 +130,10 @@ a, .btn-link {
 
 .table {
     /* Table background*/
-    --bs-table-bg: transparent;
+/*    --bs-table-bg: transparent;*/
+    --bs-table-bg: white;
     --bs-table-accent-bg: transparent;
+/*    --bs-table-accent-bg: #1f1f21;*/
     /* Text color*/
     --bs-table-striped-color: #212529;
     --bs-table-striped-bg: rgba(0, 0, 0, 0.05); /*rgba(0, 0, 0, 0.05);*/
@@ -175,7 +188,7 @@ a, .btn-link {
     background-color: #1d1d1d; /* Background color */
     color: #fff; /* Text color */
     padding: 30px; /* Padding around content */
-    height: 100px;
+    height: 90px;
     /*display: flex;*/ /* Use flexbox for layout */
     /*justify-content: space-between;*/ /* Align content horizontally */
     /*align-items: center;*/ /* Align content vertically */
@@ -187,8 +200,8 @@ a, .btn-link {
 .logo {
     /*Logo image*/
     /*border: solid 5px;*/
-    width: 180px; /* Width of your element */
-    height: 180px; /* Height of your element */
+    width: 120px; /* Width of your element */
+    height: 120px; /* Height of your element */
     background-image: url('../images/LEXICON_trsp.png');
     background-size: contain; /* scale the background image to fit within the element */
     background-repeat: no-repeat; /* Prevent the background image from repeating */
