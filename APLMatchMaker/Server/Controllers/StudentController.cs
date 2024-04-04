@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
-using System.Drawing.Printing;
-using static Duende.IdentityServer.Models.IdentityResources;
 using System.Text.Json;
 
 namespace APLMatchMaker.Server.Controllers
@@ -94,6 +92,8 @@ namespace APLMatchMaker.Server.Controllers
                             Nationality = studentResourceParameters.Nationality,
 
                             SearchQuery = studentResourceParameters.SearchQuery,
+
+                            OrderBy = studentResourceParameters.OrderBy,
                         });
                 case ResourceUriType.PreviousPage:
                     return Url.Link("GetStudents",
@@ -113,6 +113,8 @@ namespace APLMatchMaker.Server.Controllers
                             Nationality = studentResourceParameters.Nationality,
 
                             SearchQuery = studentResourceParameters.SearchQuery,
+
+                            OrderBy = studentResourceParameters.OrderBy,
                         });
                 default:
                     return Url.Link("GetStudents",
@@ -132,6 +134,8 @@ namespace APLMatchMaker.Server.Controllers
                             Nationality = studentResourceParameters.Nationality,
 
                             SearchQuery = studentResourceParameters.SearchQuery,
+
+                            OrderBy = studentResourceParameters.OrderBy,
                         });
             }
         }
