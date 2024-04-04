@@ -42,15 +42,15 @@ namespace APLMatchMaker.Client.Pages
         {
             try
             {
-                var success = await Http.PutAsJsonAsync($"api/course/{Id}", CourseToEdit);
+                var result = await Http.PutAsJsonAsync($"api/course/{Id}", CourseToEdit);
 
-                if (success.IsSuccessStatusCode)
+                if (result.IsSuccessStatusCode)
                 {
                     NavManager!.NavigateTo("/ListOfCourses");
                 }
                 else
                 {
-                    ErrorMessage = "Uppdateringen misslyckas.";
+                    ErrorMessage = "Uppdateringen misslyckas ."+ result.StatusCode;
                 }
             }
             catch (Exception ex)

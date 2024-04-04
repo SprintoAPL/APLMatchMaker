@@ -117,7 +117,7 @@ namespace APLMatchMaker.Server.Services
             }
         }
 
-        public async Task UpdateCourseAsync(CourseDto courseDto)
+        public async Task UpdateCourseAsync(CourseForEditDto courseDto, int id)
         {
             if (courseDto == null)
             {
@@ -126,7 +126,8 @@ namespace APLMatchMaker.Server.Services
 
             try
             {
-                var course = await _dbContext.Courses.FindAsync(courseDto.Id);
+                
+                var course = await _dbContext.Courses.FindAsync(id);
                 if (course != null)
                 {
                     course.Name = courseDto.Name;
@@ -139,7 +140,7 @@ namespace APLMatchMaker.Server.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error occurred while updating the course with ID {courseDto.Id}.", ex);
+                throw new Exception($"Error occurred while updating the course with ID {id}.", ex);
             }
         }
     }
