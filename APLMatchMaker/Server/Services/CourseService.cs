@@ -98,7 +98,7 @@ namespace APLMatchMaker.Server.Services
                         students = (ICollection<StudentForListDTO>)c.Students!.Select(s => new StudentForListDTO 
                         {
                             Id = s.Student!.Id,
-                            FullName = $"{s.Student.FirstName} {s.Student.LastName}",
+                            Name = $"{s.Student.FirstName} {s.Student.LastName}",
                             Email = s.Student.Email,
                             PhoneNumber = s.Student.PhoneNumber,
                             StudentSocSecNo = s.Student.StudentSocSecNo,

@@ -1,7 +1,7 @@
 ﻿using APLMatchMaker.Server.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Lexicon_LMS.Server.Extensions
+namespace APLMatchMaker.Server.Extensions
 {
     public static class ApplicationBuilderExtensions
     {

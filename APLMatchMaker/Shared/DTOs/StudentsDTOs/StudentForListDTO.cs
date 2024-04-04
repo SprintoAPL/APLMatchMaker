@@ -11,7 +11,7 @@ namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
     {
         [MaxLength(400)]
         public string? Id { get; set; }
-        public string? FullName { get; set; }
+        public string? Name { get; set; }
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
         public string StudentSocSecNo { get; set; } = string.Empty;
