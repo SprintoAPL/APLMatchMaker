@@ -85,6 +85,35 @@ namespace APLMatchMaker.Server.Repositories
             {
                 return false;
             }
-        } 
+        }
+
+        // Sorting Of Company
+        public async Task<IEnumerable<Company>> GetSortedCompaniesAsync(string sortField, string sortOrder)
+        {
+            IQueryable<Company> query = _db.Companies;
+
+            switch (sortField.ToLower())
+            {
+                case "companyname":
+                    query = sortOrder.ToLower() == "asc" ?
+                        query.OrderBy(c => c.CompanyName) :
+                        query.OrderByDescending(c => c.CompanyName);
+                    break;
+                case "organizationnumber":
+                    query = sortOrder.ToLower() == "asc" ?
+                        query.OrderBy(c => c.OrganizationNumber) :
+                        query.OrderByDescending(c => c.OrganizationNumber);
+                    break;
+                default:
+                    // Default sorting by ID
+                    query = sortOrder.ToLower() == "asc" ?
+                        query.OrderBy(c => c.Id) :
+                        query.OrderByDescending(c => c.Id);
+                    break;
+            }
+
+            return await query.ToListAsync();
+        }
+
     }
 }

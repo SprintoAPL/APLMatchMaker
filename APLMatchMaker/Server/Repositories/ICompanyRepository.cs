@@ -10,9 +10,7 @@ namespace APLMatchMaker.Server.Repositories
         Task<bool> AddCompanyAsync(Company company);
         Task<bool> UpdateCompanyAsync(Company company);
         Task<bool> RemoveCompanyByIdAsync(int id);
-
-
-
+        Task<IEnumerable<Company>> GetSortedCompaniesAsync(string sortField, string sortOrder);
 
     }
 }
