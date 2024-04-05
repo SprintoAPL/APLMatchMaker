@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using APLMatchMaker.Server.Models;
+using APLMatchMaker.Server.Models.Entities;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 
 namespace APLMatchMaker.Server.Mappings
@@ -10,26 +11,21 @@ namespace APLMatchMaker.Server.Mappings
         {
             CreateMap<ApplicationUser, StudentForListDTO>()
                 .ForMember(
-                dest => dest.FullName,
+                dest => dest.Name,
                 from => from.MapFrom(au => $"{au.FirstName} {au.LastName}"));
 
 
             CreateMap<ApplicationUser, StudentForDetailsDTO>()
                 .ForMember(
-                dest => dest.FullName,
-                from => from.MapFrom(au => $"{au.FirstName} {au.LastName}"));
+                dest => dest.Course,
+                from => from.MapFrom(au => au.Course.FirstOrDefault()!.Course));
 
 
-            //CreateMap<StudentForCreateDTO, ApplicationUser>()
-            //    .ForMember(
-            //    dest => dest.UserName,
-            //    from => from.MapFrom(st => st.Email))
-            //    .ForMember(
-            //    dest => dest.IsStudent,
-            //    from => from.MapFrom(st => true))
-            //    .ForMember(
-            //    dest => dest.EmailConfirmed,
-            //    from => from.MapFrom(st => true));
+            CreateMap<ApplicationUser, StudentForUpdateDTO>().ReverseMap();
+
+
+            CreateMap<Course, CourseForStudentDTO>();
+
         }
     }
 }

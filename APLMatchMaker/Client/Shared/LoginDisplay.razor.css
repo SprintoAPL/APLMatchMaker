@@ -1,0 +1,20 @@
+.login-display {
+    width: 450px;
+    height: auto;
+    float: right;
+    color: white;
+    /*    padding: 8px;*/
+    /*border: 6px inset #808080;*/
+    /*border-radius: 4px;*/
+    text-align: center;
+    right: 0px;
+    top: 50px;
+}
+
+    .login-display .nav-link {
+        color: white; /* Change the color of navigation links */
+    }
+
+    .login-display .user-name {
+        font-weight: bold; /* Make the username text bold */
+    }

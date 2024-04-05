@@ -11,7 +11,9 @@ namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
     {
         [MaxLength(400)]
         public string? Id { get; set; }
-        public string? FullName { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+
         [MaxLength(256)]
         public string? UserName { get; set; }
         public string? Email { get; set; }
@@ -30,5 +32,8 @@ namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
         public string? Language { get; set; }
         public string? Nationality { get; set; }
         public string? Miscellaneous { get; set; }
+
+
+        public CourseForStudentDTO? Course { get; set; } = null!;
     }
 }

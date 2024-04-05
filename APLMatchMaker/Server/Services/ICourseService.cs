@@ -3,10 +3,10 @@ namespace APLMatchMaker.Server.Services
 {
     public interface ICourseService
     {
-        Task<List<CourseDto>> GetAllCoursesAsync();
-        Task<CourseDto> GetCourseByIdAsync(int id);
+        Task<List<CourseForShortListDTO>> GetAllCoursesAsync();
+        Task<CourseDto?> GetCourseByIdAsync(int id);
         Task AddCourseAsync(CourseDto course);
-        Task UpdateCourseAsync(CourseDto course);
+        Task UpdateCourseAsync(CourseForEditDto course, int id);
         Task DeleteCourseAsync(int id);
     }
 }

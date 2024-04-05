@@ -1,41 +1,22 @@
 ﻿@page "/deletestudent/{Id}"
-
 @using APLMatchMaker.Shared.DTOs.StudentsDTOs
+@using APLMatchMaker.Client.Components
+@using System.Net.Http.Json
 
-<h3>Delete Student</h3>
+<h3>Ta bort student</h3>
 
-@if (!string.IsNullOrEmpty(ErrorMessage))
+@if (studentDelete != null)
 {
-    <div class="alert alert-danger" role="alert">
-        @ErrorMessage
-    </div>
+    <p><h5>Är du säker på att du vill ta bort den här eleven?</h5></p>
+
+    <StudentDetails studentDetails="@studentDelete" />
+
+    <button class="btn btn-danger" @onclick="Delete">Radera</button>
+}
+else
+{
+    <p>Inga studentuppgifter hittades.</p>
 }
 
-<p><h5>Är du säker på att ta bort den här eleven?</h5></p>
+<a href="@($"/ListOfStudents")" class="btn btn-danger m-1">Tillbaka till studentlistan</a>
 
-<table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Full Namn</th>
-                <th scope="col">E-post</th>
-                <th scope="col">Personnummer</th>
-                <th scope="col">Adress</th>
-                <th scope="col"> Kunskapsnivå</th>
-                <th scope="col">Språk</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td scope="row">@studentDelete.FullName</td>
-            <td scope="row">@studentDelete.Email</td>
-            <td scope="row">@studentDelete.StudentSocSecNo</td>
-            <td scope="row">@studentDelete.Address</td>
-            <td scope="row">@studentDelete.KnowledgeLevel</td>
-            <td scope="row">@studentDelete.Language</td>
-            <td>
-                <button class="btn btn-danger" @onclick="Delete">Radera</button>
-            </td>
-            </tr>
-            </tbody>
-            </table>
-<a href="@($"/ListOfStudents")" class="btn btn-danger m-1">Tillbaka till elevlistan</a>

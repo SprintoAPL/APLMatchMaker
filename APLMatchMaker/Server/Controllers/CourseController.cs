@@ -65,7 +65,8 @@ namespace APLMatchMaker.Server.Controllers
 
                 await _courseService.AddCourseAsync(courseDto);
 
-                return CreatedAtAction("GetCourseByIdAsync", new { id = courseDto.Id }, courseDto);
+                //return CreatedAtAction("GetCourseByIdAsync", new { id = courseDto.Id }, courseDto);
+                return Ok($"{courseDto.Name} is added.");
 
             }
             catch (Exception ex)
@@ -75,17 +76,17 @@ namespace APLMatchMaker.Server.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCourseAsync(int id, CourseDto courseDto)
+        public async Task<IActionResult> UpdateCourseAsync(int id, CourseForEditDto courseEdit)
         {
             try
             {
-                if (courseDto == null || courseDto.Id != id)
+                if (courseEdit == null)
                 {
                     return BadRequest("Bad Request: Invalid CourseDto or ID mismatch");
                 }
 
-                await _courseService.UpdateCourseAsync(courseDto);
-                return Ok();
+                await _courseService.UpdateCourseAsync(courseEdit, id);
+                return Ok($"{courseEdit.Name} is updated.");
             }
             catch (Exception ex)
             {
@@ -99,7 +100,7 @@ namespace APLMatchMaker.Server.Controllers
             try
             {
                 await _courseService.DeleteCourseAsync(id);
-                return Ok();
+                return Ok("The course has been removed.");
             }
             catch (Exception ex)
             {

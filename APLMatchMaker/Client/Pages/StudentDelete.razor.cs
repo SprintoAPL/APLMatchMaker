@@ -6,52 +6,48 @@ namespace APLMatchMaker.Client.Pages
 {
     public partial class StudentDelete
     {
-        [Inject]
-        public HttpClient? Http { get; set; }
-
-        [Inject]
-        private NavigationManager? NavigationManager { get; set; }
-
         [Parameter]
         public string? Id { get; set; }
 
-        private StudentForListDTO studentDelete = new StudentForListDTO();
+        private StudentForDetailsDTO? studentDelete;
 
         private string? ErrorMessage;
+
+        [Inject]
+        private HttpClient? Http { get; set; }
+
+        [Inject]
+        private NavigationManager? NavigationManager { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             try
             {
-                studentDelete = await Http!.GetFromJsonAsync<StudentForListDTO>($"api/student/{Id}");
-                if (studentDelete == null)
-                {
-                    return;
-                }
+                studentDelete = await Http!.GetFromJsonAsync<StudentForDetailsDTO>($"api/student/{Id}");
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                ErrorMessage = "Error loading student details: " + ex.Message;
             }
-            await base.OnInitializedAsync();
         }
+
         private async Task Delete()
         {
             try
             {
-                var response = await Http!.DeleteAsync($"/api/Student/" + Id);
+                var response = await Http!.DeleteAsync($"api/student/{Id}");
                 if (response.IsSuccessStatusCode)
                 {
                     NavigationManager!.NavigateTo($"/ListOfStudents");
                 }
                 else
                 {
-                    ErrorMessage = "Could not delete a student in API!" + response.StatusCode;
+                    ErrorMessage = "Failed to delete student. Error: " + response.StatusCode;
                 }
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"Error deleting a student: {ex.Message}";
+                ErrorMessage = "Error deleting student: " + ex.Message;
             }
         }
     }

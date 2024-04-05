@@ -1,6 +1,7 @@
 ﻿using APLMatchMaker.Server.Data;
 using APLMatchMaker.Server.Models.Entities;
 using APLMatchMaker.Shared.DTOs.CoursesDTOs;
+using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace APLMatchMaker.Server.Services
@@ -58,16 +59,15 @@ namespace APLMatchMaker.Server.Services
             }
         }
 
-        public async Task<List<CourseDto>> GetAllCoursesAsync()
+        public async Task<List<CourseForShortListDTO>> GetAllCoursesAsync()
         {
             try
             {
                 var courses = await _dbContext.Courses
-                    .Select(c => new CourseDto
+                    .Select(c => new CourseForShortListDTO
                     {
                         Id = c.Id,
                         Name = c.Name,
-                        Description = c.Description,
                         StartDate = c.StartDate,
                         EndDate = c.EndDate,
                     }).ToListAsync();
@@ -80,12 +80,14 @@ namespace APLMatchMaker.Server.Services
             }
         }
 
-        public async Task<CourseDto> GetCourseByIdAsync(int id)
+        public async Task<CourseDto?> GetCourseByIdAsync(int id)
         {
             try
             {
                 var course = await _dbContext.Courses
                     .Where(c => c.Id == id)
+                    .Include(c => c.Students)
+                    .ThenInclude(s => s.Student)
                     .Select(c => new CourseDto
                     {
                         Id = c.Id,
@@ -93,6 +95,18 @@ namespace APLMatchMaker.Server.Services
                         Description = c.Description,
                         StartDate = c.StartDate,
                         EndDate = c.EndDate,
+                        students = (ICollection<StudentForListDTO>)c.Students!.Select(s => new StudentForListDTO 
+                        {
+                            Id = s.Student!.Id,
+                            Name = $"{s.Student.FirstName} {s.Student.LastName}",
+                            Email = s.Student.Email,
+                            PhoneNumber = s.Student.PhoneNumber,
+                            StudentSocSecNo = s.Student.StudentSocSecNo,
+                            Address = s.Student.Address,
+                            KnowledgeLevel = s.Student.KnowledgeLevel,
+                            Language = s.Student.Language,
+                            Nationality = s.Student.Nationality
+                        })
                     }).FirstOrDefaultAsync();
 
                 return course;
@@ -103,7 +117,7 @@ namespace APLMatchMaker.Server.Services
             }
         }
 
-        public async Task UpdateCourseAsync(CourseDto courseDto)
+        public async Task UpdateCourseAsync(CourseForEditDto courseDto, int id)
         {
             if (courseDto == null)
             {
@@ -112,7 +126,8 @@ namespace APLMatchMaker.Server.Services
 
             try
             {
-                var course = await _dbContext.Courses.FindAsync(courseDto.Id);
+                
+                var course = await _dbContext.Courses.FindAsync(id);
                 if (course != null)
                 {
                     course.Name = courseDto.Name;
@@ -125,7 +140,7 @@ namespace APLMatchMaker.Server.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error occurred while updating the course with ID {courseDto.Id}.", ex);
+                throw new Exception($"Error occurred while updating the course with ID {id}.", ex);
             }
         }
     }

@@ -2,6 +2,7 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #e0e5ea
 }
 
 h1:focus {
@@ -9,12 +10,26 @@ h1:focus {
 }
 
 a, .btn-link {
-    color: #0071c1;
+    color: #1b6ec2;
 }
 
-.btn-primary {
-    /*Länkknapp(primary)*/
+     visited link 
+    a:visited {
+        color: purple;
+    }
 
+    /* mouse over link */
+    a:hover {
+        color: #4783bf;
+    }
+
+    /* selected link */
+/*    a:active {
+        color: blue;
+    }*/
+
+/*Länkknapp(primary)*/
+.btn-primary {
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
@@ -100,7 +115,87 @@ a, .btn-link {
 
     .loading-progress-text:after {
         content: var(--blazor-load-percentage-text, "Loading");
+}
+
+.table {
+    /* Table background*/
+    --bs-table-bg: transparent;
+    --bs-table-accent-bg: transparent;
+    /* Text color*/
+    --bs-table-striped-color: #212529;
+    --bs-table-striped-bg: rgba(0, 0, 0, 0.05); /*rgba(0, 0, 0, 0.05);*/
+    --bs-table-active-color: #212529;
+    --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+    --bs-table-hover-color: #212529;
+    --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    vertical-align: top;
+    border-color: #dee2e6
+}
+
+    .table > :not(caption) > * > * {
+        padding: .5rem .5rem;
+        background-color: var(--bs-table-bg);
+        border-bottom-width: 1px;
+        box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg)
     }
+
+    .table > tbody {
+        vertical-align: inherit
+    }
+
+    .table > thead {
+        vertical-align: bottom
+    }
+
+    .table > :not(:last-child) > :last-child > * {
+        border-bottom-color: currentColor
+    }
+    .table > tbody > :nth-child(odd) {
+        /*Alternating row colors for tables*/
+        background-color: rgba(0, 0, 0, 0.03);
+    }
+
+/*.top-row {*/
+    /*Top nav bar with links*/
+    /*background-color: #0C1321;
+    border-bottom: 1px solid #d6d5d5;
+    text-align: center;
+    justify-content: flex-end;*/
+    /* Default: height: 3.5rem;*/
+    /*height: 6rem;
+    display: flex;
+    align-items: center;
+}*/
+
+.logo-bar {
+    /*Top nav bar with logo*/
+    background-color: #1d1d1d; /* Background color */
+    color: #fff; /* Text color */
+    padding: 30px; /* Padding around content */
+    height: 100px;
+    /*display: flex;*/ /* Use flexbox for layout */
+    /*justify-content: space-between;*/ /* Align content horizontally */
+    /*align-items: center;*/ /* Align content vertically */
+    text-align: center;
+    /*display: flex;*/
+    border-bottom: 2px solid #888;
+}
+
+.logo {
+    /*Logo image*/
+    /*border: solid 5px;*/
+    width: 180px; /* Width of your element */
+    height: 180px; /* Height of your element */
+    background-image: url('../images/LEXICON_trsp.png');
+    background-size: contain; /* scale the background image to fit within the element */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    /*background-position: center;*/
+    /*margin: auto;*/
+    
+}
 
 /*.btn-primary {
     color: #fff;*/ /* Textfärg */
