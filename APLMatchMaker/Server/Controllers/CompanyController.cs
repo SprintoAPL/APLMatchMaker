@@ -104,5 +104,11 @@ namespace APLMatchMaker.Server.Controllers
             }
         }
 
+        //GET: api/company/sorted?sortField=fieldName&sortOrder=acs/des 
+        [HttpGet("sorted")]
+        public async Task<IEnumerable<CompanyForListDTO>> GetSortedCompaniesAsync([FromQuery] string sortField = "CompanyName", [FromQuery] string sortOrder = "asc")
+        {
+            return await _companyService.GetSortedCompaniesListAsync(sortField, sortOrder);
+        }
     }
 }
