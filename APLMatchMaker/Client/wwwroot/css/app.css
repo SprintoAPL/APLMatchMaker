@@ -2,19 +2,19 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    /*background-color: #343642; */
-    background-image: url('../images/LEXICON_bg.jpg');
+    background-color: #14151a;
+    background-image: url('../images/LEXICON_bg6.jpg');
     background-repeat: no-repeat; /* Prevent the background image from repeating */
-    background-size: cover;
+    /*background-size: cover;*/
 }
 
-.background {
+/*.background {
     height: 500px;
     width: 500px;
-    background-image: url('../images/LEXICON_bg2.jpg');
-    background-repeat: no-repeat; /* Prevent the background image from repeating */
-    background-size: contain; /* scale the background image to fit within the element */
-}
+    background-image: url('../images/LEXICON_bg5.jpg');
+    background-repeat: no-repeat;*/ /* Prevent the background image from repeating */
+    /*background-size: contain;*/ /* scale the background image to fit within the element */
+/*}*/
 
 h1:focus {
     outline: none;
