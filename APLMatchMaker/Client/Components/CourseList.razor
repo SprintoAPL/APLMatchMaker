@@ -14,6 +14,7 @@ else
                 <th scope="col">Kursnamn</th>
                 <th scope="col">Start datum</th>
                 <th scope="col">Slut datum</th>
+                <th scope="col">Redigera</th>
                 <th scope="col"></th> @* Space for the "delete" button. *@
             </tr>
 
@@ -28,10 +29,10 @@ else
                     <td scope="row">@course.StartDate.ToString("yyyy-MM-dd")</td>
                     <td scope="row">@course.EndDate.ToString("yyyy-MM-dd")</td>
                     <td scope="row">
-                        <a href="@($"editcourse/{course.Id}")" class="btn btn-secondary m-1">Redigera</a>
+                        <a href="@($"editcourse/{course.Id}")" class="btn btn-info m-1"> <span class="bi bi-pencil bi-2x"></span></a>
                     </td>
                     <td scope="row">
-                        <a href="@($"deletecourse/{course.Id}")" class="btn btn-danger m-1">Radera</a>
+                        <a href="@($"deletecourse/{course.Id}")" class="btn btn-danger m-1"> <span class="bi bi-trash bi-2x"></span></a>
                     </td>
                 </tr>
             }
