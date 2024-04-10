@@ -36,12 +36,12 @@ h3 {
 
 main.container {
     /*background-color:#3a434b;*/ /*#212529*/ /*rgba(0, 0, 0, 0.5)*/
-    background-color: #33393e;
+    /*background-color: #33393e;*/
     color: #eaeaea;
     border-radius: 6px;
     border: 20px;
     border-color: white;
-    /*background: linear-gradient(0deg, rgba(70,76,80,0.9164040616246498) 19%, rgba(52,54,57,0.9203256302521008) 77%);*/
+    background: linear-gradient(0deg, rgba(70,76,80,0.9164040616246498) 19%, rgba(52,54,57,0.9203256302521008) 77%);
 }
 
 h1:focus {
@@ -157,7 +157,6 @@ a, .btn-link {
 }
 
 .table {
-    /* Table background*/
     --bs-table-bg: transparent;
     --bs-table-accent-bg: transparent;
 /*    --bs-table-accent-bg: #1f1f21;*/
@@ -176,12 +175,15 @@ a, .btn-link {
     border: 5px;
 }
 
-    .table > :not(caption) > * > * {
-        padding: 0.4rem 0.4rem; /*table spaces*/
-        background-color: var(--bs-table-bg);
-        border-bottom-width: 2px;
-        box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg)
-    }
+/*selects all elements that are grandchildren of a <table > 
+element, excluding any <caption > element.*/
+
+.table > :not(caption) > * > * {
+    padding: 0.4rem 0.4rem; /*table spaces*/
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 2px;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg)
+}
 
     .table > tbody {
         vertical-align: inherit
