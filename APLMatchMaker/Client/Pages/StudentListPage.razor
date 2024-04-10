@@ -4,7 +4,8 @@
 @using APLMatchMaker.Client.Components
 
 <h3 class="m3">Studentlista</h3>
-<h7 class="alert alert-warning m-3 p-1">Add a search box here</h7>
+@* <h7 class="alert alert-warning m-3 p-1">Add a search box here</h7> *@
+<SearchBarStudent />
 
 @if ((PageListStudents == null || !PageListStudents.Any()) && errorMessage == null)
 {
