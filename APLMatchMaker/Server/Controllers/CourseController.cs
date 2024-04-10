@@ -1,4 +1,5 @@
-﻿using APLMatchMaker.Server.Services;
+﻿using APLMatchMaker.Server.ResourceParameters;
+using APLMatchMaker.Server.Services;
 using APLMatchMaker.Shared.DTOs.CoursesDTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,6 +30,22 @@ namespace APLMatchMaker.Server.Controllers
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
+        //GET: api/course?searchQuery=
+        [HttpGet]
+        public async Task<IActionResult> GetFilteredCoursesAsync([FromQuery]CourseResourceParameters courseResourceParameters)
+        {
+            try
+            {
+                var courses = await _courseService.GetFilteredCoursesAsync(courseResourceParameters);
+                return Ok(courses);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+
+        }
+
         // GET: api/course/id
         [HttpGet("{id}")]
         public async Task<ActionResult<CourseDto>> GetCoursesAsync(int id)

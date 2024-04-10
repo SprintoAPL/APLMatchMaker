@@ -1,5 +1,6 @@
 ﻿using APLMatchMaker.Server.Data;
 using APLMatchMaker.Server.Models.Entities;
+using APLMatchMaker.Server.ResourceParameters;
 using APLMatchMaker.Shared.DTOs.CoursesDTOs;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.EntityFrameworkCore;
@@ -80,6 +81,30 @@ namespace APLMatchMaker.Server.Services
             }
         }
 
+        public async Task<List<CourseForShortListDTO>> GetFilteredCoursesAsync(CourseResourceParameters? courseResourceParameters)
+        {
+            if(courseResourceParameters == null)
+            {
+                throw new ArgumentNullException(nameof(courseResourceParameters));
+            }
+            var courseCollection=_dbContext.Courses as IQueryable<CourseForShortListDTO>;
+            if(courseCollection != null)
+            {
+                if (!string.IsNullOrEmpty(courseResourceParameters.Name))
+                {
+                    courseCollection = courseCollection.Where(cc => cc.Name.Contains(courseResourceParameters.Name.Trim()));
+                }
+                if (courseResourceParameters.StartDate == default)
+                {
+                    courseCollection = courseCollection.Where(cc => cc.StartDate == courseResourceParameters.StartDate);
+                }
+                if (!string.IsNullOrEmpty(courseResourceParameters.SearchQuery))
+                {
+                    courseCollection = courseCollection.Where(cc => cc.Name.Contains(courseResourceParameters.SearchQuery.ToLower().Trim()));
+                }             
+            }
+            return await courseCollection!.ToListAsync();
+        }
         public async Task<CourseDto?> GetCourseByIdAsync(int id)
         {
             try
