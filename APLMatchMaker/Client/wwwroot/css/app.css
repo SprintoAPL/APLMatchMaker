@@ -37,7 +37,7 @@ h3 {
 main.container {
     /*background-color:#3a434b;*/ /*#212529*/ /*rgba(0, 0, 0, 0.5)*/
     /*background-color: #33393e;*/
-    color: #eaeaea;
+    color: #788898;
     border-radius: 6px;
     border: 20px;
     border-color: white;
@@ -49,7 +49,7 @@ h1:focus {
 }
 
 a, .btn-link {
-    color: #1b6ec2;
+    color: #aacef2
 }
 
      visited link 
