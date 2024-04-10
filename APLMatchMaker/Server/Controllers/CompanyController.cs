@@ -26,11 +26,20 @@ namespace APLMatchMaker.Server.Controllers
             _companyService = companyService;
         }
 
-        // GET: api/company
+        //// GET: api/company
+        //[HttpGet]
+        //public async Task<IEnumerable<CompanyForListDTO>> GetCompaniesAsync()
+        //{
+        //    return await _companyService.GetCompaniesListAsync();
+        //}
+
+        // GET: api/company 
+        //GET: api/company?searchQuery=
         [HttpGet]
-        public async Task<IEnumerable<CompanyForListDTO>> GetCompaniesAsync()
+        public async Task<IEnumerable<CompanyForListDTO>> GetCompaniesAsync([FromQuery]CompanyResourceParameters companyResourceParameters)
         {
-            return await _companyService.GetCompaniesListAsync();
+            var companies = await _companyService.GetCompaniesListAsync(companyResourceParameters);
+            return companies;
         }
 
 
@@ -95,5 +104,11 @@ namespace APLMatchMaker.Server.Controllers
             }
         }
 
+        //GET: api/company/sorted?sortField=fieldName&sortOrder=acs/des 
+        [HttpGet("sorted")]
+        public async Task<IEnumerable<CompanyForListDTO>> GetSortedCompaniesAsync([FromQuery] string sortField = "CompanyName", [FromQuery] string sortOrder = "asc")
+        {
+            return await _companyService.GetSortedCompaniesListAsync(sortField, sortOrder);
+        }
     }
 }

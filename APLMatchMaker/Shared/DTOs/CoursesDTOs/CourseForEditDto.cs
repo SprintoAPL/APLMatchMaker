@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace APLMatchMaker.Shared.DTOs.CoursesDTOs
 {
-    public class CourseForCreateDTO
+    public class CourseForEditDto
     {
-        [Required(ErrorMessage ="Du måste ange ett namn för kursen.") ]
+        [Required(ErrorMessage = "Du måste ange ett namn för kursen.")]
         public string Name { get; set; } = string.Empty;
-        //[MaxLength(100, ErrorMessage ="Beskrivningen kan enbart innehålla 100 tecken.")]
+        //[MaxLength(100, ErrorMessage = "Beskrivningen kan enbart innehålla 100 tecken.")]
         public string Description { get; set; } = string.Empty;
-        [Required(ErrorMessage ="Du måste ange ett startdatum.")]
+        [Required(ErrorMessage = "Du måste ange ett startdatum.")]
         public DateTime StartDate { get; set; }
         [Required(ErrorMessage = "Du måste ange ett slutdatum.")]
         public DateTime EndDate { get; set; }

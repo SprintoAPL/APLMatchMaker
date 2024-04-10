@@ -1,0 +1,37 @@
+﻿@page "/editcourse/{Id:int}"
+
+<h3>Redigera informationer av kursen</h3>
+
+@if (ErrorMessage != null)
+{
+    <div>
+        <p class="alert alert-danger">Nåt har gått galet: @ErrorMessage</p>
+    </div>
+}
+
+
+@if (CourseToEdit != null)
+{
+    <div class="mb-3">
+        <label for="Name" class="form-label">Namn: </label>
+        <input type="text" class="form-control" @bind="CourseToEdit.Name" id="Name" placeholder="Kursens namn ">
+    </div>
+    <div class="mb-3">
+        <label for="Description" class="form-label">Beskrivning:</label>
+        <textarea class="form-control" @bind="CourseToEdit.Description" id="description" rows="3"></textarea>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="StartDate" class="form-label">Start datum: </label>
+            <input type="date" class="form-control" @bind="CourseToEdit.StartDate" id="StartDate" placeholder="Start datum ">
+        </div>
+        <div class="col">
+            <label for="EndDate" class="form-label">Slut datum: </label>
+            <input type="date" class="form-control" @bind="CourseToEdit.EndDate" id="EndDate" placeholder="Slut datum ">
+        </div>
+    </div>
+    <div>
+        <button class="btn btn-success" @onclick="()=>ValidateSubmit()">Spara</button>
+        <a href="@($"/ListOfCourses")" class="btn btn-secondary">Avbryta</a>
+    </div>
+}

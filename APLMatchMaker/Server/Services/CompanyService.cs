@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using APLMatchMaker.Server.Models.Entities;
 using NuGet.Protocol.Core.Types;
+using APLMatchMaker.Server.ResourceParameters;
 
 
 namespace APLMatchMaker.Server.Services
@@ -28,6 +29,13 @@ namespace APLMatchMaker.Server.Services
         {
             return _mapper.Map<IEnumerable<CompanyForListDTO>>(
                 await _companyRepository.GetCompaniesListAsync());
+        }
+
+        //supporting filter&Sort
+        public async Task<IEnumerable<CompanyForListDTO>> GetCompaniesListAsync(CompanyResourceParameters? companyResourceParameters)
+        {
+            var companies = await _companyRepository.GetCompaniesListAsync(companyResourceParameters);
+            return  _mapper.Map<IEnumerable<CompanyForListDTO>>(companies);
         }
 
 
@@ -95,5 +103,48 @@ namespace APLMatchMaker.Server.Services
                 throw new Exception($"Failed to remove company with ID {id}.", ex);
             }
         }
+
+
+        // Sorting Of Company
+        public async Task<IEnumerable<CompanyForListDTO>> GetSortedCompaniesListAsync(string sortField, string sortOrder)
+        {
+            // Retrieve companies from repository
+            var companies = await _companyRepository.GetSortedCompaniesAsync(sortField, sortOrder);
+
+            // Sort the companies based on the provided criteria
+            companies = SortCompanies(companies, sortField, sortOrder);
+
+            // Map the sorted companies to DTOs
+            var mappedCompanies = _mapper.Map<IEnumerable<CompanyForListDTO>>(companies);
+
+            return mappedCompanies;
+        }
+        private IEnumerable<Company> SortCompanies(IEnumerable<Company> companies, string sortField, string sortOrder)
+        {
+            switch (sortField.ToLower())
+            {
+                case "companyname":
+                    companies = sortOrder.ToLower() == "asc" ?
+                        companies.OrderBy(c => c.CompanyName) :
+                        companies.OrderByDescending(c => c.CompanyName);
+                    break;
+                case "organizationnumber":
+                    companies = sortOrder.ToLower() == "asc" ?
+                        companies.OrderBy(c => c.OrganizationNumber) :
+                        companies.OrderByDescending(c => c.OrganizationNumber);
+                    break;
+                // Add sort case for other fields if needed
+                default:
+                    // Default sorting by ID
+                    companies = sortOrder.ToLower() == "asc" ?
+                        companies.OrderBy(c => c.Id) :
+                        companies.OrderByDescending(c => c.Id);
+                    break;
+            }
+
+            return companies;
+        }
+
     }
+
 }

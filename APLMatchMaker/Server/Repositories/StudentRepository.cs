@@ -2,8 +2,10 @@
 using APLMatchMaker.Server.Models;
 using APLMatchMaker.Server.ResourceParameters;
 using APLMatchMaker.Server.Helpers;
+using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 namespace APLMatchMaker.Server.Repositories
 {
@@ -11,24 +13,17 @@ namespace APLMatchMaker.Server.Repositories
     {
         //##-< Properties >-###############################################################
         private readonly ApplicationDbContext _db;
-        public static UserManager<ApplicationUser> _userManager = default!;
+        private readonly UserManager<ApplicationUser> _userManager = default!;
+        private readonly IPropertyMappingService _propertyMappingService;
         //#################################################################################
 
 
         //##-< Constructor >-##############################################################
-        public StudentRepository(ApplicationDbContext dbContext, IServiceProvider services)
+        public StudentRepository(ApplicationDbContext dbContext, IServiceProvider services, IPropertyMappingService propertyMappingService)
         {
             _db = dbContext;
             _userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-        }
-        //#################################################################################
-
-
-        //##-< Get all students as list >-#################################################
-        public async Task<List<ApplicationUser>> GetAsync()
-        {
-            return await _db.ApplicationUsers.Where(au => au.IsStudent == true).ToListAsync();
-
+            _propertyMappingService = propertyMappingService;
         }
         //#################################################################################
 
@@ -41,24 +36,10 @@ namespace APLMatchMaker.Server.Repositories
                 throw new ArgumentNullException(nameof(studentResourceParameters));
             }
 
-            //if ( string.IsNullOrWhiteSpace(studentResourceParameters.Address) &&
-            //    string.IsNullOrWhiteSpace(studentResourceParameters.Status) &&
-            //    !studentResourceParameters.KnowledgeLevel.HasValue &&
-            //    !studentResourceParameters.CVIntro.HasValue &&
-            //    !studentResourceParameters.LinkedinIntro.HasValue &&
-            //    !studentResourceParameters.Workshopdag.HasValue &&
-            //    !studentResourceParameters.APLSamtal.HasValue &&
-            //    string.IsNullOrWhiteSpace(studentResourceParameters.Language) &&
-            //    string.IsNullOrWhiteSpace(studentResourceParameters.Nationality) &&
-            //    string.IsNullOrWhiteSpace(studentResourceParameters.SearchQuery))
-            //{
-            //    return await GetAsync();
-            //}
-
             // Student collection to start from.
             var studentCollection = _db.ApplicationUsers.Where(sc => sc.IsStudent == true) as IQueryable<ApplicationUser>;
 
-
+            // Filter on specific properties/db-fields.
             if (!string.IsNullOrWhiteSpace(studentResourceParameters.Address))
             {
                 studentCollection = studentCollection.Where(sc =>
@@ -83,6 +64,37 @@ namespace APLMatchMaker.Server.Repositories
                 sc.CVIntro == studentResourceParameters.CVIntro);
             }
 
+            if (studentResourceParameters.LinkedinIntro.HasValue)
+            {
+                studentCollection = studentCollection.Where(sc =>
+                sc.LinkedinIntro == studentResourceParameters.LinkedinIntro);
+            }
+
+            if (studentResourceParameters.Workshopdag.HasValue)
+            {
+                studentCollection = studentCollection.Where(sc =>
+                sc.Workshopdag == studentResourceParameters.Workshopdag);
+            }
+
+            if (studentResourceParameters.APLSamtal.HasValue)
+            {
+                studentCollection = studentCollection.Where(sc =>
+                sc.APLSamtal == studentResourceParameters.APLSamtal);
+            }
+
+            if (!string.IsNullOrWhiteSpace(studentResourceParameters.Language))
+            {
+                studentCollection = studentCollection.Where(sc =>
+                sc.Language.Contains(studentResourceParameters.Language.Trim()));
+            }
+
+            if (!string.IsNullOrWhiteSpace(studentResourceParameters.Nationality))
+            {
+                studentCollection = studentCollection.Where(sc =>
+                sc.Nationality.Contains(studentResourceParameters.Nationality.Trim()));
+            }
+
+            // Search on a group of properties/db-fields.
             if (!string.IsNullOrWhiteSpace(studentResourceParameters.SearchQuery))
             {
                 studentCollection = studentCollection.Where(sc =>
@@ -97,6 +109,16 @@ namespace APLMatchMaker.Server.Repositories
                 );
             }
 
+            // Sort/arrange rows/records in specified order.
+            if (!string.IsNullOrWhiteSpace (studentResourceParameters.OrderBy)) 
+            {
+                var studentPropertyMappingDictionary = _propertyMappingService
+                    .GetPropertyMapping<StudentForListDTO, ApplicationUser>();
+
+                studentCollection = studentCollection.ApplySort(studentResourceParameters.OrderBy,
+                    studentPropertyMappingDictionary);
+            }
+
             return await PagedList<ApplicationUser>.CreateAsync(studentCollection,
                 studentResourceParameters.PageNumber, studentResourceParameters.PageSize);
         }
@@ -106,7 +128,8 @@ namespace APLMatchMaker.Server.Repositories
         //##-< Get one student, by id >-###################################################
         public async Task<ApplicationUser?> GetAsync(string id)
         {
-            return await _db.ApplicationUsers.FirstOrDefaultAsync(au => au.Id == id && au.IsStudent == true);
+            return await _db.ApplicationUsers.Where(au => au.Id == id && au.IsStudent == true)
+                .Include(au => au.Course).ThenInclude(en => en.Course).FirstOrDefaultAsync();
         }
         //#################################################################################
 
@@ -154,6 +177,11 @@ namespace APLMatchMaker.Server.Repositories
                 return false;
             }
 
+            //if (await HasEngagementsAsync(_Id))
+            //{
+            //    return false;
+            //}
+
             try
             {
                 _db.ApplicationUsers.Remove(_au);
@@ -188,6 +216,22 @@ namespace APLMatchMaker.Server.Repositories
         public async Task<bool> EmailExistAsync(string email)
         {
             return (bool)await _db.ApplicationUsers.Where(au => au.Email == email.ToLower().Trim()).AnyAsync();
+        }
+        //#################################################################################
+
+
+        //##-< Has engagements >-##########################################################
+        private async Task<bool> HasEngagementsAsync(string id)
+        {
+            // For now only checks if student is enrolled in any course,
+            // but must be extended as the database expands.
+            var student = await _db.ApplicationUsers.Where(au => au.Id == id)
+                .Include(au => au.Course).FirstOrDefaultAsync();
+            if (student == null)
+            {
+                return false;
+            }
+            return student.Course.Count() > 0;
         }
         //#################################################################################
 

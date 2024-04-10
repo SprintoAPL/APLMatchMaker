@@ -76,17 +76,17 @@ namespace APLMatchMaker.Server.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCourseAsync(int id, CourseDto courseDto)
+        public async Task<IActionResult> UpdateCourseAsync(int id, CourseForEditDto courseEdit)
         {
             try
             {
-                if (courseDto == null || courseDto.Id != id)
+                if (courseEdit == null)
                 {
                     return BadRequest("Bad Request: Invalid CourseDto or ID mismatch");
                 }
 
-                await _courseService.UpdateCourseAsync(courseDto);
-                return Ok($"{courseDto.Name} is updated.");
+                await _courseService.UpdateCourseAsync(courseEdit, id);
+                return Ok($"{courseEdit.Name} is updated.");
             }
             catch (Exception ex)
             {

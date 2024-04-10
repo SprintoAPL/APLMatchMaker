@@ -1,4 +1,5 @@
 ﻿using APLMatchMaker.Server.Data;
+using APLMatchMaker.Server.Migrations;
 using APLMatchMaker.Server.Models;
 using APLMatchMaker.Server.Models.Entities;
 using APLMatchMaker.Server.ResourceParameters;
@@ -24,6 +25,39 @@ namespace APLMatchMaker.Server.Repositories
         {
             return await _db.Companies.ToListAsync();
         }
+
+        //method to support Filter & Search
+        public async Task<IEnumerable<Company>> GetCompaniesListAsync(CompanyResourceParameters? companyResourceParameters)
+        {
+            if(companyResourceParameters == null)
+            {
+                throw new ArgumentNullException(nameof(companyResourceParameters));
+            }
+            //collection to start from
+            var companyCollection = _db.Companies as IQueryable<Company>;
+            if(!string.IsNullOrEmpty(companyResourceParameters.CompanyName))
+            {
+                companyCollection=companyCollection.Where(cc=>cc.CompanyName.Contains(companyResourceParameters.CompanyName.Trim()));
+            }
+            if (!string.IsNullOrEmpty(companyResourceParameters.PostalAdress))
+            {
+                companyCollection = companyCollection.Where(cc => cc.PostalAdress.Contains(companyResourceParameters.PostalAdress.Trim()));
+            }
+            if (!string.IsNullOrEmpty(companyResourceParameters.City))
+            {
+                companyCollection = companyCollection.Where(cc => cc.City.Contains(companyResourceParameters.City.Trim()));
+            }
+           if(!string.IsNullOrEmpty(companyResourceParameters.SearchQuery))
+            {
+                companyCollection = companyCollection.Where(cc =>
+                cc.CompanyName.Contains(companyResourceParameters.SearchQuery.ToLower().Trim()) ||
+                cc.PostalAdress.Contains(companyResourceParameters.SearchQuery.ToLower().Trim()) ||
+                cc.City.Contains(companyResourceParameters.SearchQuery.ToLower().Trim()));
+
+            }
+           return await companyCollection.ToListAsync();
+        }
+        
 
 
         // Get a company by ID
@@ -85,6 +119,35 @@ namespace APLMatchMaker.Server.Repositories
             {
                 return false;
             }
-        } 
+        }
+
+        // Sorting Of Company
+        public async Task<IEnumerable<Company>> GetSortedCompaniesAsync(string sortField, string sortOrder)
+        {
+            IQueryable<Company> query = _db.Companies;
+
+            switch (sortField.ToLower())
+            {
+                case "companyname":
+                    query = sortOrder.ToLower() == "asc" ?
+                        query.OrderBy(c => c.CompanyName) :
+                        query.OrderByDescending(c => c.CompanyName);
+                    break;
+                case "organizationnumber":
+                    query = sortOrder.ToLower() == "asc" ?
+                        query.OrderBy(c => c.OrganizationNumber) :
+                        query.OrderByDescending(c => c.OrganizationNumber);
+                    break;
+                default:
+                    // Default sorting by ID
+                    query = sortOrder.ToLower() == "asc" ?
+                        query.OrderBy(c => c.Id) :
+                        query.OrderByDescending(c => c.Id);
+                    break;
+            }
+
+            return await query.ToListAsync();
+        }
+
     }
 }

@@ -1,8 +1,6 @@
 ﻿using APLMatchMaker.Shared.DTOs.CoursesDTOs;
 using Microsoft.AspNetCore.Components;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Net.Http.Json;
-using System.Text.Json;
 
 namespace APLMatchMaker.Client.Pages
 {
