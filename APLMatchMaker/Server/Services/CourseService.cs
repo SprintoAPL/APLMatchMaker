@@ -81,7 +81,7 @@ namespace APLMatchMaker.Server.Services
             }
         }
 
-        public async Task<List<CourseForShortListDTO>> GetFilteredCoursesAsync(CourseResourceParameters? courseResourceParameters)
+        public async Task<List<CourseForShortListDTO>> GetSearchedCoursesAsync(CourseResourceParameters? courseResourceParameters)
         {
             if(courseResourceParameters == null)
             {

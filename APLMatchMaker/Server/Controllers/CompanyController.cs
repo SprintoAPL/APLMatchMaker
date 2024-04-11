@@ -26,13 +26,6 @@ namespace APLMatchMaker.Server.Controllers
             _companyService = companyService;
         }
 
-        //// GET: api/company
-        //[HttpGet]
-        //public async Task<IEnumerable<CompanyForListDTO>> GetCompaniesAsync()
-        //{
-        //    return await _companyService.GetCompaniesListAsync();
-        //}
-
         // GET: api/company 
         //GET: api/company?searchQuery=
         [HttpGet]

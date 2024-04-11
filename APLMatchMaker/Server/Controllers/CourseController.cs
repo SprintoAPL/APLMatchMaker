@@ -1,4 +1,5 @@
-﻿using APLMatchMaker.Server.ResourceParameters;
+﻿using APLMatchMaker.Server.Models.Entities;
+using APLMatchMaker.Server.ResourceParameters;
 using APLMatchMaker.Server.Services;
 using APLMatchMaker.Shared.DTOs.CoursesDTOs;
 using Microsoft.AspNetCore.Mvc;
@@ -30,25 +31,19 @@ namespace APLMatchMaker.Server.Controllers
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
-        //GET: api/course?searchQuery=
-        [HttpGet]
-        public async Task<IActionResult> GetFilteredCoursesAsync([FromQuery]CourseResourceParameters courseResourceParameters)
-        {
-            try
-            {
-                var courses = await _courseService.GetFilteredCoursesAsync(courseResourceParameters);
-                return Ok(courses);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal Server Error: {ex.Message}");
-            }
 
-        }
+       //GET: api/course/searched?Name= 
+       //GET: api/course/searched?searchQuery=
+        [HttpGet("searched")]
+        public async Task<IActionResult> GetSearchedCoursesAsync([FromQuery]CourseResourceParameters courseResourceParameters)
+        {
+            var courses = await _courseService.GetSearchedCoursesAsync(courseResourceParameters);
+            return Ok(courses);        
+        } 
 
         // GET: api/course/id
         [HttpGet("{id}")]
-        public async Task<ActionResult<CourseDto>> GetCoursesAsync(int id)
+        public async Task<ActionResult<Course>> GetCoursesAsync(int id)
         {
             var courseDto = await _courseService.GetCourseByIdAsync(id);
 
