@@ -1,4 +1,8 @@
-﻿<h3>SearchBarStudent</h3>
+﻿<h3>Sök</h3>
 
-<input type="text" @bind="SearchText" placeholder="Sök student..." />
 
+
+<form class="d-flex" role="search">
+    <input type="text" @bind="SearchText" placeholder="Sök student..." />
+    <button class="btn btn-success" type="submit">Sök</button>
+</form>
