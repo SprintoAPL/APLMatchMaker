@@ -129,9 +129,26 @@ namespace APLMatchMaker.Server.Data
                 var company = new (string, string, string, string, string, string, string, string, string)[]
                 {
                     ("Alfalaval", "555555-5555", "www.alfalaval.se", "info@alfalaval.se", "08-555 555 55", "Separator vägen 1", "123 45", "Tumba", "Tillverkar mjölkningsmaskiner och separatorer för mejeriindustrin."),
-                    ("Min dåliga fantasi", "555555-5555", "www.xxx.se", "info@test.se", "08-555 555 55", "Skogsstige 1465416", "123 45", "Farsta", "Så här långt räcker min fantasi.")
+                    ("Min dåliga fantasi", "555555-5555", "www.xxx.se", "info@test.se", "08-555 555 55", "Skogsstige 1465416", "123 45", "Farsta", "Så här långt räcker min fantasi."),
+                    ("Mer dålig fantasi", "555555-5555", "www.xxx.se", "info@test.se", "08-555 555 55", "Skogsstige 1465416", "123 45", "Farsta", "Så här långt räcker min fantasi."),
+                    ("Änny mer dålig fantasi", "555555-5555", "www.xxx.se", "info@test.se", "08-555 555 55", "Skogsstige 1465416", "123 45", "Farsta", "Så här långt räcker min fantasi."),
+                    ("Nu tog den slut", "555555-5555", "www.xxx.se", "info@test.se", "08-555 555 55", "Skogsstige 1465416", "123 45", "Farsta", "Så här långt räcker min fantasi.")
                 };
                 await AddCompaniesAsync(company);
+            }
+            //#################################################################################
+
+
+            //##-< Seed project data >-########################################################
+            if (!await db.Projects.AnyAsync())
+            {
+                // (Description, NoOfInterns, DefaultStartDate, DefaultEndDate, CompanyID)
+                var projects = new(string, int,DateTime, DateTime, int)[]
+                { 
+                    ("Utveckla ett kursbokningssystem. Använda C#, .NET, och Blazer. Meriterande med databas kunskaper.", 5, DateTime.Parse("2024-04-04"), DateTime.Parse("2024-08-04"), 1),
+                    ("Utveckla ett kursbokningssystem. Använda C#, .NET, och Blazer. Meriterande med databas kunskaper.", 5, DateTime.Parse("2024-04-04"), DateTime.Parse("2024-08-04"), 2)
+                };
+                await AddProjectsAsync(projects);
             }
             //#################################################################################
         }
@@ -266,6 +283,30 @@ namespace APLMatchMaker.Server.Data
                     Notes = notes
                 };
                 await db.Companies.AddAsync(newCompany);
+            }
+            await db.SaveChangesAsync();
+        }
+        //#####################################################################################
+
+
+
+        //##-< Seed Project Method >-##########################################################
+        private static async Task AddProjectsAsync((string, int, DateTime, DateTime, int)[] projects)
+        {
+            // (Description, NoOfInterns, DefaultStartDate, DefaultEndDate, CompanyID)
+
+            string description; int noOfStudents, companyID; DateTime defaultStartDate, defaultEndDate;
+            foreach (var project in projects)
+            { 
+                (description, noOfStudents, defaultStartDate, defaultEndDate, companyID) = project;
+                var newProject = new Project
+                { 
+                    ProjectDescription = description,
+                    DefaultStartDate = defaultStartDate,
+                    DefaultEndDate = defaultEndDate,
+                    CompanyId = companyID
+                };
+                await db.Projects.AddAsync(newProject);
             }
             await db.SaveChangesAsync();
         }
