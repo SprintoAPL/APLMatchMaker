@@ -83,28 +83,31 @@ namespace APLMatchMaker.Server.Services
 
         public async Task<List<CourseForShortListDTO>> GetSearchedCoursesAsync(CourseResourceParameters? courseResourceParameters)
         {
-            if(courseResourceParameters == null)
+            var courseCollection = _dbContext.Courses.AsQueryable();
+
+            if (courseResourceParameters != null)
             {
-                throw new ArgumentNullException(nameof(courseResourceParameters));
-            }
-            var courseCollection=_dbContext.Courses as IQueryable<CourseForShortListDTO>;
-            if(courseCollection != null)
-            {
+                // Apply filters based on the search parameters
                 if (!string.IsNullOrEmpty(courseResourceParameters.Name))
                 {
-                    courseCollection = courseCollection.Where(cc => cc.Name.Contains(courseResourceParameters.Name.Trim()));
+                    courseCollection = courseCollection.Where(c => c.Name.Contains(courseResourceParameters.Name.Trim()));
                 }
-                if (courseResourceParameters.StartDate == default)
-                {
-                    courseCollection = courseCollection.Where(cc => cc.StartDate == courseResourceParameters.StartDate);
-                }
-                if (!string.IsNullOrEmpty(courseResourceParameters.SearchQuery))
-                {
-                    courseCollection = courseCollection.Where(cc => cc.Name.Contains(courseResourceParameters.SearchQuery.ToLower().Trim()));
-                }             
             }
-            return await courseCollection!.ToListAsync();
+
+            // Project the result into CourseForShortListDTO
+            var courses = await courseCollection
+                .Select(c => new CourseForShortListDTO
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    StartDate = c.StartDate,
+                    EndDate = c.EndDate
+                })
+                .ToListAsync();
+
+            return courses;
         }
+
         public async Task<CourseDto?> GetCourseByIdAsync(int id)
         {
             try

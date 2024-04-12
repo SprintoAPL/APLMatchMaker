@@ -32,14 +32,20 @@ namespace APLMatchMaker.Server.Controllers
             }
         }
 
-       //GET: api/course/searched?Name= 
-       //GET: api/course/searched?searchQuery=
+        // GET: api/course/searched
         [HttpGet("searched")]
-        public async Task<IActionResult> GetSearchedCoursesAsync([FromQuery]CourseResourceParameters courseResourceParameters)
+        public async Task<IActionResult> GetSearchedCoursesAsync([FromQuery] CourseResourceParameters? courseResourceParameters)
         {
-            var courses = await _courseService.GetSearchedCoursesAsync(courseResourceParameters);
-            return Ok(courses);        
-        } 
+            try
+            {
+                var courseDtos = await _courseService.GetSearchedCoursesAsync(courseResourceParameters);
+                return Ok(courseDtos);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+        }
 
         // GET: api/course/id
         [HttpGet("{id}")]

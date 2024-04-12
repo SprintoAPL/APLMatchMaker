@@ -7,7 +7,7 @@ namespace APLMatchMaker.Server.Services
     {
         Task<List<CourseForShortListDTO>> GetAllCoursesAsync();
 
-        Task<List<CourseForShortListDTO>> GetSearchedCoursesAsync(CourseResourceParameters courseResourceParameters);
+        Task<List<CourseForShortListDTO>> GetSearchedCoursesAsync(CourseResourceParameters? courseResourceParameters);
         Task<CourseDto?> GetCourseByIdAsync(int id);
         Task AddCourseAsync(CourseDto course);
         Task UpdateCourseAsync(CourseForEditDto course, int id);
