@@ -15,5 +15,9 @@ namespace APLMatchMaker.Server.Models.Entities
         public string PostalNumber { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
+
+
+        // Navigation Properties
+        public ICollection<Project>? Projects { get; set; } = null;
     }
 }
