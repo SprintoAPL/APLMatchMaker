@@ -81,13 +81,13 @@ namespace APLMatchMaker.Server.Services
             }
         }
 
-        public async Task<List<CourseForShortListDTO>> GetSearchedCoursesAsync(CourseResourceParameters? courseResourceParameters)
+        public async Task<List<Course>> GetSearchedCoursesAsync(CourseResourceParameters? courseResourceParameters)
         {
             if(courseResourceParameters == null)
             {
                 throw new ArgumentNullException(nameof(courseResourceParameters));
             }
-            var courseCollection=_dbContext.Courses as IQueryable<CourseForShortListDTO>;
+            var courseCollection=_dbContext.Courses.AsQueryable();
             if(courseCollection != null)
             {
                 if (!string.IsNullOrEmpty(courseResourceParameters.Name))
