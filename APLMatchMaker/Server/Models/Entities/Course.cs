@@ -10,7 +10,7 @@
 
 
         // Navigation properties.
-        public ICollection<Enrollment> Students { get; set; } = new List<Enrollment>();
+        public ICollection<Enrollment>? Students { get; set; } = null;
 
     }
 }

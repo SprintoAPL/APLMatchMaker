@@ -4,6 +4,7 @@ namespace APLMatchMaker.Server.Models.Entities
 {
     public class Enrollment
     {
+        // Foreign keys.
         [Required]
         public int CourseId { get; set; }
         [Required]

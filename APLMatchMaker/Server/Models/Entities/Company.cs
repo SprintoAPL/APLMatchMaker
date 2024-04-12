@@ -19,5 +19,6 @@ namespace APLMatchMaker.Server.Models.Entities
 
         // Navigation Properties
         public ICollection<Project>? Projects { get; set; } = null;
+        public ICollection<ApplicationUser>? CompanyContacts { get; set; } = null;
     }
 }
