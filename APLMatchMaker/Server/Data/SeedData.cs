@@ -261,6 +261,7 @@ namespace APLMatchMaker.Server.Data
                     CompanyEmail = companyEmail,
                     Phone = phone,
                     PostalAdress = postalAdress,
+                    PostalNumber = postalNumber,
                     City = city,
                     Notes = notes
                 };
