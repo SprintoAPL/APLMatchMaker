@@ -164,7 +164,7 @@ namespace APLMatchMaker.Server.Services
                     courses = courses.OrderBy(c => c.Id); // Default sorting by ID
                     break;
             }
-
+            // Project the result into CourseForShortListDTO
             return await courses
                 .Select(c => new CourseForShortListDTO
                 {
