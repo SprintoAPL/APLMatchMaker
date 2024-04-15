@@ -32,13 +32,13 @@ namespace APLMatchMaker.Server.Controllers
             }
         }
 
-        // GET: api/course/searched
+        // GET: api/course/searched?
         [HttpGet("searched")]
         public async Task<IActionResult> GetSearchedCoursesAsync([FromQuery] CourseResourceParameters? courseResourceParameters)
         {
             try
             {
-                var courseDtos = await _courseService.GetSearchedCoursesAsync(courseResourceParameters);
+                var courseDtos = await _courseService.GetSearchedCoursesAsync(courseResourceParameters!);
                 return Ok(courseDtos);
             }
             catch (Exception ex)

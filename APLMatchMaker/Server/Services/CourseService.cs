@@ -81,20 +81,24 @@ namespace APLMatchMaker.Server.Services
             }
         }
 
-        public async Task<List<Course>> GetSearchedCoursesAsync(CourseResourceParameters? courseResourceParameters)
+        public async Task<List<CourseForShortListDTO>> GetSearchedCoursesAsync(CourseResourceParameters? courseResourceParameters)
         {
             var courseCollection = _dbContext.Courses.AsQueryable();
 
             if (courseResourceParameters != null)
             {
-                throw new ArgumentNullException(nameof(courseResourceParameters));
-            }
-            var courseCollection=_dbContext.Courses as IQueryable<CourseForShortListDTO>;
-            if(courseCollection != null)
-            {
+                // Apply filters based on the search parameters
                 if (!string.IsNullOrEmpty(courseResourceParameters.Name))
                 {
                     courseCollection = courseCollection.Where(c => c.Name.Contains(courseResourceParameters.Name.Trim()));
+                }
+                if(courseResourceParameters.StartDate != DateTime.MinValue)   
+                {
+                    courseCollection=courseCollection.Where(c=> c.StartDate == courseResourceParameters.StartDate);
+                }
+                if (!string.IsNullOrEmpty(courseResourceParameters.SearchQuery))
+                {
+                    courseCollection = courseCollection.Where(cc => cc.Name.Contains(courseResourceParameters.SearchQuery.ToLower().Trim()));
                 }
             }
 
@@ -111,7 +115,6 @@ namespace APLMatchMaker.Server.Services
 
             return courses;
         }
-
         public async Task<CourseDto?> GetCourseByIdAsync(int id)
         {
             try
