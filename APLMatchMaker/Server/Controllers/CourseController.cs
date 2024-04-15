@@ -108,9 +108,9 @@ namespace APLMatchMaker.Server.Controllers
             }
         }
 
-        // GET: api/course/sorted
+        // GET: api/course/sorted?sortBy=name&isAscending=true 
         [HttpGet("sorted")]
-        public async Task<IActionResult> GetSortedCoursesAsync([FromQuery] string sortBy = "name", [FromQuery] bool isAscending = true)
+        public async Task<IActionResult> GetSortedCoursesAsync([FromQuery] string sortBy = "id", [FromQuery] bool isAscending = true)
         {
             try
             {
@@ -122,7 +122,6 @@ namespace APLMatchMaker.Server.Controllers
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
-
 
     }
 }

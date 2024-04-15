@@ -144,45 +144,38 @@ namespace APLMatchMaker.Server.Services
             }
         }
 
+        //Sorting Of Course (isAscending=true == ascOrd/ isAscending=false == dscOrd)
         public async Task<List<CourseForShortListDTO>> GetSortedCoursesAsync(string sortBy, bool isAscending)
         {
-            try
-            {
-                var query = _dbContext.Courses.AsQueryable();
+            IQueryable<Course> courses = _dbContext.Courses;
 
-                // Apply sorting based on the sortBy parameter
-                switch (sortBy)
+            switch (sortBy.ToLower())
+            {
+                case "name":
+                    courses = isAscending ? courses.OrderBy(c => c.Name) : courses.OrderByDescending(c => c.Name);
+                    break;
+                case "id":
+                    courses = isAscending ? courses.OrderBy(c => c.Id) : courses.OrderByDescending(c => c.Id);
+                    break;
+                case "startdate":
+                    courses = isAscending ? courses.OrderBy(c => c.StartDate) : courses.OrderByDescending(c => c.StartDate);
+                    break;
+                default:
+                    courses = courses.OrderBy(c => c.Id); // Default sorting by ID
+                    break;
+            }
+
+            return await courses
+                .Select(c => new CourseForShortListDTO
                 {
-                    case "name":
-                        query = isAscending ? query.OrderBy(c => c.Name) : query.OrderByDescending(c => c.Name);
-                        break;
-                    case "startDate":
-                        query = isAscending ? query.OrderBy(c => c.StartDate) : query.OrderByDescending(c => c.StartDate);
-                        break;
-                    // Add more cases for other sortable fields as needed
-                    default:
-                        // Default sorting by ID ascending if sortBy parameter is not recognized
-                        query = query.OrderBy(c => c.Id);
-                        break;
-                }
-
-                var courses = await query
-                    .Select(c => new CourseForShortListDTO
-                    {
-                        Id = c.Id,
-                        Name = c.Name,
-                        StartDate = c.StartDate,
-                        EndDate = c.EndDate
-                    })
-                    .ToListAsync();
-
-                return courses;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error occurred while retrieving and sorting courses.", ex);
-            }
+                    Id = c.Id,
+                    Name = c.Name,
+                    StartDate = c.StartDate,
+                    EndDate = c.EndDate,
+                })
+                .ToListAsync();
         }
+
 
     }
 }
