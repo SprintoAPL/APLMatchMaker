@@ -8,7 +8,7 @@ namespace APLMatchMaker.Server.Controllers
     [Route("api/course")]
     public class CourseController : Controller
     {
-        private readonly ICourseService _courseService; 
+        private readonly ICourseService _courseService;
 
         public CourseController(ICourseService courseService)
         {
@@ -61,7 +61,7 @@ namespace APLMatchMaker.Server.Controllers
                 {
                     return BadRequest("Bad Request: CourseDto is null");
                 }
-        
+
 
                 await _courseService.AddCourseAsync(courseDto);
 
@@ -107,11 +107,22 @@ namespace APLMatchMaker.Server.Controllers
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
-       
 
-        
+        // GET: api/course/sorted
+        [HttpGet("sorted")]
+        public async Task<IActionResult> GetSortedCoursesAsync([FromQuery] string sortBy = "name", [FromQuery] bool isAscending = true)
+        {
+            try
+            {
+                var courseDtos = await _courseService.GetSortedCoursesAsync(sortBy, isAscending);
+                return Ok(courseDtos);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+        }
 
-      
-        
+
     }
 }

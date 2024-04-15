@@ -143,5 +143,46 @@ namespace APLMatchMaker.Server.Services
                 throw new Exception($"Error occurred while updating the course with ID {id}.", ex);
             }
         }
+
+        public async Task<List<CourseForShortListDTO>> GetSortedCoursesAsync(string sortBy, bool isAscending)
+        {
+            try
+            {
+                var query = _dbContext.Courses.AsQueryable();
+
+                // Apply sorting based on the sortBy parameter
+                switch (sortBy)
+                {
+                    case "name":
+                        query = isAscending ? query.OrderBy(c => c.Name) : query.OrderByDescending(c => c.Name);
+                        break;
+                    case "startDate":
+                        query = isAscending ? query.OrderBy(c => c.StartDate) : query.OrderByDescending(c => c.StartDate);
+                        break;
+                    // Add more cases for other sortable fields as needed
+                    default:
+                        // Default sorting by ID ascending if sortBy parameter is not recognized
+                        query = query.OrderBy(c => c.Id);
+                        break;
+                }
+
+                var courses = await query
+                    .Select(c => new CourseForShortListDTO
+                    {
+                        Id = c.Id,
+                        Name = c.Name,
+                        StartDate = c.StartDate,
+                        EndDate = c.EndDate
+                    })
+                    .ToListAsync();
+
+                return courses;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occurred while retrieving and sorting courses.", ex);
+            }
+        }
+
     }
 }
