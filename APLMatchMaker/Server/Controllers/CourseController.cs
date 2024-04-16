@@ -1,4 +1,6 @@
-﻿using APLMatchMaker.Server.Services;
+﻿using APLMatchMaker.Server.Models.Entities;
+using APLMatchMaker.Server.ResourceParameters;
+using APLMatchMaker.Server.Services;
 using APLMatchMaker.Shared.DTOs.CoursesDTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +10,7 @@ namespace APLMatchMaker.Server.Controllers
     [Route("api/course")]
     public class CourseController : Controller
     {
-        private readonly ICourseService _courseService; 
+        private readonly ICourseService _courseService;
 
         public CourseController(ICourseService courseService)
         {
@@ -29,9 +31,25 @@ namespace APLMatchMaker.Server.Controllers
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
+
+        // GET: api/course/searched?
+        [HttpGet("searched")]
+        public async Task<IActionResult> GetSearchedCoursesAsync([FromQuery] CourseResourceParameters? courseResourceParameters)
+        {
+            try
+            {
+                var courseDtos = await _courseService.GetSearchedCoursesAsync(courseResourceParameters!);
+                return Ok(courseDtos);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+        }
+
         // GET: api/course/id
         [HttpGet("{id}")]
-        public async Task<ActionResult<CourseDto>> GetCoursesAsync(int id)
+        public async Task<ActionResult<Course>> GetCoursesAsync(int id)
         {
             var courseDto = await _courseService.GetCourseByIdAsync(id);
 
@@ -61,7 +79,7 @@ namespace APLMatchMaker.Server.Controllers
                 {
                     return BadRequest("Bad Request: CourseDto is null");
                 }
-        
+
 
                 await _courseService.AddCourseAsync(courseDto);
 
@@ -107,11 +125,21 @@ namespace APLMatchMaker.Server.Controllers
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
-       
 
-        
+        // GET: api/course/sorted?sortBy=name&isAscending=true 
+        [HttpGet("sorted")]
+        public async Task<IActionResult> GetSortedCoursesAsync([FromQuery] string sortBy = "id", [FromQuery] bool isAscending = true)
+        {
+            try
+            {
+                var courseDtos = await _courseService.GetSortedCoursesAsync(sortBy, isAscending);
+                return Ok(courseDtos);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
+            }
+        }
 
-      
-        
     }
 }

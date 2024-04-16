@@ -1,5 +1,6 @@
 ﻿using APLMatchMaker.Server.Data;
 using APLMatchMaker.Server.Models.Entities;
+using APLMatchMaker.Server.ResourceParameters;
 using APLMatchMaker.Shared.DTOs.CoursesDTOs;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.EntityFrameworkCore;
@@ -80,6 +81,40 @@ namespace APLMatchMaker.Server.Services
             }
         }
 
+        public async Task<List<CourseForShortListDTO>> GetSearchedCoursesAsync(CourseResourceParameters? courseResourceParameters)
+        {
+            var courseCollection = _dbContext.Courses.AsQueryable();
+
+            if (courseResourceParameters != null)
+            {
+                // Apply filters based on the search parameters
+                if (!string.IsNullOrEmpty(courseResourceParameters.Name))
+                {
+                    courseCollection = courseCollection.Where(c => c.Name.Contains(courseResourceParameters.Name.Trim()));
+                }
+                if(courseResourceParameters.StartDate != DateTime.MinValue)   
+                {
+                    courseCollection=courseCollection.Where(c=> c.StartDate == courseResourceParameters.StartDate);
+                }
+                if (!string.IsNullOrEmpty(courseResourceParameters.SearchQuery))
+                {
+                    courseCollection = courseCollection.Where(cc => cc.Name.Contains(courseResourceParameters.SearchQuery.ToLower().Trim()));
+                }
+            }
+
+            // Project the result into CourseForShortListDTO
+            var courses = await courseCollection
+                .Select(c => new CourseForShortListDTO
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    StartDate = c.StartDate,
+                    EndDate = c.EndDate
+                })
+                .ToListAsync();
+
+            return courses;
+        }
         public async Task<CourseDto?> GetCourseByIdAsync(int id)
         {
             try
@@ -143,5 +178,39 @@ namespace APLMatchMaker.Server.Services
                 throw new Exception($"Error occurred while updating the course with ID {id}.", ex);
             }
         }
+
+        //Sorting Of Course (isAscending=true == ascOrd/ isAscending=false == dscOrd)
+        public async Task<List<CourseForShortListDTO>> GetSortedCoursesAsync(string sortBy, bool isAscending)
+        {
+            IQueryable<Course> courses = _dbContext.Courses;
+
+            switch (sortBy.ToLower())
+            {
+                case "name":
+                    courses = isAscending ? courses.OrderBy(c => c.Name) : courses.OrderByDescending(c => c.Name);
+                    break;
+                case "id":
+                    courses = isAscending ? courses.OrderBy(c => c.Id) : courses.OrderByDescending(c => c.Id);
+                    break;
+                case "startdate":
+                    courses = isAscending ? courses.OrderBy(c => c.StartDate) : courses.OrderByDescending(c => c.StartDate);
+                    break;
+                default:
+                    courses = courses.OrderBy(c => c.Id); // Default sorting by ID
+                    break;
+            }
+            // Project the result into CourseForShortListDTO
+            return await courses
+                .Select(c => new CourseForShortListDTO
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    StartDate = c.StartDate,
+                    EndDate = c.EndDate,
+                })
+                .ToListAsync();
+        }
+
+
     }
 }
