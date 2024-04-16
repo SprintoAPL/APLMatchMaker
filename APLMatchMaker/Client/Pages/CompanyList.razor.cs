@@ -26,24 +26,5 @@ namespace APLMatchMaker.Client.Pages
         }
 
 
-        //    [Inject]
-        //    private HttpClient? Http { get; set; }
-        //    public List<CompanyForListDTO>? PageListCourses { get; set; }
-        //    private string? errorMessage;
-        //    protected override async Task OnInitializedAsync()
-        //    {
-        //        await base.OnInitializedAsync();
-
-        //        try
-        //        {
-        //            PageListCourses = await Http!.GetFromJsonAsync<List<CompanyForListDTO>>("/api/company");
-        //        }
-        //        catch (Exception exception)
-        //        {
-        //            errorMessage = exception.Message;
-        //        }
-        //
-  
-        
     }
 }

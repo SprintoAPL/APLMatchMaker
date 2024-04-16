@@ -8,6 +8,7 @@ namespace APLMatchMaker.Shared.DTOs.CompanyDTOs
 {
     public class CompanyDetailsDTO
     {
+        public int Id { get; set; }
         public string CompanyName { get; set; } = string.Empty;
         public string OrganizationNumber { get; set; } = string.Empty;
         public string Website { get; set; } = string.Empty;

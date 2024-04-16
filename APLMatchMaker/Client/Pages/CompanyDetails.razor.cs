@@ -1,4 +1,4 @@
-Ôªøusing APLMatchMaker.Shared.DTOs.CompanyDTOs;
+using APLMatchMaker.Shared.DTOs.CompanyDTOs;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 using static System.Net.WebRequestMethods;
@@ -7,27 +7,33 @@ namespace APLMatchMaker.Client.Pages
 {
     public partial class CompanyDetails
     {
-
         [Inject]
         public HttpClient? Http { get; set; }
 
         [Parameter]
         public int Id { get; set; }
-        public CompanyDetailsDTO companyDetails = new();
+
+        public CompanyForListDTO? companyDetails = new();
+        //private CompanyForListDTO companyDetails = new CompanyForListDTO();
+
         public string? ErrorMessage { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
+
             try
             {
-                var response = await Http!.GetFromJsonAsync<CompanyDetailsDTO>($"api/Company/{Id}");
-                if (response != null)
+                //var response = await Http!.GetFromJsonAsync<CompanyForListDTO>($"api/company/{Id}");
+                companyDetails = await Http!.GetFromJsonAsync<CompanyForListDTO>($"api/company/{Id}");
+
+                if (companyDetails != null)
                 {
-                    companyDetails = response;
+                    // companyDetails = response;
+
                 }
                 else
                 {
-                    ErrorMessage = "Kan inte l√§sa in inh√§mtade data.";
+                    ErrorMessage = "Kan inte l‰sa in inh‰mtade data.";
                 }
             }
             catch (Exception ex)
@@ -36,5 +42,4 @@ namespace APLMatchMaker.Client.Pages
             }
         }
     }
-
 }

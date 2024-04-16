@@ -24,7 +24,12 @@ namespace APLMatchMaker.Shared.DTOs.CompanyDTOs
 
         public string City { get; set; } = string.Empty;
 
-        //public string Notes { get; set; } = string.Empty;
+        public string Notes { get; set; } = string.Empty;
+
+        public static implicit operator CompanyUpdateDTO(CompanyDetailsDTO v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
