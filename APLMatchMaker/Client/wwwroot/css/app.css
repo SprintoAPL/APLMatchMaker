@@ -32,16 +32,19 @@ h1 {
 
 h3 {
     color: #eaeaea;
+    text-align: center;
+    background-color: #292b2c;
+    height: 40px;
+    border: 0.1rem solid;
+    border-color: orange;
 }
 
 main.container {
-    /*background-color:#3a434b;*/ /*#212529*/ /*rgba(0, 0, 0, 0.5)*/
-    /*background-color: #33393e;*/
     color: #788898;
-    border-radius: 6px;
-    border: 20px;
-    border-color: white;
-    background: linear-gradient(0deg, rgba(70,76,80,0.9164040616246498) 19%, rgba(52,54,57,0.9203256302521008) 77%);
+/*    border-radius: 6px;
+    border: 1px solid;*/
+/*    border-color: grey;
+    background: linear-gradient(0deg, rgba(40,46,50,0.7164040616246498) 19%, rgba(42,44,50,0.7203256302521008) 77%);*/
 }
 
 h1:focus {
@@ -49,7 +52,7 @@ h1:focus {
 }
 
 a, .btn-link {
-    color: #5098e0 
+    color: #6aa1ee
 }
 
      visited link 
@@ -181,7 +184,8 @@ element, excluding any <caption > element.*/
 .table > :not(caption) > * > * {
     padding: 0.4rem 0.4rem; /*table spaces*/
     background-color: var(--bs-table-bg);
-    border-bottom-width: 2px;
+    border-bottom-width: 1px;
+    border-color: orange;
     box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg)
 }
 
@@ -195,14 +199,18 @@ element, excluding any <caption > element.*/
 
     .table > :not(:last-child) > :last-child > * {
         /*Labels*/
-        border-bottom-color: currentColor;
-        background-color: #14151a;
-
-        
+        border-bottom-color: orange;
+        /*background-color: #121215*/
+        /*background: linear-gradient(0deg, rgba(34,45,50,1) 70%, rgba(46,54,61,1) 100%);*/
+        background: linear-gradient(0deg, rgba(44,51,60,1) 46%, rgba(54,60,74,1) 100%);
+    }
+    .table > tbody > :nth-child(even) {
+        /*Alternating row colors for tables*/
+        background-color: rgba(16, 16, 16, 1);
     }
     .table > tbody > :nth-child(odd) {
         /*Alternating row colors for tables*/
-        background-color: rgba(0, 0, 0, 0.3);
+        background-color: rgba(13, 13, 13, 1);
     }
 
 /*.top-row {*/
@@ -219,10 +227,10 @@ element, excluding any <caption > element.*/
 
 .logo-bar {
     /*Top nav bar with logo*/
-    background-color: #111212;/*#1d1d1d;*/ /* Background color */
+    background-color: #16191bd4;/*#1d1d1d;*/ /* Background color */
     /*border-radius: 18px 18px;*/
     border: 2px;
-    margin-top: 15px;
+    /*margin-top: 15px;*/
     /*opacity: 0.8;*/
     /*background: linear-gradient(0deg, rgba(22,22,22,1) 68%, rgba(45,45,45,0.9360119047619048) 94%);*/
     color: #fff; /* Text color */
