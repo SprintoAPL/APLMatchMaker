@@ -178,5 +178,39 @@ namespace APLMatchMaker.Server.Services
                 throw new Exception($"Error occurred while updating the course with ID {id}.", ex);
             }
         }
+
+        //Sorting Of Course (isAscending=true == ascOrd/ isAscending=false == dscOrd)
+        public async Task<List<CourseForShortListDTO>> GetSortedCoursesAsync(string sortBy, bool isAscending)
+        {
+            IQueryable<Course> courses = _dbContext.Courses;
+
+            switch (sortBy.ToLower())
+            {
+                case "name":
+                    courses = isAscending ? courses.OrderBy(c => c.Name) : courses.OrderByDescending(c => c.Name);
+                    break;
+                case "id":
+                    courses = isAscending ? courses.OrderBy(c => c.Id) : courses.OrderByDescending(c => c.Id);
+                    break;
+                case "startdate":
+                    courses = isAscending ? courses.OrderBy(c => c.StartDate) : courses.OrderByDescending(c => c.StartDate);
+                    break;
+                default:
+                    courses = courses.OrderBy(c => c.Id); // Default sorting by ID
+                    break;
+            }
+            // Project the result into CourseForShortListDTO
+            return await courses
+                .Select(c => new CourseForShortListDTO
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    StartDate = c.StartDate,
+                    EndDate = c.EndDate,
+                })
+                .ToListAsync();
+        }
+
+
     }
 }

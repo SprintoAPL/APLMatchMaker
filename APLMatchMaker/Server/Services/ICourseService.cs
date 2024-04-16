@@ -12,5 +12,7 @@ namespace APLMatchMaker.Server.Services
         Task AddCourseAsync(CourseDto course);
         Task UpdateCourseAsync(CourseForEditDto course, int id);
         Task DeleteCourseAsync(int id);
+        Task<List<CourseForShortListDTO>> GetSortedCoursesAsync(string sortBy, bool isAscending);
+
     }
 }
