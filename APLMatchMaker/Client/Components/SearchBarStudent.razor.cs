@@ -9,12 +9,12 @@ namespace APLMatchMaker.Client.Components
         [Inject]
         public HttpClient? Http {  get; set; }
         private string SearchQuery = "";
-        private List<StudentForListDTO> SearchResult = new List<StudentForListDTO>();
+        private List<StudentForListDTO>? SearchResult = new List<StudentForListDTO>();
            
         public async Task SearchStudents(string searchText)
         {
             SearchQuery = searchText;
-            var response = await Http.GetAsync($"api/student?SearchQuery={searchText}");
+            var response = await Http!.GetAsync($"api/student?SearchQuery={searchText}");
             if (response.IsSuccessStatusCode)
             {
                 SearchResult = await response.Content.ReadFromJsonAsync<List<StudentForListDTO>>();
