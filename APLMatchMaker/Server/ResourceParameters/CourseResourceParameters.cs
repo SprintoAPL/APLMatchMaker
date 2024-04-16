@@ -6,10 +6,10 @@ namespace APLMatchMaker.Server.ResourceParameters
     {
         //Filter parameters
         public string Name { get; set; } = string.Empty;
-
-        public DateTime StartDate { get; set; } 
-
+        public DateTime StartDate { get; set; }
         public string? SearchQuery { get; set; }
+        public string SortBy { get; set; } = "id";
+        public bool IsAscending { get; set; } = true;
 
 
     }

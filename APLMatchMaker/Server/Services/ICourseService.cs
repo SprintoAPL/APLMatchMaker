@@ -5,14 +5,11 @@ namespace APLMatchMaker.Server.Services
 {
     public interface ICourseService
     {
-        Task<List<CourseForShortListDTO>> GetAllCoursesAsync();
-
-        Task<List<CourseForShortListDTO>> GetSearchedCoursesAsync(CourseResourceParameters? courseResourceParameters);
+        Task<List<CourseForShortListDTO>> GetCoursesAsync(CourseResourceParameters courseParameters);
         Task<CourseDto?> GetCourseByIdAsync(int id);
         Task AddCourseAsync(CourseDto course);
         Task UpdateCourseAsync(CourseForEditDto course, int id);
         Task DeleteCourseAsync(int id);
-        Task<List<CourseForShortListDTO>> GetSortedCoursesAsync(string sortBy, bool isAscending);
 
     }
 }

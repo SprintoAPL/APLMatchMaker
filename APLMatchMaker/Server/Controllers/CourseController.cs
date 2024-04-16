@@ -16,29 +16,17 @@ namespace APLMatchMaker.Server.Controllers
         {
             _courseService = courseService;
         }
+
+
+        //[API to fetch all courses along with search and sort functionality)
+
+        // GET: api/course/?Name=.NET&sortBy=startDate&isAscending=false
         [HttpGet]
-        public async Task<IActionResult> GetCoursesAsync()
+        public async Task<IActionResult> GetCoursesAsync([FromQuery] CourseResourceParameters courseParameters)
         {
             try
             {
-                var courseDtos = await _courseService.GetAllCoursesAsync();
-
-                return Ok(courseDtos);
-            }
-            catch (Exception ex)
-            {
-
-                return StatusCode(500, $"Internal Server Error: {ex.Message}");
-            }
-        }
-
-        // GET: api/course/searched?
-        [HttpGet("searched")]
-        public async Task<IActionResult> GetSearchedCoursesAsync([FromQuery] CourseResourceParameters? courseResourceParameters)
-        {
-            try
-            {
-                var courseDtos = await _courseService.GetSearchedCoursesAsync(courseResourceParameters!);
+                var courseDtos = await _courseService.GetCoursesAsync(courseParameters);
                 return Ok(courseDtos);
             }
             catch (Exception ex)
@@ -46,6 +34,7 @@ namespace APLMatchMaker.Server.Controllers
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
+
 
         // GET: api/course/id
         [HttpGet("{id}")]
@@ -70,6 +59,8 @@ namespace APLMatchMaker.Server.Controllers
                 }
             }
         }
+
+
         [HttpPost]
         public async Task<IActionResult> AddCourseAsync(CourseDto courseDto)
         {
@@ -93,6 +84,7 @@ namespace APLMatchMaker.Server.Controllers
             }
         }
 
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCourseAsync(int id, CourseForEditDto courseEdit)
         {
@@ -112,6 +104,7 @@ namespace APLMatchMaker.Server.Controllers
             }
         }
 
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCourseAsync(int id)
         {
@@ -119,21 +112,6 @@ namespace APLMatchMaker.Server.Controllers
             {
                 await _courseService.DeleteCourseAsync(id);
                 return Ok("The course has been removed.");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal Server Error: {ex.Message}");
-            }
-        }
-
-        // GET: api/course/sorted?sortBy=name&isAscending=true 
-        [HttpGet("sorted")]
-        public async Task<IActionResult> GetSortedCoursesAsync([FromQuery] string sortBy = "id", [FromQuery] bool isAscending = true)
-        {
-            try
-            {
-                var courseDtos = await _courseService.GetSortedCoursesAsync(sortBy, isAscending);
-                return Ok(courseDtos);
             }
             catch (Exception ex)
             {
