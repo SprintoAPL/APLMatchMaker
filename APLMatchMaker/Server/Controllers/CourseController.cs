@@ -19,7 +19,6 @@ namespace APLMatchMaker.Server.Controllers
 
 
         //[API to fetch all courses along with search and sort functionality)
-
         // GET: api/course/?Name=.NET&sortBy=startDate&isAscending=false
         [HttpGet]
         public async Task<IActionResult> GetCoursesAsync([FromQuery] CourseResourceParameters courseParameters)

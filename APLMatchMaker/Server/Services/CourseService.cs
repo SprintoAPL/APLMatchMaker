@@ -62,7 +62,7 @@ namespace APLMatchMaker.Server.Services
 
 
 
-        //Service for Getting Courses along with search and sort:
+        //Course Service for Getting List of Courses along with search and sort option:
         public async Task<List<CourseForShortListDTO>> GetCoursesAsync(CourseResourceParameters courseParameters)
         {
             try
@@ -117,6 +117,8 @@ namespace APLMatchMaker.Server.Services
                     return isAscending ? courses.OrderBy(c => c.StartDate) : courses.OrderByDescending(c => c.StartDate);
                 case "enddate":
                     return isAscending ? courses.OrderBy(c => c.EndDate) : courses.OrderByDescending(c => c.EndDate);
+                case "id":
+                    return isAscending ? courses.OrderBy(c => c.Id) : courses.OrderByDescending(c => c.Id);
                 default:
                     return courses.OrderBy(c => c.Id); // Default sorting by ID
             }
