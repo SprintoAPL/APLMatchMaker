@@ -1,9 +1,25 @@
 ﻿@using APLMatchMaker.Shared.DTOs.CompanyDTOs;
+
 <p>
-    Namn:&nbsp;@Company.CompanyName <br />
+    Namn:&nbsp;@Company.CompanyName
+</p>
+
+<p>
     Web:&nbsp;@Company.Website <br />
     E-post:&nbsp;@Company.CompanyEmail <br />
-    Telefon:&nbsp;@Company.Phone <br />
-    Gata:&nbsp;@Company.PostalAdress
+    Telefon:&nbsp;@Company.Phone
+</p>
+
+<p>
+    Gata:&nbsp;@Company.PostalAdress <br />
+    Postnr. Ort:&nbsp;@Company.PostalNumber&nbsp;@Company.City
+</p>
+
+<p>
+    Org.Nr:&nbsp;@Company.OrganizationNumber
+</p>
+
+<p>
+    Anteckningar:<br />@Company.Notes
 </p>
 

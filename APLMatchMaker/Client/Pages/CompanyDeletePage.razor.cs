@@ -14,7 +14,7 @@ namespace APLMatchMaker.Client.Pages
         [Parameter]
         public int Id { get; set; }
 
-        public CompanyForListDTO? Company { get; set; }
+        public CompanyDetailsDTO? Company { get; set; }
         public string? ErrorMessage { get; set; }
 
 
@@ -24,7 +24,7 @@ namespace APLMatchMaker.Client.Pages
             await base.OnInitializedAsync();
             try
             {
-                Company = await Http!.GetFromJsonAsync<CompanyForListDTO>($"api/company/{Id}");
+                Company = await Http!.GetFromJsonAsync<CompanyDetailsDTO>($"api/company/{Id}");
             }
             catch (Exception ex)
             {

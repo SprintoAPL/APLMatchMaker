@@ -6,6 +6,6 @@ namespace APLMatchMaker.Client.Components
     public partial class CompanyDetailsComponent
     {
         [Parameter]
-        public CompanyForListDTO Company { get; set; } = new();
+        public CompanyDetailsDTO Company { get; set; } = new();
     }
 }
