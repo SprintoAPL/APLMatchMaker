@@ -1,4 +1,6 @@
+using APLMatchMaker.Shared.DTOs.CompanyDTOs;
 using Microsoft.AspNetCore.Components;
+using System.Net.Http.Json;
 
 namespace APLMatchMaker.Client.Pages
 {
@@ -11,5 +13,37 @@ namespace APLMatchMaker.Client.Pages
 
         [Parameter]
         public int Id { get; set; }
+
+        public CompanyForListDTO? Company { get; set; }
+        public string? ErrorMessage { get; set; }
+
+
+
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
+
+            Company = await Http!.GetFromJsonAsync<CompanyForListDTO>($"api/company/{Id}");
+        }
+
+        private async Task Delete()
+        {
+            try
+            {
+                var response = await Http!.DeleteAsync($"api/company/{Id}");
+                if (response.IsSuccessStatusCode)
+                {
+                    NavigationManager!.NavigateTo($"/"); //Index
+                }
+                else
+                {
+                    ErrorMessage = "Failed to delete company. Error: " + response.StatusCode;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = "Error deleting company: " + ex.Message;
+            }
+        }
     }
 }
