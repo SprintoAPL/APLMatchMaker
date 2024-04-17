@@ -1,0 +1,45 @@
+﻿
+body {
+}
+
+.label {
+
+}
+
+.link-bar{
+
+}
+
+.avatar{
+
+}
+
+/*the .container div uses Flexbox to arrange its child elements horizontally.
+The .space div creates a space between the .box divs by setting its width.*/
+.container {
+    display: flex;
+}
+
+.space {
+    width: 20px; /* Space between divs */
+}
+
+.details {
+    background-color: gray;
+    width: 300px;
+    height: 300px;
+    /*float: left;*/
+}
+
+.qualifications {
+    background-color: gray;
+    width: 300px;
+    height: 300px;
+    /*float: left;*/
+    /*left: 100px;*/
+}
+
+.status {
+    background-color: gray;
+}
+
