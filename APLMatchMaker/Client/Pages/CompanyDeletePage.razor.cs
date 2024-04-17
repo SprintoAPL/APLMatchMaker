@@ -22,8 +22,14 @@ namespace APLMatchMaker.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-
-            Company = await Http!.GetFromJsonAsync<CompanyForListDTO>($"api/company/{Id}");
+            try
+            {
+                Company = await Http!.GetFromJsonAsync<CompanyForListDTO>($"api/company/{Id}");
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"Error loading company with ID:{Id},: " + ex.Message;
+            }
         }
 
         private async Task Delete()
