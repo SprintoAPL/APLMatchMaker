@@ -1,9 +1,73 @@
-﻿@page "/companies"
+﻿@page "/company"
 @using APLMatchMaker.Shared
 
+<h3>Företag</h3>
+<br />
+
+<div class="form-group">
+    <a class="btn btn-primary" href="company/add"><i class="oi oi-plus"></i> Registrera Bolag </a>
+</div>
+
+<br>
+
+@* @if (companies == null)
+{
+    <p><em>Loading...</em></p>
+    <p>@errorMessage</p>
+}
+else
+{ *@
+@if (companies == null && errorMessage == null)
+{
+    <p>Hämtar...</p>
+}
+else if (errorMessage != null)
+{
+    <p class="alert alert-danger">Fel vid datahämtning: @errorMessage</p>
+}
+else
+{
+
+    <table class="table">
+
+        <thead>
+
+            <tr>
+                <th scope="col">Företag</th>
+                <th scope="col">Org.nummer</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Telefon</th>
+                <th scope="col">Redigera</th>
+                <th scope="col"></th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach (var company in companies)
+            {
+                <tr>
+                    <td scope="row"><a href="@($"companydetails/{company.Id}")">@company.CompanyName</a></td>
+                    <td scope="row">@company.OrganizationNumber</td>
+                    <td scope="row">@company.CompanyEmail</td>
+                    <td scope="row">@company.Phone</td>
+                    <td scope="row">
+                        <a href="@($"editcompany/{company.Id}")" class="btn btn-info m-1"> <span class="bi bi-pencil bi-2x"></span></a>
+                    </td>
+                    <td scope="row">
+                        <a href="@($"deletecompany/{company.Id}")" class="btn btn-danger m-1"> <span class="bi bi-trash bi-2x"></span></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    
 
 
-<h1>Companies Overview</h1>
+}
+
+@* <h1>Companies Overview</h1>
 <br />
 
 <div class="form-group">
@@ -86,5 +150,5 @@ else
     }
 
 
-}
+} *@
 

@@ -1,0 +1,62 @@
+﻿@page "/companydetails/{Id:int}"
+
+
+@using APLMatchMaker.Client.Components
+@using APLMatchMaker.Client.Helpers
+@using APLMatchMaker.Shared.DTOs.CompanyDTOs
+
+<h3>Företag</h3>
+
+
+@* @if (companyDetails == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{ *@
+@if (companyDetails == null && ErrorMessage == null)
+{
+    <p>Hämtar....</p>
+}
+else if (ErrorMessage != null)
+{
+    <p class="alert alert-danger">Fel vid datahämtning: @ErrorMessage</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Företag</th>
+                <th scope="col">Organisationsnummer</th>
+                <th scope="col">Hemsida</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Telefon</th>
+                <th scope="col">Post Adress</th>
+                <th scope="col">Post Nummer</th>
+                <th scope="col">Kommun</th>
+                <th scope="col">Noteringar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@companyDetails!.CompanyName</td>
+                <td>@companyDetails.OrganizationNumber</td>
+                <td>@companyDetails.Website</td>
+                <td>@companyDetails.CompanyEmail</td>
+                <td>@companyDetails.Phone</td>
+                <td>@companyDetails.PostalAdress</td>
+                <td>@companyDetails.PostalNumber</td>
+                <td>@companyDetails.City</td>
+                <td>@companyDetails.Notes</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="@($"/company")" class="btn btn-outline-primary">Tillbaka till företags listan</a>
+
+    <br />
+
+    <br />
+}
+
