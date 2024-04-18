@@ -11,6 +11,7 @@ namespace APLMatchMaker.Client.Pages
         private HttpClient? Http { get; set; }
         public List<CourseForShortListDTO>? PageListCourses { get; set; }
         private string? errorMessage;
+
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
@@ -24,5 +25,7 @@ namespace APLMatchMaker.Client.Pages
                 errorMessage = exception.Message;
             }
         }
+
+       
     }
 }

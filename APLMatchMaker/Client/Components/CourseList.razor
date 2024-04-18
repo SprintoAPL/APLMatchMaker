@@ -1,4 +1,5 @@
 ﻿@using APLMatchMaker.Shared.DTOs.CoursesDTOs
+@using APLMatchMaker.Client.Pages
 
 @if (CompListOfCourses == null || !CompListOfCourses.Any())
 {
@@ -6,6 +7,8 @@
 }
 else
 {
+    <input type="text" style= "width:500px" @bind-value="searchText" placeholder="Sök på kursnamn..." />
+    <button class="btn-primary" type="submit" @onclick="HandleSearch">Sök</button>
     <table class="table">
 
         <thead>
@@ -38,7 +41,5 @@ else
             }
         </tbody>
     </table>
-    <a href="@($"addcourse")" class="btn btn-primary m-1">Lägg till en ny kurs</a>
-    
-    
+    <a href="@($"addcourse")" class="btn btn-primary m-1">Lägg till en ny kurs</a>  
 }
