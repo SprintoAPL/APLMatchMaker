@@ -2,8 +2,11 @@
 @using APLMatchMaker.Shared.DTOs.StudentsDTOs
 
 <div class="container">
+    <div class="label"><h4>
+            @studentDetails.FirstName @studentDetails.LastName
+    </h4></div>
 <div class ="details">
-        <h3>Elevdhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh</h3>
+        <h2>Elev</h2>
     @if (studentDetails != null)
     {
         <p>
@@ -28,6 +31,7 @@
 </div>
     <div class="space"></div> <!-- Space between divs -->
 <div class ="qualifications">
+        <h2>Kvalifikationer</h2>
 <p>
     <b>Course:</b> @studentDetails.FirstName @studentDetails.LastName<br />
     <b>Grade:</b> @studentDetails.Email<br />
@@ -37,6 +41,7 @@
 </div>
     <div class="space"></div> <!-- Space between divs -->
     <div class="status">
+        <h2>Status</h2>
         <p>
             <b>Status:</b> @studentDetails.FirstName @studentDetails.LastName<br />
             <b>Internship at:</b> @studentDetails.Email<br />

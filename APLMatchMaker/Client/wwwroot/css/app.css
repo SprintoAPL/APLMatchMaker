@@ -34,6 +34,14 @@ h1 {
     color: #eaeaea;
 }
 
+h2 {
+    color: #eaeaea;
+    font-size: x-large;
+    text-align: center;
+    background-color: #292b2c;
+    height: 30px;
+}
+
 h3 {
     color: #eaeaea;
     text-align: center;
@@ -41,6 +49,14 @@ h3 {
     height: 40px;
     border: 0.1rem solid;
     border-color: orange;
+}
+
+h4 {
+    color: #eaeaea;
+    font-size: xx-large;
+    text-align: center;
+    background-color: #292b2c;
+    height: 40px;
 }
 
 main.container {
