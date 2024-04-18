@@ -8,12 +8,11 @@ namespace APLMatchMaker.Client.Components
     {
         [Inject]
         public HttpClient? Http {  get; set; }
-        private string SearchQuery = "";
+        private string searchText = "";
         private List<StudentForListDTO>? SearchResult = new List<StudentForListDTO>();
            
-        public async Task SearchStudents(string searchText)
+        public async Task SearchStudents()
         {
-            SearchQuery = searchText;
             var response = await Http!.GetAsync($"api/student?SearchQuery={searchText}");
             if (response.IsSuccessStatusCode)
             {
