@@ -1,4 +1,5 @@
 using APLMatchMaker.Shared.DTOs.CompanyDTOs;
+using APLMatchMaker.Client.Helpers;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 
@@ -24,7 +25,8 @@ namespace APLMatchMaker.Client.Pages
             await base.OnInitializedAsync();
             try
             {
-                Company = await Http!.GetFromJsonAsync<CompanyDetailsDTO>($"api/company/{Id}");
+                var respose = await Http!.GetFromJsonAsync<CompanyDetailsHelper>($"api/company/{Id}");
+                Company = respose!.company;
             }
             catch (Exception ex)
             {
@@ -39,7 +41,7 @@ namespace APLMatchMaker.Client.Pages
                 var response = await Http!.DeleteAsync($"api/company/{Id}");
                 if (response.IsSuccessStatusCode)
                 {
-                    NavigationManager!.NavigateTo($"/"); //Index
+                    NavigationManager!.NavigateTo($"/company");
                 }
                 else
                 {
