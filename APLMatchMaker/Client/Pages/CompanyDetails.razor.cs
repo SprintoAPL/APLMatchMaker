@@ -1,3 +1,4 @@
+using APLMatchMaker.Client.Helpers;
 using APLMatchMaker.Shared.DTOs.CompanyDTOs;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
@@ -23,12 +24,12 @@ namespace APLMatchMaker.Client.Pages
 
             try
             {
-                //var response = await Http!.GetFromJsonAsync<CompanyForListDTO>($"api/company/{Id}");
-                companyDetails = await Http!.GetFromJsonAsync<CompanyForListDTO>($"api/company/{Id}");
+                var response = await Http!.GetFromJsonAsync<CompanyDetailsHelper>($"api/company/{Id}");
+                //companyDetails = await Http!.GetFromJsonAsync<CompanyForListDTO>($"api/company/{Id}");
 
-                if (companyDetails != null)
+                if (response != null)
                 {
-                    // companyDetails = response;
+                     companyDetails = response.company;
 
                 }
                 else
