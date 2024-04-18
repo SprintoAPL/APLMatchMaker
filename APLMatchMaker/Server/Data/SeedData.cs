@@ -128,8 +128,11 @@ namespace APLMatchMaker.Server.Data
                 // (CompanyName, OrganizationNumber, Website, Email, Phone, PAdress, PNo, Citty, Notes)
                 var company = new (string, string, string, string, string, string, string, string, string)[]
                 {
-                    ("Alfalaval", "555555-5555", "www.alfalaval.se", "info@alfalaval.se", "08-555 555 55", "Separator vägen 1", "123 45", "Tumba", "Tillverkar mjölkningsmaskiner och separatorer för mejeriindustrin."),
-                    ("Min dåliga fantasi", "555555-5555", "www.xxx.se", "info@test.se", "08-555 555 55", "Skogsstige 1465416", "123 45", "Farsta", "Så här långt räcker min fantasi.")
+                    ("Alfalaval", "7727-8755", "www.alfalaval.se", "info@alfalaval.se", "08-533 664 55", "Separator vägen 1", "123 45", "Tumba", "Tillverkar mjölkningsmaskiner och separatorer för mejeriindustrin."),
+                    ("Lexicon", "5655-1255", "www.Lexicon.se", "info@Lexi.se", "08-755 12 55", "Skogstigrn 57", "157 45", "Farsta", "Programvaru utvecklare för stora företag."),
+                    ("Banan AB", "2541-6564", "www.Google.se", "info@Gmail.se", "08-555 787 22", "Sveavägen 25", "123 88", "Stockholm", "Importerar bananer från Gotland."),
+                    ("Alkemist", "7071-1170", "www.Alkemist.se", "info@alkemist.se", "08-211 122 55", "Valhallavägen 101", "121 18", "Stockholm", "En av världens största kemi företag."),
+                    ("Sportia AB", "2245-3211", "www.sportia.se", "info@sportia.se", "08-111 221 21", "Arenavägen 201", "103 21", "Göteborg", "Ett stor sport företag känt över hela världen.")
                 };
                 await AddCompaniesAsync(company);
             }
