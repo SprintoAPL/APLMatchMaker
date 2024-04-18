@@ -17,7 +17,14 @@ body {
 /*the .container div uses Flexbox to arrange its child elements horizontally.
 The .space div creates a space between the .box divs by setting its width.*/
 .container {
+    /*align-items: center;*/
+    width: 1200px;
+    height: 600px;
     display: flex;
+    border: 1px;
+    background-color: black;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
 }
 
 .space {
@@ -41,5 +48,7 @@ The .space div creates a space between the .box divs by setting its width.*/
 
 .status {
     background-color: gray;
+    width: 300px;
+    height: 300px;
 }
 
