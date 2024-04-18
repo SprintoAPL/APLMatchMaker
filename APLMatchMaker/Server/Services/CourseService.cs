@@ -132,7 +132,7 @@ namespace APLMatchMaker.Server.Services
             {
                 var course = await _dbContext.Courses
                     .Where(c => c.Id == id)
-                    .Include(c => c.Students)
+                    .Include(c => c.Students!)
                     .ThenInclude(s => s.Student)
                     .Select(c => new CourseDto
                     {
