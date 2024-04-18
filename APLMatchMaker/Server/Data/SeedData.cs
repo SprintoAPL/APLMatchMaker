@@ -193,7 +193,7 @@ namespace APLMatchMaker.Server.Data
                     PhoneNumber = phoneNo,
                     Address = address,
                     Title = title,
-                    CompanyId = null // companyId
+                    CompanyId = companyId,
                 };
                 var result = await userManager.CreateAsync(newContact, pw);
 
@@ -273,7 +273,7 @@ namespace APLMatchMaker.Server.Data
                     CommentByTeacher = commentByTeacher.Trim(),
                     Language = language.Trim(),
                     Nationality = nationality.Trim(),
-                    CompanyId = null // companyId
+                    CompanyId = companyId,
                 };
                 var result = await userManager.CreateAsync(newStudent, pw);
 
