@@ -18,7 +18,7 @@ namespace APLMatchMaker.Server.Models.Entities
 
 
         // Navigation properties.
-        public Company Company { get; set; } = new Company();
+        public Company? Company { get; set; } = null;
         public ICollection<Internship>? Internships { get; set; } = null;
     }
 }

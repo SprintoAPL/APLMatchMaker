@@ -38,6 +38,10 @@ namespace APLMatchMaker.Server.Data
             base.OnModelCreating(builder);
             builder.Entity<Enrollment>().HasKey(en => new { en.CourseId, en.ApplicationUserId });
             builder.Entity<Internship>().HasKey(i => new { i.ProjectId, i.ApplicationUserId });
+            builder.Entity<ApplicationUser>()
+                .HasOne(ap => ap.Company)
+                .WithMany(co => co.CompanyContacts)
+                .OnDelete(DeleteBehavior.SetNull);
         }
         //##########################################################################################
 
