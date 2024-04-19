@@ -12,5 +12,10 @@ namespace APLMatchMaker.Shared.DTOs.CoursesDTOs
         public string Name { get; set; } = string.Empty;
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+
+        // Properties to track sorting direction
+        public bool IsNameSortedAscending { get; set; }
+        public bool IsStartDateSortedAscending { get; set; }
+        public bool IsEndDateSortedAscending { get; set; }
     }
 }
