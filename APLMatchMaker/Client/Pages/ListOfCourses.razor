@@ -4,6 +4,10 @@
 <h3>Kurslista</h3>
 <p></p>
 
+<input type="text" style="width:500px" @bind-value="searchText" placeholder="Sök på kursnamn..." />
+<button class="btn-primary" type="submit" @onclick="HandleSearch">Sök</button>
+
+
 @if (PageListCourses == null && errorMessage == null)
 {
     <p>Hämtar...</p>
@@ -12,7 +16,15 @@ else if (errorMessage != null)
 {
     <p class="alert alert-danger">Fel vid datahämtning: @errorMessage</p>
 }
+else if (PageListCourses!.Count == 0)
+{
+    <p>Ingen kurs hittad.</p>
+}
 else
 {
+    <br /><a href="@($"addcourse")" class="btn btn-primary m-1">Lägg till en ny kurs</a>
+
     <CourseList CompListOfCourses=PageListCourses></CourseList>
+
+    <a href="@($"addcourse")" class="btn btn-primary m-1">Lägg till en ny kurs</a>
 }

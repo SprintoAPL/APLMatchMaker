@@ -11,6 +11,7 @@ namespace APLMatchMaker.Client.Pages
         private HttpClient? Http { get; set; }
         public List<CourseForShortListDTO>? PageListCourses { get; set; }
         private string? errorMessage;
+        public string? searchText;
 
         protected override async Task OnInitializedAsync()
         {
@@ -26,6 +27,18 @@ namespace APLMatchMaker.Client.Pages
             }
         }
 
-       
+        public async Task HandleSearch()
+        {
+            try
+            {
+                PageListCourses = await Http!.GetFromJsonAsync<List<CourseForShortListDTO>>($"/api/course?searchQuery={searchText}");
+            }
+            catch (Exception exception)
+            {
+                errorMessage = exception.Message;
+            }
+        }
+
+
     }
 }
