@@ -5,7 +5,8 @@
 
 <h3 class="m3">Studentlista</h3>
 @* <h7 class="alert alert-warning m-3 p-1">Add a search box here</h7> *@
-<SearchBarStudent />
+<input type="text" @bind="searchText" placeholder="Sök student..." />
+<button class="btn btn-success" type="submit" @onclick="SearchStudents">Sök</button>
 
 @if ((PageListStudents == null || !PageListStudents.Any()) && errorMessage == null)
 {

@@ -1,6 +1,7 @@
 using APLMatchMaker.Client.Helpers;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.AspNetCore.Components;
+using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using NuGet.Protocol;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -23,6 +24,7 @@ namespace APLMatchMaker.Client.Pages
         private string? pagination;
         private bool debug = false;
         private PaginationMetadata? paginationMetadata;
+        private string? searchText;
 
         protected override async Task OnInitializedAsync()
         {
@@ -92,6 +94,19 @@ namespace APLMatchMaker.Client.Pages
         {
             navLink = paginationMetadata!.NextPageLink;
             await OnParametersSetAsync();
+        }
+
+        public async Task SearchStudents()
+        {
+            try
+            {
+                PageListStudents = await Http!.GetFromJsonAsync<List<StudentForListDTO>>($"/api/student?searchQuery={searchText}");
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+            }
+
         }
     }
 }
