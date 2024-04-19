@@ -4,6 +4,7 @@ using APLMatchMaker.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APLMatchMaker.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240412111311_Adds project and internship")]
+    partial class Addsprojectandinternship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,9 +55,6 @@ namespace APLMatchMaker.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -69,9 +69,6 @@ namespace APLMatchMaker.Server.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsCompanyContact")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsStudent")
                         .HasColumnType("bit");
@@ -132,10 +129,6 @@ namespace APLMatchMaker.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -147,8 +140,6 @@ namespace APLMatchMaker.Server.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -586,15 +577,6 @@ namespace APLMatchMaker.Server.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("APLMatchMaker.Server.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("APLMatchMaker.Server.Models.Entities.Company", "Company")
-                        .WithMany("CompanyContacts")
-                        .HasForeignKey("CompanyId");
-
-                    b.Navigation("Company");
-                });
-
             modelBuilder.Entity("APLMatchMaker.Server.Models.Entities.Enrollment", b =>
                 {
                     b.HasOne("APLMatchMaker.Server.Models.ApplicationUser", "Student")
@@ -617,7 +599,7 @@ namespace APLMatchMaker.Server.Migrations
             modelBuilder.Entity("APLMatchMaker.Server.Models.Entities.Internship", b =>
                 {
                     b.HasOne("APLMatchMaker.Server.Models.ApplicationUser", "Student")
-                        .WithMany("Internships")
+                        .WithMany()
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -698,14 +680,10 @@ namespace APLMatchMaker.Server.Migrations
             modelBuilder.Entity("APLMatchMaker.Server.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Course");
-
-                    b.Navigation("Internships");
                 });
 
             modelBuilder.Entity("APLMatchMaker.Server.Models.Entities.Company", b =>
                 {
-                    b.Navigation("CompanyContacts");
-
                     b.Navigation("Projects");
                 });
 

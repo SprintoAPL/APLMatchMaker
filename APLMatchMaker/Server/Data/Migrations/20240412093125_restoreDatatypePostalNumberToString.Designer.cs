@@ -4,6 +4,7 @@ using APLMatchMaker.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APLMatchMaker.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240412093125_restoreDatatypePostalNumberToString")]
+    partial class restoreDatatypePostalNumberToString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,9 +55,6 @@ namespace APLMatchMaker.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -69,9 +69,6 @@ namespace APLMatchMaker.Server.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsCompanyContact")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsStudent")
                         .HasColumnType("bit");
@@ -132,10 +129,6 @@ namespace APLMatchMaker.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -147,8 +140,6 @@ namespace APLMatchMaker.Server.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -250,62 +241,6 @@ namespace APLMatchMaker.Server.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Enrollments");
-                });
-
-            modelBuilder.Entity("APLMatchMaker.Server.Models.Entities.Internship", b =>
-                {
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("AlternateEndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("AlternateStartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ProjectId", "ApplicationUserId");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("Internships");
-                });
-
-            modelBuilder.Entity("APLMatchMaker.Server.Models.Entities.Project", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DefaultEndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DefaultStartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("NumberOfInterns")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProjectDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProjectName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.DeviceFlowCodes", b =>
@@ -586,15 +521,6 @@ namespace APLMatchMaker.Server.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("APLMatchMaker.Server.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("APLMatchMaker.Server.Models.Entities.Company", "Company")
-                        .WithMany("CompanyContacts")
-                        .HasForeignKey("CompanyId");
-
-                    b.Navigation("Company");
-                });
-
             modelBuilder.Entity("APLMatchMaker.Server.Models.Entities.Enrollment", b =>
                 {
                     b.HasOne("APLMatchMaker.Server.Models.ApplicationUser", "Student")
@@ -612,36 +538,6 @@ namespace APLMatchMaker.Server.Migrations
                     b.Navigation("Course");
 
                     b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("APLMatchMaker.Server.Models.Entities.Internship", b =>
-                {
-                    b.HasOne("APLMatchMaker.Server.Models.ApplicationUser", "Student")
-                        .WithMany("Internships")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("APLMatchMaker.Server.Models.Entities.Project", "Project")
-                        .WithMany("Internships")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Project");
-
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("APLMatchMaker.Server.Models.Entities.Project", b =>
-                {
-                    b.HasOne("APLMatchMaker.Server.Models.Entities.Company", "Company")
-                        .WithMany("Projects")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -698,25 +594,11 @@ namespace APLMatchMaker.Server.Migrations
             modelBuilder.Entity("APLMatchMaker.Server.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Course");
-
-                    b.Navigation("Internships");
-                });
-
-            modelBuilder.Entity("APLMatchMaker.Server.Models.Entities.Company", b =>
-                {
-                    b.Navigation("CompanyContacts");
-
-                    b.Navigation("Projects");
                 });
 
             modelBuilder.Entity("APLMatchMaker.Server.Models.Entities.Course", b =>
                 {
                     b.Navigation("Students");
-                });
-
-            modelBuilder.Entity("APLMatchMaker.Server.Models.Entities.Project", b =>
-                {
-                    b.Navigation("Internships");
                 });
 #pragma warning restore 612, 618
         }

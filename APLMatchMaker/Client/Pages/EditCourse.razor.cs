@@ -22,7 +22,7 @@ namespace APLMatchMaker.Client.Pages
         {
             try
             {
-                var response = await Http.GetFromJsonAsync<CourseForEditDto>($"api/course/{Id}");
+                var response = await Http!.GetFromJsonAsync<CourseForEditDto>($"api/course/{Id}");
                 if ( response != null ) 
                 {
                     CourseToEdit = response;
@@ -42,7 +42,7 @@ namespace APLMatchMaker.Client.Pages
         {
             try
             {
-                var result = await Http.PutAsJsonAsync($"api/course/{Id}", CourseToEdit);
+                var result = await Http!.PutAsJsonAsync($"api/course/{Id}", CourseToEdit);
 
                 if (result.IsSuccessStatusCode)
                 {
