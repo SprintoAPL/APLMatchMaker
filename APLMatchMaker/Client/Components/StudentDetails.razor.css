@@ -9,17 +9,25 @@ body {
     transform: translate(-0%, -400%); /* Center the div */
     width: 930px;
     height: 80px;
-    background-color: gray;
-    z-index: 1; /* Ensure this div is on top */
-
+    /*z-index: 1;*/ /* Ensure this div is on top */
 }
 
-.link-bar{
-
+.link-bar {
+    position: absolute;
+    width: 930px;
+    height: 50px;
+    transform: translate(-0%, -580%); /*Center the div*/
+    border-radius: 6px;
 }
 
-.avatar{
-
+.avatar {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    transform: translate(-250%, -100%); /*Center the div*/
+    background-color: white;
+    border-radius: 50%;
+    z-index:1;
 }
 
 /*the .container div uses Flexbox to arrange its child elements horizontally.
@@ -30,9 +38,13 @@ The .space div creates a space between the .box divs by setting its width.*/
     height: 800px;
     display: flex;
     border: 1px;
-    background-color: black;
+    background: linear-gradient(0deg, rgba(25,26,28,1) 10%, rgba(34,34,38,1) 39%);
+    /*background-color: rgba(16, 16, 16, 0.95);*/
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
+    border: 1px solid;
+    border-color: #343434;
+    border-radius: 24px;
 }
 
 .space {
@@ -40,26 +52,35 @@ The .space div creates a space between the .box divs by setting its width.*/
 }
 
 .details {
-    background-color: gray;
+    /*background-color: gray;*/
     width: 300px;
     height: 400px;
-    transform: translate(-0%, 30%); /* Center the div */
+    transform: translate(-0%, 50%); /* Center the div */
+    padding-right: 20px;
+    padding-left: 20px;
+    border-radius: 6px;
     /*float: left;*/
 }
 
 .qualifications {
-    background-color: gray;
+    /*background-color: gray;*/
     width: 300px;
     height: 400px;
-    transform: translate(-0%, 30%); /* Center the div */
+    transform: translate(-0%, 50%); /* Center the div */
+    padding-right: 20px;
+    padding-left: 20px;
+    border-radius: 6px;
     /*float: left;*/
     /*left: 100px;*/
 }
 
 .status {
-    background-color: gray;
+    /*background-color: gray;*/
     width: 300px;
     height: 400px;
-    transform: translate(-0%, 30%); /* Center the div */
+    transform: translate(-0%, 50%); /* Center the div */
+    padding-right: 20px;
+    padding-left: 20px;
+    border-radius: 6px;
 }
 

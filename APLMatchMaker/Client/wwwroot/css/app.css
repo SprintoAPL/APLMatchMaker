@@ -3,13 +3,13 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     height: 900px;
-    background-color: #14151a;
+    background-color: #21252999;
     background-image: url('../images/LEXICON_bg6_dark.jpg');
     background-repeat: no-repeat; /*Prevent the background image from repeating*/
     /*background-position: center;*/
     background-size: cover;
     /*background: linear-gradient(0deg, rgba(17,17,17,1) 0%, rgba(14,14,14,1) 100%);*/
-/*    display: flex;
+    /*    display: flex;
     justify-content: center;
     align-items: center;*/
 }
@@ -38,25 +38,27 @@ h2 {
     color: #eaeaea;
     font-size: x-large;
     text-align: center;
-    background-color: #292b2c;
+    /*background-color: #292b2c;*/
     height: 30px;
+    border-bottom:1px solid;
 }
 
 h3 {
     color: #eaeaea;
     text-align: center;
-    background-color: #292b2c;
+    /*background-color: #292b2c;*/
     height: 40px;
-    border: 0.1rem solid;
-    border-color: orange;
+/*    border: 0.1rem solid;
+    border-color: orange;*/
 }
 
 h4 {
     color: #eaeaea;
     font-size: xx-large;
     text-align: center;
-    background-color: #292b2c;
     height: 40px;
+    border-bottom: 1px solid;
+    border-color: white;
 }
 
 main.container {
