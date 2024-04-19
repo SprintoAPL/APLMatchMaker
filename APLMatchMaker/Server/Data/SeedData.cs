@@ -137,16 +137,6 @@ namespace APLMatchMaker.Server.Data
                     ("bara.vara.vera@home.se", "P@55word!", "Vera", "Gustavsson", "123456817", "123456789", "Långa gatan 40", "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 4, null, 4),
                     ("olivia.b@home.se", "P@55word!", "Olivia", "Björk", "123456818", "123456789", "Långa gatan 41", "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 5, null, 5),
                     ("erik_karlberg@home.se", "P@55word!", "Erik", "Karlberg", "123456819", "123456789", "Långa gatan 42", "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 1, null, 1),
-                    //("simon_n@home.se", "P@55word!", "Simon", "Nyström", "123456820", "123456789", "Långa gatan 43", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 2, 1, 1),
-                    //("aliceiunderlandet1980@home.se", "P@55word!", "Alice", "Nilsson", "123456821", "123456789", "Långa gatan 44", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 3, 1, 1),
-                    //("ella_slangbella@home.se", "P@55word!", "Ella", "Andersson", "123456822", "123456789", "Långa gatan 45", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 4, 1, 1),
-                    //("noah.eklund@home.se", "P@55word!", "Noah", "Eklund", "123456823", "123456789", "Långa gatan 46", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 5, 1, 1),
-                    //("anton_persson@home.se", "P@55word!", "Anton", "Persson", "123456824", "123456789", "Långa gatan 47", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 1, 1, 1),
-                    //("linneadahlberg@home.se", "P@55word!", "Linnea", "Dahlberg", "123456825", "123456789", "Långa gatan 48", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 2, 1, 1),
-                    //("isak.b@home.se", "P@55word!", "Isak", "Bergman", "123456826", "123456789", "Långa gatan 49", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 3, 1, 1),
-                    //("viktigaviktor@home.se", "P@55word!", "Viktor", "Holmström", "123456827", "123456789", "Långa gatan 50", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 4, 1, 1),
-                    //("oliver.oberg@home.se", "P@55word!", "Oliver", "Öberg", "123456828", "123456789", "Långa gatan 51", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 5, 1, 1),
-                    //("anton_ericsson@home.se", "P@55word!", "Anton ", "Ericsson", "123456829", "123456789", "Långa gatan 52", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 1, 1, 1)
                 };
                 await AddStudentsAsync(students);
             }
@@ -163,19 +153,19 @@ namespace APLMatchMaker.Server.Data
                     await AddRolesAsync(roleNames);
                 }
                 //#############################################################################
-                // (Email, Pw, FirstName, LastName, PhoneNo, Address, Title,)
-                var contacts = new (string, string, string, string, string, string, string)[]
+                // (Email, Pw, FirstName, LastName, PhoneNo, Address, Title, CompanyId)
+                var contacts = new (string, string, string, string, string, string, string, int?)[]
                 {
-                    ("simon_n@home.se", "P@55word!", "Simon", "Nyström",  "123456789", "Långa gatan 43", "Byrådirektör"),
-                    ("aliceiunderlandet1980@home.se", "P@55word!", "Alice", "Nilsson",  "123456789", "Långa gatan 44", "Byrådirektör"),
-                    ("ella_slangbella@home.se", "P@55word!", "Ella", "Andersson", "123456789", "Långa gatan 45", "Byrådirektör"),
-                    ("noah.eklund@home.se", "P@55word!", "Noah", "Eklund",  "123456789", "Långa gatan 46", "Byrådirektör"),
-                    ("anton_persson@home.se", "P@55word!", "Anton", "Persson",  "123456789", "Långa gatan 47", "Byrådirektör"),
-                    ("linneadahlberg@home.se", "P@55word!", "Linnea", "Dahlberg", "123456789", "Långa gatan 48", "Byrådirektör"),
-                    ("isak.b@home.se", "P@55word!", "Isak", "Bergman", "123456789", "Långa gatan 49", "Byrådirektör"),
-                    ("viktigaviktor@home.se", "P@55word!", "Viktor", "Holmström",  "123456789", "Långa gatan 50", "Byrådirektör"),
-                    ("oliver.oberg@home.se", "P@55word!", "Oliver", "Öberg",  "123456789", "Långa gatan 51", "Byrådirektör"),
-                    ("anton_ericsson@home.se", "P@55word!", "Anton ", "Ericsson", "123456789", "Långa gatan 52", "Byrådirektör")
+                    ("simon_n@home.se", "P@55word!", "Simon", "Nyström",  "123456789", "Långa gatan 43", "Byrådirektör", 1),
+                    ("aliceiunderlandet1980@home.se", "P@55word!", "Alice", "Nilsson",  "123456789", "Långa gatan 44", "Byrådirektör", 2),
+                    ("ella_slangbella@home.se", "P@55word!", "Ella", "Andersson", "123456789", "Långa gatan 45", "Byrådirektör", 3),
+                    ("noah.eklund@home.se", "P@55word!", "Noah", "Eklund",  "123456789", "Långa gatan 46", "Byrådirektör", 4),
+                    ("anton_persson@home.se", "P@55word!", "Anton", "Persson",  "123456789", "Långa gatan 47", "Byrådirektör", 5),
+                    ("linneadahlberg@home.se", "P@55word!", "Linnea", "Dahlberg", "123456789", "Långa gatan 48", "Byrådirektör", 1),
+                    ("isak.b@home.se", "P@55word!", "Isak", "Bergman", "123456789", "Långa gatan 49", "Byrådirektör", 2),
+                    ("viktigaviktor@home.se", "P@55word!", "Viktor", "Holmström",  "123456789", "Långa gatan 50", "Byrådirektör", 3),
+                    ("oliver.oberg@home.se", "P@55word!", "Oliver", "Öberg",  "123456789", "Långa gatan 51", "Byrådirektör", 4),
+                    ("anton_ericsson@home.se", "P@55word!", "Anton ", "Ericsson", "123456789", "Långa gatan 52", "Byrådirektör", 5)
                 };
                 await AddContactsAssync(contacts);
             }
@@ -186,13 +176,13 @@ namespace APLMatchMaker.Server.Data
 
 
         //##-< Seed Contacts Method >-##########################################################
-        private static async Task AddContactsAssync((string, string, string, string, string, string, string)[] contacts)
+        private static async Task AddContactsAssync((string, string, string, string, string, string, string,int?)[] contacts)
         {
             // (Email, Pw, FirstName, LastName, PhoneNo, Address, Title,)
-            string email, pw, firstName, lastName, phoneNo, address, title;
+            string email, pw, firstName, lastName, phoneNo, address, title; int? companyId;
             foreach (var contact in contacts)
             {
-                (email, pw, firstName, lastName, phoneNo, address, title) = contact;
+                (email, pw, firstName, lastName, phoneNo, address, title, companyId) = contact;
                 var newContact = new ApplicationUser
                 {
                     IsCompanyContact = true,
@@ -202,7 +192,8 @@ namespace APLMatchMaker.Server.Data
                     LastName = lastName,
                     PhoneNumber = phoneNo,
                     Address = address,
-                    Title = title
+                    Title = title,
+                    CompanyId = companyId,
                 };
                 var result = await userManager.CreateAsync(newContact, pw);
 
@@ -282,7 +273,7 @@ namespace APLMatchMaker.Server.Data
                     CommentByTeacher = commentByTeacher.Trim(),
                     Language = language.Trim(),
                     Nationality = nationality.Trim(),
-                    CompanyId = companyId
+                    CompanyId = companyId,
                 };
                 var result = await userManager.CreateAsync(newStudent, pw);
 

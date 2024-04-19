@@ -1,0 +1,36 @@
+﻿@page "/companydetails/{Id:int}"
+
+
+@using APLMatchMaker.Client.Components
+@using APLMatchMaker.Client.Helpers
+@using APLMatchMaker.Shared.DTOs.CompanyDTOs
+
+<h3>Företag</h3>
+
+
+@* @if (companyDetails == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{ *@
+@if (companyDetails == null && ErrorMessage == null)
+{
+    <p>Hämtar....</p>
+}
+else if (ErrorMessage != null)
+{
+    <p class="alert alert-danger">Fel vid datahämtning: @ErrorMessage</p>
+}
+else
+{
+    <CompanyDetailsComponent Company="companyDetails" />
+
+    <a href="@($"/company")" class="btn btn-outline-primary">Tillbaka till företags listan</a>
+
+    <br />
+
+    <br />
+    @* <p> Debug code ID:@Id  <br /> CD: @companyDetails.ToString</p> *@
+}
+

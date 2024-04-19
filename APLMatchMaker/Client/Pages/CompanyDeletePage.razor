@@ -1,0 +1,20 @@
+﻿@page "/companydelete/{Id:int}"
+
+@using APLMatchMaker.Shared.DTOs.StudentsDTOs
+@using APLMatchMaker.Client.Components
+
+<h3>Radera företag</h3>
+@if (Company == null && string.IsNullOrEmpty(ErrorMessage))
+{
+    <p>Hämtar...</p>
+}
+else if (!string.IsNullOrEmpty(ErrorMessage))
+{
+    <p class="alert alert-danger">Problem:&nbsp;@ErrorMessage</p>
+}
+else
+{
+    <CompanyDetailsComponent Company="Company" />
+    <a href="@($"/company")" class="btn btn-info m-1">Till listan</a>
+    <button class="btn btn-danger" @onclick="Delete">Radera</button>
+}
