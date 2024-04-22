@@ -18,7 +18,7 @@ namespace APLMatchMaker.Server.Mappings
             CreateMap<ApplicationUser, StudentForDetailsDTO>()
                 .ForMember(
                 dest => dest.Course,
-                from => from.MapFrom(au => au.Course.FirstOrDefault()!.Course));
+                from => from.MapFrom(au => au.Course!.FirstOrDefault()!.Course));
 
 
             CreateMap<ApplicationUser, StudentForUpdateDTO>().ReverseMap();

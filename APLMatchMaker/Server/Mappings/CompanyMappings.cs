@@ -1,4 +1,5 @@
 ﻿using APLMatchMaker.Server.Models.Entities;
+using APLMatchMaker.Server.Models;
 using APLMatchMaker.Shared.DTOs.CompanyDTOs;
 using AutoMapper;
 
@@ -11,6 +12,8 @@ namespace APLMatchMaker.Server.Mappings
             CreateMap<Company, CompanyForListDTO>();
             CreateMap<Company,CompanyForCreateDTO>();
             CreateMap<CompanyUpdateDTO, Company>(); 
+            CreateMap<Company, CompanyDetailsDTO>(); 
+           
 
         }
     }

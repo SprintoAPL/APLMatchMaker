@@ -15,11 +15,13 @@ namespace APLMatchMaker.Server.Data
         public DbSet<ApplicationUser> ApplicationUsers => Set<ApplicationUser>();
         public DbSet<Company> Companies => Set<Company>();
         public DbSet<Enrollment> Enrollments => Set<Enrollment>();
+        public DbSet<Project> Projects => Set<Project>();
+        public DbSet<Internship> Internships => Set<Internship>();
         //##########################################################################################
 
 
 
-        //####-<?????????????>-#####################################################################
+        //####-< Constructor >-#####################################################################
         public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
@@ -35,6 +37,11 @@ namespace APLMatchMaker.Server.Data
         {
             base.OnModelCreating(builder);
             builder.Entity<Enrollment>().HasKey(en => new { en.CourseId, en.ApplicationUserId });
+            builder.Entity<Internship>().HasKey(i => new { i.ProjectId, i.ApplicationUserId });
+            builder.Entity<ApplicationUser>()
+                .HasOne(ap => ap.Company)
+                .WithMany(co => co.CompanyContacts)
+                .OnDelete(DeleteBehavior.SetNull);
         }
         //##########################################################################################
 

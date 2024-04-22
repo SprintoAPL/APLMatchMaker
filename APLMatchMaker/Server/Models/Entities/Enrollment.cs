@@ -1,8 +1,13 @@
-﻿namespace APLMatchMaker.Server.Models.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace APLMatchMaker.Server.Models.Entities
 {
     public class Enrollment
     {
+        // Foreign keys.
+        [Required]
         public int CourseId { get; set; }
+        [Required]
         public string ApplicationUserId { get; set; } = string.Empty;
 
 
