@@ -14,7 +14,7 @@ namespace APLMatchMaker.Client.Pages
         [Parameter]
         public int Id { get; set; }
 
-        public CompanyForListDTO? companyDetails = new();
+        public CompanyDetailsDTO? companyDetails = new();
         //private CompanyForListDTO companyDetails = new CompanyForListDTO();
 
         public string? ErrorMessage { get; set; }
