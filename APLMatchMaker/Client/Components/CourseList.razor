@@ -1,31 +1,44 @@
 ﻿@using APLMatchMaker.Shared.DTOs.CoursesDTOs
-@using APLMatchMaker.Client.Pages
 
-
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Kursnamn</th>
-            <th scope="col">Start datum</th>
-            <th scope="col">Slut datum</th>
-            <th scope="col">Redigera</th>
-            <th scope="col"></th> @* Space for the "delete" button. *@
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var course in CompListOfCourses!)
-        {
+@if (CompListOfCourses == null || !CompListOfCourses.Any())
+{
+    <p>Ingen kurs hittad.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
             <tr>
-                <td scope="row"><a href="@($"coursedetails/{course.Id}")">@course.Name</a></td>
-                <td scope="row">@course.StartDate.ToString("yyyy-MM-dd")</td>
-                <td scope="row">@course.EndDate.ToString("yyyy-MM-dd")</td>
-                <td scope="row">
-                    <a href="@($"editcourse/{course.Id}")" class="btn btn-info m-1"> <span class="bi bi-pencil bi-2x"></span></a>
-                </td>
-                <td scope="row">
-                    <a href="@($"deletecourse/{course.Id}")" class="btn btn-danger m-1"> <span class="bi bi-trash bi-2x"></span></a>
-                </td>
+                <th scope="col">
+                    <button @onclick='() => SortByColumn("Name")' class="btn btn-link">Kursnamn @RenderSortIcon("Name")</button>
+                </th>
+                <th scope="col">
+                    <button @onclick='() => SortByColumn("StartDate")' class="btn btn-link">Start datum @RenderSortIcon("StartDate")</button>
+                </th>
+                <th scope="col">
+                    <button @onclick='() => SortByColumn("EndDate")' class="btn btn-link">Slut datum @RenderSortIcon("EndDate")</button>
+                </th>
+                <th scope="col">Redigera</th>
+                <th scope="col"></th> <!-- Space for the "delete" button. -->
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var course in CompListOfCourses)
+            {
+                <tr>
+                    <td scope="row"><a href="@($"coursedetails/{course.Id}")">@course.Name</a></td>
+                    <td scope="row">@course.StartDate.ToString("yyyy-MM-dd")</td>
+                    <td scope="row">@course.EndDate.ToString("yyyy-MM-dd")</td>
+                    <td scope="row">
+                        <a href="@($"editcourse/{course.Id}")" class="btn btn-info m-1"><span class="bi bi-pencil bi-2x"></span></a>
+                    </td>
+                    <td scope="row">
+                        <a href="@($"deletecourse/{course.Id}")" class="btn btn-danger m-1"><span class="bi bi-trash bi-2x"></span></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="@($"addcourse")" class="btn btn-primary m-1">Lägg till en ny kurs</a>
+}
