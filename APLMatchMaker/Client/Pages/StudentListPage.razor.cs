@@ -18,6 +18,7 @@ namespace APLMatchMaker.Client.Pages
         [Parameter]
         public string? navLink { get; set; }
 
+        private readonly string _apiRoot = "api/student";
         private IEnumerable<StudentForListDTO>? PageListStudents;
         private string? errorMessage;
         private string? errorMessageTest;
@@ -28,14 +29,8 @@ namespace APLMatchMaker.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            await base.OnInitializedAsync();
             await GetDataAsync();
-            //await base.OnInitializedAsync();
-        }
-
-        protected override async Task OnParametersSetAsync()
-        {
-            await GetDataAsync();
-            //await base.OnParametersSetAsync();
         }
 
         protected async Task GetDataAsync()
@@ -43,7 +38,7 @@ namespace APLMatchMaker.Client.Pages
             HttpResponseMessage response;
             if (string.IsNullOrEmpty(navLink))
             {
-                navLink = "api/student".Trim();
+                navLink = _apiRoot.Trim();
             }
             else
             {
@@ -60,6 +55,8 @@ namespace APLMatchMaker.Client.Pages
                     var temp = response.Headers.GetValues("X-Pagination").FirstOrDefault().ToJson().Replace("\\\\u0026", "&").Replace("\\", "").Substring(1);
                     var lenth = temp.Length;
                     pagination = temp.Remove(lenth - 1);
+                    
+                    paginationMetadata = pagination!.FromJson<PaginationMetadata>();
                 }
             }
             catch (Exception ex)
@@ -67,14 +64,6 @@ namespace APLMatchMaker.Client.Pages
                 errorMessage = ex.Message;
             }
 
-            try
-            {
-                paginationMetadata = pagination!.FromJson<PaginationMetadata>();
-            }
-            catch (Exception ex)
-            {
-                errorMessageTest = ex.Message;
-            }
         }
 
         // Define Students property
@@ -87,26 +76,19 @@ namespace APLMatchMaker.Client.Pages
         private async Task GoToPrevious()
         {
             navLink = paginationMetadata!.PreviousPageLink;
-            await OnParametersSetAsync();
+            await GetDataAsync();
         }
 
         private async Task GoToNext()
         {
             navLink = paginationMetadata!.NextPageLink;
-            await OnParametersSetAsync();
+            await GetDataAsync();
         }
 
         public async Task SearchStudents()
         {
-            try
-            {
-                PageListStudents = await Http!.GetFromJsonAsync<List<StudentForListDTO>>($"/api/student?searchQuery={searchText}");
-            }
-            catch (Exception ex)
-            {
-                errorMessage = ex.Message;
-            }
-
+            navLink = $"{_apiRoot}?searchQuery={searchText}";
+            await GetDataAsync();
         }
     }
 }
