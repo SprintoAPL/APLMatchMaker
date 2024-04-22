@@ -16,13 +16,13 @@
 <EditForm Model="@editStudent">
     <DataAnnotationsValidator/>
     <div class="form-group">
-            <label for="firstName">FörNamn:</label>
+            <label for="firstName">Förnamn:</label>
             <input type="text" class="form-control" @bind-value="editStudent.FirstName" />
             <ValidationMessage For="@(() => editStudent.FirstName)"/>
     </div>
 
     <div class="form-group">
-        <label for="lastName">EfterNamn:</label>
+        <label for="lastName">Efternamn:</label>
         <input type="text" class="form-control" @bind-value="editStudent.LastName" />
         <ValidationMessage For="@(() => editStudent.LastName)" />
     </div>
