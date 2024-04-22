@@ -4,15 +4,22 @@
 @using APLMatchMaker.Client.Components
 
 <h3 class="m3">Studentlista</h3>
-<h7 class="alert alert-warning m-3 p-1">Add a search box here</h7>
+<div>
+    <input type="text" @bind="searchText" placeholder="Sök student..." />
+    <button class="btn btn-success" type="submit" @onclick="SearchStudents">Sök</button>
+</div>
 
-@if ((PageListStudents == null || !PageListStudents.Any()) && errorMessage == null)
+@if (PageListStudents == null && errorMessage == null)
 {
     <p>Läser in...</p>
 }
 else if (errorMessage != null)
 {
     <p class="alert alert-danger">Error: @errorMessage</p>
+}
+else if (PageListStudents!.Count() == 0)
+{
+    <p>Ingen student hittad.</p>
 }
 else
 {
