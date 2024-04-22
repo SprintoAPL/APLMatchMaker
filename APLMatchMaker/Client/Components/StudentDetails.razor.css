@@ -2,6 +2,11 @@
 body {
 }
 
+p {
+    color: #eaeaea;
+    font-family: Tahoma 14px;
+}
+
 .label {
     position: absolute;
     /*top: 20%;*/ /* Adjust as needed */

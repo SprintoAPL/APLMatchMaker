@@ -8,7 +8,7 @@ html, body {
     background-repeat: no-repeat; /*Prevent the background image from repeating*/
     /*background-position: center;*/
     background-size: cover;
-    /*background: linear-gradient(0deg, rgba(17,17,17,1) 0%, rgba(14,14,14,1) 100%);*/
+    /*background: linear-gradient(0deg, rgba(48,50,52,1) 10%, rgba(28,28,28,1) 85%);*/
     /*    display: flex;
     justify-content: center;
     align-items: center;*/
@@ -40,7 +40,8 @@ h2 {
     text-align: center;
     /*background-color: #292b2c;*/
     height: 30px;
-    border-bottom:1px solid;
+    border-bottom: 1px solid;
+    font-family: 'Times New Roman', Times, serif
 }
 
 h3 {
@@ -59,6 +60,7 @@ h4 {
     height: 40px;
     border-bottom: 1px solid;
     border-color: white;
+    font-family: 'Times New Roman', Times, serif
 }
 
 main.container {
