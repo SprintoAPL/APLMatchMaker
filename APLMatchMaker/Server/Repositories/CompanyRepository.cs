@@ -1,10 +1,8 @@
 ﻿using APLMatchMaker.Server.Data;
-using APLMatchMaker.Server.Migrations;
-using APLMatchMaker.Server.Models;
 using APLMatchMaker.Server.Models.Entities;
 using APLMatchMaker.Server.ResourceParameters;
-using APLMatchMaker.Shared.DTOs.CompanyDTOs;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 
 namespace APLMatchMaker.Server.Repositories
@@ -149,5 +147,21 @@ namespace APLMatchMaker.Server.Repositories
             return await query.ToListAsync();
         }
 
+        public async Task<bool> HasEngagementAsync(int id)
+        {
+            var company = await _db.Companies.Where(co => co.Id == id)
+                .Include(co => co.Projects)
+                .Include(co => co.CompanyContacts)
+                .FirstOrDefaultAsync();
+
+            if (company == null)
+            {
+                return false;
+            }
+
+            return (company.Projects!.Count() > 0) ||
+                (company.CompanyContacts!.Count() > 0);
+            throw new NotImplementedException();
+        }
     }
 }
