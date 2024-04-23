@@ -221,17 +221,20 @@ namespace APLMatchMaker.Server.Repositories
 
 
         //##-< Has engagements >-##########################################################
-        private async Task<bool> HasEngagementsAsync(string id)
+        public async Task<bool> HasEngagementsAsync(string id)
         {
-            // For now only checks if student is enrolled in any course,
-            // but must be extended as the database expands.
             var student = await _db.ApplicationUsers.Where(au => au.Id == id)
-                .Include(au => au.Course).FirstOrDefaultAsync();
+                .Include(au => au.Course)
+                .Include(au => au.Internships)
+                .Include(au => au.Company)
+                .FirstOrDefaultAsync();
             if (student == null)
             {
                 return false;
             }
-            return student.Course!.Count() > 0;
+            return (student.Course!.Count() > 0) ||
+                (student.Internships!.Count() > 0) ||
+                (student.Company != null);
         }
         //#################################################################################
 
