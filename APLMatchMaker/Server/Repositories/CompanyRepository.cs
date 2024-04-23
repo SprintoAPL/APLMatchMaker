@@ -161,7 +161,6 @@ namespace APLMatchMaker.Server.Repositories
 
             return (company.Projects!.Count() > 0) ||
                 (company.CompanyContacts!.Count() > 0);
-            throw new NotImplementedException();
         }
     }
 }
