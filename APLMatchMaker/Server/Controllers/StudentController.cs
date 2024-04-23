@@ -52,7 +52,7 @@ namespace APLMatchMaker.Server.Controllers
             var paginationMetadata = new
             {
                 TotalCount = _pagingFactoids.TotalCount,
-                PageSize =  _pagingFactoids.PageSize,
+                PageSize = _pagingFactoids.PageSize,
                 CurrentPage = _pagingFactoids.CurrentPage,
                 TotalPages = _pagingFactoids.TotalPages,
                 PreviousPageLink = _previousPageLink,
@@ -219,6 +219,13 @@ namespace APLMatchMaker.Server.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteStudentAsync(string id)
         {
+            var hasEngagements = await _studentService.HasEngagementsAsync(id);
+
+            if (hasEngagements)
+            {
+                return BadRequest("Student has engagements!");
+            }
+
             var result = await _studentService.RemoveAsync(id);
             return result ? NoContent() : NotFound();
         }
