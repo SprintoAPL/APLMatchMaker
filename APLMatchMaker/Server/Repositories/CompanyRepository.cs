@@ -1,9 +1,6 @@
 ﻿using APLMatchMaker.Server.Data;
-using APLMatchMaker.Server.Migrations;
-using APLMatchMaker.Server.Models;
 using APLMatchMaker.Server.Models.Entities;
 using APLMatchMaker.Server.ResourceParameters;
-using APLMatchMaker.Shared.DTOs.CompanyDTOs;
 using Microsoft.EntityFrameworkCore;
 
 

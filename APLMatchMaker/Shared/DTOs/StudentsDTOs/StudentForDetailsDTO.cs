@@ -20,7 +20,7 @@ namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
         public string? PhoneNumber { get; set; }
         public string? StudentSocSecNo { get; set; }
         public string? Address { get; set; }
-        public string? Status { get; set; }
+        public string? StatusOther { get; set; }
         public string? CV { get; set; }
         public int KnowledgeLevel { get; set; } // 0 = "Not set", 1 = "Red", 2 = "Yellow", 3 = "Green"
         public bool CVIntro { get; set; }

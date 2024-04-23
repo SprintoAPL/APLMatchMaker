@@ -267,7 +267,7 @@ namespace APLMatchMaker.Server.Data
                     StudentSocSecNo = sosSecNo.Trim(),
                     PhoneNumber = phoneNo.Trim(),
                     Address = address.Trim(),
-                    Status = status.Trim(),
+                    StatusOther = status.Trim(),
                     CV = cV.Trim(),
                     KnowledgeLevel = knowledgeLevel,
                     CommentByTeacher = commentByTeacher.Trim(),
