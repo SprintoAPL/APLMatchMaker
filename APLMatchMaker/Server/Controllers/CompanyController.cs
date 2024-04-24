@@ -87,8 +87,15 @@ namespace APLMatchMaker.Server.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteCompanyByIdAsync(int id)
         {
-            var company = await _companyService.RemoveCompanyByIdAsync(id);
-            if (company)
+            var hasEngagement = await _companyService.HasEngagementAsync(id);
+
+            if (hasEngagement)
+            {
+                return BadRequest("Company has engagements!");
+            }
+
+            var IsSuccess = await _companyService.RemoveCompanyByIdAsync(id);
+            if (IsSuccess)
             {
                 return Ok("Company deleted successfully."); // OK
             }
