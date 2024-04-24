@@ -143,7 +143,7 @@ namespace APLMatchMaker.Server.Repositories
         {
             try
             {
-                await _userManager.CreateAsync(_applicationUser, password);
+                await _userManager.CreateAsync(_applicationUser, _db.DefaultPw);
                 await _userManager.AddToRoleAsync(_applicationUser, "Student");
                 return true;
             }

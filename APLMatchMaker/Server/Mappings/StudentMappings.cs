@@ -41,8 +41,8 @@ namespace APLMatchMaker.Server.Mappings
                 dest => dest.CompanyId,
                 from => from.MapFrom(i => i.Project!.CompanyId))
                 .ForMember(
-                dest => dest.ProjectDescription,
-                from => from.MapFrom(i => i.Project!.ProjectDescription))
+                dest => dest.ProjectName,
+                from => from.MapFrom(i => i.Project!.ProjectName))
                 .ForMember(
                 dest => dest.ProjectId,
                 from => from.MapFrom(i => i.ProjectId))

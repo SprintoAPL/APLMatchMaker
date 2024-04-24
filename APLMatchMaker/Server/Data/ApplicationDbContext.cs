@@ -10,6 +10,7 @@ namespace APLMatchMaker.Server.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
+        public string DefaultPw { get; } = "P@55word!";
         //####-<Data Tables>-#######################################################################
         public DbSet<Course> Courses => Set<Course>();
         public DbSet<ApplicationUser> ApplicationUsers => Set<ApplicationUser>();
