@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APLMatchMaker.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240423173449_Restart with new Init")]
+    [Migration("20240424063201_Restart with new Init")]
     partial class RestartwithnewInit
     {
         /// <inheritdoc />
@@ -68,6 +68,9 @@ namespace APLMatchMaker.Server.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsCompanyContact")
                         .HasColumnType("bit");

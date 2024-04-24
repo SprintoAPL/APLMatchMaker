@@ -147,6 +147,7 @@ namespace APLMatchMaker.Server.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     IsStudent = table.Column<bool>(type: "bit", nullable: false),
                     IsCompanyContact = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
