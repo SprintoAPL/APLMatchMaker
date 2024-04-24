@@ -47,16 +47,31 @@ namespace APLMatchMaker.Server.Mappings
                 dest => dest.ProjectId,
                 from => from.MapFrom(i => i.ProjectId))
                 .ForMember(
-                dest => dest.EndDate,
-                from => from.MapFrom(i => i.AlternateStartDate))
-                .ForMember(
                 dest => dest.StartDate,
-                from => from.MapFrom(i => i.AlternateEndDate));
+                from => from.MapFrom<InternshipStartDateMapping>())
+                .ForMember(
+                dest => dest.EndDate,
+                from => from.MapFrom<InternshipEndDateMapping>());
 
 
 
             CreateMap<Company, StudentWorkAtCompanyShortDTO>();
 
+        }
+    }
+
+    public class InternshipStartDateMapping : IValueResolver<Internship, StudentInternshipShortListDTO, DateTime?>
+    {
+        public DateTime? Resolve(Internship source, StudentInternshipShortListDTO destination, DateTime? destMember, ResolutionContext context)
+        {
+            return source.AlternateStartDate != null ? source.AlternateStartDate : source.Project!.DefaultStartDate;
+        }
+    }
+    public class InternshipEndDateMapping : IValueResolver<Internship, StudentInternshipShortListDTO, DateTime?>
+    {
+        public DateTime? Resolve(Internship source, StudentInternshipShortListDTO destination, DateTime? destMember, ResolutionContext context)
+        {
+            return source.AlternateEndDate != null ? source.AlternateEndDate : source.Project!.DefaultEndDate;
         }
     }
 }
