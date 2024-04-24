@@ -6,6 +6,7 @@ using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
+using APLMatchMaker.Server.Models.Entities;
 
 namespace APLMatchMaker.Server.Repositories
 {
@@ -129,7 +130,10 @@ namespace APLMatchMaker.Server.Repositories
         public async Task<ApplicationUser?> GetAsync(string id)
         {
             return await _db.ApplicationUsers.Where(au => au.Id == id && au.IsStudent == true)
-                .Include(au => au.Course!).ThenInclude(en => en.Course).FirstOrDefaultAsync();
+                .Include(au => au.Course!).ThenInclude(en => en.Course)
+                .Include(au => au.Internships!).ThenInclude(i => i.Project!).ThenInclude(pr => pr.Company)
+                .Include(au => au.Company)
+                .FirstOrDefaultAsync();
         }
         //#################################################################################
 

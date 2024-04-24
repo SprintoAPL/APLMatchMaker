@@ -18,13 +18,44 @@ namespace APLMatchMaker.Server.Mappings
             CreateMap<ApplicationUser, StudentForDetailsDTO>()
                 .ForMember(
                 dest => dest.Course,
-                from => from.MapFrom(au => au.Course!.FirstOrDefault()!.Course));
+                from => from.MapFrom(au => au.Course!.LastOrDefault()!.Course))
+                .ForMember(
+                dest => dest.Interships,
+                from => from.MapFrom(au => au.Internships!))
+                .ForMember(
+                dest => dest.WorkAtCompany,
+                from => from.MapFrom(au => au.Company!));
 
 
             CreateMap<ApplicationUser, StudentForUpdateDTO>().ReverseMap();
 
 
-            CreateMap<Course, CourseForStudentDTO>();
+            CreateMap<Course, StudentAtCourseShortDTO>();
+
+
+            CreateMap<Internship, StudentInternshipShortListDTO>()
+                .ForMember(
+                dest => dest.CompanyName,
+                from => from.MapFrom(i => i.Project!.Company!.CompanyName))
+                .ForMember(
+                dest => dest.CompanyId,
+                from => from.MapFrom(i => i.Project!.CompanyId))
+                .ForMember(
+                dest => dest.ProjectDescription,
+                from => from.MapFrom(i => i.Project!.ProjectDescription))
+                .ForMember(
+                dest => dest.ProjectId,
+                from => from.MapFrom(i => i.ProjectId))
+                .ForMember(
+                dest => dest.EndDate,
+                from => from.MapFrom(i => i.AlternateStartDate))
+                .ForMember(
+                dest => dest.StartDate,
+                from => from.MapFrom(i => i.AlternateEndDate));
+
+
+
+            CreateMap<Company, StudentWorkAtCompanyShortDTO>();
 
         }
     }
