@@ -18,8 +18,7 @@ else
                 <th scope="col">
                     <button @onclick='() => SortByColumn("EndDate")' class="btn btn-link">Slut datum @RenderSortIcon("EndDate")</button>
                 </th>
-                <th scope="col">Redigera</th>
-                <th scope="col"></th> <!-- Space for the "delete" button. -->
+                @* <th scope="col">Redigera</th> *@
             </tr>
         </thead>
         <tbody>
@@ -29,16 +28,16 @@ else
                     <td scope="row"><a href="@($"coursedetails/{course.Id}")">@course.Name</a></td>
                     <td scope="row">@course.StartDate.ToString("yyyy-MM-dd")</td>
                     <td scope="row">@course.EndDate.ToString("yyyy-MM-dd")</td>
-                    <td scope="row">
-                        <a href="@($"editcourse/{course.Id}")" class="btn btn-info m-1"><span class="bi bi-pencil bi-2x"></span></a>
-                    </td>
-                    <td scope="row">
+@*                     <td scope="row">
+                        <a href="@($"editcourse/{course.id}")" class="btn btn-info m-1"><span class="bi bi-pencil bi-2x"></span></a>
+                    </td> *@
+                    @* <td scope="row">
                         <a href="@($"deletecourse/{course.Id}")" class="btn btn-danger m-1"><span class="bi bi-trash bi-2x"></span></a>
-                    </td>
+                    </td> *@
                 </tr>
             }
         </tbody>
     </table>
 
-    <a href="@($"addcourse")" class="btn btn-primary m-1">Lägg till en ny kurs</a>
+    <a href="@($"addcourse")" class="btn btn-success m-1"><i class="oi oi-plus"></i>Lägg till en ny kurs</a>
 }
