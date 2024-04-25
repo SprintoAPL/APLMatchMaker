@@ -6,8 +6,10 @@ namespace APLMatchMaker.Server.Models
     public class ApplicationUser : IdentityUser
     {
         public bool IsStudent { get; set; }
+        public bool IsCompanyContact { get; set; }
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
         public string StudentSocSecNo { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
         public string Status { get; set; } = string.Empty;
@@ -23,8 +25,13 @@ namespace APLMatchMaker.Server.Models
         public string Nationality { get; set; } = string.Empty;
         public string Miscellaneous { get; set; } = string.Empty;
 
+        // Foreign keys.
+        public int? CompanyId { get; set; } = null;
+
 
         // Navigation properties.
-        public ICollection<Enrollment> Course { get; set; } = new List<Enrollment>();
+        public ICollection<Enrollment>? Course { get; set; } = null;
+        public ICollection<Internship>? Internships { get; set; } = null;
+        public Company? Company { get; set; } = null;
     }
 }

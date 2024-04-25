@@ -4,7 +4,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Full Namn</th>
+            <th scope="col">Namn</th>
             <th scope="col">E-post</th>
             <th scope="col">Personnummer</th>
             <th scope="col">Adress</th>
@@ -25,12 +25,13 @@
                 <td>@StudentHelper.GetKnowledgeLevelString(student.KnowledgeLevel)</td>
                 <td>@student.Language</td>
                 <td scope="row">
-                    <a href="@($"deletestudent/{student.Id}")" class="btn btn-danger m-1">Radera elev</a>
+                    <a href="@($"studentdetails/{student.Id}")" class="btn btn-info m-1"> <span class="bi bi-pencil bi-2x"></span></a>
                 </td>
                 <td scope="row">
-                    <a href="@($"studentdetails/{student.Id}")" class="btn btn-info m-1">Om elev</a>
+                    <a href="@($"deletestudent/{student.Id}")" class="btn btn-danger m-1"> <span class="bi bi-trash bi-2x"></span></a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+

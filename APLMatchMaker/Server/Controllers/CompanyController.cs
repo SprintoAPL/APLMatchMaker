@@ -26,13 +26,6 @@ namespace APLMatchMaker.Server.Controllers
             _companyService = companyService;
         }
 
-        //// GET: api/company
-        //[HttpGet]
-        //public async Task<IEnumerable<CompanyForListDTO>> GetCompaniesAsync()
-        //{
-        //    return await _companyService.GetCompaniesListAsync();
-        //}
-
         // GET: api/company 
         //GET: api/company?searchQuery=
         [HttpGet]
@@ -56,6 +49,7 @@ namespace APLMatchMaker.Server.Controllers
 
             return Ok(new { message = "Company found successfully", company }); // Company found successfully
         }
+
 
 
         //POST: api/company
@@ -93,8 +87,15 @@ namespace APLMatchMaker.Server.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteCompanyByIdAsync(int id)
         {
-            var company = await _companyService.RemoveCompanyByIdAsync(id);
-            if (company)
+            var hasEngagement = await _companyService.HasEngagementAsync(id);
+
+            if (hasEngagement)
+            {
+                return BadRequest("Company has engagements!");
+            }
+
+            var IsSuccess = await _companyService.RemoveCompanyByIdAsync(id);
+            if (IsSuccess)
             {
                 return Ok("Company deleted successfully."); // OK
             }

@@ -4,7 +4,7 @@ using System.Net.Http.Json;
 
 namespace APLMatchMaker.Client.Pages
 {
-    public partial class CourseDetails
+    public partial class CourseDetails : ComponentBase
     {
         [Inject]
         public HttpClient? Http { get; set; }

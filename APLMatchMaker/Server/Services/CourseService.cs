@@ -1,5 +1,6 @@
 ﻿using APLMatchMaker.Server.Data;
 using APLMatchMaker.Server.Models.Entities;
+using APLMatchMaker.Server.ResourceParameters;
 using APLMatchMaker.Shared.DTOs.CoursesDTOs;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 using Microsoft.EntityFrameworkCore;
@@ -59,26 +60,71 @@ namespace APLMatchMaker.Server.Services
             }
         }
 
-        public async Task<List<CourseForShortListDTO>> GetAllCoursesAsync()
+
+
+        //Course Service for Getting List of Courses along with search and sort option:
+        public async Task<List<CourseForShortListDTO>> GetCoursesAsync(CourseResourceParameters courseParameters)
         {
             try
             {
-                var courses = await _dbContext.Courses
+                IQueryable<Course> coursesQuery = _dbContext.Courses;
+
+                // Apply filters based on search query and specific fields
+                if (!string.IsNullOrWhiteSpace(courseParameters.Name))
+                {
+                    coursesQuery = coursesQuery.Where(c => c.Name.Contains(courseParameters.Name.Trim()));
+                }
+
+                if (courseParameters.StartDate != DateTime.MinValue)
+                {
+                    coursesQuery = coursesQuery.Where(c => c.StartDate == courseParameters.StartDate);
+                }
+
+                if (!string.IsNullOrWhiteSpace(courseParameters.SearchQuery))
+                {
+                    coursesQuery = coursesQuery.Where(c => c.Name.Contains(courseParameters.SearchQuery.Trim()));
+                }
+
+                // Apply sorting based on sort parameters
+                coursesQuery = ApplySort(coursesQuery, courseParameters.SortBy, courseParameters.IsAscending);
+
+                // Project the result into CourseForShortListDTO
+                var courses = await coursesQuery
                     .Select(c => new CourseForShortListDTO
                     {
                         Id = c.Id,
                         Name = c.Name,
                         StartDate = c.StartDate,
                         EndDate = c.EndDate,
-                    }).ToListAsync();
+                    })
+                    .ToListAsync();
 
                 return courses;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error occurred while retrieving the courses.", ex);
+                throw new Exception("Error occurred while retrieving and sorting courses.", ex);
             }
         }
+        //ApplySort Method for sorting in GetCoursesAsync Service:
+        private IQueryable<Course> ApplySort(IQueryable<Course> courses, string sortBy, bool isAscending)
+        {
+            switch (sortBy.ToLower())
+            {
+                case "name":
+                    return isAscending ? courses.OrderBy(c => c.Name) : courses.OrderByDescending(c => c.Name);
+                case "startdate":
+                    return isAscending ? courses.OrderBy(c => c.StartDate) : courses.OrderByDescending(c => c.StartDate);
+                case "enddate":
+                    return isAscending ? courses.OrderBy(c => c.EndDate) : courses.OrderByDescending(c => c.EndDate);
+                case "id":
+                    return isAscending ? courses.OrderBy(c => c.Id) : courses.OrderByDescending(c => c.Id);
+                default:
+                    return courses.OrderBy(c => c.Id); // Default sorting by ID
+            }
+        }
+
+
 
         public async Task<CourseDto?> GetCourseByIdAsync(int id)
         {
@@ -86,7 +132,7 @@ namespace APLMatchMaker.Server.Services
             {
                 var course = await _dbContext.Courses
                     .Where(c => c.Id == id)
-                    .Include(c => c.Students)
+                    .Include(c => c.Students!)
                     .ThenInclude(s => s.Student)
                     .Select(c => new CourseDto
                     {
@@ -143,5 +189,6 @@ namespace APLMatchMaker.Server.Services
                 throw new Exception($"Error occurred while updating the course with ID {id}.", ex);
             }
         }
+
     }
 }

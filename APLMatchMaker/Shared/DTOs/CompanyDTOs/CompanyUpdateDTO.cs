@@ -20,11 +20,13 @@ namespace APLMatchMaker.Shared.DTOs.CompanyDTOs
 
         public string PostalAdress { get; set; } = string.Empty;
 
-        public int PostalNumber { get; set; }
+        public string PostalNumber { get; set; } = string.Empty;
 
         public string City { get; set; } = string.Empty;
 
-        //public string Notes { get; set; } = string.Empty;
+        public string Notes { get; set; } = string.Empty;
+
+      
     }
 }
 

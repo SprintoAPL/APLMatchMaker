@@ -1,4 +1,6 @@
-﻿using APLMatchMaker.Server.Services;
+﻿using APLMatchMaker.Server.Models.Entities;
+using APLMatchMaker.Server.ResourceParameters;
+using APLMatchMaker.Server.Services;
 using APLMatchMaker.Shared.DTOs.CoursesDTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,30 +10,34 @@ namespace APLMatchMaker.Server.Controllers
     [Route("api/course")]
     public class CourseController : Controller
     {
-        private readonly ICourseService _courseService; 
+        private readonly ICourseService _courseService;
 
         public CourseController(ICourseService courseService)
         {
             _courseService = courseService;
         }
+
+
+        //[API to fetch all courses along with search and sort functionality)
+        // GET: api/course/?Name=.NET&sortBy=startDate&isAscending=false
         [HttpGet]
-        public async Task<IActionResult> GetCoursesAsync()
+        public async Task<IActionResult> GetCoursesAsync([FromQuery] CourseResourceParameters courseParameters)
         {
             try
             {
-                var courseDtos = await _courseService.GetAllCoursesAsync();
-
+                var courseDtos = await _courseService.GetCoursesAsync(courseParameters);
                 return Ok(courseDtos);
             }
             catch (Exception ex)
             {
-
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
+
+
         // GET: api/course/id
         [HttpGet("{id}")]
-        public async Task<ActionResult<CourseDto>> GetCoursesAsync(int id)
+        public async Task<ActionResult<Course>> GetCoursesAsync(int id)
         {
             var courseDto = await _courseService.GetCourseByIdAsync(id);
 
@@ -52,6 +58,8 @@ namespace APLMatchMaker.Server.Controllers
                 }
             }
         }
+
+
         [HttpPost]
         public async Task<IActionResult> AddCourseAsync(CourseDto courseDto)
         {
@@ -61,7 +69,7 @@ namespace APLMatchMaker.Server.Controllers
                 {
                     return BadRequest("Bad Request: CourseDto is null");
                 }
-        
+
 
                 await _courseService.AddCourseAsync(courseDto);
 
@@ -74,6 +82,7 @@ namespace APLMatchMaker.Server.Controllers
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCourseAsync(int id, CourseForEditDto courseEdit)
@@ -94,6 +103,7 @@ namespace APLMatchMaker.Server.Controllers
             }
         }
 
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCourseAsync(int id)
         {
@@ -107,11 +117,6 @@ namespace APLMatchMaker.Server.Controllers
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
-       
 
-        
-
-      
-        
     }
 }

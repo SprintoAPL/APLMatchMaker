@@ -4,8 +4,8 @@
     float: right;
     color: white;
     /*    padding: 8px;*/
-    /*border: 6px inset #808080;*/
-    /*border-radius: 4px;*/
+    border: 1px solid #808080;
+    border-radius: 8px;
     text-align: center;
     right: 0px;
     top: 50px;
