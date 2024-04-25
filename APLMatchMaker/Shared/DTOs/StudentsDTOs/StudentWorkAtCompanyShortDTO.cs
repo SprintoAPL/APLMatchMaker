@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
 {
-    public class CourseForStudentDTO
+    public class StudentWorkAtCompanyShortDTO
     {
         public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+        public string? CompanyName { get; set;}
     }
 }

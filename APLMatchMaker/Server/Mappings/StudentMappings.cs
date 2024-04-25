@@ -18,14 +18,60 @@ namespace APLMatchMaker.Server.Mappings
             CreateMap<ApplicationUser, StudentForDetailsDTO>()
                 .ForMember(
                 dest => dest.Course,
-                from => from.MapFrom(au => au.Course!.FirstOrDefault()!.Course));
+                from => from.MapFrom(au => au.Course!.LastOrDefault()!.Course))
+                .ForMember(
+                dest => dest.Interships,
+                from => from.MapFrom(au => au.Internships!))
+                .ForMember(
+                dest => dest.WorkAtCompany,
+                from => from.MapFrom(au => au.Company!));
 
 
             CreateMap<ApplicationUser, StudentForUpdateDTO>().ReverseMap();
 
 
-            CreateMap<Course, CourseForStudentDTO>();
+            CreateMap<Course, StudentAtCourseShortDTO>();
 
+
+            CreateMap<Internship, StudentInternshipShortListDTO>()
+                .ForMember(
+                dest => dest.CompanyName,
+                from => from.MapFrom(i => i.Project!.Company!.CompanyName))
+                .ForMember(
+                dest => dest.CompanyId,
+                from => from.MapFrom(i => i.Project!.CompanyId))
+                .ForMember(
+                dest => dest.ProjectName,
+                from => from.MapFrom(i => i.Project!.ProjectName))
+                .ForMember(
+                dest => dest.ProjectId,
+                from => from.MapFrom(i => i.ProjectId))
+                .ForMember(
+                dest => dest.StartDate,
+                from => from.MapFrom<InternshipStartDateMapping>())
+                .ForMember(
+                dest => dest.EndDate,
+                from => from.MapFrom<InternshipEndDateMapping>());
+
+
+
+            CreateMap<Company, StudentWorkAtCompanyShortDTO>();
+
+        }
+    }
+
+    public class InternshipStartDateMapping : IValueResolver<Internship, StudentInternshipShortListDTO, DateTime?>
+    {
+        public DateTime? Resolve(Internship source, StudentInternshipShortListDTO destination, DateTime? destMember, ResolutionContext context)
+        {
+            return source.AlternateStartDate != null ? source.AlternateStartDate : source.Project!.DefaultStartDate;
+        }
+    }
+    public class InternshipEndDateMapping : IValueResolver<Internship, StudentInternshipShortListDTO, DateTime?>
+    {
+        public DateTime? Resolve(Internship source, StudentInternshipShortListDTO destination, DateTime? destMember, ResolutionContext context)
+        {
+            return source.AlternateEndDate != null ? source.AlternateEndDate : source.Project!.DefaultEndDate;
         }
     }
 }

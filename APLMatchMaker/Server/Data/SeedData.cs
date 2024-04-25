@@ -77,11 +77,11 @@ namespace APLMatchMaker.Server.Data
             //##-< Seed project data >-########################################################
             if (!await db.Projects.AnyAsync())
             {
-                // (Description, NoOfInterns, DefaultStartDate, DefaultEndDate, CompanyID)
-                var projects = new (string, int, DateTime, DateTime, int)[]
+                // (Name, Description, NoOfInterns, DefaultStartDate, DefaultEndDate, CompanyID)
+                var projects = new (string, string, int, DateTime, DateTime, int)[]
                 {
-                    ("Utveckla ett kursbokningssystem.\nAnvända C#, .NET, och Blazer.\nMeriterande med databas kunskaper.", 5, DateTime.Parse("2024-04-04"), DateTime.Parse("2024-08-04"), 1),
-                    ("Utveckla ett kursbokningssystem.\nAnvända C#, .NET, och Blazer.\nMeriterande med databas kunskaper.", 5, DateTime.Parse("2024-04-04"), DateTime.Parse("2024-08-04"), 2)
+                    ("Kursbokning","Utveckla ett kursbokningssystem.\nAnvända C#, .NET, och Blazer.\nMeriterande med databas kunskaper.", 5, DateTime.Parse("2024-04-04"), DateTime.Parse("2024-08-04"), 1),
+                    ("Kursbokning","Utveckla ett kursbokningssystem.\nAnvända C#, .NET, och Blazer.\nMeriterande med databas kunskaper.", 5, DateTime.Parse("2024-04-04"), DateTime.Parse("2024-08-04"), 2)
                 };
                 await AddProjectsAsync(projects);
             }
@@ -99,44 +99,44 @@ namespace APLMatchMaker.Server.Data
                 }
                 //#############################################################################
 
-                // (Email, Pw, FirstName, LastName, SosSecNo, PhoneNo, Address, Status, CV, KnowledgeLevel, CommentByTeacher, Language, Nationality, CourseId, ProjectId, CompanyId)
-                var students = new (string, string, string, string, string, string, string, string, string, int, string, string, string, int?, int?, int?)[]
+                // (Email, FirstName, LastName, SosSecNo, PhoneNo, Address, StatusSelect, StatusWhen, StatusOther, CV, KnowledgeLevel, CommentByTeacher, Language, Nationality, CourseId, ProjectId, CompanyId)
+                var students = new (string, string, string, string, string, string, int, DateTime?, string, string, int, string, string, string, int?, int?, int?)[]
                 {
-                    ("test1@test.se","P@sw0rd1","Eric","Larsson","770404-0099","070-46 46 506","Sturegatan 12","Går på kurs","Jätte bra CV", 3, "Ducktig stunet","Svenska","Svensk", 1, null, null),
-                    ("test2@test.se","P@sw0rd2","Stina","Pettersson","970404-4069","070-46 46 506","Sturegatan 12","Går på kurs","Jätte bra CV", 3, "Ducktig stunet","Svenska","Svensk", 2, null, null),
-                    ("test3@test.se", "P@sw0rd3", "Eric", "Larsson", "770404-0099", "070-46 46 506", "Sturegatan 12", "Går på kurs", "Jätte bra CV", 3, "Ducktig stunet", "Svenska", "Svensk", 3, null , null),
-                    ("test4@test.se", "P@sw0rd4", "Eric", "Larsson", "770404-0099", "070-46 46 506", "Sturegatan 12", "Går på kurs", "Jätte bra CV", 3, "Ducktig stunet", "Svenska", "Svensk", 4, null , null),
-                    ("student1@home.se", "P@55word!", "Stefan", "Olsson", "123456789", "123456789", "Långa gatan 12", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 1, null, null),
-                    ("student2@home.se", "P@55word!", "Greta", "Sturesson", "123456790", "123456789", "Långa gatan 13", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 2, null , null),
-                    ("emil.andersson@home.se", "P@55word!", "Emil", "Andersson", "123456791", "123456789", "Långa gatan 14", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 3, null , null),
-                    ("viktor.johansson@home.se", "P@55word!", "Viktor", "Johansson", "123456792", "123456789", "Långa gatan 15", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 4, null , null),
-                    ("h.gustafsson@home.se", "P@55word!", "Sofia", "Gustafsson", "123456793", "123456789", "Långa gatan 16", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 5, null , null),
-                    ("blomman.b@home.se", "P@55word!", "Axel", "Bergqvist", "123456794", "123456789", "Långa gatan 17", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 1, null , null),
-                    ("jaggillarkatter@home.se", "P@55word!", "Isabella", "Eriksson", "123456795", "123456789", "Långa gatan 18", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 2, null , null),
-                    ("oscar.s@home.se", "P@55word!", "Oscar", "Svensson", "123456796", "123456789", "Långa gatan 19", "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 3, null , null),
-                    ("clara.horses@home.se", "P@55word!", "Clara", "Larsson", "123456797", "123456789", "Långa gatan 20", "Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 4, 1, null),
-                    ("stella.eri@home.se", "P@55word!", "Stella", "Eriksson", "123456798", "123456789", "Långa gatan 21", "Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 5, 2, null),
-                    ("novalovasvensson@home.se", "P@55word!", "Nova", "Svensson", "123456799", "123456789", "Långa gatan 22", "Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 1, 1, null),
-                    ("eliasnilsson@home.se", "P@55word!", "Elias", "Nilsson", "123456800", "123456789", "Långa gatan 23", "Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 2, 2, null),
-                    ("lurre@home.se", "P@55word!", "Lucas", "Lundgren", "123456801", "123456789", "Långa gatan 24", "Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 3, 1, null),
-                    ("emilia1982@home.se", "P@55word!", "Emilia", "Dahlström", "123456802", "123456789", "Långa gatan 25", "Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 4, 1, null),
-                    ("majaisthebest@home.se", "P@55word!", "Maja", "Karlsson", "123456803", "123456789", "Långa gatan 26", "Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 5, 2, null),
-                    ("liamlarsson@home.se", "P@55word!", "Liam", "Larsson", "123456804", "123456789", "Långa gatan 27", "Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 1, 1, null),
-                    ("linnea.persson@home.se", "P@55word!", "Linnea", "Persson", "123456805", "123456789", "Långa gatan 28", "Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 2, 2, null),
-                    ("sebastian_andersson@home.se", "P@55word!", "Sebastian", "Andersson", "123456806", "123456789", "Långa gatan 29", "Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 3, 1, null),
-                    ("hugo.l@home.se", "P@55word!", "Hugo", "Lindqvist", "123456807", "123456789", "Långa gatan 30", "Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 4, 2, null),
-                    ("a.gustafsson@home.se", "P@55word!", "Alva", "Gustafsson", "123456808", "123456789", "Långa gatan 31", "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 5, null, 1),
-                    ("superwilma@home.se", "P@55word!", "Wilma", "Bergström", "123456809", "123456789", "Långa gatan 32", "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 1, null, 1),
-                    ("klarafardigaga@home.se", "P@55word!", "Klara", "Jansson", "123456810", "123456789", "Långa gatan 33", "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", null, 1, 2),
-                    ("stellaostman@home.se", "P@55word!", "Stella", "Östman", "123456811", "123456789", "Långa gatan 34", "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 3, null, 3),
-                    ("thea.b@home.se", "P@55word!", "Thea", "Berggren", "123456812", "123456789", "Långa gatan 35", "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 4, null, 4),
-                    ("gabbe1990@home.se", "P@55word!", "Gabriel", "Svensson", "123456813", "123456789", "Långa gatan 36", "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 5, null, 4),
-                    ("elin.lundin@home.se", "P@55word!", "Elin", "Lundin", "123456814", "123456789", "Långa gatan 37", "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 1, null, 1),
-                    ("benji.falken@home.se", "P@55word!", "Benjamin", "Falk", "123456815", "123456789", "Långa gatan 38", "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 2, null, 2),
-                    ("joel.lindell@home.se", "P@55word!", "Joel", "Lindell", "123456816", "123456789", "Långa gatan 39", "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 3, null, 3),
-                    ("bara.vara.vera@home.se", "P@55word!", "Vera", "Gustavsson", "123456817", "123456789", "Långa gatan 40", "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 4, null, 4),
-                    ("olivia.b@home.se", "P@55word!", "Olivia", "Björk", "123456818", "123456789", "Långa gatan 41", "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 5, null, 5),
-                    ("erik_karlberg@home.se", "P@55word!", "Erik", "Karlberg", "123456819", "123456789", "Långa gatan 42", "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 1, null, 1),
+                    ("test1@test.se", "Eric","Larsson","770404-0099","070-46 46 506","Sturegatan 12",1,null,"Går på kurs","Jätte bra CV", 3, "Ducktig stunet","Svenska","Svensk", 1, null, null),
+                    ("test2@test.se", "Stina","Pettersson","970404-4069","070-46 46 506","Sturegatan 12",1,null,"Går på kurs","Jätte bra CV", 3, "Ducktig stunet","Svenska","Svensk", 2, null, null),
+                    ("test3@test.se",  "Eric", "Larsson", "770404-0099", "070-46 46 506", "Sturegatan 12", 1,null,"Går på kurs", "Jätte bra CV", 3, "Ducktig stunet", "Svenska", "Svensk", 3, null , null),
+                    ("test4@test.se", "Eric", "Larsson", "770404-0099", "070-46 46 506", "Sturegatan 12", 1, null, "Går på kurs", "Jätte bra CV", 3, "Ducktig stunet", "Svenska", "Svensk", 4, null, null),
+                    ("student1@home.se", "Stefan", "Olsson", "123456789", "123456789", "Långa gatan 12", 1, null, "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 1, null, null),
+                    ("student2@home.se", "Greta", "Sturesson", "123456790", "123456789", "Långa gatan 13", 1, null, "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 2, null, null),
+                    ("emil.andersson@home.se", "Emil", "Andersson", "123456791", "123456789", "Långa gatan 14", 1, null, "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 3, null, null),
+                    ("viktor.johansson@home.se", "Viktor", "Johansson", "123456792", "123456789", "Långa gatan 15", 1, null, "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 4, null, null),
+                    ("h.gustafsson@home.se", "Sofia", "Gustafsson", "123456793", "123456789", "Långa gatan 16", 1, null, "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 5, null, null),
+                    ("blomman.b@home.se", "Axel", "Bergqvist", "123456794", "123456789", "Långa gatan 17", 1, null, "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 1, null, null),
+                    ("jaggillarkatter@home.se", "Isabella", "Eriksson", "123456795", "123456789", "Långa gatan 18", 1, null, "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 2, null, null),
+                    ("oscar.s@home.se", "Oscar", "Svensson", "123456796", "123456789", "Långa gatan 19", 1, null, "Går på kurs", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 3, null, null),
+                    ("clara.horses@home.se", "Clara", "Larsson", "123456797", "123456789", "Långa gatan 20", 2,null,"Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 4, 1, null),
+                    ("stella.eri@home.se",  "Stella", "Eriksson", "123456798", "123456789", "Långa gatan 21", 2,null,"Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 5, 2, null),
+                    ("novalovasvensson@home.se", "Nova", "Svensson", "123456799", "123456789", "Långa gatan 22", 2,null,"Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 1, 1, null),
+                    ("eliasnilsson@home.se", "Elias", "Nilsson", "123456800", "123456789", "Långa gatan 23", 2,null,"Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 2, 2, null),
+                    ("lurre@home.se",  "Lucas", "Lundgren", "123456801", "123456789", "Långa gatan 24", 2,null,"Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 3, 1, null),
+                    ("emilia1982@home.se", "Emilia", "Dahlström", "123456802", "123456789", "Långa gatan 25", 2,null,"Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 4, 1, null),
+                    ("majaisthebest@home.se","Maja", "Karlsson", "123456803", "123456789", "Långa gatan 26", 2,null,"Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 5, 2, null),
+                    ("liamlarsson@home.se", "Liam", "Larsson", "123456804", "123456789", "Långa gatan 27", 2,null,"Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 1, 1, null),
+                    ("linnea.persson@home.se","Linnea", "Persson", "123456805", "123456789", "Långa gatan 28", 2,null,"Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 2, 2, null),
+                    ("sebastian_andersson@home.se", "Sebastian", "Andersson", "123456806", "123456789", "Långa gatan 29", 2,null,"Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 3, 1, null),
+                    ("hugo.l@home.se", "Hugo", "Lindqvist", "123456807", "123456789", "Långa gatan 30", 2,null,"Har praktik", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 4, 2, null),
+                    ("a.gustafsson@home.se", "Alva", "Gustafsson", "123456808", "123456789", "Långa gatan 31", 4,DateTime.Parse("2024-05-05"), "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 5, null, 1),
+                    ("superwilma@home.se", "Wilma", "Bergström", "123456809", "123456789", "Långa gatan 32",  4,DateTime.Parse("2024-05-05"), "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 1, null, 1),
+                    ("klarafardigaga@home.se", "Klara", "Jansson", "123456810", "123456789", "Långa gatan 33",  4,DateTime.Parse("2024-05-05"), "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", null, 1, 2),
+                    ("stellaostman@home.se",  "Stella", "Östman", "123456811", "123456789", "Långa gatan 34",  4,DateTime.Parse("2024-05-05"), "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 3, null, 3),
+                    ("thea.b@home.se", "Thea", "Berggren", "123456812", "123456789", "Långa gatan 35",  4,DateTime.Parse("2024-05-05"), "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 4, null, 4),
+                    ("gabbe1990@home.se", "Gabriel", "Svensson", "123456813", "123456789", "Långa gatan 36",  4,DateTime.Parse("2024-05-05"), "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 5, null, 4),
+                    ("elin.lundin@home.se", "Elin", "Lundin", "123456814", "123456789", "Långa gatan 37",  4,DateTime.Parse("2024-05-05"), "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 1, null, 1),
+                    ("benji.falken@home.se", "Benjamin", "Falk", "123456815", "123456789", "Långa gatan 38",  4,DateTime.Parse("2024-05-05"), "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 2, null, 2),
+                    ("joel.lindell@home.se", "Joel", "Lindell", "123456816", "123456789", "Långa gatan 39",  4,DateTime.Parse("2024-05-05"), "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 3, null, 3),
+                    ("bara.vara.vera@home.se","Vera", "Gustavsson", "123456817", "123456789", "Långa gatan 40",  4,DateTime.Parse("2024-05-05"), "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 4, null, 4),
+                    ("olivia.b@home.se", "Olivia", "Björk", "123456818", "123456789", "Långa gatan 41",  4,DateTime.Parse("2024-05-05"), "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 5, 1, 5),
+                    ("erik_karlberg@home.se", "Erik", "Karlberg", "123456819", "123456789", "Långa gatan 42",  4,DateTime.Parse("2024-05-05"), "Har fått jobb", "Jättebra CV", 3, "Duktig elev", "Svenska", "Svensk", 1, 2, 1),
                 };
                 await AddStudentsAsync(students);
             }
@@ -153,19 +153,19 @@ namespace APLMatchMaker.Server.Data
                     await AddRolesAsync(roleNames);
                 }
                 //#############################################################################
-                // (Email, Pw, FirstName, LastName, PhoneNo, Address, Title, CompanyId)
-                var contacts = new (string, string, string, string, string, string, string, int?)[]
+                // (Email, FirstName, LastName, PhoneNo, Address, Title, CompanyId)
+                var contacts = new (string, string, string, string, string, string, int?)[]
                 {
-                    ("simon_n@home.se", "P@55word!", "Simon", "Nyström",  "123456789", "Långa gatan 43", "Byrådirektör", 1),
-                    ("aliceiunderlandet1980@home.se", "P@55word!", "Alice", "Nilsson",  "123456789", "Långa gatan 44", "Byrådirektör", 2),
-                    ("ella_slangbella@home.se", "P@55word!", "Ella", "Andersson", "123456789", "Långa gatan 45", "Byrådirektör", 3),
-                    ("noah.eklund@home.se", "P@55word!", "Noah", "Eklund",  "123456789", "Långa gatan 46", "Byrådirektör", 4),
-                    ("anton_persson@home.se", "P@55word!", "Anton", "Persson",  "123456789", "Långa gatan 47", "Byrådirektör", 5),
-                    ("linneadahlberg@home.se", "P@55word!", "Linnea", "Dahlberg", "123456789", "Långa gatan 48", "Byrådirektör", 1),
-                    ("isak.b@home.se", "P@55word!", "Isak", "Bergman", "123456789", "Långa gatan 49", "Byrådirektör", 2),
-                    ("viktigaviktor@home.se", "P@55word!", "Viktor", "Holmström",  "123456789", "Långa gatan 50", "Byrådirektör", 3),
-                    ("oliver.oberg@home.se", "P@55word!", "Oliver", "Öberg",  "123456789", "Långa gatan 51", "Byrådirektör", 4),
-                    ("anton_ericsson@home.se", "P@55word!", "Anton ", "Ericsson", "123456789", "Långa gatan 52", "Byrådirektör", 5)
+                    ("simon_n@home.se", "Simon", "Nyström",  "123456789", "Långa gatan 43", "Byrådirektör", 1),
+                    ("aliceiunderlandet1980@home.se", "Alice", "Nilsson", "123456789", "Långa gatan 44", "Byrådirektör", 2),
+                    ("ella_slangbella@home.se", "Ella", "Andersson", "123456789", "Långa gatan 45", "Byrådirektör", 3),
+                    ("noah.eklund@home.se", "Noah", "Eklund",  "123456789", "Långa gatan 46", "Byrådirektör", 4),
+                    ("anton_persson@home.se",  "Anton", "Persson",  "123456789", "Långa gatan 47", "Byrådirektör", 5),
+                    ("linneadahlberg@home.se", "Linnea", "Dahlberg", "123456789", "Långa gatan 48", "Byrådirektör", 1),
+                    ("isak.b@home.se", "Isak", "Bergman", "123456789", "Långa gatan 49", "Byrådirektör", 2),
+                    ("viktigaviktor@home.se", "Viktor", "Holmström",  "123456789", "Långa gatan 50", "Byrådirektör", 3),
+                    ("oliver.oberg@home.se",  "Oliver", "Öberg",  "123456789", "Långa gatan 51", "Byrådirektör", 4),
+                    ("anton_ericsson@home.se", "Anton ", "Ericsson", "123456789", "Långa gatan 52", "Byrådirektör", 5)
                 };
                 await AddContactsAssync(contacts);
             }
@@ -176,18 +176,18 @@ namespace APLMatchMaker.Server.Data
 
 
         //##-< Seed Contacts Method >-##########################################################
-        private static async Task AddContactsAssync((string, string, string, string, string, string, string,int?)[] contacts)
+        private static async Task AddContactsAssync((string, string, string, string, string, string, int?)[] contacts)
         {
             // (Email, Pw, FirstName, LastName, PhoneNo, Address, Title,)
-            string email, pw, firstName, lastName, phoneNo, address, title; int? companyId;
+            string email, firstName, lastName, phoneNo, address, title; int? companyId;
             foreach (var contact in contacts)
             {
-                (email, pw, firstName, lastName, phoneNo, address, title, companyId) = contact;
+                (email, firstName, lastName, phoneNo, address, title, companyId) = contact;
                 var newContact = new ApplicationUser
                 {
                     IsCompanyContact = true,
                     UserName = email,
-                    Email = pw,
+                    Email = email,
                     FirstName = firstName,
                     LastName = lastName,
                     PhoneNumber = phoneNo,
@@ -195,7 +195,7 @@ namespace APLMatchMaker.Server.Data
                     Title = title,
                     CompanyId = companyId,
                 };
-                var result = await userManager.CreateAsync(newContact, pw);
+                var result = await userManager.CreateAsync(newContact, db.DefaultPw);
 
                 if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
 
@@ -249,13 +249,13 @@ namespace APLMatchMaker.Server.Data
 
 
         //##-< Seed Students Method >-#########################################################
-        private static async Task AddStudentsAsync((string, string, string, string, string, string, string, string, string, int, string, string, string, int?, int?, int?)[] students)
+        private static async Task AddStudentsAsync((string, string, string, string, string, string, int, DateTime?, string, string, int, string, string, string, int?, int?, int?)[] students)
         {
-            string email, pw, firstName, lastName, sosSecNo, phoneNo, address, status, cV, commentByTeacher, language, nationality; int knowledgeLevel; int? courseId, projectId, companyId;
+            string email, firstName, lastName, sosSecNo, phoneNo, address, statusOther, cV, commentByTeacher, language, nationality; int knowledgeLevel, statusSelect; int? courseId, projectId, companyId; DateTime? statusWhen;
             foreach (var student in students)
             {
-                // (Email, Pw, FirstName, LastName, SosSecNo, PhoneNo, Address, Status, CV, KnowledgeLevel, CommentByTeacher, Language, Nationality, CourseId
-                (email, pw, firstName, lastName, sosSecNo, phoneNo, address, status, cV, knowledgeLevel, commentByTeacher, language, nationality, courseId, projectId, companyId) = student;
+                // (Email, FirstName, LastName, SosSecNo, PhoneNo, Address, StatusSelect, StatusWhen, StatusOther, CV, KnowledgeLevel, CommentByTeacher, Language, Nationality, CourseId
+                (email, firstName, lastName, sosSecNo, phoneNo, address, statusSelect, statusWhen, statusOther, cV, knowledgeLevel, commentByTeacher, language, nationality, courseId, projectId, companyId) = student;
                 var newStudent = new ApplicationUser
                 {
                     IsStudent = true,
@@ -267,7 +267,9 @@ namespace APLMatchMaker.Server.Data
                     StudentSocSecNo = sosSecNo.Trim(),
                     PhoneNumber = phoneNo.Trim(),
                     Address = address.Trim(),
-                    Status = status.Trim(),
+                    Status = statusSelect,
+                    StatusWhen = statusWhen,
+                    StatusOther = statusOther.Trim(),
                     CV = cV.Trim(),
                     KnowledgeLevel = knowledgeLevel,
                     CommentByTeacher = commentByTeacher.Trim(),
@@ -275,7 +277,7 @@ namespace APLMatchMaker.Server.Data
                     Nationality = nationality.Trim(),
                     CompanyId = companyId,
                 };
-                var result = await userManager.CreateAsync(newStudent, pw);
+                var result = await userManager.CreateAsync(newStudent, db.DefaultPw);
 
                 if (!result.Succeeded) throw new Exception(string.Join("\n", result.Errors));
 
@@ -366,18 +368,20 @@ namespace APLMatchMaker.Server.Data
 
 
         //##-< Seed Project Method >-##########################################################
-        private static async Task AddProjectsAsync((string, int, DateTime, DateTime, int)[] projects)
+        private static async Task AddProjectsAsync((string, string, int, DateTime, DateTime, int)[] projects)
         {
-            // (Description, NoOfInterns, DefaultStartDate, DefaultEndDate, CompanyID)
+            // (Name, Description, NoOfInterns, DefaultStartDate, DefaultEndDate, CompanyID)
 
-            string description; int noOfStudents, companyID; DateTime defaultStartDate, defaultEndDate;
+            string name, description; int noOfStudents, companyID; DateTime defaultStartDate, defaultEndDate;
             foreach (var project in projects)
             {
-                (description, noOfStudents, defaultStartDate, defaultEndDate, companyID) = project;
+                (name, description, noOfStudents, defaultStartDate, defaultEndDate, companyID) = project;
                 var newProject = new Project
                 {
+                    ProjectName = name,
                     ProjectDescription = description,
                     DefaultStartDate = defaultStartDate,
+                    NumberOfInterns = noOfStudents,
                     DefaultEndDate = defaultEndDate,
                     CompanyId = companyID
                 };
