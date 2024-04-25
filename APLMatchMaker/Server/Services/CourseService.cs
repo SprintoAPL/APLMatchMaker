@@ -147,8 +147,8 @@ namespace APLMatchMaker.Server.Services
                             Name = $"{s.Student.FirstName} {s.Student.LastName}",
                             Email = s.Student.Email,
                             PhoneNumber = s.Student.PhoneNumber,
-                            StudentSocSecNo = s.Student.StudentSocSecNo,
-                            Address = s.Student.Address,
+                            StudentSocSecNo = s.Student.StudentSocSecNo!,
+                            Address = s.Student.Address!,
                             KnowledgeLevel = s.Student.KnowledgeLevel,
                             Language = s.Student.Language,
                             Nationality = s.Student.Nationality
