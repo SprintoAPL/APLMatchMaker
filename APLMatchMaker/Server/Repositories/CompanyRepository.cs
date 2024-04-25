@@ -61,7 +61,14 @@ namespace APLMatchMaker.Server.Repositories
         // Get a company by ID
         public async Task<Company> GetCompanyByIdAsync(int id)
         {
-            var company = await _db.Companies.FirstOrDefaultAsync(c => c.Id == id) ?? throw new Exception($"Company with ID {id} not found.");
+            var company = await _db.Companies.Where(c => c.Id == id)
+                .Include(co => co.CompanyContacts)
+                .Include(co => co.CompanyContacts)
+                .Include (co => co.Projects!)
+                .ThenInclude(pr => pr.Internships!)
+                .ThenInclude(i => i.Student!)
+                .FirstOrDefaultAsync()
+                ?? throw new Exception($"Company with ID {id} not found.");
             return company;
         }
 

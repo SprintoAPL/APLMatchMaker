@@ -40,35 +40,26 @@ namespace APLMatchMaker.Server.Services
 
 
         // Get a company by ID
-        public async Task<CompanyForListDTO> GetCompanyByIdAsync(int id)
+        public async Task<CompanyDetailsDTO> GetCompanyByIdAsync(int id)
         {
             var company = await _companyRepository.GetCompanyByIdAsync(id);
-            return _mapper.Map<CompanyForListDTO>(company);
+            return _mapper.Map<CompanyDetailsDTO>(company);
         }
 
 
         //Add a New Company 
-        public async Task<CompanyForListDTO> PostAsync(CompanyForCreateDTO dto)
+        public async Task<CompanyDetailsDTO> PostAsync(CompanyForCreateDTO dto)
         {
-            var company = new Company
-            {
-                CompanyName = dto.CompanyName,
-                CompanyEmail = dto.CompanyEmail,
-                OrganizationNumber = dto.OrganizationNumber,
-                Phone = dto.Phone,
-                Website = dto.Website,
-                PostalAdress = dto.PostalAdress,
-                PostalNumber = dto.PostalNumber,
-                City = dto.City,
-                //Notes = dto.Notes,
-            };
+            var company = _mapper.Map<CompanyForCreateDTO, Company>(dto);
+
             var ok = await _companyRepository.AddCompanyAsync(company);
+
             if (!ok)
             {
                 throw new Exception("Could not add Company!");
             }
-            return _mapper.Map<CompanyForListDTO>(company);
 
+            return _mapper.Map<CompanyDetailsDTO>(company);
         }
 
 

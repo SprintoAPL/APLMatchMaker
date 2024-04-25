@@ -10,11 +10,24 @@ namespace APLMatchMaker.Server.Mappings
         public CompanyMappings()
         {
             CreateMap<Company, CompanyForListDTO>();
-            CreateMap<Company,CompanyForCreateDTO>();
-            CreateMap<CompanyUpdateDTO, Company>(); 
-            CreateMap<Company, CompanyDetailsDTO>(); 
-           
 
+            CreateMap<Company, CompanyForCreateDTO>().ReverseMap();
+
+            CreateMap<CompanyUpdateDTO, Company>().ReverseMap();
+
+            CreateMap<Company, CompanyDetailsDTO>();
+
+            CreateMap<ApplicationUser, CompanyEmployeeShortListDTO>()
+                .ForMember(
+                    dest => dest.FullName,
+                    from => from.MapFrom(au => $"{au.FirstName} {au.LastName}"))
+                .ForAllMembers(au => au.Condition(au => au.IsStudent));
+
+            CreateMap<ApplicationUser, CompanyContactsShortListDTO>()
+                .ForMember(
+                    dest => dest.FullName,
+                    from => from.MapFrom(au => $"{au.FirstName} {au.LastName}"))
+                .ForAllMembers(au => au.Condition(au => au.IsCompanyContact));
         }
     }
 }
