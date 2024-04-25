@@ -43,13 +43,13 @@ namespace APLMatchMaker.Server.Repositories
             if (!string.IsNullOrWhiteSpace(studentResourceParameters.Address))
             {
                 studentCollection = studentCollection.Where(sc =>
-                sc.Address.Contains(studentResourceParameters.Address.Trim()));
+                sc.Address!.Contains(studentResourceParameters.Address.Trim()));
             }
 
             if (!string.IsNullOrWhiteSpace(studentResourceParameters.Status))
             {
                 studentCollection = studentCollection.Where(sc =>
-                sc.Status.Contains(studentResourceParameters.Status.Trim()));
+                sc.StatusOther!.Contains(studentResourceParameters.Status.Trim()));
             }
 
             if (studentResourceParameters.KnowledgeLevel.HasValue)
@@ -85,13 +85,13 @@ namespace APLMatchMaker.Server.Repositories
             if (!string.IsNullOrWhiteSpace(studentResourceParameters.Language))
             {
                 studentCollection = studentCollection.Where(sc =>
-                sc.Language.Contains(studentResourceParameters.Language.Trim()));
+                sc.Language!.Contains(studentResourceParameters.Language.Trim()));
             }
 
             if (!string.IsNullOrWhiteSpace(studentResourceParameters.Nationality))
             {
                 studentCollection = studentCollection.Where(sc =>
-                sc.Nationality.Contains(studentResourceParameters.Nationality.Trim()));
+                sc.Nationality!.Contains(studentResourceParameters.Nationality.Trim()));
             }
 
             // Search on a group of properties/db-fields.
@@ -101,11 +101,11 @@ namespace APLMatchMaker.Server.Repositories
                 sc.FirstName.Contains(studentResourceParameters.SearchQuery.Trim()) ||
                 sc.LastName.Contains(studentResourceParameters.SearchQuery.Trim()) ||
                 sc.Email!.Contains(studentResourceParameters.SearchQuery.Trim()) ||
-                sc.Address.Contains(studentResourceParameters.SearchQuery.Trim()) ||
-                sc.CommentByTeacher.Contains(studentResourceParameters.SearchQuery.Trim()) ||
-                sc.Language.Contains(studentResourceParameters.SearchQuery.Trim()) ||
-                sc.Nationality.Contains(studentResourceParameters.SearchQuery.Trim()) ||
-                sc.Miscellaneous.Contains(studentResourceParameters.SearchQuery.Trim())
+                sc.Address!.Contains(studentResourceParameters.SearchQuery.Trim()) ||
+                sc.CommentByTeacher!.Contains(studentResourceParameters.SearchQuery.Trim()) ||
+                sc.Language!.Contains(studentResourceParameters.SearchQuery.Trim()) ||
+                sc.Nationality!.Contains(studentResourceParameters.SearchQuery.Trim()) ||
+                sc.Miscellaneous!.Contains(studentResourceParameters.SearchQuery.Trim())
                 );
             }
 

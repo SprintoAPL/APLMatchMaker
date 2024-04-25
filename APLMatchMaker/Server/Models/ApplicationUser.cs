@@ -7,23 +7,26 @@ namespace APLMatchMaker.Server.Models
     {
         public bool IsStudent { get; set; }
         public bool IsCompanyContact { get; set; }
+        public bool IsActive { get; set; } = true;
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-        public string Title { get; set; } = string.Empty;
-        public string StudentSocSecNo { get; set; } = string.Empty;
-        public string Address { get; set; } = string.Empty;
-        public string Status { get; set; } = string.Empty;
-        public string CV { get; set; } = string.Empty;
+        public string? Title { get; set; } = null;
+        public string? StudentSocSecNo { get; set; } = null;
+        public string? Address { get; set; } = null;
+        public int Status { get; set; }
+        public DateTime? StatusWhen { get; set; } = null;
+        public string? StatusOther { get; set; } = null;
+        public string? CV { get; set; } = null;
         public int KnowledgeLevel { get; set; } // 0 = "Not set", 1 = "Red", 2 = "Yellow", 3 = "Green"
-        public bool CVIntro { get; set; }
-        public bool LinkedinIntro { get; set; }
-        public bool Workshopdag { get; set; }
-        public bool APLSamtal { get; set; }
-        public string Checklist { get; set; } = string.Empty;
-        public string CommentByTeacher { get; set; } = string.Empty;
-        public string Language { get; set; } = string.Empty;
-        public string Nationality { get; set; } = string.Empty;
-        public string Miscellaneous { get; set; } = string.Empty;
+        public DateTime? CVIntro { get; set; } = null;
+        public DateTime? LinkedinIntro { get; set; } = null;
+        public DateTime? Workshopdag { get; set; } = null;
+        public DateTime? APLSamtal { get; set; } = null;
+        public string? Checklist { get; set; } = null;
+        public string? CommentByTeacher { get; set; } = null;
+        public string? Language { get; set; } = null;
+        public string? Nationality { get; set; } = null;
+        public string? Miscellaneous { get; set; } = null;
 
         // Foreign keys.
         public int? CompanyId { get; set; } = null;

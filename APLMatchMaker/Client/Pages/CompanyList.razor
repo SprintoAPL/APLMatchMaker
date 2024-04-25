@@ -45,7 +45,7 @@ else
 
         <tbody>
 
-            @foreach (var company in companies)
+            @foreach (var company in companies!)
             {
                 <tr>
                     <td scope="row"><a href="@($"companydetails/{company.Id}")">@company.CompanyName</a></td>
