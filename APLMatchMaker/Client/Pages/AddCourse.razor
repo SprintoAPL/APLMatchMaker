@@ -20,15 +20,15 @@
 </div>
 <div class="row">
     <div class="col">
-        <label for="StartDate" class="form-label">Start datum: </label>
+        <label for="StartDate" class="form-label">Startdatum: </label>
         <input type="date" class="form-control" @bind="Course.StartDate" id="StartDate" placeholder="Start datum ">
     </div>
     <div class="col">
-        <label for="EndDate" class="form-label">Slut datum: </label>
+        <label for="EndDate" class="form-label">Slutdatum: </label>
         <input type="date" class="form-control" @bind="Course.EndDate" id="EndDate" placeholder="Slut datum ">
     </div>
 </div>
 <div>
     <button class="btn btn-success" @onclick="()=>AddNewCourse(Course)">Spara</button>
-    <a href="@($"/ListOfCourses")" class="btn btn-secondary">Avbryta</a>
+    <a href="@($"/ListOfCourses")" class="btn btn-secondary">Avbryt</a>
 </div>

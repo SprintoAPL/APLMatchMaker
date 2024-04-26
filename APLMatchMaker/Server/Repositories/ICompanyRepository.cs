@@ -15,6 +15,7 @@ namespace APLMatchMaker.Server.Repositories
         
         Task<bool> UpdateCompanyAsync(Company company);
         Task<bool> RemoveCompanyByIdAsync(int id);
+        Task<bool> HasEngagementAsync(int id);
         Task<IEnumerable<Company>> GetSortedCompaniesAsync(string sortField, string sortOrder);
 
     }

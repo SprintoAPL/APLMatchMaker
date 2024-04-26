@@ -148,6 +148,10 @@ namespace APLMatchMaker.Server.Services
             return companies;
         }
 
+        public async Task<bool> HasEngagementAsync(int id)
+        {
+            return await _companyRepository.HasEngagementAsync(id);
+        }
     }
 
 }

@@ -15,7 +15,7 @@ namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
         [Required(ErrorMessage = "You should give the student a social security number.")]
         public string? StudentSocSecNo { get; set; } = null!;
         public string? Address { get; set; } = null!;
-        public string? Status { get; set; } = null!;
+        public string? StatusOther { get; set; } = null!;
         public string? CV { get; set; } = null!;
         [Required]
         [Range(0, 4, ErrorMessage = "Knowledge level must be between 0 and 4.")]

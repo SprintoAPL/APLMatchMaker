@@ -13,6 +13,7 @@ namespace APLMatchMaker.Server.Services
         Task<StudentForUpdateDTO?> GetForUpdateAsync(string id);
         Task<StudentForDetailsDTO> PostAsync(StudentForCreateDTO dto);
         Task<bool> RemoveAsync(string id);
+        Task<bool> HasEngagementsAsync(string id);
         Task<bool> EmailExistAsync(string email);
         Task<StudentForDetailsDTO?> PatchStudentAsync(string id, StudentForUpdateDTO dto);
         Task<StudentForDetailsDTO?> UpdateStudentAsync(string id, StudentForUpdateDTO dto);

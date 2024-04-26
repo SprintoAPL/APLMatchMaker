@@ -165,6 +165,14 @@ namespace APLMatchMaker.Server.Services
         //#################################################################################
 
 
+        //##-< Check if the student has engagements >-#####################################
+        public async Task<bool> HasEngagementsAsync(string id)
+        {
+            return await _studentRepository.HasEngagementsAsync(id);
+        }
+        //#################################################################################
+
+
         //##-< ???????????? >-#############################################################
         // New methods goes here.
         //#################################################################################
