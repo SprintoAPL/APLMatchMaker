@@ -1,0 +1,74 @@
+﻿@page "/companyedit/{Id:int}"
+@using APLMatchMaker.Shared.DTOs.CompanyDTOs
+
+
+<h3>Redigera information om Företaget</h3>
+
+@if (ErrorMessage != null)
+{
+    <div>
+        <p class="alert alert-danger">Nåt har gått galet: @ErrorMessage</p>
+    </div>
+}
+
+@if (companyToUpdate != null)
+{
+    <div class="row">
+        <div class="col">
+            <label for="Name" class="form-label">Namn: </label>
+            <input type="text" class="form-control" @bind="companyToUpdate.CompanyName" id="CompanyName" placeholder="Företagets namn ">
+        </div>
+        <div class="col">
+            <label for="Organisationsnummer" class="form-label">Organisationsnummer: </label>
+            <input type="text" class="form-control" @bind="companyToUpdate.OrganizationNumber" id="OrganizationNumber" placeholder="Organisationsnummer ">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label for="PostalAdress" class="form-label">Website: </label>
+        <input type="text" class="form-control" @bind="companyToUpdate.Website" id="Website" placeholder="Hemsida ">
+    </div>
+
+    <div class="mb-3">
+        <label for="PostalAdress" class="form-label">CompanyEmail: </label>
+        <input type="text" class="form-control" @bind="companyToUpdate.CompanyEmail" id="Website" placeholder="E-mail ">
+    </div>
+
+    <div class="mb-3">
+        <label for="PostalAdress" class="form-label">Phone: </label>
+        <input type="text" class="form-control" @bind="companyToUpdate.Phone" id="Phone" placeholder="Telefon ">
+    </div>
+
+    <div class="mb-3">
+        <label for="PostalAdress" class="form-label">PostalAdress: </label>
+        <input type="text" class="form-control" @bind="companyToUpdate.PostalAdress" id="PostalAdress" placeholder="Post adress ">
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <label for="PostalNumber" class="form-label">Post Nummer: </label>
+            <input type="text" class="form-control" @bind="companyToUpdate.PostalNumber" id="PostalNumber" placeholder="Post Nummer ">
+        </div>
+        <div class="col">
+            <label for="City" class="form-label">Kommun: </label>
+            <input type="text" class="form-control" @bind="companyToUpdate.City" id="City" placeholder="Kommun ">
+        </div>
+    </div>
+
+    <br />
+
+    <div class="mb-3">
+        <label for="Description" class="form-label">Beskrivning:</label>
+        <textarea class="form-control" @bind="companyToUpdate.Notes" id="notes" rows="3"></textarea>
+    </div>
+
+
+
+
+    <div>
+        <button class="btn btn-success" @onclick="()=>ValidateSubmit()"> <span class="bi bi-save "></span> Spara</button>
+        <a href="@($"/company")" class="btn btn-secondary"> <span class="bi bi-x-lg "></span> Avbryt</a>
+    </div>
+
+    <br/>
+}

@@ -18,7 +18,7 @@
         @foreach (var student in Students)
         {
             <tr>
-                <td>@student.Name</td>
+                <td><a href="@($"studentdetails/{student.Id}")">@student.Name</a></td>
                 <td>@student.Email</td>
                 <td>@student.StudentSocSecNo</td>
                 <td>@student.Address</td>

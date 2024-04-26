@@ -21,7 +21,6 @@ namespace APLMatchMaker.Client.Pages
         private readonly string _apiRoot = "api/student";
         private IEnumerable<StudentForListDTO>? PageListStudents;
         private string? errorMessage;
-        private string? errorMessageTest;
         private string? pagination;
         private bool debug = false;
         private PaginationMetadata? paginationMetadata;
