@@ -5,8 +5,10 @@
 
 <h3 class="m3">Studentlista</h3>
 <div>
-    <input type="text" @bind="searchText" placeholder="Sök student..." />
-    <button class="btn btn-success" type="submit" @onclick="SearchStudents">Sök</button>
+    <form @onsubmit="SearchStudents">
+        <input type="text" @bind="searchText" placeholder="Sök student..." />
+        <button class="btn btn-success" type="submit" @* @onclick="SearchStudents" *@>Sök</button>
+    </form>
 </div>
 
 @if (PageListStudents == null && errorMessage == null)
