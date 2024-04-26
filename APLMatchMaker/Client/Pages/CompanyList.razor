@@ -5,18 +5,12 @@
 <br />
 
 <div class="form-group">
-    <a class="btn btn-success" href="company/add"><i class="oi oi-plus"></i> Registrera Bolag </a>
+    <a class="btn btn-success" href="company/add"><i class="oi oi-plus"></i> Registrera företag </a>
 </div>
 
 <br>
 
-@* @if (companies == null)
-{
-    <p><em>Loading...</em></p>
-    <p>@errorMessage</p>
-}
-else
-{ *@
+
 @if (companies == null && errorMessage == null)
 {
     <p>Hämtar...</p>
@@ -37,8 +31,6 @@ else
                 <th scope="col">Org.nummer</th>
                 <th scope="col">E-mail</th>
                 <th scope="col">Telefon</th>
-                @* <th scope="col">Redigera</th>
-                <th scope="col"></th> *@
             </tr>
 
         </thead>
@@ -52,12 +44,6 @@ else
                     <td scope="row">@company.OrganizationNumber</td>
                     <td scope="row">@company.CompanyEmail</td>
                     <td scope="row">@company.Phone</td>
-@*                     <td scope="row">
-                        <a href="@($"editcompany/{company.Id}")" class="btn btn-info m-1"> <span class="bi bi-pencil bi-2x"></span></a>
-                    </td>
-                    <td scope="row">
-                        <a href="@($"companydelete/{company.Id}")" class="btn btn-danger m-1"> <span class="bi bi-trash bi-2x"></span></a>
-                    </td> *@
                 </tr>
             }
         </tbody>
@@ -67,88 +53,5 @@ else
 
 }
 
-@* <h1>Companies Overview</h1>
-<br />
 
-<div class="form-group">
-    <a class="btn btn-success" href="company/add"><i class="oi oi-plus"></i> Registrera Bolag </a>
-</div>
-
-<br>
-
-
-@if (companies == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table table-striped  align-middle  table-bordered">
-        <thead class="table-primery">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Org Number</th>
-                <th>E-mail</th>
-                <th>Phone</th>
-                <th>Actions</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var company in companies)
-            {
-                <tr>
-                    <td>@company.Companyid</td>
-                    <td>@company.CompanyName</td>
-                    <td>@company.Orgnumber</td>
-                    <td>@company.Email</td>
-                    <td>@company.Phone</td>
-                    <td>
-                        <a href='/company/edit/@company.Companyid' class="btn btn-outline-dark" role="button">
-                            Edit
-                        </a>
-                        <a href='/company/delete/@company.Companyid' class="btn btn-outline-danger" role="button">
-                            Delete
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-
-    </table>
-}
-
-
-@code {
-
-
-
-
-    public record CompanyDTO(int Companyid, string CompanyName, string Orgnumber, string Email, string Phone);
-    public IEnumerable<CompanyDTO>? companies;
-
-
-
-    protected override void OnInitialized()
-    {
-
-        companies = new List<CompanyDTO>
-        {
-            new CompanyDTO(1, "Astra Banana", "21544-541", "MB@Hmail.com","08-254158"),
-            new CompanyDTO(2, "ALBS B", "4585-2251", "LLB@Hmail.com","08-2544158"),
-            new CompanyDTO(3, "Astra Menica", "66988-21","MB@Hmail.com","08-254158"),
-            new CompanyDTO(4, "Bolvo", "89878-123", "TTsB@Hmail.com","08-27774158"),
-            new CompanyDTO(4, "Sancia", "89878-123", "TTsB@Hmail.com","08-277874158"),
-            new CompanyDTO(4, "Afro Beat", "54545-123", "TUsB@Hmail.com","08-28874158"),
-        };
-    }
-
-    // protected async Task SearchCompany()
-    // {
-
-    // }
-
-
-} *@
 

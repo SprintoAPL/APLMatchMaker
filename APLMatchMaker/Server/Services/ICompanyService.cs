@@ -11,6 +11,7 @@ namespace APLMatchMaker.Server.Services
         Task<CompanyForListDTO> GetCompanyByIdAsync(int id);
         Task<CompanyForListDTO> PostAsync(CompanyForCreateDTO dto);
         Task<bool> UpdateCompanyAsync(int id, CompanyUpdateDTO companyUpdateDTO);
+        
         Task<bool> RemoveCompanyByIdAsync(int id);
         Task<bool> HasEngagementAsync(int id);
         Task<IEnumerable<CompanyForListDTO>> GetSortedCompaniesListAsync(string sortField, string sortOrder);

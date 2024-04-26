@@ -90,6 +90,9 @@ namespace APLMatchMaker.Server.Services
         }
 
 
+
+
+
         //Remove a company by ID
         public async Task<bool> RemoveCompanyByIdAsync(int id)
         {
