@@ -52,7 +52,7 @@ namespace APLMatchMaker.Client.Pages
         {
             try
             {
-                var result = await Http.PutAsJsonAsync($"api/company/{Id}", companyToUpdate);
+                var result = await Http!.PutAsJsonAsync($"api/company/{Id}", companyToUpdate);
 
                 if (result.IsSuccessStatusCode)
                 {

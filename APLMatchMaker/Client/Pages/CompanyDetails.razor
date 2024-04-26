@@ -24,7 +24,7 @@ else
 
 
     <a href="@($"/company")" class="btn btn-outline-primary">  <span class="bi bi-arrow-left "></span> Tillbaka till listan</a>
-    <a href="@($"companyedit/{companyDetails.Id}")" class="btn btn-outline-warning m-2 "><span class="bi bi-pen bi-2x"></span> Redigera</a>
+    <a href="@($"companyedit/{companyDetails!.Id}")" class="btn btn-outline-warning m-2 "><span class="bi bi-pen bi-2x"></span> Redigera</a>
     <a href="@($"companydelete/{companyDetails.Id}")" class="btn btn-danger  m-2"> <span class="bi bi-trash bi-2x"></span> Ta bort</a>
 
     <br />
