@@ -31,8 +31,6 @@ else
                 <th scope="col">Org.nummer</th>
                 <th scope="col">E-mail</th>
                 <th scope="col">Telefon</th>
-                @* <th scope="col">Redigera</th>
-                <th scope="col"></th> *@
             </tr>
 
         </thead>
@@ -46,12 +44,6 @@ else
                     <td scope="row">@company.OrganizationNumber</td>
                     <td scope="row">@company.CompanyEmail</td>
                     <td scope="row">@company.Phone</td>
-@*                     <td scope="row">
-                        <a href="@($"editcompany/{company.Id}")" class="btn btn-info m-1"> <span class="bi bi-pencil bi-2x"></span></a>
-                    </td>
-                    <td scope="row">
-                        <a href="@($"companydelete/{company.Id}")" class="btn btn-danger m-1"> <span class="bi bi-trash bi-2x"></span></a>
-                    </td> *@
                 </tr>
             }
         </tbody>
@@ -61,24 +53,5 @@ else
 
 }
 
-@* <h1>Companies Overview</h1>
-<br />
 
-<div class="form-group">
-    <a class="btn btn-success" href="company/add"><i class="oi oi-plus"></i> Registrera Bolag </a>
-</div>
-
-<br>
-
-                </tr>
-            }
-        </tbody>
-
-    </table>
-}
-
-
-
-<br />
-<br />
 
