@@ -63,7 +63,6 @@ namespace APLMatchMaker.Server.Repositories
         {
             var company = await _db.Companies.Where(c => c.Id == id)
                 .Include(co => co.CompanyContacts)
-                .Include(co => co.CompanyContacts)
                 .Include (co => co.Projects!)
                 .ThenInclude(pr => pr.Internships!)
                 .ThenInclude(i => i.Student!)
