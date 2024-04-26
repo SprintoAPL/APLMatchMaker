@@ -1,19 +1,35 @@
-﻿
+﻿@using APLMatchMaker.Client.Services
+@inject IFeedBackService FeedBackService
 
-@if (IsVisible)
+@if (isVisible)
 {
-    <div class="alert @(IsSuccess ? "alert-success" : "alert-danger")">
-        @Message
+    <div class="alert @(isSuccess ? "alert-success" : "alert-danger")">
+        @message
     </div>
 }
 
 @code {
-    [Parameter]
-    public bool IsVisible { get; set; }
+    private string? message;
+    private bool isVisible { get; set; }
+    private bool isSuccess { get; set; }
 
-    [Parameter]
-    public bool IsSuccess { get; set; }
+    protected override void OnInitialized()
+    {
+        FeedBackService.OnFeedBackRecived += HandleFeedBack;
+    }
 
-    [Parameter]
-    public string? Message { get; set; }
+
+    private void HandleFeedBack(FeedBack feedBack)
+    {
+        message = feedBack.Message;
+        isSuccess = feedBack.IsSuccess;
+        isVisible = feedBack.IsVisible;
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        FeedBackService.OnFeedBackRecived -= HandleFeedBack;
+    }
+
 }
