@@ -7,7 +7,8 @@
 <div>
     <form @onsubmit="SearchStudents">
         <input type="text" @bind="searchText" placeholder="Sök student..." />
-        <button class="btn btn-success" type="submit" @* @onclick="SearchStudents" *@>Sök</button>
+        @* <button @onclick="ClearInput"><i class="bi bi-x"></i></button> *@
+        <button class="btn btn-success" type="submit">Sök</button>
     </form>
 </div>
 
