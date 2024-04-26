@@ -4,7 +4,7 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     height: 900px;
     background-color: #21252999;
-    background-image: url('../images/LEXICON_bg6_dark.jpg');
+    background-image: url('../images/LEXICON_bg6_dark_new.jpg');
     background-repeat: no-repeat; /*Prevent the background image from repeating*/
     /*background-position: center;*/
     background-size: cover;
@@ -76,7 +76,7 @@ h1:focus {
 }
 
 a, .btn-link {
-    color: #6aa1ee
+    color: #dce0e5
 }
 
      visited link 
@@ -183,6 +183,11 @@ a, .btn-link {
         content: var(--blazor-load-percentage-text, "Loading");
 }
 
+/*th {
+    width: 200px;
+    height: auto;
+}*/
+
 .table {
     --bs-table-bg: transparent;
     --bs-table-accent-bg: transparent;
@@ -224,17 +229,17 @@ element, excluding any <caption > element.*/
     .table > :not(:last-child) > :last-child > * {
         /*Labels*/
         border-bottom-color: orange;
-        /*background-color: #121215*/
+        background-color: #2c3239
         /*background: linear-gradient(0deg, rgba(34,45,50,1) 70%, rgba(46,54,61,1) 100%);*/
-        background: linear-gradient(0deg, rgba(44,51,60,1) 46%, rgba(54,60,74,1) 100%);
+        /*background: linear-gradient(0deg, rgba(44,51,60,1) 46%, rgba(54,60,74,1) 100%);*/
     }
     .table > tbody > :nth-child(even) {
         /*Alternating row colors for tables*/
-        background-color: rgba(16, 16, 16, 1);
+        background-color: #292c2f
     }
     .table > tbody > :nth-child(odd) {
         /*Alternating row colors for tables*/
-        background-color: rgba(13, 13, 13, 1);
+        background-color: #1e2022
     }
 
 /*.top-row {*/
