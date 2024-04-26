@@ -5,8 +5,8 @@ namespace APLMatchMaker.Server.Models.Entities
 {
     public class Internship
     {
-        public DateTime AlternateStartDate { get; set; }
-        public DateTime AlternateEndDate { get; set; }
+        public DateTime? AlternateStartDate { get; set; }
+        public DateTime? AlternateEndDate { get; set; }
 
 
         // Foreign keys.

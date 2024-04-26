@@ -20,13 +20,15 @@ namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
         public string? PhoneNumber { get; set; }
         public string? StudentSocSecNo { get; set; }
         public string? Address { get; set; }
+        public int Status { get; set; }
+        public DateTime? StatusWhen { get; set; }
         public string? StatusOther { get; set; }
         public string? CV { get; set; }
         public int KnowledgeLevel { get; set; } // 0 = "Not set", 1 = "Red", 2 = "Yellow", 3 = "Green"
-        public bool CVIntro { get; set; }
-        public bool LinkedinIntro { get; set; }
-        public bool Workshopdag { get; set; }
-        public bool APLSamtal { get; set; }
+        public DateTime? CVIntro { get; set; }
+        public DateTime? LinkedinIntro { get; set; }
+        public DateTime? Workshopdag { get; set; }
+        public DateTime? APLSamtal { get; set; }
         public string? Checklist { get; set; }
         public string? CommentByTeacher { get; set; }
         public string? Language { get; set; }
@@ -34,6 +36,9 @@ namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
         public string? Miscellaneous { get; set; }
 
 
-        public CourseForStudentDTO? Course { get; set; } = null!;
+        // Navigation properties.
+        public StudentAtCourseShortDTO? Course { get; set; } = null!;
+        public ICollection<StudentInternshipShortListDTO>? Interships { get; set; }
+        public StudentWorkAtCompanyShortDTO? WorkAtCompany { get; set; }
     }
 }
