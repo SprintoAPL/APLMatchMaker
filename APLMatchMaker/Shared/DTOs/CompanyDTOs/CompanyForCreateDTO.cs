@@ -11,17 +11,18 @@ namespace APLMatchMaker.Shared.DTOs.CompanyDTOs
     {
         //public int Id { get; set; }
 
-        [Required(ErrorMessage ="Company should have a valid name")]
+        [Required(ErrorMessage = "Company should have a valid name")]
         public string CompanyName { get; set; } = string.Empty;
         [MaxLength(15)]
         public string OrganizationNumber { get; set; } = string.Empty;
-        
+
         public string Website { get; set; } = string.Empty;
-        [MaxLength(50, ErrorMessage ="Email address can contain a maximum of 50 characters")]
+        [MaxLength(50, ErrorMessage = "Email address can contain a maximum of 50 characters")]
         public string CompanyEmail { get; set; } = string.Empty;
-        public string Phone { get; set; } = string.Empty; 
+        public string Phone { get; set; } = string.Empty;
         public string PostalAdress { get; set; } = string.Empty;
         public string PostalNumber { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
+        public string Notes { get; set; } = string.Empty;
     }
 }

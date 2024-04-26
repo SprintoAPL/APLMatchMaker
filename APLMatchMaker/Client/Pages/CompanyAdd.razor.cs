@@ -21,7 +21,7 @@ namespace APLMatchMaker.Client.Pages
                 var response = await Http!.PostAsJsonAsync("api/company/", CompanyToAdd);
                 if (response.IsSuccessStatusCode)
                 {
-                    NavManager?.NavigateTo($"/company");
+                    NavManager!.NavigateTo($"/company");
                 }
                 else
                 {
