@@ -2,7 +2,6 @@
 using APLMatchMaker.Server.Models;
 using APLMatchMaker.Shared.DTOs.CompanyDTOs;
 using AutoMapper;
-using APLMatchMaker.Shared.DTOs.StudentsDTOs;
 
 namespace APLMatchMaker.Server.Mappings
 {
@@ -16,7 +15,16 @@ namespace APLMatchMaker.Server.Mappings
 
             CreateMap<CompanyUpdateDTO, Company>().ReverseMap();
 
-            CreateMap<Company, CompanyDetailsDTO>();
+            CreateMap<Company, CompanyDetailsDTO>()
+                .ForMember(
+                    dest => dest.Contacts,
+                    from => from.MapFrom(co => co.CompanyContacts))
+                .ForMember(
+                    dest => dest.EmployedStudents,
+                    from => from.MapFrom(co => co.CompanyContacts));
+                //.ForMember(
+                //    dest => dest.Internships,
+                //    from => from.MapFrom<>;
 
             CreateMap<ApplicationUser, CompanyEmployeeShortListDTO>()
                 .ForMember(
@@ -29,6 +37,10 @@ namespace APLMatchMaker.Server.Mappings
                     dest => dest.FullName,
                     from => from.MapFrom(au => $"{au.FirstName} {au.LastName}"))
                 .ForAllMembers(au => au.Condition(au => au.IsCompanyContact));
+
+            CreateMap<>();
+
+            //CreateMap<Project, CompanyProjectsShortListDTO>();
 
             CreateMap<Internship, CompanyInternshipsShortListDTO>();
 
@@ -63,6 +75,15 @@ namespace APLMatchMaker.Server.Mappings
         public DateTime? Resolve(Internship source, CompanyInternshipsShortListDTO destination, DateTime? destMember, ResolutionContext context)
         {
             return source.AlternateEndDate != null ? source.AlternateEndDate : source.Project!.DefaultEndDate;
+        }
+    }
+
+    public class CompanyInternships : IValueResolver<Project?, CompanyInternshipsShortListDTO?, ICollection<Internship>?>
+    {
+        public ICollection<Internship>? Resolve(Project? source, CompanyInternshipsShortListDTO? destination, ICollection<Internship>? destMember, ResolutionContext context)
+        {
+            return source!.Internships!;
+            throw new NotImplementedException();
         }
     }
 }

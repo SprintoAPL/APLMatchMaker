@@ -16,8 +16,8 @@
 
 
         // Navigation Properties.
-        public ICollection<CompanyEmployeeShortListDTO> CompanyEmployedStudents { get; set; } =new List<CompanyEmployeeShortListDTO>();
-        public ICollection<CompanyContactsShortListDTO> CompanyContacts { get; set; } = new List<CompanyContactsShortListDTO>();
-        public ICollection<CompanyInternshipsShortListDTO> CompanyInterns { get; set; } = new List<CompanyInternshipsShortListDTO>();
+        public ICollection<CompanyEmployeeShortListDTO> EmployedStudents { get; set; } =new List<CompanyEmployeeShortListDTO>();
+        public ICollection<CompanyContactsShortListDTO>? Contacts { get; set; }
+        public ICollection<CompanyInternshipsShortListDTO>? Internships { get; set; }
     }
 }
