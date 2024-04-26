@@ -1,4 +1,5 @@
 ﻿@page "/deletecourse/{Id:int}"
+@using APLMatchMaker.Client.Components
 
 <h3>Ta bort en kurs</h3>
 
@@ -15,10 +16,12 @@ else
     <div>
         <p><b>Vill du ta bort kursen @CourseToDelete!.Name?</b></p>
         <p><strong>Namn:  </strong>@CourseToDelete.Name</p>
-        <p><strong>Start datum: </strong>@CourseToDelete.StartDate.ToString("yyyy-mm-dd")</p>
-        <p><strong>Slut datum: </strong>@CourseToDelete.EndDate.ToString("yyyy-mm-dd")</p>
+        <p><strong>Start datum: </strong>@CourseToDelete.StartDate.ToString("yyyy-MM-dd")</p>
+        <p><strong>Slut datum: </strong>@CourseToDelete.EndDate.ToString("yyyy-MM-dd")</p>
         <p><strong>Bekräfta genom att klicka på Ta bort knappen.</strong></p>
         <button class="btn btn-danger" @onclick="Delete">Ta bort</button>
         <a href="@($"/ListOfCourses")" class="btn btn-primary m-1">Avbryta</a>
     </div>
+
+    <FeedbackComponent IsVisible="@IsFeedbackVisible" IsSuccess="@IsDeleteSuccess" Message="@FeedbackMessage" />
 }
