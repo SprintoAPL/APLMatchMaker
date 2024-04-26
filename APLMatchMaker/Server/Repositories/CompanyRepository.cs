@@ -98,7 +98,7 @@ namespace APLMatchMaker.Server.Repositories
                 await _db.SaveChangesAsync();
                 return true;
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return false;
             }

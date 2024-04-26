@@ -1,6 +1,28 @@
 ﻿@using APLMatchMaker.Shared.DTOs.CompanyDTOs;
 
-<div class="">
+<dl class="row">
+    <dt class="col-sm-2">Företag</dt>
+    <dd class="col-sm-10">@Company!.CompanyName</dd>
+    <dt class="col-sm-2">Organisationsnummer</dt>
+    <dd class="col-sm-10">@Company.OrganizationNumber</dd>
+    <dt class="col-sm-2">Hemsida</dt>
+    <dd class="col-sm-10">@Company.Website</dd>
+    <dt class="col-sm-2">E-mail</dt>
+    <dd class="col-sm-10">@Company.CompanyEmail</dd>
+    <dt class="col-sm-2">Telefon</dt>
+    <dd class="col-sm-10">@Company.Phone</dd>
+    <dt class="col-sm-2">Post Adress</dt>
+    <dd class="col-sm-10">@Company.PostalAdress</dd>
+    <dt class="col-sm-2">Post Nummer</dt>
+    <dd class="col-sm-10">@Company.PostalNumber</dd>
+    <dt class="col-sm-2">Kommun</dt>
+    <dd class="col-sm-10">@Company.City</dd>
+    <dt class="col-sm-2">Noteringar</dt>
+    <dd class="col-sm-10">@Company.Notes</dd>
+</dl>
+
+
+@* <div class="">
     <p>
         Namn:&nbsp;@Company.CompanyName
     </p>
@@ -31,4 +53,4 @@
     <p>
         Anteckningar:<br />@Company.Notes
     </p>
-</div>
+</div> *@
