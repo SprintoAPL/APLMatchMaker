@@ -7,5 +7,21 @@ namespace APLMatchMaker.Client.Components
     {
         [Parameter]
         public  IEnumerable<StudentForListDTO> Students { get; set; } = new List<StudentForListDTO>();
+
+        private string sortBy = "columnTitle";
+        private bool isAscending = true;
+
+        private void SortByColumn(string columnTitle)
+        {
+            if (sortBy == columnTitle)
+            {
+                isAscending = !isAscending;
+            }
+            else
+            {
+                sortBy = columnTitle;
+                isAscending = true ;
+            }
+        }
     }
 }
