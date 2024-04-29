@@ -24,4 +24,15 @@ else
     </div>
 
     <FeedbackComponent IsVisible="@IsFeedbackVisible" IsSuccess="@IsDeleteSuccess" Message="@FeedbackMessage" />
+
+}
+@if (debug)
+{
+    <p class="alert-warning">
+        Debug data:<br />
+        IsFeedbackVisible:&nbsp;@IsFeedbackVisible <br />
+        IsDeleteSuccess:&nbsp;@IsDeleteSuccess  <br />
+        FeedbackMessage:&nbsp;@FeedbackMessage <br />
+    </p>
+    <button class="btn btn-danger" @onclick="Delete">Ta bort</button>
 }

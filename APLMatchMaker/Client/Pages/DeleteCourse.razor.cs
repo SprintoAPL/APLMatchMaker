@@ -21,7 +21,10 @@ namespace APLMatchMaker.Client.Pages
 
         private bool IsFeedbackVisible { get; set; } = false;
         private bool IsDeleteSuccess { get; set; }
-        private string FeedbackMessage { get; set; } = "";
+        private string FeedbackMessage { get; set; } = string.Empty;
+
+
+        private readonly bool debug = true; // Shows or hides debug data.
 
         protected override async Task OnInitializedAsync()
         {
@@ -55,7 +58,7 @@ namespace APLMatchMaker.Client.Pages
                     IsFeedbackVisible = true;
                     IsDeleteSuccess = true;
                     FeedbackMessage = "Kursen har tagits bort.";
-                    NavManager!.NavigateTo($"/ListOfCourses");
+                    //NavManager!.NavigateTo($"/ListOfCourses");
                 }
                 else
                 {
