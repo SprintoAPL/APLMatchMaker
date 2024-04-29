@@ -2,6 +2,7 @@
 using APLMatchMaker.Server.Models;
 using APLMatchMaker.Shared.DTOs.CompanyDTOs;
 using AutoMapper;
+using System.Collections.Generic;
 
 namespace APLMatchMaker.Server.Mappings
 {
@@ -17,41 +18,57 @@ namespace APLMatchMaker.Server.Mappings
 
             CreateMap<Company, CompanyDetailsDTO>()
                 .ForMember(
-                    dest => dest.Contacts,
-                    from => from.MapFrom(co => co.CompanyContacts))
-                .ForMember(
                     dest => dest.EmployedStudents,
-                    from => from.MapFrom(co => co.CompanyContacts))
+                    from => from.MapFrom<CompanyEmployedStudents>())
+                .ForMember(
+                    dest => dest.Contacts,
+                    from => from.MapFrom<CompanyContacts>())
                 .ForMember(
                     dest => dest.Internships,
                     from => from.MapFrom<CompanyInternships>());
-
-            CreateMap<ApplicationUser, CompanyEmployeeShortListDTO>()
-                .ForMember(
-                    dest => dest.FullName,
-                    from => from.MapFrom(au => $"{au.FirstName} {au.LastName}"))
-                .ForAllMembers(au => au.Condition(au => au.IsStudent));
-
-            CreateMap<ApplicationUser, CompanyContactsShortListDTO>()
-                .ForMember(
-                    dest => dest.FullName,
-                    from => from.MapFrom(au => $"{au.FirstName} {au.LastName}"))
-                .ForAllMembers(au => au.Condition(au => au.IsCompanyContact));
         }
     }
 
-    public class CompanyInternshipStartDateMapping : IValueResolver<Internship, CompanyInternshipsShortListDTO, DateTime?>
+    public class CompanyEmployedStudents : IValueResolver<Company?, CompanyDetailsDTO, ICollection<CompanyEmployeeShortListDTO>>
     {
-        public DateTime? Resolve(Internship source, CompanyInternshipsShortListDTO destination, DateTime? destMember, ResolutionContext context)
+        public ICollection<CompanyEmployeeShortListDTO> Resolve(Company? source, CompanyDetailsDTO destination, ICollection<CompanyEmployeeShortListDTO> destMember, ResolutionContext context)
         {
-            return source.AlternateStartDate != null ? source.AlternateStartDate : source.Project!.DefaultStartDate;
+            ICollection<CompanyEmployeeShortListDTO> result = new List<CompanyEmployeeShortListDTO>(0);
+
+            foreach (var employee in source!.CompanyContacts!)
+            {
+                if (employee.IsStudent)
+                {
+                    result.Add( new CompanyEmployeeShortListDTO
+                    {
+                        Id = employee.Id,
+                        FullName = $"{employee.FirstName} {employee.LastName}",
+                    });
+                }
+            }
+            return result;
         }
     }
-    public class CompanyInternshipEndDateMapping : IValueResolver<Internship, CompanyInternshipsShortListDTO, DateTime?>
+
+    public class CompanyContacts : IValueResolver<Company, CompanyDetailsDTO?, ICollection<CompanyContactsShortListDTO>>
     {
-        public DateTime? Resolve(Internship source, CompanyInternshipsShortListDTO destination, DateTime? destMember, ResolutionContext context)
+        public ICollection<CompanyContactsShortListDTO> Resolve(Company source, CompanyDetailsDTO? destination, ICollection<CompanyContactsShortListDTO> destMember, ResolutionContext context)
         {
-            return source.AlternateEndDate != null ? source.AlternateEndDate : source.Project!.DefaultEndDate;
+            ICollection<CompanyContactsShortListDTO> result = new List<CompanyContactsShortListDTO>(0);
+
+            foreach (var contact in source.CompanyContacts!)
+            {
+                if (contact.IsCompanyContact)
+                {
+                    result.Add(new CompanyContactsShortListDTO
+                    {
+                        Id = contact.Id,
+                        FullName = $"{contact.FirstName} {contact.LastName}",
+                        Title = contact.Title,
+                    });
+                }
+            }
+            return result;
         }
     }
 
@@ -68,10 +85,13 @@ namespace APLMatchMaker.Server.Mappings
                     if (intern != null)
                     {
                         result.Add(new CompanyInternshipsShortListDTO { 
-                        ApplicationUserId = intern.ApplicationUserId,
+                        UserId = intern.ApplicationUserId,
+                        FullName = $"{intern.Student!.FirstName} {intern.Student!.LastName}",
                         ProjectId = intern.ProjectId,
-                        AlternateStartDate = intern.AlternateStartDate,
-                        AlternateEndDate = intern.AlternateEndDate});
+                        ProjectName = intern.Project!.ProjectName,
+                        StartDate = intern.AlternateStartDate != null ? intern.AlternateStartDate : intern.Project.DefaultStartDate,
+                        EndDate = intern.AlternateEndDate != null ? intern.AlternateEndDate : intern.Project.DefaultEndDate,
+                        });
                     }
                 }
             }
