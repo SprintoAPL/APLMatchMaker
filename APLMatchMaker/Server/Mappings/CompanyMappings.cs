@@ -29,9 +29,9 @@ namespace APLMatchMaker.Server.Mappings
         }
     }
 
-    public class CompanyEmployedStudents : IValueResolver<Company?, CompanyDetailsDTO, ICollection<CompanyEmployeeShortListDTO>>
+    public class CompanyEmployedStudents : IValueResolver<Company?, CompanyDetailsDTO, ICollection<CompanyEmployeeShortListDTO>?>
     {
-        public ICollection<CompanyEmployeeShortListDTO> Resolve(Company? source, CompanyDetailsDTO destination, ICollection<CompanyEmployeeShortListDTO> destMember, ResolutionContext context)
+        public ICollection<CompanyEmployeeShortListDTO>? Resolve(Company? source, CompanyDetailsDTO destination, ICollection<CompanyEmployeeShortListDTO>? destMember, ResolutionContext context)
         {
             ICollection<CompanyEmployeeShortListDTO> result = new List<CompanyEmployeeShortListDTO>(0);
 
@@ -50,9 +50,9 @@ namespace APLMatchMaker.Server.Mappings
         }
     }
 
-    public class CompanyContacts : IValueResolver<Company, CompanyDetailsDTO?, ICollection<CompanyContactsShortListDTO>>
+    public class CompanyContacts : IValueResolver<Company, CompanyDetailsDTO, ICollection<CompanyContactsShortListDTO>?>
     {
-        public ICollection<CompanyContactsShortListDTO> Resolve(Company source, CompanyDetailsDTO? destination, ICollection<CompanyContactsShortListDTO> destMember, ResolutionContext context)
+        public ICollection<CompanyContactsShortListDTO>? Resolve(Company source, CompanyDetailsDTO destination, ICollection<CompanyContactsShortListDTO>? destMember, ResolutionContext context)
         {
             ICollection<CompanyContactsShortListDTO> result = new List<CompanyContactsShortListDTO>(0);
 
