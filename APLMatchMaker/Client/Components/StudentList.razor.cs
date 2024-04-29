@@ -22,6 +22,15 @@ namespace APLMatchMaker.Client.Components
                 sortBy = columnTitle;
                 isAscending = true ;
             }
+
+            if (Students !=null && Students.Any())
+            {
+                switch (sortBy.ToLower())
+                {
+                    case "name":
+                        break;
+                }
+            }
         }
     }
 }
