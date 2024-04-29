@@ -287,6 +287,52 @@ element, excluding any <caption > element.*/
     /*margin: auto;*/
 }
 
+/* Toast container styling */
+.toast {
+    display: none; /* Initially hide the toast */
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: #343a40; /* Dark background color */
+    color: #ffffff; /* Text color */
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Ensure toast appears above other content */
+    animation: slideInRight 0.5s ease-in-out;
+}
+
+/* Toast icon styling */
+.toast-icon {
+    float: left;
+    margin-right: 10px;
+}
+
+/* Toast content styling */
+.toast-body {
+    overflow: hidden; /* Ensure text doesn't overflow */
+}
+
+/* Animation for toast slide in */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Show the toast when 'toast-visible' class is applied */
+.toast-visible {
+    display: block;
+}
+
+
+
+
 /*.table-back {
     margin: auto;
     width: 800px;*/ /* Width of your element */

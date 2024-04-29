@@ -1,4 +1,5 @@
 using APLMatchMaker.Client;
+using APLMatchMaker.Client.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -20,6 +21,7 @@ namespace APLMatchMaker.Client
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("APLMatchMaker.ServerAPI"));
 
             builder.Services.AddApiAuthorization();
+            builder.Services.AddScoped<ToastService>();
 
             await builder.Build().RunAsync();
         }

@@ -1,7 +1,12 @@
 ﻿@page "/deletecourse/{Id:int}"
+@using APLMatchMaker.Client.Services
+@using APLMatchMaker.Client.Components
+@inject ToastService ToastService
+
+<div class="container">
+    <ToastComponent />
 
 <h3>Ta bort en kurs</h3>
-
 @if (CourseToDelete == null && ErrorMessage == null)
 {
     <p>Hämtar...</p>
@@ -22,3 +27,4 @@ else
         <a href="@($"/ListOfCourses")" class="btn btn-primary m-1">Avbryta</a>
     </div>
 }
+</div>

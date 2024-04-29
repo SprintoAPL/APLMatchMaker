@@ -1,0 +1,75 @@
+@using APLMatchMaker.Client.Services
+@implements IDisposable
+
+<div class="toast @(IsVisible ? "toast-visible" : null) @BackgroundCssClass">
+    <div class="toast-icon">
+        <i class="fa fa-@IconCssClass" aria-hidden="true"></i>
+    </div>
+    <div class="toast-body">
+        <h5>@Heading</h5>
+        <p>@Message</p>
+    </div>
+</div>
+@code{
+    [Inject]
+    private ToastService? ToastService { get; set; }
+
+    private string? Heading { get; set; }
+    private string? Message { get; set; }
+    private string? BackgroundCssClass { get; set; }
+    private string? IconCssClass { get; set; }
+    private bool IsVisible { get; set; }
+
+    protected override void OnInitialized()
+    {
+        ToastService!.OnShow += ShowToast;
+    }
+
+    private void ShowToast(string message, ToastLevel level)
+    {
+        SetToastSettings(level, message);
+        IsVisible = true;
+        StateHasChanged();
+        Task.Delay(5000).ContinueWith(t => HideToast());
+    }
+
+    private void HideToast()
+    {
+        IsVisible = false;
+        StateHasChanged();
+    }
+
+    private void SetToastSettings(ToastLevel level, string message)
+    {
+        switch (level)
+        {
+            case ToastLevel.Info:
+                BackgroundCssClass = "bg-info";
+                IconCssClass = "info";
+                Heading = "Info";
+                break;
+            case ToastLevel.Success:
+                BackgroundCssClass = "bg-success";
+                IconCssClass = "check";
+                Heading = "Success";
+                break;
+            case ToastLevel.Warning:
+                BackgroundCssClass = "bg-warning";
+                IconCssClass = "exclamation";
+                Heading = "Warning";
+                break;
+            case ToastLevel.Error:
+                BackgroundCssClass = "bg-danger";
+                IconCssClass = "times";
+                Heading = "Error";
+                break;
+        }
+        Message = message;
+    }
+
+    public void Dispose()
+    {
+        ToastService!.OnShow -= ShowToast;
+    }
+}
+}

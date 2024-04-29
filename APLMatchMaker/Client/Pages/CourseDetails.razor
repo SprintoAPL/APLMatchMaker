@@ -21,7 +21,7 @@ else
         <p><strong>Startdatum: </strong>@courseDetails.StartDate.ToString("yyyy-MM-dd")</p>
         <p><strong>Slutdatum: </strong>@courseDetails.EndDate.ToString("yyyy-MM-dd")</p>
         <a href="@($"/EditCourse/{Id}")" class="btn btn-secondary m-1">Redigera</a>
-        <a href="@($"/ListOfCourses")" class="btn btn-danger m-1">Tillbaka till kurslistan</a>
+        <a href="@($"/deletecourse/{Id}")" class="btn btn-danger m-1"> Radera </a>
     </div>
     <div>
         @if (courseDetails.students != null && courseDetails.students.Count > 0)

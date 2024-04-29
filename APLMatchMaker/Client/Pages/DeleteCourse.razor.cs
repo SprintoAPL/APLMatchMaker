@@ -1,4 +1,5 @@
-﻿using APLMatchMaker.Shared.DTOs.CoursesDTOs;
+﻿using APLMatchMaker.Client.Services;
+using APLMatchMaker.Shared.DTOs.CoursesDTOs;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 
@@ -37,24 +38,27 @@ namespace APLMatchMaker.Client.Pages
 
         private async Task Delete()
         {
-            HttpResponseMessage response;
-
             try
             {
-                response = await Http!.DeleteAsync($"api/course/{Id}");
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                var response = await Http!.DeleteAsync($"api/course/{Id}");
+                if (response.IsSuccessStatusCode)
                 {
-                    NavManager!.NavigateTo($"/ListOfCourses");
+                    Console.WriteLine("Course deleted successfully.");
+                     ToastService?.ShowToast("Course deleted successfully.", ToastLevel.Success);
+                    NavManager!.NavigateTo("/ListOfCourses");
                 }
                 else
                 {
-                    ErrorMessage = $"Kan inte ta bort kursen: {response.StatusCode}";
+                    Console.WriteLine($"Failed to delete course: {response.StatusCode}");
+                    ToastService?.ShowToast($"Failed to delete course: {response.StatusCode}", ToastLevel.Error);
                 }
             }
             catch (Exception ex)
             {
-                ErrorMessage = $"Fel uppstår vid borttagning av kursen: {ex.Message}";
+                Console.WriteLine($"Error deleting course: {ex.Message}");
+                ToastService?.ShowToast($"Error deleting course: {ex.Message}", ToastLevel.Error);
             }
         }
+
     }
 }
