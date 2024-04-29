@@ -9,7 +9,7 @@ namespace APLMatchMaker.Server.Services
         Task<CourseDto?> GetCourseByIdAsync(int id);
         Task AddCourseAsync(CourseDto course);
         Task UpdateCourseAsync(CourseForEditDto course, int id);
-        Task DeleteCourseAsync(int id);
+        Task<bool> DeleteCourseAsync(int id); // Update return type to indicate success/failure
 
     }
 }

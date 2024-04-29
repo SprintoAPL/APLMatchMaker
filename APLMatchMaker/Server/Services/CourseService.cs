@@ -43,7 +43,7 @@ namespace APLMatchMaker.Server.Services
             }
         }
 
-        public async Task DeleteCourseAsync(int id)
+        public async Task<bool> DeleteCourseAsync(int id)
         {
             try
             {
@@ -52,10 +52,13 @@ namespace APLMatchMaker.Server.Services
                 {
                     _dbContext.Courses.Remove(course);
                     await _dbContext.SaveChangesAsync();
+                    return true; // Course deleted successfully
                 }
+                return false; // Course not found
             }
             catch (Exception ex)
             {
+                // Log the exception or handle it appropriately
                 throw new Exception($"Error occurred while deleting the course with ID {id}.", ex);
             }
         }

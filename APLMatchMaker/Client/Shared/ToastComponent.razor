@@ -27,6 +27,8 @@
 
     private void ShowToast(string message, ToastLevel level)
     {
+        Console.WriteLine($"Toast triggered with message: {message}, level: {level}");
+
         SetToastSettings(level, message);
         IsVisible = true;
         StateHasChanged();

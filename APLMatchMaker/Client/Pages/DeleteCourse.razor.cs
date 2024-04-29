@@ -44,7 +44,7 @@ namespace APLMatchMaker.Client.Pages
                 if (response.IsSuccessStatusCode)
                 {
                     Console.WriteLine("Course deleted successfully.");
-                     ToastService?.ShowToast("Course deleted successfully.", ToastLevel.Success);
+                    ToastService?.ShowToast("Course deleted successfully.", ToastLevel.Success);
                     NavManager!.NavigateTo("/ListOfCourses");
                 }
                 else
@@ -59,6 +59,8 @@ namespace APLMatchMaker.Client.Pages
                 ToastService?.ShowToast($"Error deleting course: {ex.Message}", ToastLevel.Error);
             }
         }
+
+
 
     }
 }

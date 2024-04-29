@@ -109,14 +109,22 @@ namespace APLMatchMaker.Server.Controllers
         {
             try
             {
-                await _courseService.DeleteCourseAsync(id);
-                return Ok("The course has been removed.");
+                var isDeleted = await _courseService.DeleteCourseAsync(id);
+                if (isDeleted)
+                {
+                    return Ok("The course has been removed.");
+                }
+                else
+                {
+                    return NotFound("Course not found.");
+                }
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
+
 
     }
 }
