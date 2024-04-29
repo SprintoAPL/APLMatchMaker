@@ -21,10 +21,10 @@ namespace APLMatchMaker.Server.Mappings
                     from => from.MapFrom(co => co.CompanyContacts))
                 .ForMember(
                     dest => dest.EmployedStudents,
-                    from => from.MapFrom(co => co.CompanyContacts));
-                //.ForMember(
-                //    dest => dest.Internships,
-                //    from => from.MapFrom<>;
+                    from => from.MapFrom(co => co.CompanyContacts))
+                .ForMember(
+                    dest => dest.Internships,
+                    from => from.MapFrom<CompanyInternships>());
 
             CreateMap<ApplicationUser, CompanyEmployeeShortListDTO>()
                 .ForMember(
@@ -37,29 +37,6 @@ namespace APLMatchMaker.Server.Mappings
                     dest => dest.FullName,
                     from => from.MapFrom(au => $"{au.FirstName} {au.LastName}"))
                 .ForAllMembers(au => au.Condition(au => au.IsCompanyContact));
-
-            CreateMap<>();
-
-            //CreateMap<Project, CompanyProjectsShortListDTO>();
-
-            CreateMap<Internship, CompanyInternshipsShortListDTO>();
-
-            //CreateMap<Internship, CompanyInternshipsShortListDTO>()
-            //    .ForMember(
-            //        dest => dest.ProjectName,
-            //        from => from.MapFrom(i => i.Project!.ProjectName))
-            //    .ForMember(
-            //        dest => dest.FullName,
-            //        from => from.MapFrom(i => $"{i.Student!.FirstName} {i.Student.LastName}"))
-            //    .ForMember(
-            //        dest => dest.UserId,
-            //        from => from.MapFrom(i => i.ApplicationUserId))
-            //    .ForMember(
-            //        dest => dest.StartDate,
-            //        from => from.MapFrom<CompanyInternshipStartDateMapping>())
-            //    .ForMember(
-            //        dest => dest.EndDate,
-            //        from => from.MapFrom<CompanyInternshipEndDateMapping>());
         }
     }
 
@@ -78,12 +55,27 @@ namespace APLMatchMaker.Server.Mappings
         }
     }
 
-    public class CompanyInternships : IValueResolver<Project?, CompanyInternshipsShortListDTO?, ICollection<Internship>?>
+    public class CompanyInternships : IValueResolver<Company, CompanyDetailsDTO, ICollection<CompanyInternshipsShortListDTO>?>
     {
-        public ICollection<Internship>? Resolve(Project? source, CompanyInternshipsShortListDTO? destination, ICollection<Internship>? destMember, ResolutionContext context)
+        public ICollection<CompanyInternshipsShortListDTO>? Resolve(Company source, CompanyDetailsDTO destination, ICollection<CompanyInternshipsShortListDTO>? destMember, ResolutionContext context)
         {
-            return source!.Internships!;
-            throw new NotImplementedException();
+            ICollection<CompanyInternshipsShortListDTO> result = new List<CompanyInternshipsShortListDTO>(0);
+
+            foreach (var project in source.Projects!) 
+            {
+                foreach (var intern in project.Internships!)
+                {
+                    if (intern != null)
+                    {
+                        result.Add(new CompanyInternshipsShortListDTO { 
+                        ApplicationUserId = intern.ApplicationUserId,
+                        ProjectId = intern.ProjectId,
+                        AlternateStartDate = intern.AlternateStartDate,
+                        AlternateEndDate = intern.AlternateEndDate});
+                    }
+                }
+            }
+            return result;
         }
     }
 }
