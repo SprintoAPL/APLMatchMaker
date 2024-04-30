@@ -26,7 +26,15 @@ namespace APLMatchMaker.Client.Pages
         {
             try
             {
-                editStudent = await Http!.GetFromJsonAsync<StudentForUpdateDTO>($"api/student/{Id}");
+                var response = await Http!.GetFromJsonAsync<StudentForUpdateDTO>($"api/student/{Id}");
+                if ( response != null )
+                {
+                    editStudent = response;
+                }
+                else
+                {
+                    ErrorMessage = "Kan inte hämta data.";
+                }
             }
             catch (Exception ex)
             {
