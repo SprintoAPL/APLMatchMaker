@@ -22,10 +22,10 @@ else
         <button class="btn btn-danger" @onclick="Delete">Ta bort</button>
         <a href="@($"/ListOfCourses")" class="btn btn-primary m-1">Avbryta</a>
     </div>
+}
 
     <FeedbackComponent IsVisible="@IsFeedbackVisible" IsSuccess="@IsDeleteSuccess" Message="@FeedbackMessage" />
 
-}
 @if (debug)
 {
     <p class="alert-warning">
