@@ -45,10 +45,12 @@ h2 {
 }
 
 h3 {
+    margin-top: 10px;
     color: #eaeaea;
     text-align: center;
     /*background-color: #292b2c;*/
     height: 40px;
+    font-family: Tahoma
 /*    border: 0.1rem solid;
     border-color: orange;*/
 }
@@ -225,7 +227,7 @@ element, excluding any <caption > element.*/
 }
 
     .table > tbody {
-        vertical-align: inherit
+        vertical-align: inherit;
     }
 
     .table > thead {
@@ -241,13 +243,13 @@ element, excluding any <caption > element.*/
     }
     .table > tbody > :nth-child(even) {
         /*Alternating row colors for tables*/
-        background-color: #292c2f
+        background-color: #292c2f;
     }
     .table > tbody > :nth-child(odd) {
         /*Alternating row colors for tables*/
         background-color: #1e2022
     }
-
+     
 /*.top-row {*/
     /*Top nav bar with links*/
     /*background-color: #0C1321;

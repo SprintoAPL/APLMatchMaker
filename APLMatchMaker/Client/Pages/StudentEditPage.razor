@@ -80,8 +80,17 @@
         <input type="text" class="form-control" @bind-value="editStudent.CommentByTeacher" />
         <ValidationMessage For="@(() => editStudent.CommentByTeacher)" />
     </div>
+
+        @code {
+        [Inject]
+        private IJSRuntime JS { get; set; }
+        private async Task GoBack()
+        {
+        await JS.InvokeVoidAsync("history.back");
+        }
+    }
     <button type="submit" class="btn btn-primary" @onclick="HandleValidSubmit">Spara</button>
-    <button type="button" class="btn btn-secondary ml-2" @onclick="Cancel">Avbryt</button>
+    <button class="btn btn-primary" @onclick="GoBack">Cancel</button>
 </EditForm>
 }
 else
