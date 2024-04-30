@@ -10,28 +10,8 @@
             <th scope="col">Adress</th>
             <th scope="col">Kunskapsnivå</th>
             <th scope="col">Språk</th>
-            @* <th scope="col"></th> *@ @* Space for the "delete" button. *@
-            @* <th scope="col"></th> *@ @* Space for the "details" button. *@
         </tr>
     </thead>
-    <tbody>
-        @foreach (var student in Students)
-        {
-            <tr>
-                <td><a href="@($"studentdetails/{student.Id}")">@student.Name</a></td>
-                <td>@student.Email</td>
-                <td>@student.StudentSocSecNo</td>
-                <td>@student.Address</td>
-                <td>@StudentHelper.GetKnowledgeLevelString(student.KnowledgeLevel)</td>
-                <td>@student.Language</td>
-@*                 <td scope="row">
-                    <a href="@($"studentdetails/{student.Id}")" class="btn btn-info m-1"> <span class="bi bi-pencil bi-2x"></span></a>
-                </td>
-                <td scope="row">
-                    <a href="@($"deletestudent/{student.Id}")" class="btn btn-danger m-1"> <span class="bi bi-trash bi-2x"></span></a>
-                </td> *@
-            </tr>
-        }
-    </tbody>
+    <StudentListTableBody Students="Students"/>
 </table>
 

@@ -25,7 +25,19 @@ else
 {
 
     <div class="m-3">
-        <StudentList Students="PageListStudents" />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Namn</th>
+                    <th scope="col">E-post</th>
+                    <th scope="col">Personnummer</th>
+                    <th scope="col">Adress</th>
+                    <th scope="col">Kunskapsnivå</th>
+                    <th scope="col">Språk</th>
+                </tr>
+            </thead>
+            <StudentListTableBody Students="PageListStudents" />
+        </table>
     </div>
     <p>
         Sidan @paginationMetadata!.CurrentPage av @paginationMetadata.TotalPages sidor.<br />
