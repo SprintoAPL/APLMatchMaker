@@ -18,46 +18,46 @@
         <input type="text" class="form-control" @bind="CompanyToAdd.CompanyName" id="CompanyName" placeholder="Företagets namn ">
     </div>
     <div class="col">
-        <label for="Organisationsnummer" class="form-label">Organisationsnummer: </label>
+        <label for="OrganizationNumber" class="form-label">Org.nr: </label>
         <input type="text" class="form-control" @bind="CompanyToAdd.OrganizationNumber" id="OrganizationNumber" placeholder="Organisationsnummer ">
     </div>
 </div>
 
 <div class="mb-3">
-    <label for="PostalAdress" class="form-label">Website: </label>
-    <input type="text" class="form-control" @bind="CompanyToAdd.Website" id="Website" placeholder="Hemsida ">
+    <label for="Website" class="form-label">Hemsida: </label>
+    <input type="text" class="form-control" @bind="CompanyToAdd.Website" id="Website" placeholder="www.foretag.se ">
 </div>
 
 <div class="mb-3">
-    <label for="PostalAdress" class="form-label">CompanyEmail: </label>
-    <input type="text" class="form-control" @bind="CompanyToAdd.CompanyEmail" id="Website" placeholder="E-mail ">
+    <label for="CompanyEmail" class="form-label">E-post: </label>
+    <input type="text" class="form-control" @bind="CompanyToAdd.CompanyEmail" id="CompanyEmail" placeholder="info@foretag.se ">
 </div>
 
 <div class="mb-3">
-    <label for="PostalAdress" class="form-label">Phone: </label>
+    <label for="Phone" class="form-label">Växel: </label>
     <input type="text" class="form-control" @bind="CompanyToAdd.Phone" id="Phone" placeholder="Telefon ">
 </div>
 
 <div class="mb-3">
-    <label for="PostalAdress" class="form-label">PostalAdress: </label>
-    <input type="text" class="form-control" @bind="CompanyToAdd.PostalAdress" id="PostalAdress" placeholder="Post adress ">
+    <label for="PostalAdress" class="form-label">Postadress: </label>
+    <input type="text" class="form-control" @bind="CompanyToAdd.PostalAdress" id="Post adress" placeholder="Gata ">
 </div>
 
 <div class="row">
     <div class="col">
-        <label for="PostalNumber" class="form-label">Post Nummer: </label>
-        <input type="text" class="form-control" @bind="CompanyToAdd.PostalNumber" id="PostalNumber" placeholder="Post Nummer ">
+        <label for="PostalNumber" class="form-label">Postnummer: </label>
+        <input type="text" class="form-control" @bind="CompanyToAdd.PostalNumber" id="PostalNumber" placeholder="Postnummer ">
     </div>
     <div class="col">
-        <label for="City" class="form-label">Kommun: </label>
-        <input type="text" class="form-control" @bind="CompanyToAdd.City" id="City" placeholder="Kommun ">
+        <label for="City" class="form-label">Postort: </label>
+        <input type="text" class="form-control" @bind="CompanyToAdd.City" id="City" placeholder="Postort ">
     </div>
 </div>
 
 <br />
 
 <div class="mb-3">
-    <label for="Description" class="form-label">Beskrivning:</label>
+    <label for="Notes" class="form-label">Övrigt:</label>
     <textarea class="form-control" @bind="CompanyToAdd.Notes" id="notes" rows="3"></textarea>
 </div>
 

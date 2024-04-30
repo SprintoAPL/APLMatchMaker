@@ -1,23 +1,27 @@
 ﻿@using APLMatchMaker.Shared.DTOs.CompanyDTOs;
 
 <dl class="row">
-    <dt class="col-sm-2">Företag</dt>
-    <dd class="col-sm-10">@Company!.CompanyName</dd>
-    <dt class="col-sm-2">Organisationsnummer</dt>
-    <dd class="col-sm-10">@Company.OrganizationNumber</dd>
-    <dt class="col-sm-2">Hemsida</dt>
+    <dt class="col-sm-2">Företag:</dt>
+    <dd class="col-sm-10">@Company!.CompanyName</dd> 
+    <span><br /></span>
+    <dt class="col-sm-2">Hemsida:</dt>
     <dd class="col-sm-10">@Company.Website</dd>
-    <dt class="col-sm-2">E-mail</dt>
+    <dt class="col-sm-2">E-post:</dt>
     <dd class="col-sm-10">@Company.CompanyEmail</dd>
-    <dt class="col-sm-2">Telefon</dt>
+    <dt class="col-sm-2">Växel:</dt>
     <dd class="col-sm-10">@Company.Phone</dd>
-    <dt class="col-sm-2">Post Adress</dt>
+    <span><br /></span>
+    <dt class="col-sm-2">Postadress:</dt>
     <dd class="col-sm-10">@Company.PostalAdress</dd>
-    <dt class="col-sm-2">Post Nummer</dt>
+    <dt class="col-sm-2">Postnummer:</dt>
     <dd class="col-sm-10">@Company.PostalNumber</dd>
-    <dt class="col-sm-2">Kommun</dt>
+    <dt class="col-sm-2">Postort:</dt>
     <dd class="col-sm-10">@Company.City</dd>
-    <dt class="col-sm-2">Noteringar</dt>
+    <span><br /></span>
+    <dt class="col-sm-2">Org.nr:</dt>
+    <dd class="col-sm-10">@Company.OrganizationNumber</dd>
+    <span><br /></span>
+    <dt class="col-sm-2">Övrigt:</dt>
     <dd class="col-sm-10">@Company.Notes</dd>
 </dl>
 
