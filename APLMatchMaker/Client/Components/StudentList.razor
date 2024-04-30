@@ -5,13 +5,23 @@
     <thead>
         <tr>
             <th scope="col">
-                Namn
+                <button @onclick='() => SortByColumn("Name")' class=" btn btn-link">Namn @RenderSortIcon("Name")</button>
             </th>
-            <th scope="col">E-post</th>
-            <th scope="col">Personnummer</th>
-            <th scope="col">Adress</th>
-            <th scope="col">Kunskapsnivå</th>
-            <th scope="col">Språk</th>
+            <th scope="col">
+                <button @onclick='() => SortByColumn("E-post")' class=" btn btn-link">E-post @RenderSortIcon("E-post")</button>
+            </th>
+            <th scope="col">
+                <button @onclick='() => SortByColumn("Personnummer")' class=" btn btn-link">Personnummer @RenderSortIcon("Personnummer")</button>
+            </th>
+            <th scope="col">
+                <button @onclick='() => SortByColumn("Adress")' class=" btn btn-link">Adress @RenderSortIcon("Adress")</button>
+            </th>
+            <th scope="col">
+                <button @onclick='() => SortByColumn("Kunskapsnivå")' class=" btn btn-link">Kunskapsnivå @RenderSortIcon("Kunskapsnivå")</button>
+            </th>
+            <th scope="col">
+                <button @onclick='() => SortByColumn("Språk")' class=" btn btn-link">Språk @RenderSortIcon("Språk")</button>
+            </th>
         </tr>
     </thead>
     <tbody>

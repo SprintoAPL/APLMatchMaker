@@ -7,9 +7,9 @@
 <div>
     <form @onsubmit="SearchStudents">
         <input type="text" @bind="searchText" placeholder="Sök student..." />
-        @* <button @onclick="ClearInput"><i class="bi bi-x"></i></button> *@
         <button class="btn btn-success" type="submit">Sök</button>
     </form>
+        @* <button @onclick="ClearInput"><i class="bi bi-x"></i></button> *@
 </div>
 
 @if (PageListStudents == null && errorMessage == null)
