@@ -41,20 +41,21 @@ namespace APLMatchMaker.Client.Pages
                 // Check if editStudent is not null
                 if (editStudent != null)
                 {
-                    // Construct the JSON patch document
-                    var patchDocument = new JsonPatchDocument<StudentForUpdateDTO>();
-                    patchDocument.Replace(s => s.FirstName, editStudent.FirstName);
-                    patchDocument.Replace(s => s.LastName, editStudent.LastName);
-                    patchDocument.Replace(s => s.KnowledgeLevel, editStudent.KnowledgeLevel);
+                    var response = await Http!.PutAsJsonAsync<StudentForUpdateDTO>($"api/student/{Id}", editStudent);
+                    //// Construct the JSON patch document
+                    //var patchDocument = new JsonPatchDocument<StudentForUpdateDTO>();
+                    //patchDocument.Replace(s => s.FirstName, editStudent.FirstName);
+                    //patchDocument.Replace(s => s.LastName, editStudent.LastName);
+                    //patchDocument.Replace(s => s.KnowledgeLevel, editStudent.KnowledgeLevel);
 
-                    // Send the PATCH request with the JSON patch document
-                    var serializedPatchDoc = JsonConvert.SerializeObject(patchDocument);
+                    //// Send the PATCH request with the JSON patch document
+                    //var serializedPatchDoc = JsonConvert.SerializeObject(patchDocument);
 
-                    var request = new HttpRequestMessage(HttpMethod.Patch, $"api/student/{Id}");
-                    request.Content = new StringContent(serializedPatchDoc);
-                    request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    //var request = new HttpRequestMessage(HttpMethod.Patch, $"api/student/{Id}");
+                    //request.Content = new StringContent(serializedPatchDoc);
+                    //request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                    var response = await Http!.SendAsync(request);
+                    //var response = await Http!.SendAsync(request);
 
 
                     // Check if the response is successful
