@@ -6,9 +6,8 @@
         <tr>
             <th scope="col">Namn</th>
             <th scope="col">E-post</th>
-            <th scope="col">Personnummer</th>
             <th scope="col">Adress</th>
-            <th scope="col">Kunskapsnivå</th>
+            <th scope="col">Nivå</th>
             <th scope="col">Språk</th>
             @* <th scope="col"></th> *@ @* Space for the "delete" button. *@
             @* <th scope="col"></th> *@ @* Space for the "details" button. *@
@@ -20,7 +19,6 @@
             <tr>
                 <td><a href="@($"studentdetails/{student.Id}")">@student.Name</a></td>
                 <td>@student.Email</td>
-                <td>@student.StudentSocSecNo</td>
                 <td>@student.Address</td>
                 <td>@StudentHelper.GetKnowledgeLevelString(student.KnowledgeLevel)</td>
                 <td>@student.Language</td>
