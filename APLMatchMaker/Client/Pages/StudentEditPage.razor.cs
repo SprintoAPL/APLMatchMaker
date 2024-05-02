@@ -84,7 +84,7 @@ namespace APLMatchMaker.Client.Pages
 
         private void Cancel()
         {
-            NavigationManager?.NavigateTo("/ListOfStudents");
+            NavigationManager?.NavigateTo($"/studentdetails/{Id}");
         }
     }
 }
