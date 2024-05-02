@@ -205,7 +205,7 @@ a, .btn-link {
     --bs-table-hover-color: #212529;
     --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
     width: 100%;
-    margin-bottom: 10rem;
+    margin-bottom: 5rem;
     color: #e4ecee; /*text color*/
     vertical-align: top;
     border-color: #dee2e6;
