@@ -7,11 +7,11 @@
 @* Commented this one out because it takes space*@
 
 <div>
-    <StudentDetails StudentDetails="@studentDetails" />
     <div class="btn-group btn-" style="margin: 1rem 30rem ">
         <a href="@($"editstudent/{Id}")" class="btn btn-primary"><i class="bi bi-pencil bi-2x"></i> Redigera</a>
         <a href="@($"deletestudent/{Id}")" class="btn btn-danger"><i class="bi bi-trash bi-2x"></i> Radera</a>
         <a href="@($"/ListOfStudents")" class="btn btn-secondary"><i class="bi bi-caret-left bi-2x"></i> Tillbaka</a>
     </div>
+    <StudentDetails StudentDetails="@studentDetails" />
 
 </div>
