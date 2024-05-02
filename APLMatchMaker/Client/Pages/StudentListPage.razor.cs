@@ -58,7 +58,7 @@ namespace APLMatchMaker.Client.Pages
                     var temp = response.Headers.GetValues("X-Pagination").FirstOrDefault().ToJson().Replace("\\\\u0026", "&").Replace("\\", "").Substring(1);
                     var lenth = temp.Length;
                     pagination = temp.Remove(lenth - 1);
-
+                    
                     paginationMetadata = pagination!.FromJson<PaginationMetadata>();
                 }
             }
@@ -88,6 +88,11 @@ namespace APLMatchMaker.Client.Pages
             await GetDataAsync();
         }
 
+        private void ClearInput()
+        {
+            searchText = string.Empty;
+        }
+        
         public async Task SearchStudents()
         {
             searchString = string.IsNullOrWhiteSpace(searchText) ? string.Empty : $"?searchQuery={searchText}";
