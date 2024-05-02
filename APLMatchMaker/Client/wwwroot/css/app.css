@@ -45,10 +45,12 @@ h2 {
 }
 
 h3 {
+    margin-top: 10px;
     color: #eaeaea;
     text-align: center;
     /*background-color: #292b2c;*/
     height: 40px;
+    font-family: Tahoma
 /*    border: 0.1rem solid;
     border-color: orange;*/
 }
@@ -65,10 +67,12 @@ h4 {
 
 main.container {
     color: #788898;
-/*    border-radius: 6px;
-    border: 1px solid;*/
-/*    border-color: grey;
-    background: linear-gradient(0deg, rgba(40,46,50,0.7164040616246498) 19%, rgba(42,44,50,0.7203256302521008) 77%);*/
+    background-color: #212529c7;
+    width: 1000px;
+    border-radius: 14px;
+    border: 1px solid;
+    border-color: #877149c1;
+    /*background: linear-gradient(0deg, rgba(40,46,50,0.7164040616246498) 19%, rgba(42,44,50,0.7203256302521008) 77%);*/
 }
 
 h1:focus {
@@ -189,9 +193,10 @@ a, .btn-link {
 }*/
 
 .table {
+    background-size: contain;
     --bs-table-bg: transparent;
     --bs-table-accent-bg: transparent;
-/*    --bs-table-accent-bg: #1f1f21;*/
+    /*    --bs-table-accent-bg: #1f1f21;*/
     /* Text color*/
     --bs-table-striped-color: #212529;
     --bs-table-striped-bg: rgba(0, 0, 0, 0.05); /*rgba(0, 0, 0, 0.05);*/
@@ -200,7 +205,7 @@ a, .btn-link {
     --bs-table-hover-color: #212529;
     --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
     width: 100%;
-    margin-bottom: 10rem;
+    margin-bottom: 5rem;
     color: #e4ecee; /*text color*/
     vertical-align: top;
     border-color: #dee2e6;
@@ -219,7 +224,7 @@ element, excluding any <caption > element.*/
 }
 
     .table > tbody {
-        vertical-align: inherit
+        vertical-align: inherit;
     }
 
     .table > thead {
@@ -235,13 +240,13 @@ element, excluding any <caption > element.*/
     }
     .table > tbody > :nth-child(even) {
         /*Alternating row colors for tables*/
-        background-color: #292c2f
+        background-color: #292c2f;
     }
     .table > tbody > :nth-child(odd) {
         /*Alternating row colors for tables*/
         background-color: #1e2022
     }
-
+     
 /*.top-row {*/
     /*Top nav bar with links*/
     /*background-color: #0C1321;
