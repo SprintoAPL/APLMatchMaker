@@ -8,8 +8,8 @@ namespace APLMatchMaker.Server.Services
         Task<IEnumerable<CompanyForListDTO>> GetCompaniesListAsync();
 
         Task<IEnumerable<CompanyForListDTO>> GetCompaniesListAsync(CompanyResourceParameters? companyResourceParameters);
-        Task<CompanyForListDTO> GetCompanyByIdAsync(int id);
-        Task<CompanyForListDTO> PostAsync(CompanyForCreateDTO dto);
+        Task<CompanyDetailsDTO> GetCompanyByIdAsync(int id);
+        Task<CompanyDetailsDTO> PostAsync(CompanyForCreateDTO dto);
         Task<bool> UpdateCompanyAsync(int id, CompanyUpdateDTO companyUpdateDTO);
         
         Task<bool> RemoveCompanyByIdAsync(int id);
