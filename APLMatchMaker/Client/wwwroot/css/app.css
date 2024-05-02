@@ -154,6 +154,15 @@ a, .btn-link {
         content: "An error has occurred."
     }
 
+.buttonrow {
+    margin: 0;
+    padding: 1rem;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
 .loading-progress {
     position: relative;
     display: block;
