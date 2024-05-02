@@ -80,9 +80,9 @@
         <input type="text" class="form-control" @bind-value="editStudent.CommentByTeacher" />
         <ValidationMessage For="@(() => editStudent.CommentByTeacher)" />
     </div>
-    <div style="padding: 1rem;">
+    <div class="btn-group" style="padding: 1rem;">
             <button type="submit" class="btn btn-primary" @onclick="HandleValidSubmit"><i class="bi bi-save"></i> Spara</button>
-            <button type="button" class="btn btn-secondary ml-2" @onclick="Cancel"><i class="bi bi-caret-left"></i> Avbryt</button>
+            <button type="button" class="btn btn-secondary" @onclick="Cancel"><i class="bi bi-caret-left"></i> Avbryt</button>
     </div>
 </EditForm>
 }

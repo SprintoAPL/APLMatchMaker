@@ -8,7 +8,13 @@
 @if (studentDelete != null)
 {
     <div>
-        <p><h5>Är du säker på att du vill ta bort den här eleven?</h5></p>
+        <div style="margin: 0 35rem">
+            <p><h5>Är du säker på att du vill ta bort den här eleven?</h5></p>
+        </div>
+        <div class="btn-group btn-" style="margin: 1rem 35rem; height:auto; ">
+            <button class="btn btn-danger" @onclick="Delete"><i class="bi bi-trash"></i> Radera</button>
+            <a href="@($"/studentdetails/{Id}")" class="btn btn-secondary"><i class="bi bi-caret-left"></i> Avbryta</a>
+        </div>
 
         <StudentDetails studentDetails="@studentDelete" />
     </div>
@@ -20,7 +26,7 @@ else
 
 <div style="padding:1rem;">
     <button class="btn btn-danger" @onclick="Delete"><i class="bi bi-trash bi-2x"></i> Radera</button>
-    <a href="@($"/ListOfStudents")" class="btn btn-secondary m-1"><i class="bi bi-caret-left bi-2x"></i> Tillbaka till studentlistan</a>
+    <a href="@($"/studentdetails/{Id}")" class="btn btn-secondary m-1"><i class="bi bi-caret-left bi-2x"></i> Avbryta</a>
 
 </div>
 

@@ -4,13 +4,15 @@
 @using APLMatchMaker.Client.Components
 
 <h3 class="m3">Studentlista</h3>
-<div>
-    <form @onsubmit="SearchStudents">
-        <input type="text" @bind="searchText" placeholder="Sök student..." />
-        <button class="btn btn-success" type="submit">Sök</button>
-    </form>
-        @* <button @onclick="ClearInput"><i class="bi bi-x"></i></button> *@
+<div style="padding: 0.4rem 0.4rem;">
+        <form @onsubmit="SearchStudents">
+            <input type="text" style="width: 30rem;" @bind="searchText" placeholder="Sök student..." />
+            <button class="btn btn-primary" type="submit">Sök</button>
+            <button class="btn btn-success" @onclick="CreateNewStudent"><i class="oi oi-plus"></i> Lägg till ny student</button>
+        </form>
+            @* <button @onclick="ClearInput"><i class="bi bi-x"></i></button> *@
 </div>
+
 
 @if (PageListStudents == null && errorMessage == null)
 {
@@ -43,7 +45,7 @@ else
             <a class="link" @onclick="GoToNext">Nästa sida</a>
         }
     </p>
-    <button class="btn btn-success" @onclick="CreateNewStudent"><i class="oi oi-plus"></i>Lägg till ny student</button>
+    
 }
 
 @if (debug)
