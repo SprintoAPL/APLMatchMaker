@@ -10,12 +10,16 @@ namespace APLMatchMaker.Client.Pages
         [Inject]
         private HttpClient? Http { get; set; }
         [Inject]
+        ToastService? ToastService { get; set; }
+        [Inject]
         private NavigationManager? NavManager { get; set; }
 
         [Parameter]
         public int Id { get; set; }
         private CourseDto CourseToDelete = new();
         private string? ErrorMessage { get; set; }
+
+        private bool debug = false;
 
         protected override async Task OnInitializedAsync()
         {
@@ -44,23 +48,20 @@ namespace APLMatchMaker.Client.Pages
                 if (response.IsSuccessStatusCode)
                 {
                     Console.WriteLine("Course deleted successfully.");
-                    ToastService?.ShowToast("Course deleted successfully.", ToastLevel.Success);
+                    ToastService!.ShowToast("Course deleted successfully.", ToastLevel.Success);
                     NavManager!.NavigateTo("/ListOfCourses");
                 }
                 else
                 {
                     Console.WriteLine($"Failed to delete course: {response.StatusCode}");
-                    ToastService?.ShowToast($"Failed to delete course: {response.StatusCode}", ToastLevel.Error);
+                    ToastService!.ShowToast($"Failed to delete course: {response.StatusCode}", ToastLevel.Error);
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error deleting course: {ex.Message}");
-                ToastService?.ShowToast($"Error deleting course: {ex.Message}", ToastLevel.Error);
+                ToastService!.ShowToast($"Error deleting course: {ex.Message}", ToastLevel.Error);
             }
         }
-
-
-
     }
 }

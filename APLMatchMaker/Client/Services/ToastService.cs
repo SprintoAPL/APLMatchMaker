@@ -2,12 +2,11 @@
 {
     public class ToastService
     {
-        public event Action<string, ToastLevel>? OnShow;
+        public event Action<string, ToastLevel>? Show;
 
         public void ShowToast(string message, ToastLevel level)
         {
-            OnShow!.Invoke(message, level);
+            Show!.Invoke(message, level);
         }
     }
-
 }
