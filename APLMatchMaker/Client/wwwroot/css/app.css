@@ -67,11 +67,11 @@ h4 {
 
 main.container {
     color: #788898;
-    background-color: #212529c7;
+    /*background-color: #212529c7;*/
     width: 1000px;
-    border-radius: 14px;
+    /*border-radius: 14px;
     border: 1px solid;
-    border-color: #877149c1;
+    border-color: #877149c1;*/
     position: fixed; /* Fixes the div's position relative to the viewport */
     left: 50%; /* Positions the left edge of the div at the center of the viewport */
     transform: translateX(-50%); /* Moves the div back to the left by half its own width */
