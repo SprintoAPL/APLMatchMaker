@@ -18,7 +18,7 @@ namespace APLMatchMaker.Client.Components
             {
                 return isAscending ? "▲" : "▼";
             }
-            return "string.Empty";
+            return string.Empty;
         }
 
         private void SortByColumn(string column)
