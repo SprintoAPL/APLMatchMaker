@@ -84,11 +84,6 @@ namespace APLMatchMaker.Client.Pages
             await GetDataAsync();
         }
 
-        private void ClearInput()
-        {
-            searchText = string.Empty;
-        }
-        
         public async Task SearchStudents()
         {
             navLink = $"{_apiRoot}?searchQuery={searchText}";
