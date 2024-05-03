@@ -24,7 +24,7 @@ namespace APLMatchMaker.Client.Pages
         private string FeedbackMessage { get; set; } = string.Empty;
 
 
-        private readonly bool debug = true; // Shows or hides debug data.
+        private readonly bool debug = false; // Shows or hides debug data.
 
         protected override async Task OnInitializedAsync()
         {
