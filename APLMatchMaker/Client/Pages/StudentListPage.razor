@@ -33,18 +33,30 @@ else
     </div>
     <nav class="buttonrow">
         <ul class="pagination">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
+                @if (!(paginationMetadata.PreviousPageLink == null))
+                {
+                    <li class="page-item">
+                        <a class="page-link" @onclick="GoToPrevious" aria-label="Föregående">
+                            <span aria-hidden="true"><i class="bi bi-caret-left-fill"></i></span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" @onclick="GoToPrevious" aria-label="Föregående">
+                            <span aria-hidden="true"><i class="bi bi-caret-left-fill"></i></span>
+                        </a>
+
+                    </li>
+                }
             <li class="page-item"><a class="page-link" href="#">1</a></li>
             <li class="page-item"><a class="page-link" href="#">2</a></li>
             <li class="page-item"><a class="page-link" href="#">3</a></li>
             <li class="page-item"><a class="page-link" href="#">4</a></li>
             <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
+                <a class="page-link" @onclick="GoToNext" aria-label="Nästa">
+                    <span aria-hidden="true"><i class="bi bi-caret-right-fill"></i></span>
                 </a>
             </li>
         </ul>
@@ -54,14 +66,14 @@ else
         Sidan @paginationMetadata!.CurrentPage av @paginationMetadata.TotalPages sidor.<br />
         Visar @paginationMetadata!.PageSize elever per sida.<br />
         Totalt @paginationMetadata.TotalCount elever.<br />
-        @if (!(paginationMetadata.PreviousPageLink == null))
+        @* @if (!(paginationMetadata.PreviousPageLink == null))
         {
             <a class="link" @onclick="GoToPrevious">Föregående sida</a> <span>&nbsp</span>
         }
         @if (!(paginationMetadata.NextPageLink == null))
         {
             <a class="link" @onclick="GoToNext">Nästa sida</a>
-        }
+        } *@
     </p>
     
 }
