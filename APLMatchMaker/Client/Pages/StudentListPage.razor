@@ -33,7 +33,28 @@ else
             Totalt @paginationMetadata.TotalCount elever.<br />
         </p>
     <div class="m-3">
-        <StudentList Students="PageListStudents" />
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        <button @onclick='() => SortByColumn("Name")' class=" btn btn-link">Namn @RenderSortIcon("Name")</button>
+                    </th>
+                    <th scope="col">
+                        <button @onclick='() => SortByColumn("Email")' class=" btn btn-link">E-post @RenderSortIcon("Email")</button>
+                    </th>
+                    <th scope="col">
+                        <button @onclick='() => SortByColumn("Adress")' class=" btn btn-link">Adress @RenderSortIcon("Adress")</button>
+                    </th>
+                    <th scope="col">
+                        <button @onclick='() => SortByColumn("KnowledgeLevel")' class=" btn btn-link">Nivå @RenderSortIcon("KnowledgeLevel")</button>
+                    </th>
+                    <th scope="col">
+                        <button @onclick='() => SortByColumn("Language")' class=" btn btn-link">Språk @RenderSortIcon("Language")</button>
+                    </th>
+                </tr>
+            </thead>
+            <StudentListTableBody Students="PageListStudents" />
+        </table>
     </div>
     @if (paginationMetadata.TotalPages > 1)
     {
@@ -96,8 +117,8 @@ else
 
 @if (debug)
 {
-    <div class="alert alert-warning">
-        <p>Pagination Json:<br />@pagination</p>
-        <p>navLink:<br />@navLink</p>
+    <div class="alert alert-warning mt-3">
+        <p class="text-black">Pagination Json:<br />@pagination</p>
+        <p class="text-black">navLink:<br />@navLink</p>
     </div>
 }
