@@ -54,11 +54,23 @@ else
             <li class="page-item"><a class="page-link" href="#">2</a></li>
             <li class="page-item"><a class="page-link" href="#">3</a></li>
             <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item">
-                <a class="page-link" @onclick="GoToNext" aria-label="Nästa">
-                    <span aria-hidden="true"><i class="bi bi-caret-right-fill"></i></span>
-                </a>
-            </li>
+            @if (!(paginationMetadata.NextPageLink == null))
+            {
+                <li class="page-item">
+                    <a class="page-link" @onclick="GoToNext" aria-label="Nästa">
+                        <span aria-hidden="true"><i class="bi bi-caret-right-fill"></i></span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item disabled">
+                    <a class="page-link" @onclick="GoToNext" aria-label="Nästa">
+                        <span aria-hidden="true"><i class="bi bi-caret-right-fill"></i></span>
+                    </a>
+
+                </li>   
+            }
         </ul>
     </nav>
     
