@@ -237,7 +237,12 @@ element, excluding any <caption > element.*/
     }
 
     .table > thead {
-        vertical-align: bottom
+        vertical-align: bottom;
+    }
+
+    .table > thead > td {
+        text-align:left;
+        
     }
 
     .table > :not(:last-child) > :last-child > * {
