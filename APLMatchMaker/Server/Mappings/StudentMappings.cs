@@ -27,7 +27,7 @@ namespace APLMatchMaker.Server.Mappings
                     from => from.MapFrom(au => au.Company!))
                 .ForMember(
                     dest => dest.HasEngagement,
-                    from => from.MapFrom<HasEngagement>());
+                    from => from.MapFrom<StuentHasEngagement>());
 
 
             CreateMap<ApplicationUser, StudentForUpdateDTO>().ReverseMap();
@@ -63,7 +63,7 @@ namespace APLMatchMaker.Server.Mappings
         }
     }
 
-    public class HasEngagement : IValueResolver<ApplicationUser, StudentForDetailsDTO, bool>
+    public class StuentHasEngagement : IValueResolver<ApplicationUser, StudentForDetailsDTO, bool>
     {
         public bool Resolve(ApplicationUser source, StudentForDetailsDTO destination, bool destMember, ResolutionContext context)
         {

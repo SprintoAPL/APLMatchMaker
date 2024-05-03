@@ -12,6 +12,7 @@
         public string PostalNumber { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
+        public bool HasEngagement { get; set; }
 
 
 
