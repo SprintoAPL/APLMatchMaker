@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
+using Microsoft.AspNetCore.Components;
 
 namespace APLMatchMaker.Client.Components
 {
-    public partial class StudentList : ComponentBase
+    public partial class StudentListTableBody
     {
         [Parameter]
         public IEnumerable<StudentForListDTO> Students { get; set; } = new List<StudentForListDTO>();
