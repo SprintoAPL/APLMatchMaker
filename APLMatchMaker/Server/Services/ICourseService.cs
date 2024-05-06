@@ -10,6 +10,9 @@ namespace APLMatchMaker.Server.Services
         Task AddCourseAsync(CourseDto course);
         Task UpdateCourseAsync(CourseForEditDto course, int id);
         Task DeleteCourseAsync(int id);
+        Task<bool> CourseExistAsync(int courseId);
+        Task<bool> StudentExistsAsync(Guid studentId, bool IsSudent);
+        Task<bool> RemoveStudentFromCourseAsync(int courseId, Guid studentId);
 
     }
 }

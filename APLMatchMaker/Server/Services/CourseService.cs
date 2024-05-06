@@ -1,6 +1,7 @@
 ﻿using APLMatchMaker.Server.Data;
 using APLMatchMaker.Server.Exceptions;
 using APLMatchMaker.Server.Models.Entities;
+using APLMatchMaker.Server.Repositories;
 using APLMatchMaker.Server.ResourceParameters;
 using APLMatchMaker.Shared.DTOs.CoursesDTOs;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
@@ -11,10 +12,12 @@ namespace APLMatchMaker.Server.Services
     public class CourseService : ICourseService
     {
         private readonly ApplicationDbContext _dbContext;
+        private readonly ICourseRepository _courseRepository;
 
-        public CourseService(ApplicationDbContext dbContext)
+        public CourseService(ApplicationDbContext dbContext, ICourseRepository courseRepository)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _courseRepository = courseRepository;
         }
 
         public async Task AddCourseAsync(CourseDto courseDto)
@@ -225,6 +228,27 @@ namespace APLMatchMaker.Server.Services
             {
                 throw new Exception($"Error occurred while updating the course with ID {id}.", ex);
             }
+        }
+
+
+        // Does course exist?
+        public async Task<bool> CourseExistAsync(int courseId)
+        {
+            return await _courseRepository.CourseExistsAssynk(courseId);
+        }
+
+
+        // Does student exist?
+        public async Task<bool> StudentExistsAsync(Guid studentId, bool IsSudent)
+        {
+            return await _courseRepository.StudentExistsAssync(studentId, IsSudent);
+        }
+
+
+        // Remove student from course
+        public async Task<bool> RemoveStudentFromCourseAsync(int courseId, Guid studentId)
+        {
+            return await _courseRepository.RemoveStudentFromCourse(courseId, studentId);
         }
 
     }

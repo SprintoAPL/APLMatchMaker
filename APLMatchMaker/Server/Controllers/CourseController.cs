@@ -118,5 +118,28 @@ namespace APLMatchMaker.Server.Controllers
             }
         }
 
+
+        // Remove student from course!
+        [HttpDelete("{courseId}/student/{studentId}")]
+        public async Task<IActionResult> RemoveStudentFromCourse(int courseId, Guid studentId)
+        {
+            if (!await _courseService.CourseExistAsync(courseId))
+            {
+                return BadRequest($"No course with id {courseId} exists!");
+            }
+
+            if(!await _courseService.StudentExistsAsync(studentId, IsSudent: false))
+            {
+                return BadRequest($"No student with id {studentId} exists!");
+            }
+
+            if (!await _courseService.RemoveStudentFromCourseAsync(courseId, studentId))
+            {
+                return BadRequest($"No student with id {studentId} is enroled in a course with id {courseId}!");
+            }
+
+            return NoContent();
+        }
+
     }
 }
