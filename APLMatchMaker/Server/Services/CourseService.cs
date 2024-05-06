@@ -1,4 +1,5 @@
 ﻿using APLMatchMaker.Server.Data;
+using APLMatchMaker.Server.Exceptions;
 using APLMatchMaker.Server.Models.Entities;
 using APLMatchMaker.Server.ResourceParameters;
 using APLMatchMaker.Shared.DTOs.CoursesDTOs;
@@ -43,22 +44,57 @@ namespace APLMatchMaker.Server.Services
             }
         }
 
+
+        //Course Deletion logic with some rules(EndDate check and Student Check)
         public async Task DeleteCourseAsync(int id)
         {
             try
             {
-                var course = await _dbContext.Courses.FindAsync(id);
-                if (course != null)
+                var course = await _dbContext.Courses.Where(co => co.Id == id).Include(co => co.Students).FirstOrDefaultAsync();
+                if (course == null)
                 {
-                    _dbContext.Courses.Remove(course);
-                    await _dbContext.SaveChangesAsync();
+                    throw new KeyNotFoundException($"Course with ID {id} not found.");
                 }
+
+                // Check if course can be deleted based on business rules
+                bool canDeleteCourse = CanDeleteCourse(course);
+
+                if (!canDeleteCourse)
+                {
+                    throw new InvalidOperationException("Course cannot be deleted because it has enrolled students or its end date is not in the past.");
+                }
+
+                _dbContext.Courses.Remove(course);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new NotFoundException($"Course with ID {id} not found.");
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Course cannot be deleted due to business rule violation
+                throw new InvalidOperationException(ex.Message, ex);
             }
             catch (Exception ex)
             {
+                // Log unexpected exceptions 
                 throw new Exception($"Error occurred while deleting the course with ID {id}.", ex);
             }
         }
+
+        private bool CanDeleteCourse(Course course)
+        {
+            // Check if the course end date is in the past
+            bool endDateIsInPast = course.EndDate < DateTime.Today;
+
+            // Check if the course has no associated students
+            bool noEnrolledStudents = course.Students == null || course.Students.Count == 0;
+
+            // Course can be deleted if both conditions are true
+            return endDateIsInPast && noEnrolledStudents;
+        }
+
 
 
 
