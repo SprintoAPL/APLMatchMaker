@@ -75,7 +75,7 @@ namespace APLMatchMaker.Server.Services
             catch (InvalidOperationException ex)
             {
                 // Course cannot be deleted due to business rule violation
-                throw new InvalidOperationException("Course cannot be deleted because it has enrolled students or its end date is not in the past.",ex);
+                throw new InvalidOperationException("Course cannot be deleted because its end date is not in the past or it's ongoing course.",ex);
             }
             catch (Exception ex)
             {
@@ -86,18 +86,11 @@ namespace APLMatchMaker.Server.Services
 
         private bool CanDeleteCourse(Course course)
         {
-            // Check if the course has associated students
-            if (course.Students != null && course.Students.Count > 0)
-            {
-                return false; // Course cannot be deleted if students are enrolled
-            }
-
             // Check if the course end date is in the past
             if (course.EndDate >= DateTime.Today)
             {
                 return false; // Course cannot be deleted if end date is today or in the future
             }
-
             return true; // Course can be deleted if it meets all conditions
         }
 
