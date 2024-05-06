@@ -102,7 +102,7 @@ namespace APLMatchMaker.Client.Pages
             {
                 return isAscending ? "▲" : "▼";
             }
-            return string.Empty;
+            return "●";
         }
 
         private async Task SortByColumn(string columnTitle)

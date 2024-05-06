@@ -28,7 +28,6 @@ else if (PageListStudents!.Count() == 0)
 else
 {
     <p style="margin-left: 1rem;">
-        @* Sidan @paginationMetadata!.CurrentPage av @paginationMetadata.TotalPages sidor.<br /> *@
         Visar @paginationMetadata!.PageSize elever per sida.<br />
         Totalt @paginationMetadata.TotalCount elever.<br />
     </p>
@@ -74,7 +73,6 @@ else
                         <a class="page-link" aria-label="Föregående">
                             <span aria-hidden="true"><i class="bi bi-caret-left-fill"></i></span>
                         </a>
-
                     </li>
                 }
                 @if (paginationMetadata.TotalPages > 0)
