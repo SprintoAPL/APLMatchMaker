@@ -43,13 +43,9 @@ The .space div creates a space between the .box divs by setting its width.*/
     height: 800px;
     display:flex;
     /*border: 1px;*/
-    background: linear-gradient(0deg, rgba(25,26,28,1) 10%, rgba(34,34,38,1) 39%);
     /*background-color: rgba(16, 16, 16, 0.95);*/
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
-    border: 1px solid;
-    border-color: #343434;
-    border-radius: 24px;
 }
 
 .space {
@@ -89,3 +85,10 @@ The .space div creates a space between the .box divs by setting its width.*/
     border-radius: 6px;
 }
 
+/*for the navigation links*/
+.studentContainer {
+    /*display: flex;
+    justify-content: center;*/
+    display: grid;
+    place-items: center;
+}
