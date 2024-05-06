@@ -125,17 +125,17 @@ namespace APLMatchMaker.Server.Controllers
         {
             if (!await _courseService.CourseExistAsync(courseId))
             {
-                return BadRequest($"No course with id {courseId} exists!");
+                return UnprocessableEntity($"No course with id {courseId} exists!");
             }
 
             if(!await _courseService.StudentExistsAsync(studentId, IsSudent: false))
             {
-                return BadRequest($"No student with id {studentId} exists!");
+                return UnprocessableEntity($"No student with id {studentId} exists!");
             }
 
             if (!await _courseService.RemoveStudentFromCourseAsync(courseId, studentId))
             {
-                return BadRequest($"No student with id {studentId} is enroled in a course with id {courseId}!");
+                return UnprocessableEntity($"No student with id {studentId} is enroled in a course with id {courseId}!");
             }
 
             return NoContent();
