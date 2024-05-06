@@ -65,6 +65,13 @@ h4 {
     font-family: 'Times New Roman', Times, serif
 }
 
+/*for the navigation links*/
+.studentContainer {
+    display: flex;
+    justify-content: center;
+}
+
+
 main.container {
     color: #788898;
     background-color: #34383c;
