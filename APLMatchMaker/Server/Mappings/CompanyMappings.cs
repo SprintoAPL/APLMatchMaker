@@ -25,7 +25,10 @@ namespace APLMatchMaker.Server.Mappings
                     from => from.MapFrom<CompanyContacts>())
                 .ForMember(
                     dest => dest.Internships,
-                    from => from.MapFrom<CompanyInternships>());
+                    from => from.MapFrom<CompanyInternships>())
+                .ForMember(
+                    dest => dest.HasEngagement,
+                    from => from.MapFrom<CompanyHasEngagement>());
         }
     }
 
@@ -96,6 +99,16 @@ namespace APLMatchMaker.Server.Mappings
                 }
             }
             return result;
+        }
+    }
+
+    public class CompanyHasEngagement : IValueResolver<Company, CompanyDetailsDTO, bool>
+    {
+        public bool Resolve(Company source, CompanyDetailsDTO destination, bool destMember, ResolutionContext context)
+        {
+            bool hasContacts = (source.CompanyContacts != null) && ( source.CompanyContacts.Count() > 0);
+            bool hasProjects = (source.Projects != null) && (source.Projects.Count() > 0);
+            return hasContacts || hasProjects;
         }
     }
 }
