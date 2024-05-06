@@ -10,25 +10,30 @@
     </div>
 }
 
-<div class="mb-3">
-    <label for="Name" class="form-label">Namn: </label>
-    <input type="text" class="form-control" @bind="Course.Name" id="Name" placeholder="Kursens namn ">
-</div>
-<div class="mb-3">
-    <label for="Description" class="form-label">Beskrivning:</label>
-    <textarea class="form-control" @bind="Course.Description" id="description" rows="3"></textarea>
-</div>
-<div class="row">
-    <div class="col">
-        <label for="StartDate" class="form-label">Startdatum: </label>
-        <input type="date" class="form-control" @bind="Course.StartDate" id="StartDate" placeholder="Start datum ">
+<div class="card mt-3">
+    <div class="card-body">
+        <div class="form-group">
+            <label for="Name" class="form-label">Namn: </label>
+            <input type="text" class="form-control" @bind="Course.Name" id="Name" placeholder="Kursens namn ">
+        </div>
+        <div class="form-group">
+            <label for="Description" class="form-label">Beskrivning:</label>
+            <textarea class="form-control" @bind="Course.Description" id="description" rows="3"></textarea>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="StartDate" class="form-label">Startdatum: </label>
+                <input type="date" class="form-control" @bind="Course.StartDate" id="StartDate" placeholder="Start datum ">
+            </div>
+            <div class="col">
+                <label for="EndDate" class="form-label">Slutdatum: </label>
+                <input type="date" class="form-control" @bind="Course.EndDate" id="EndDate" placeholder="Slut datum ">
+            </div>
+        </div>
+        <div class="btn-group" style="padding: 1rem 0 ;">
+            <button class="btn btn-success" @onclick="()=>AddNewCourse(Course)">Spara</button>
+            <a href="@($"/ListOfCourses")" class="btn btn-secondary">Avbryt</a>
+        </div>
     </div>
-    <div class="col">
-        <label for="EndDate" class="form-label">Slutdatum: </label>
-        <input type="date" class="form-control" @bind="Course.EndDate" id="EndDate" placeholder="Slut datum ">
-    </div>
 </div>
-<div>
-    <button class="btn btn-success" @onclick="()=>AddNewCourse(Course)">Spara</button>
-    <a href="@($"/ListOfCourses")" class="btn btn-secondary">Avbryt</a>
-</div>
+

@@ -156,6 +156,15 @@ a, .btn-link {
         content: "An error has occurred."
     }
 
+.buttonrow {
+    margin: 0;
+    padding: 1rem;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
 .loading-progress {
     position: relative;
     display: block;
@@ -230,7 +239,12 @@ element, excluding any <caption > element.*/
     }
 
     .table > thead {
-        vertical-align: bottom
+        vertical-align: bottom;
+    }
+
+    .table > thead > td {
+        text-align:left;
+        
     }
 
     .table > :not(:last-child) > :last-child > * {

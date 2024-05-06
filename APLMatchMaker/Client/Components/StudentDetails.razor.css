@@ -39,10 +39,10 @@ p {
 The .space div creates a space between the .box divs by setting its width.*/
 .container {
     /*align-items: center;*/
-    width: 1200px;
+    width: 970px;
     height: 800px;
-    display: flex;
-    border: 1px;
+    display:flex;
+    /*border: 1px;*/
     background: linear-gradient(0deg, rgba(25,26,28,1) 10%, rgba(34,34,38,1) 39%);
     /*background-color: rgba(16, 16, 16, 0.95);*/
     justify-content: center; /* Center horizontally */

@@ -11,8 +11,10 @@ namespace APLMatchMaker.Server.Repositories
             {
                 {"Name", new(new[] {"FirstName","LastName"}, false) },
                 {"LastName", new(new[] {"LastName", "FirstName"}, false)},
+                {"Email", new(new[] {"Email"}, false)},
+                {"Adress", new(new[] {"Address"}, false)},
                 {"KnowledgeLevel", new(new[] {"KnowledgeLevel"}, false)},
-                {"Language", new(new[] { "Language", }, false)},
+                {"Language", new(new[] {"Language"}, false)},
                 {"Nationality", new(new[] {"Nationality"},false)},
             };
         // Create other property dictionaries here

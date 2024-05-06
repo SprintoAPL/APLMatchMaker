@@ -57,7 +57,9 @@
             <input type="text" class="form-control" @bind="student.Nationality" id="nationality" />
         </div>
 
-        <button type="submit" class="btn btn-primary" @onclick="() => CreateStudent(student)">Skicka in</button>
-        <button type="button" class="btn btn-secondary ml-2" @onclick="Cancel">Avbryt</button>
+        <div class="btn-group" style="padding: 1rem 0 1rem 0;">
+            <button type="submit" class="btn btn-primary" @onclick="() => CreateStudent(student)"><i class="bi bi-save"></i> Skicka in</button>
+            <button type="button" class="btn btn-secondary ml-2" @onclick="Cancel"><i class="bi bi-caret-left"></i> Avbryt</button>
+        </div>
     </div>
 </div>
