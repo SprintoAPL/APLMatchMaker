@@ -50,7 +50,7 @@ namespace APLMatchMaker.Server.Services
         {
             try
             {
-                var course = await _dbContext.Courses.FindAsync(id);
+                var course = await _dbContext.Courses.Where(co => co.Id == id).Include(co => co.Students).FirstOrDefaultAsync();
                 if (course == null)
                 {
                     throw new KeyNotFoundException($"Course with ID {id} not found.");
