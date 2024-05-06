@@ -1,4 +1,5 @@
 ﻿using APLMatchMaker.Server.Data;
+using APLMatchMaker.Server.Models.Entities;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 
@@ -52,6 +53,34 @@ namespace APLMatchMaker.Server.Repositories
             _db.Enrollments.Remove(enrolment);
             await _db.SaveChangesAsync();
             return true;
+        }
+        //#################################################################################
+
+
+        //##-< Enrole student into course >-###############################################
+        public async Task<bool> EnroleStudentAsync(int courseId, Guid studentId)
+        {
+            var enrolment = await _db.Enrollments.FindAsync(courseId, studentId.ToString());
+            if (enrolment != null)
+            {
+                return false;
+            }
+
+            try
+            {
+                enrolment = new Enrollment()
+                {
+                    CourseId = courseId,
+                    ApplicationUserId = studentId.ToString(),
+                };
+                _db.Add(enrolment);
+                await _db.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         //#################################################################################
 

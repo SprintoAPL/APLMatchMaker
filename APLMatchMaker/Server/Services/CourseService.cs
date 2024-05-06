@@ -251,5 +251,12 @@ namespace APLMatchMaker.Server.Services
             return await _courseRepository.RemoveStudentFromCourse(courseId, studentId);
         }
 
+
+        // Enrole student into course
+        public async Task<bool> EnroleStudentAsync(int courseId, Guid studentId)
+        {
+            return await _courseRepository.EnroleStudentAsync(courseId, studentId);
+        }
+
     }
 }

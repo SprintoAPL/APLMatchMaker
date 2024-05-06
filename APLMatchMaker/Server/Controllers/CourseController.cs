@@ -128,7 +128,7 @@ namespace APLMatchMaker.Server.Controllers
                 return UnprocessableEntity($"No course with id {courseId} exists!");
             }
 
-            if(!await _courseService.StudentExistsAsync(studentId, IsSudent: false))
+            if(!await _courseService.StudentExistsAsync(studentId, IsSudent: false)) // Don't check "IsStudent".
             {
                 return UnprocessableEntity($"No student with id {studentId} exists!");
             }
@@ -136,6 +136,29 @@ namespace APLMatchMaker.Server.Controllers
             if (!await _courseService.RemoveStudentFromCourseAsync(courseId, studentId))
             {
                 return UnprocessableEntity($"No student with id {studentId} is enroled in a course with id {courseId}!");
+            }
+
+            return NoContent();
+        }
+
+
+        // Enrole student into course!
+        [HttpPost("{courseId}/student/{studentId}")]
+        public async Task<IActionResult> EnroleStudentAsync(int courseId, Guid studentId)
+        {
+            if (!await _courseService.CourseExistAsync(courseId))
+            {
+                return UnprocessableEntity($"No course with id {courseId} exists!");
+            }
+
+            if(!await _courseService.StudentExistsAsync(studentId, IsSudent: true)) // Checks that "IsStudent" is true.
+            {
+                return UnprocessableEntity($"No student with id {studentId} exists!");
+            }
+
+            if (!await _courseService.EnroleStudentAsync(courseId, studentId))
+            {
+                return UnprocessableEntity($"The student with id {studentId} is alredy enroled in the course with id {courseId}!");
             }
 
             return NoContent();
