@@ -22,7 +22,7 @@ namespace APLMatchMaker.Client.Pages
         private IEnumerable<StudentForListDTO>? PageListStudents;
         private string? errorMessage;
         private string? pagination;
-        private bool debug = false;
+        private bool debug = true;
         private PaginationMetadata? paginationMetadata;
         private string? searchText;
         private string? searchString = null;
@@ -124,6 +124,13 @@ namespace APLMatchMaker.Client.Pages
 
             navLink = $"{_apiRoot}{searchString}{sortString}";
 
+            await GetDataAsync();
+        }
+
+        private async Task GoToPage(int pageIndex)
+        {
+            
+            navLink = $"{_apiRoot}?PageNumber={pageIndex}&PageSize=10&OrderBy=Name";
             await GetDataAsync();
         }
 

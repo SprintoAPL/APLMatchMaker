@@ -81,11 +81,11 @@ else
                     {
                         if (paginationMetadata.CurrentPage == i)
                         {
-                            <li class="page-item active"><a class="page-link">@i</a></li>
+                            <li class="page-item active"><a class="page-link" @onclick='() => GoToPage(i)'>@i</a></li>
                         }
                         else
                         {
-                            <li class="page-item"><a class="page-link">@i</a></li>
+                            <li class="page-item"><a class="page-link" @onclick='() => GoToPage(i)'>@i</a></li>
                         }
                     }
                 }
