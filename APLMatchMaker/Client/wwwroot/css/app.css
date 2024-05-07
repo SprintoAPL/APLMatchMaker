@@ -67,7 +67,8 @@ h4 {
 
 .statistic{
     text-align:center;
-    color:white
+    color:white;
+    padding: 25px
 }
 
 main.container {
