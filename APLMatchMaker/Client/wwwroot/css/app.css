@@ -65,6 +65,11 @@ h4 {
     font-family: 'Times New Roman', Times, serif
 }
 
+.statistic{
+    text-align:center;
+    color:white
+}
+
 main.container {
     color: #788898;
     background-color: #212529c7;
