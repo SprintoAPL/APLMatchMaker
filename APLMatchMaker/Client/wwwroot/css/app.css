@@ -65,13 +65,22 @@ h4 {
     font-family: 'Times New Roman', Times, serif
 }
 
+/*for the navigation links*/
+.studentContainer {
+    display: flex;
+    justify-content: center;
+}
+
+
 main.container {
     color: #788898;
-    background-color: #212529c7;
-    width: 1000px;
+    background-color: #34383c;
+    width: 1200px;
     border-radius: 14px;
     border: 1px solid;
     border-color: #877149c1;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
     /*background: linear-gradient(0deg, rgba(40,46,50,0.7164040616246498) 19%, rgba(42,44,50,0.7203256302521008) 77%);*/
 }
 
