@@ -1,29 +1,59 @@
 ﻿@using APLMatchMaker.Shared.DTOs.CompanyDTOs;
+<div class="container">
+    <div class="label">
+        <h4>
+            @Company.CompanyName
+        </h4>
+    </div>
+    <div class="avatarLogo"></div>
+    <div class="details">
+        <h2>Kontakt</h2>
+        <p>
+        <b>Företag:</b> @Company!.CompanyName<br />
+        <b>Hemsida:</b> @Company.Website<br />
+        <b>Mail:</b> @Company.CompanyEmail<br />
+        <b>Postadress:</b> @Company.PostalAdress<br />
+        <b>Postnummer:</b> @Company.PostalNumber<br />
+        <b>Postort:</b> @Company.City<br />
+        <b>Org.Nr:</b> @Company.OrganizationNumber<br />
+        <b>Övrigt:</b> @Company.Notes<br />
+        </p>
 
-<dl class="row">
-    <dt class="col-sm-2">Företag:</dt>
-    <dd class="col-sm-10">@Company!.CompanyName</dd> 
-    <span><br /></span>
-    <dt class="col-sm-2">Hemsida:</dt>
-    <dd class="col-sm-10">@Company.Website</dd>
-    <dt class="col-sm-2">E-post:</dt>
-    <dd class="col-sm-10">@Company.CompanyEmail</dd>
-    <dt class="col-sm-2">Växel:</dt>
-    <dd class="col-sm-10">@Company.Phone</dd>
-    <span><br /></span>
-    <dt class="col-sm-2">Postadress:</dt>
-    <dd class="col-sm-10">@Company.PostalAdress</dd>
-    <dt class="col-sm-2">Postnummer:</dt>
-    <dd class="col-sm-10">@Company.PostalNumber</dd>
-    <dt class="col-sm-2">Postort:</dt>
-    <dd class="col-sm-10">@Company.City</dd>
-    <span><br /></span>
-    <dt class="col-sm-2">Org.nr:</dt>
-    <dd class="col-sm-10">@Company.OrganizationNumber</dd>
-    <span><br /></span>
-    <dt class="col-sm-2">Övrigt:</dt>
-    <dd class="col-sm-10">@Company.Notes</dd>
-</dl>
+
+    </div>
+
+    <div class="details">
+        <h2>Praktikanter</h2>
+        <p>
+        <b>Företag:</b> @Company!.CompanyName<br />
+        <b>Hemsida:</b> @Company.Website<br />
+        <b>Mail:</b> @Company.CompanyEmail<br />
+        <b>Postadress:</b> @Company.PostalAdress<br />
+        <b>Postnummer:</b> @Company.PostalNumber<br />
+        <b>Postort:</b> @Company.City<br />
+        <b>Org.Nr:</b> @Company.OrganizationNumber<br />
+        <b>Övrigt:</b> @Company.Notes<br />
+        </p>
+
+
+    </div>
+
+    <div class="details">
+        <h2>Tidigare Praktikanter</h2>
+        <p>
+        <b>Företag:</b> @Company!.CompanyName<br />
+        <b>Hemsida:</b> @Company.Website<br />
+        <b>Mail:</b> @Company.CompanyEmail<br />
+        <b>Postadress:</b> @Company.PostalAdress<br />
+        <b>Postnummer:</b> @Company.PostalNumber<br />
+        <b>Postort:</b> @Company.City<br />
+        <b>Org.Nr:</b> @Company.OrganizationNumber<br />
+        <b>Övrigt:</b> @Company.Notes<br />
+        </p>
+
+
+    </div>
+</div>
 
 
 @* <div class="">
