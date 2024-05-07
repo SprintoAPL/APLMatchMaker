@@ -30,8 +30,8 @@
             <input type="date" class="form-control" @bind="CourseToEdit.EndDate" id="EndDate" placeholder="Slut datum ">
         </div>
     </div>
-    <div>
+    <div style="padding: 0.5rem 0;">
         <button class="btn btn-success" @onclick="()=>ValidateSubmit()">Spara</button>
-        <a href="@($"/ListOfCourses")" class="btn btn-secondary">Avbryta</a>
+        <a href="@($"/coursedetails/{Id}")" class="btn btn-secondary">Avbryta</a>
     </div>
 }

@@ -33,24 +33,22 @@ namespace APLMatchMaker.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
+
+            string order = isAscending ? string.Empty : " desc";
+            sortString = string.IsNullOrWhiteSpace(sortBy)
+                ? string.Empty
+                : $"?OrderBy={sortBy}{order}";
+
+            navLink = $"{_apiRoot}{sortString}";
+
             await GetDataAsync();
         }
 
         protected async Task GetDataAsync()
         {
-            HttpResponseMessage response;
-            if (string.IsNullOrEmpty(navLink))
-            {
-                navLink = _apiRoot.Trim();
-            }
-            else
-            {
-                navLink = navLink.Trim();
-            }
-
             try
             {
-                response = await Http!.GetAsync(navLink);
+                var response = await Http!.GetAsync(navLink);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -58,8 +56,12 @@ namespace APLMatchMaker.Client.Pages
                     var temp = response.Headers.GetValues("X-Pagination").FirstOrDefault().ToJson().Replace("\\\\u0026", "&").Replace("\\", "").Substring(1);
                     var lenth = temp.Length;
                     pagination = temp.Remove(lenth - 1);
-                    
+
                     paginationMetadata = pagination!.FromJson<PaginationMetadata>();
+                }
+                else
+                {
+                    errorMessage = response.ReasonPhrase;
                 }
             }
             catch (Exception ex)
@@ -69,7 +71,6 @@ namespace APLMatchMaker.Client.Pages
 
         }
 
-        // Define Students property
         private void CreateNewStudent()
         {
             // Navigate to the create student page
@@ -88,11 +89,6 @@ namespace APLMatchMaker.Client.Pages
             await GetDataAsync();
         }
 
-        private void ClearInput()
-        {
-            searchText = string.Empty;
-        }
-        
         public async Task SearchStudents()
         {
             searchString = string.IsNullOrWhiteSpace(searchText) ? string.Empty : $"?searchQuery={searchText}";
@@ -120,19 +116,15 @@ namespace APLMatchMaker.Client.Pages
                 sortBy = columnTitle;
                 isAscending = true;
             }
+            string order = isAscending ? string.Empty : " desc";
 
-            if (PageListStudents != null && PageListStudents.Any())
-            {
-                string order = isAscending ? string.Empty : " desc";
+            sortString = string.IsNullOrWhiteSpace(sortBy) ? string.Empty :
+                (string.IsNullOrWhiteSpace(searchString) ?
+                $"?OrderBy={sortBy}{order}" : $"&OrderBy={sortBy}{order}");
 
-                sortString = string.IsNullOrWhiteSpace(sortBy) ? string.Empty :
-                    (string.IsNullOrWhiteSpace(searchString) ?
-                    $"?OrderBy={sortBy}{order}" : $"&OrderBy={sortBy}{order}");
+            navLink = $"{_apiRoot}{searchString}{sortString}";
 
-                navLink = $"{_apiRoot}{searchString}{sortString}";
-
-                await GetDataAsync();
-            }
+            await GetDataAsync();
         }
 
     }
