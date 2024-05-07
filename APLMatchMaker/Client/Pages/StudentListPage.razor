@@ -4,13 +4,14 @@
 @using APLMatchMaker.Client.Components
 
 <h3 class="m3">Studentlista</h3>
-<div>
+<div style="padding: 0.4rem 1rem;">
     <form @onsubmit="SearchStudents">
-        <input type="text" @bind="searchText" placeholder="Sök student..." />
-        <button class="btn btn-success" type="submit">Sök</button>
+        <input type="search" style="width: 20rem;" @bind="searchText" placeholder="Sök student..." />
+        <button class="btn btn-primary" type="submit">Sök</button>
+        <button class="btn btn-success" @onclick="CreateNewStudent"><i class="oi oi-plus"></i> Lägg till ny student</button>
     </form>
-        @* <button @onclick="ClearInput"><i class="bi bi-x"></i></button> *@
 </div>
+
 
 @if (PageListStudents == null && errorMessage == null)
 {
@@ -26,30 +27,98 @@ else if (PageListStudents!.Count() == 0)
 }
 else
 {
-
-    <div class="m-3">
-        <StudentList Students="PageListStudents" />
-    </div>
-    <p>
-        Sidan @paginationMetadata!.CurrentPage av @paginationMetadata.TotalPages sidor.<br />
-        Visar @paginationMetadata.PageSize elever per sida.<br />
+    <p style="margin-left: 1rem;">
+        @* Sidan @paginationMetadata!.CurrentPage av @paginationMetadata.TotalPages sidor.<br /> *@
+        Visar @paginationMetadata!.PageSize elever per sida.<br />
         Totalt @paginationMetadata.TotalCount elever.<br />
-        @if (!(paginationMetadata.PreviousPageLink == null))
-        {
-            <a class="link" @onclick="GoToPrevious">Föregående sida</a> <span>&nbsp</span>
-        }
-        @if (!(paginationMetadata.NextPageLink == null))
-        {
-            <a class="link" @onclick="GoToNext">Nästa sida</a>
-        }
     </p>
-    <button class="btn btn-success" @onclick="CreateNewStudent"><i class="oi oi-plus"></i>Lägg till ny student</button>
+    <div class="m-3">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        <button @onclick='() => SortByColumn("Name")' class=" btn btn-link">Namn @RenderSortIcon("Name")</button>
+                    </th>
+                    <th scope="col">
+                        <button @onclick='() => SortByColumn("Email")' class=" btn btn-link">E-post @RenderSortIcon("Email")</button>
+                    </th>
+                    <th scope="col">
+                        <button @onclick='() => SortByColumn("Adress")' class=" btn btn-link">Adress @RenderSortIcon("Adress")</button>
+                    </th>
+                    <th scope="col">
+                        <button @onclick='() => SortByColumn("KnowledgeLevel")' class=" btn btn-link">Nivå @RenderSortIcon("KnowledgeLevel")</button>
+                    </th>
+                    <th scope="col">
+                        <button @onclick='() => SortByColumn("Language")' class=" btn btn-link">Språk @RenderSortIcon("Language")</button>
+                    </th>
+                </tr>
+            </thead>
+            <StudentListTableBody Students="PageListStudents" />
+        </table>
+    </div>
+    @if (paginationMetadata.TotalPages > 1)
+    {
+        <nav>
+            <ul class="pagination justify-content-end" style="padding-right: 1rem;">
+                @if (paginationMetadata.PreviousPageLink != null)
+                {
+                    <li class="page-item">
+                        <a class="page-link" @onclick="GoToPrevious" aria-label="Föregående">
+                            <span aria-hidden="true"><i class="bi bi-caret-left-fill"></i></span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" aria-label="Föregående">
+                            <span aria-hidden="true"><i class="bi bi-caret-left-fill"></i></span>
+                        </a>
+
+                    </li>
+                }
+                @if (paginationMetadata.TotalPages > 0)
+                {
+                    for (int i = 1; i <= paginationMetadata.TotalPages; i++)
+                    {
+                        if (paginationMetadata.CurrentPage == i)
+                        {
+                            <li class="page-item active"><a class="page-link">@i</a></li>
+                        }
+                        else
+                        {
+                            <li class="page-item"><a class="page-link">@i</a></li>
+                        }
+                    }
+                }
+
+                @if (paginationMetadata.NextPageLink != null)
+                {
+                    <li class="page-item">
+                        <a class="page-link" @onclick="GoToNext" aria-label="Nästa">
+                            <span aria-hidden="true"><i class="bi bi-caret-right-fill"></i></span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" aria-label="Nästa">
+                            <span aria-hidden="true"><i class="bi bi-caret-right-fill"></i></span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+
+
 }
 
 @if (debug)
 {
-    <div class="alert alert-warning">
-        <p>Pagination Json:<br />@pagination</p>
-        <p>navLink:<br />@navLink</p>
+    <div class="alert alert-warning mt-3">
+        <p class="text-black">Pagination Json:<br />@pagination</p>
+        <p class="text-black">navLink:<br />@navLink</p>
     </div>
 }

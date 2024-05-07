@@ -177,6 +177,7 @@ namespace APLMatchMaker.Server.Services
                         Description = c.Description,
                         StartDate = c.StartDate,
                         EndDate = c.EndDate,
+                        HasEngagement = (c.Students != null) && (c.Students.Count() > 0),
                         students = (ICollection<StudentForListDTO>)c.Students!.Select(s => new StudentForListDTO 
                         {
                             Id = s.Student!.Id,
