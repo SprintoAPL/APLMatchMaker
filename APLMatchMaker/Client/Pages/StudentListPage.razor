@@ -80,9 +80,10 @@ else
                     
                     for (int i = 1; i <= paginationMetadata.TotalPages; i++)
                     {
+                        int pageIndex = i;
                         string subClass = paginationMetadata.CurrentPage == i ? "active" : string.Empty;
                         <li class="page-item @subClass">
-                            <a class="page-link" @onclick='() => GoToPage(i)'>@i</a>
+                            <a class="page-link" @onclick='() => GoToPage(pageIndex)'>@i</a>
                         </li>
                     }
                 }
@@ -115,6 +116,6 @@ else
     <div class="alert alert-warning mt-3">
         <p class="text-black">Pagination Json:<br />@pagination</p>
         <p class="text-black">navLink:<br />@navLink</p>
-        <p class="text-black">Page: @pageNr </p>
+        <p class="text-black">Page: @pageString </p>
     </div>
 }
