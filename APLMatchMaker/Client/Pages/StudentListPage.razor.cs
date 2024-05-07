@@ -17,6 +17,8 @@ namespace APLMatchMaker.Client.Pages
 
         [Parameter]
         public string? navLink { get; set; }
+        [Parameter]
+        public int CurrentPageIndex { get; set; } = 1;
 
         private readonly string _apiRoot = "api/student";
         private IEnumerable<StudentForListDTO>? PageListStudents;
@@ -29,6 +31,7 @@ namespace APLMatchMaker.Client.Pages
         private string sortBy = "Name";
         private bool isAscending = true;
         private string? sortString = null;
+        private string? pageNr = string.Empty;
 
         protected override async Task OnInitializedAsync()
         {
@@ -129,8 +132,8 @@ namespace APLMatchMaker.Client.Pages
 
         private async Task GoToPage(int pageIndex)
         {
-            
-            navLink = $"{_apiRoot}?PageNumber={pageIndex}&PageSize=10&OrderBy=Name";
+            pageNr = $"&PageNumber={pageIndex}";
+            navLink = $"{_apiRoot}{searchString}{sortString}{pageNr}";
             await GetDataAsync();
         }
 

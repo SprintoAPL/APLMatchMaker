@@ -77,16 +77,13 @@ else
                 }
                 @if (paginationMetadata.TotalPages > 0)
                 {
+                    
                     for (int i = 1; i <= paginationMetadata.TotalPages; i++)
                     {
-                        if (paginationMetadata.CurrentPage == i)
-                        {
-                            <li class="page-item active"><a class="page-link" @onclick='() => GoToPage(i)'>@i</a></li>
-                        }
-                        else
-                        {
-                            <li class="page-item"><a class="page-link" @onclick='() => GoToPage(i)'>@i</a></li>
-                        }
+                        string subClass = paginationMetadata.CurrentPage == i ? "active" : string.Empty;
+                        <li class="page-item @subClass">
+                            <a class="page-link" @onclick='() => GoToPage(i)'>@i</a>
+                        </li>
                     }
                 }
 
@@ -118,5 +115,6 @@ else
     <div class="alert alert-warning mt-3">
         <p class="text-black">Pagination Json:<br />@pagination</p>
         <p class="text-black">navLink:<br />@navLink</p>
+        <p class="text-black">Page: @pageNr </p>
     </div>
 }
