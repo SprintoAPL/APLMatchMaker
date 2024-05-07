@@ -4,13 +4,25 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Namn</th>
-            <th scope="col">E-post</th>
-            <th scope="col">Adress</th>
-            <th scope="col">Nivå</th>
-            <th scope="col">Språk</th>
+            <th scope="col">
+                <button @onclick='() => SortByColumn("Name")' class=" btn btn-link">Namn @RenderSortIcon("Name")</button>
+            </th>
+            <th scope="col">
+                <button @onclick='() => SortByColumn("E-post")' class=" btn btn-link">E-post @RenderSortIcon("E-post")</button>
+            </th>
+            <th scope="col">
+                <button @onclick='() => SortByColumn("Adress")' class=" btn btn-link">Adress @RenderSortIcon("Adress")</button>
+            </th>
+            <th scope="col">
+                <button @onclick='() => SortByColumn("Kunskapsnivå")' class=" btn btn-link">Nivå @RenderSortIcon("Kunskapsnivå")</button>
+            </th>
+            <th scope="col">
+                <button @onclick='() => SortByColumn("Språk")' class=" btn btn-link">Språk @RenderSortIcon("Språk")</button>
+            </th>
         </tr>
     </thead>
     <StudentListTableBody Students="Students"/>
 </table>
+
+
 

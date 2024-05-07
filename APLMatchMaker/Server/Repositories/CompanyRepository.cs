@@ -50,6 +50,7 @@ namespace APLMatchMaker.Server.Repositories
                 companyCollection = companyCollection.Where(cc =>
                 cc.CompanyName.Contains(companyResourceParameters.SearchQuery.ToLower().Trim()) ||
                 cc.PostalAdress.Contains(companyResourceParameters.SearchQuery.ToLower().Trim()) ||
+                cc.OrganizationNumber.Contains(companyResourceParameters.SearchQuery.ToLower().Trim()) ||
                 cc.City.Contains(companyResourceParameters.SearchQuery.ToLower().Trim()));
 
             }
