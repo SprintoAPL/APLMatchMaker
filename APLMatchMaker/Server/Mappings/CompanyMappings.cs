@@ -68,6 +68,8 @@ namespace APLMatchMaker.Server.Mappings
                         Id = contact.Id,
                         FullName = $"{contact.FirstName} {contact.LastName}",
                         Title = contact.Title,
+                        Email = contact.Email,
+                        Phone = contact.PhoneNumber,
                     });
                 }
             }
