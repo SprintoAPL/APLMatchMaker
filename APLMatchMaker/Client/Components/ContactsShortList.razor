@@ -5,16 +5,14 @@
         <tr>
             <th scope="col">Namn</th>
             <th scope="col">Titel</th>
-            <th></th> @* Spase for button. *@
         </tr>
     </thead>
     <tbody>
         @foreach (var contact in Contacts)
         {
             <tr>
-                <td>@contact.FullName</td>
+                <td><a href="#">@contact.FullName</a></td>
                 <td>@contact.Title</td>
-                <td><button></button></td>
             </tr>
         }
     </tbody>
