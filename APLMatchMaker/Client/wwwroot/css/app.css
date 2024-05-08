@@ -65,6 +65,12 @@ h4 {
     font-family: 'Times New Roman', Times, serif
 }
 
+.statistic{
+    text-align:center;
+    color:white;
+    padding: 25px
+}
+
 /*for the navigation links*/
 .studentContainer {
     display: flex;
