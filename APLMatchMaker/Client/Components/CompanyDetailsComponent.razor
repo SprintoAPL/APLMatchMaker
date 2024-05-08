@@ -31,19 +31,11 @@
     </div>
 
     <div class="details">
-        <h2>Tidigare Praktikanter</h2>
-        <p>
-            <b>Företag:</b> @Company!.CompanyName<br />
-            <b>Hemsida:</b> @Company.Website<br />
-            <b>Mail:</b> @Company.CompanyEmail<br />
-            <b>Postadress:</b> @Company.PostalAdress<br />
-            <b>Postnummer:</b> @Company.PostalNumber<br />
-            <b>Postort:</b> @Company.City<br />
-            <b>Org.Nr:</b> @Company.OrganizationNumber<br />
-            <b>Övrigt:</b> @Company.Notes<br />
-        </p>
-
-
+        <h2>Praktikanter</h2>
+        @if (Company.Internships != null && Company.Internships.Count() > 0)
+        {
+            <InternsShortList Internships="Company.Internships"/>
+        }
     </div>
 </div>
 

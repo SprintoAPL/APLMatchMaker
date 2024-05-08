@@ -94,8 +94,8 @@ namespace APLMatchMaker.Server.Mappings
                         FullName = $"{intern.Student!.FirstName} {intern.Student!.LastName}",
                         ProjectId = intern.ProjectId,
                         ProjectName = intern.Project!.ProjectName,
-                        StartDate = intern.AlternateStartDate != null ? intern.AlternateStartDate : intern.Project.DefaultStartDate,
-                        EndDate = intern.AlternateEndDate != null ? intern.AlternateEndDate : intern.Project.DefaultEndDate,
+                        StartDate = (DateTime)(intern.AlternateStartDate != null ? intern.AlternateStartDate : intern.Project.DefaultStartDate),
+                        EndDate = (DateTime)(intern.AlternateEndDate != null ? intern.AlternateEndDate : intern.Project.DefaultEndDate),
                         });
                     }
                 }
