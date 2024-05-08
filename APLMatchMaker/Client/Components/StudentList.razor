@@ -4,34 +4,25 @@
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">Namn</th>
-            <th scope="col">E-post</th>
-            <th scope="col">Personnummer</th>
-            <th scope="col">Adress</th>
-            <th scope="col">Kunskapsnivå</th>
-            <th scope="col">Språk</th>
-            <th scope="col"></th> @* Space for the "delete" button. *@
-            <th scope="col"></th> @* Space for the "details" button. *@
+            <th scope="col">
+                <button @onclick='() => SortByColumn("Name")' class=" btn btn-link">Namn @RenderSortIcon("Name")</button>
+            </th>
+            <th scope="col">
+                <button @onclick='() => SortByColumn("E-post")' class=" btn btn-link">E-post @RenderSortIcon("E-post")</button>
+            </th>
+            <th scope="col">
+                <button @onclick='() => SortByColumn("Adress")' class=" btn btn-link">Ort @RenderSortIcon("Adress")</button>
+            </th>
+            <th scope="col">
+                <button @onclick='() => SortByColumn("Kunskapsnivå")' class=" btn btn-link">Nivå @RenderSortIcon("Kunskapsnivå")</button>
+            </th>
+            <th scope="col">
+                <button @onclick='() => SortByColumn("Språk")' class=" btn btn-link">Språk @RenderSortIcon("Språk")</button>
+            </th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var student in Students)
-        {
-            <tr>
-                <td>@student.Name</td>
-                <td>@student.Email</td>
-                <td>@student.StudentSocSecNo</td>
-                <td>@student.Address</td>
-                <td>@StudentHelper.GetKnowledgeLevelString(student.KnowledgeLevel)</td>
-                <td>@student.Language</td>
-                <td scope="row">
-                    <a href="@($"studentdetails/{student.Id}")" class="btn btn-info m-1"> <span class="bi bi-pencil bi-2x"></span></a>
-                </td>
-                <td scope="row">
-                    <a href="@($"deletestudent/{student.Id}")" class="btn btn-danger m-1"> <span class="bi bi-trash bi-2x"></span></a>
-                </td>
-            </tr>
-        }
-    </tbody>
+    <StudentListTableBody Students="Students"/>
 </table>
+
+
 

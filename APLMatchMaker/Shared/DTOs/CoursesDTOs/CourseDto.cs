@@ -14,6 +14,7 @@ namespace APLMatchMaker.Shared.DTOs.CoursesDTOs
         public string Description { get; set; } = string.Empty;
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public bool HasEngagement { get; set; }
 
         public ICollection<StudentForListDTO>? students { get; set; } = null;
     }

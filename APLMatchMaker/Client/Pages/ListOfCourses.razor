@@ -2,10 +2,12 @@
 @using APLMatchMaker.Shared.DTOs.CoursesDTOs;
 @using APLMatchMaker.Client.Components;
 <h3>Kurslista</h3>
-<p></p>
+<form @onsubmit="HandleSearch">
+    <input type="search" style="width:20rem" @bind-value="searchText" placeholder="Sök på kursnamn..." />
+    <button class="btn btn-primary" type="submit"><i class="oi oi-magnifying-glass" title="search" aria-hidden="true"></i></button>
+    <a href="@($"addcourse")" class="btn btn-success"><i class="oi oi-plus"></i> Lägg till en ny kurs</a>
 
-<input type="text" style="width:500px" @bind-value="searchText" placeholder="Sök på kursnamn..." />
-<button class="btn-primary" type="submit" @onclick="HandleSearch">Sök</button>
+</form>
 
 
 @if (PageListCourses == null && errorMessage == null)
@@ -25,6 +27,4 @@ else
     <br />
 
     <CourseList CompListOfCourses=PageListCourses></CourseList>
-
-    <a href="@($"addcourse")" class="btn btn-primary m-1">Lägg till en ny kurs</a>
 }

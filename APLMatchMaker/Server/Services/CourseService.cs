@@ -1,5 +1,7 @@
 ﻿using APLMatchMaker.Server.Data;
+using APLMatchMaker.Server.Exceptions;
 using APLMatchMaker.Server.Models.Entities;
+using APLMatchMaker.Server.Repositories;
 using APLMatchMaker.Server.ResourceParameters;
 using APLMatchMaker.Shared.DTOs.CoursesDTOs;
 using APLMatchMaker.Shared.DTOs.StudentsDTOs;
@@ -10,10 +12,12 @@ namespace APLMatchMaker.Server.Services
     public class CourseService : ICourseService
     {
         private readonly ApplicationDbContext _dbContext;
+        private readonly ICourseRepository _courseRepository;
 
-        public CourseService(ApplicationDbContext dbContext)
+        public CourseService(ApplicationDbContext dbContext, ICourseRepository courseRepository)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _courseRepository = courseRepository;
         }
 
         public async Task AddCourseAsync(CourseDto courseDto)
@@ -43,22 +47,57 @@ namespace APLMatchMaker.Server.Services
             }
         }
 
+
+        //Course Deletion logic with some rules(EndDate check and Student Check)
         public async Task DeleteCourseAsync(int id)
         {
             try
             {
-                var course = await _dbContext.Courses.FindAsync(id);
-                if (course != null)
+                var course = await _dbContext.Courses.Where(co => co.Id == id).Include(co => co.Students).FirstOrDefaultAsync();
+                if (course == null)
                 {
-                    _dbContext.Courses.Remove(course);
-                    await _dbContext.SaveChangesAsync();
+                    throw new KeyNotFoundException($"Course with ID {id} not found.");
                 }
+
+                // Check if course can be deleted based on business rules
+                bool canDeleteCourse = CanDeleteCourse(course);
+
+                if (!canDeleteCourse)
+                {
+                    throw new InvalidOperationException("Course cannot be deleted because it has enrolled students or its end date is not in the past.");
+                }
+
+                _dbContext.Courses.Remove(course);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new NotFoundException($"Course with ID {id} not found.");
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Course cannot be deleted due to business rule violation
+                throw new InvalidOperationException(ex.Message, ex);
             }
             catch (Exception ex)
             {
+                // Log unexpected exceptions 
                 throw new Exception($"Error occurred while deleting the course with ID {id}.", ex);
             }
         }
+
+        private bool CanDeleteCourse(Course course)
+        {
+            // Check if the course end date is in the past
+            bool endDateIsInPast = course.EndDate < DateTime.Today;
+
+            // Check if the course has no associated students
+            bool noEnrolledStudents = course.Students == null || course.Students.Count == 0;
+
+            // Course can be deleted if both conditions are true
+            return endDateIsInPast && noEnrolledStudents;
+        }
+
 
 
 
@@ -141,14 +180,15 @@ namespace APLMatchMaker.Server.Services
                         Description = c.Description,
                         StartDate = c.StartDate,
                         EndDate = c.EndDate,
+                        HasEngagement = (c.Students != null) && (c.Students.Count() > 0),
                         students = (ICollection<StudentForListDTO>)c.Students!.Select(s => new StudentForListDTO 
                         {
                             Id = s.Student!.Id,
                             Name = $"{s.Student.FirstName} {s.Student.LastName}",
                             Email = s.Student.Email,
                             PhoneNumber = s.Student.PhoneNumber,
-                            StudentSocSecNo = s.Student.StudentSocSecNo,
-                            Address = s.Student.Address,
+                            StudentSocSecNo = s.Student.StudentSocSecNo!,
+                            Address = s.Student.Address!,
                             KnowledgeLevel = s.Student.KnowledgeLevel,
                             Language = s.Student.Language,
                             Nationality = s.Student.Nationality
@@ -188,6 +228,34 @@ namespace APLMatchMaker.Server.Services
             {
                 throw new Exception($"Error occurred while updating the course with ID {id}.", ex);
             }
+        }
+
+
+        // Does course exist?
+        public async Task<bool> CourseExistAsync(int courseId)
+        {
+            return await _courseRepository.CourseExistsAssynk(courseId);
+        }
+
+
+        // Does student exist?
+        public async Task<bool> StudentExistsAsync(Guid studentId, bool IsSudent)
+        {
+            return await _courseRepository.StudentExistsAssync(studentId, IsSudent);
+        }
+
+
+        // Remove student from course
+        public async Task<bool> RemoveStudentFromCourseAsync(int courseId, Guid studentId)
+        {
+            return await _courseRepository.RemoveStudentFromCourse(courseId, studentId);
+        }
+
+
+        // Enrole student into course
+        public async Task<bool> EnroleStudentAsync(int courseId, Guid studentId)
+        {
+            return await _courseRepository.EnroleStudentAsync(courseId, studentId);
         }
 
     }

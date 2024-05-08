@@ -1,0 +1,15 @@
+﻿@using APLMatchMaker.Client.Helpers
+@using APLMatchMaker.Shared.DTOs.StudentsDTOs
+
+    <tbody>
+        @foreach (var student in Students)
+        {
+            <tr>
+                <td><a href="@($"studentdetails/{student.Id}")">@student.Name</a></td>
+                <td>@student.Email</td>
+                <td>@student.Address</td>
+                <td>@StudentHelper.GetKnowledgeLevelString(student.KnowledgeLevel)</td>
+                <td>@student.Language</td>
+            </tr>
+        }
+    </tbody>
