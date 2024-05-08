@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using NuGet.Protocol;
 using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 
 namespace APLMatchMaker.Client.Pages
@@ -17,6 +18,8 @@ namespace APLMatchMaker.Client.Pages
 
         [Parameter]
         public string? navLink { get; set; }
+        [Parameter]
+        public int CurrentPageIndex { get; set; } = 1;
 
         private readonly string _apiRoot = "api/student";
         private IEnumerable<StudentForListDTO>? PageListStudents;
@@ -29,6 +32,7 @@ namespace APLMatchMaker.Client.Pages
         private string sortBy = "Name";
         private bool isAscending = true;
         private string? sortString = null;
+        private string? pageString = string.Empty;
 
         protected override async Task OnInitializedAsync()
         {
@@ -37,9 +41,9 @@ namespace APLMatchMaker.Client.Pages
             string order = isAscending ? string.Empty : " desc";
             sortString = string.IsNullOrWhiteSpace(sortBy)
                 ? string.Empty
-                : $"?OrderBy={sortBy}{order}";
+                : $"OrderBy={sortBy}{order}";
 
-            navLink = $"{_apiRoot}{sortString}";
+            GenerateNavLink();
 
             await GetDataAsync();
         }
@@ -91,8 +95,9 @@ namespace APLMatchMaker.Client.Pages
 
         public async Task SearchStudents()
         {
-            searchString = string.IsNullOrWhiteSpace(searchText) ? string.Empty : $"?searchQuery={searchText}";
-            navLink = $"{_apiRoot}{searchString}";
+            pageString = string.Empty;
+            searchString = string.IsNullOrWhiteSpace(searchText) ? string.Empty : $"searchQuery={searchText}";
+            GenerateNavLink();
             await GetDataAsync();
         }
 
@@ -102,7 +107,7 @@ namespace APLMatchMaker.Client.Pages
             {
                 return isAscending ? "▲" : "▼";
             }
-            return string.Empty;
+            return "●";
         }
 
         private async Task SortByColumn(string columnTitle)
@@ -117,14 +122,37 @@ namespace APLMatchMaker.Client.Pages
                 isAscending = true;
             }
             string order = isAscending ? string.Empty : " desc";
+            pageString = string.Empty;
+            sortString = string.IsNullOrWhiteSpace(sortBy) ? string.Empty : $"OrderBy={sortBy}{order}";
 
-            sortString = string.IsNullOrWhiteSpace(sortBy) ? string.Empty :
-                (string.IsNullOrWhiteSpace(searchString) ?
-                $"?OrderBy={sortBy}{order}" : $"&OrderBy={sortBy}{order}");
+            GenerateNavLink();
+            await GetDataAsync();
+        }
 
-            navLink = $"{_apiRoot}{searchString}{sortString}";
+        private async Task GoToPage(int pageIndex)
+        {
+            pageString = $"PageNumber={pageIndex}";
+            GenerateNavLink();
 
             await GetDataAsync();
+        }
+
+        private void GenerateNavLink()
+        {
+            //Intelligent insert of ? or & into the NavLink.
+            var questionMark = string.IsNullOrWhiteSpace(searchString)
+                                && string.IsNullOrWhiteSpace(sortString)
+                                && string.IsNullOrWhiteSpace(pageString) ? string.Empty : "?";
+
+            var andOne = string.IsNullOrWhiteSpace(searchString) ||
+                         (string.IsNullOrWhiteSpace(sortString) && string.IsNullOrWhiteSpace(pageString))
+                         ? string.Empty : "&";
+
+            var andTwo = string.IsNullOrWhiteSpace(sortString)
+                           || string.IsNullOrWhiteSpace(pageString) ? string.Empty : "&";
+
+            navLink = $"{_apiRoot}{questionMark}{searchString}{andOne}{sortString}{andTwo}{pageString}";
+
         }
 
     }

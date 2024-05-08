@@ -28,7 +28,6 @@ else if (PageListStudents!.Count() == 0)
 else
 {
     <p style="margin-left: 1rem;">
-        @* Sidan @paginationMetadata!.CurrentPage av @paginationMetadata.TotalPages sidor.<br /> *@
         Visar @paginationMetadata!.PageSize elever per sida.<br />
         Totalt @paginationMetadata.TotalCount elever.<br />
     </p>
@@ -74,21 +73,18 @@ else
                         <a class="page-link" aria-label="Föregående">
                             <span aria-hidden="true"><i class="bi bi-caret-left-fill"></i></span>
                         </a>
-
                     </li>
                 }
                 @if (paginationMetadata.TotalPages > 0)
                 {
+                    
                     for (int i = 1; i <= paginationMetadata.TotalPages; i++)
                     {
-                        if (paginationMetadata.CurrentPage == i)
-                        {
-                            <li class="page-item active"><a class="page-link">@i</a></li>
-                        }
-                        else
-                        {
-                            <li class="page-item"><a class="page-link">@i</a></li>
-                        }
+                        int pageIndex = i;
+                        string subClass = paginationMetadata.CurrentPage == i ? "active" : string.Empty;
+                        <li class="page-item @subClass">
+                            <a class="page-link" @onclick='() => GoToPage(pageIndex)'>@i</a>
+                        </li>
                     }
                 }
 
@@ -120,5 +116,6 @@ else
     <div class="alert alert-warning mt-3">
         <p class="text-black">Pagination Json:<br />@pagination</p>
         <p class="text-black">navLink:<br />@navLink</p>
+        <p class="text-black">Page: @pageString </p>
     </div>
 }
