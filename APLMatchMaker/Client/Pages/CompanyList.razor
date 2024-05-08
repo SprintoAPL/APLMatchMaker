@@ -1,14 +1,24 @@
 ﻿@page "/company"
 @using APLMatchMaker.Shared
+@using APLMatchMaker.Client.Components
+
 
 <h3>Företag</h3>
 <br />
 
-<div class="form-group">
-    <a class="btn btn-success" href="companyadd"><i class="oi oi-plus"></i> Registrera företag </a>
-</div>
+<div class="row mb-3">  
+    <div class="   form-control-lg  ">
+        <a class="btn btn-success float-lg-start m-1" href="companyadd"><i class="oi oi-plus"> </i> Registrera företag </a>
+        <a class="btn btn-warning float-lg-start m-1" @onclick="AllCompanies"><i class="bi bi-arrow-clockwise"></i> Alla Företag </a>
+        
+        <button class="btn btn-primary float-end  m-1" @onclick="Search2">
+            <i class="oi oi-magnifying-glass" title="search" aria-hidden="true"></i>
+        </button>
+   
+        <input class="deletable  float-end m-1 " type="search" @bind-value="searchText" onkeyup="" placeholder="Sök företag... "> </input>
 
-<br>
+    </div>
+</div>
 
 
 @if (companies == null && errorMessage == null)
@@ -27,16 +37,23 @@ else
         <thead>
 
             <tr>
-                <th scope="col">Företag:</th>
-                <th scope="col">Org.nummer:</th>
-                <th scope="col">E-post:</th>
-                <th scope="col">Växel:</th>
+                <th scope="col">
+                    <button @onclick='() => SortByColumn("Företag")' class=" btn btn-link">Företag @RenderSortIcon("Företag")</button>
+                </th>       
+                <th scope="col">
+                    <button @onclick='() => SortByColumn("Org.nummer")' class=" btn btn-link">Org.nummer @RenderSortIcon("Org.nummer")</button>
+                </th>             
+                <th scope="col">
+                    <button @onclick='() => SortByColumn("E-post")' class=" btn btn-link">E-post @RenderSortIcon("E-post")</button>
+                </th>               
+                <th scope="col">
+                    <button @onclick='() => SortByColumn("Växel")' class=" btn btn-link">Växel @RenderSortIcon("Växel")</button>
+                </th>
             </tr>
 
         </thead>
 
         <tbody>
-
             @foreach (var company in companies!)
             {
                 <tr>
@@ -48,7 +65,8 @@ else
             }
         </tbody>
     </table>
-    
+   @* <Pagination></Pagination> *@
+   
 
 
 }
