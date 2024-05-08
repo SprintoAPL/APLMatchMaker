@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace APLMatchMaker.Shared.Dictionaries
+namespace APLMatchMaker.Client.Helpers
 {
     public static class Status
     {
