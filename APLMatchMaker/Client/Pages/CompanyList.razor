@@ -6,7 +6,7 @@
 <h3>Företag</h3>
 <br />
 
-<div class="row mb-3">  
+@* <div class="row mb-3">  
     <div class="   form-control-lg  ">
         <a class="btn btn-success float-lg-start m-1" href="companyadd"><i class="oi oi-plus"> </i> Registrera företag </a>
         <a class="btn btn-warning float-lg-start m-1" @onclick="AllCompanies"><i class="bi bi-arrow-clockwise"></i> Alla Företag </a>
@@ -16,6 +16,20 @@
         </button>
    
         <input class="deletable  float-end m-1 " type="search" @bind-value="searchText" onkeyup="" placeholder="Sök företag... "> </input>
+
+    </div>
+</div> *@
+
+<div class="row mb-3">
+    <div class="   form-control-lg ">
+        <input class="deletable" type="search" @bind-value="searchText" onkeyup="" placeholder="Sök företag... "> </input>
+        <button class="btn btn-primary " @onclick="Search2">
+            <i class="oi oi-magnifying-glass" title="search" aria-hidden="true"></i>
+        </button>
+        <a class="btn btn-success " href="companyadd"><i class="oi oi-plus"> </i> Registrera företag </a>
+        <a class="btn btn-warning " @onclick="AllCompanies"><i class="bi bi-arrow-clockwise"></i> Alla Företag </a>
+
+
 
     </div>
 </div>

@@ -4,7 +4,7 @@
 <h3>Kurslista</h3>
 <form @onsubmit="HandleSearch">
     <input type="search" style="width:20rem" @bind-value="searchText" placeholder="Sök på kursnamn..." />
-    <button class="btn btn-primary" type="submit">Sök</button>
+    <button class="btn btn-primary" type="submit"><i class="oi oi-magnifying-glass" title="search" aria-hidden="true"></i></button>
     <a href="@($"addcourse")" class="btn btn-success"><i class="oi oi-plus"></i> Lägg till en ny kurs</a>
 
 </form>
