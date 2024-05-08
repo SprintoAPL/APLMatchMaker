@@ -1,0 +1,24 @@
+﻿@using APLMatchMaker.Shared.DTOs.CompanyDTOs
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Namn</th>
+            <th scope="col">Titel</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contact in Contacts)
+        {
+            <tr>
+                <td><a href="#">@contact.FullName</a></td>
+                <td>@contact.Title</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public ICollection<CompanyContactsShortListDTO> Contacts { get; set; } = new List<CompanyContactsShortListDTO>();
+}

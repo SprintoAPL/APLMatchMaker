@@ -12,5 +12,13 @@
         public string PostalNumber { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
+        public bool HasEngagement { get; set; }
+
+
+
+        // Navigation Properties.
+        public ICollection<CompanyEmployeeShortListDTO>? EmployedStudents { get; set; }
+        public ICollection<CompanyContactsShortListDTO>? Contacts { get; set; }
+        public ICollection<CompanyInternshipsShortListDTO>? Internships { get; set; }
     }
 }

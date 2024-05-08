@@ -1,5 +1,6 @@
 ﻿using APLMatchMaker.Shared.DTOs.CompanyDTOs;
 using Microsoft.AspNetCore.Components;
+using System.Globalization;
 using System.Net.Http.Json;
 
 namespace APLMatchMaker.Client.Pages
@@ -9,8 +10,13 @@ namespace APLMatchMaker.Client.Pages
     {
         [Inject]
         private HttpClient? Http { get; set; }
-        public List<CompanyForListDTO>? companies { get; set; }
+        public IEnumerable<CompanyForListDTO>? companies { get; set; } = new List<CompanyForListDTO>();
+        public string? searchText;
         private string? errorMessage;
+
+        private string sortBy = "Företag";
+        private bool isAscending = true;
+
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
@@ -26,5 +32,78 @@ namespace APLMatchMaker.Client.Pages
         }
 
 
+        public async Task Search2()
+        {
+            try
+            {
+                companies = await Http!.GetFromJsonAsync<List<CompanyForListDTO>>($"/api/company?searchQuery={searchText}");
+                //companies = searchData.Where(x => x.CompanyName.IndexOf(SearchString, StringComparison.OrdinalIgnoreCase) != -1).ToList();
+            }
+            catch (Exception exception)
+            {
+                errorMessage = exception.Message;
+            }
+        }
+
+        protected async Task AllCompanies()
+        {
+            await base.OnInitializedAsync();
+
+            try
+            {
+                companies = await Http!.GetFromJsonAsync<List<CompanyForListDTO>>("/api/company");
+            }
+            catch (Exception exception)
+            {
+                errorMessage = exception.Message;
+            }
+        }
+
+        private string RenderSortIcon(string column)
+        {
+            if (sortBy == column)
+            {
+                return isAscending ? "▲" : "▼";
+            }
+            return "●";
+        }
+
+        private void SortByColumn(string column)
+        {
+            if (sortBy == column)
+            {
+                isAscending = !isAscending;
+            }
+            else
+            {
+                sortBy = column;
+                isAscending = true;
+            }
+
+            if (companies != null && companies.Any())
+            {
+                switch (sortBy.ToLower())
+                {
+                    case "företag":
+                        companies = isAscending
+                            ? companies.OrderBy(c => c.CompanyName)
+                            : companies.OrderByDescending(c => c.CompanyName);
+                        break;
+                    case "ort":
+                        companies = isAscending
+                            ? companies.OrderBy(c => c.City)
+                            : companies.OrderByDescending(c => c.City);
+                        break;
+
+                    default:
+                        companies = (IEnumerable<CompanyForListDTO>)companies.OrderBy(c => c.CompanyName);
+                        break;
+
+                }         
+
+            }
+
+        }
     }
+  
 }

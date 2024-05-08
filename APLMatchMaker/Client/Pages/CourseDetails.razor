@@ -15,20 +15,33 @@ else if(ErrorMessage !=null)
 }
 else
 {
-    <div>
-        <p><strong>Namn: </strong>@courseDetails!.Name</p>
-        <p><strong>Beskrivning: </strong>@courseDetails.Description</p>
-        <p><strong>Startdatum: </strong>@courseDetails.StartDate.ToString("yyyy-MM-dd")</p>
-        <p><strong>Slutdatum: </strong>@courseDetails.EndDate.ToString("yyyy-MM-dd")</p>
-        <a href="@($"/EditCourse/{Id}")" class="btn btn-secondary m-1">Redigera</a>
-        <a href="@($"/ListOfCourses")" class="btn btn-danger m-1">Tillbaka till kurslistan</a>
+    <div class="container">
+    <div class="btn-group" style="margin: 1rem 26rem">
+            <a href="@($"/EditCourse/{Id}")" class="btn btn-primary"><i class="bi bi-pencil bi-2x"></i> Redigera</a>
+            <a href="@($"/DeleteCourse/{Id}")" class="btn btn-danger"><i class="bi bi-trash bi-2x"></i> Radera</a>
+            <a href="@($"/ListOfCourses")" class="btn btn-secondary"><i class="bi bi-caret-left bi-2x"></i> Tillbaka</a>
     </div>
-    <div>
-        @if (courseDetails.students != null && courseDetails.students.Count > 0)
-        {
-            <StudentList Students="courseDetails.students"></StudentList>
-        }
-        <a href="@($"/ListOfCourses")" class="btn btn-danger m-1">Tillbaka till kurslistan</a>
+        <div style="border:1px solid; border-radius:24px; padding: 1rem; margin: 0.5rem 0;">
+            <div class="row">
+                <div class="col">
+                    <p><strong>Namn: </strong>@courseDetails!.Name</p>
+                    <p><strong>Startdatum: </strong>@courseDetails.StartDate.ToString("yyyy-MM-dd")</p>
+                    <p><strong>Slutdatum: </strong>@courseDetails.EndDate.ToString("yyyy-MM-dd")</p>
+                </div>
+                <div class="col">
+                    <p><strong>Beskrivning: </strong></P>
+                    <p>@courseDetails.Description</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            @if (courseDetails.students != null && courseDetails.students.Count > 0)
+            {
+                <StudentList Students="courseDetails.students"></StudentList>
+            }
+      
+            @* <a href="@($"/ListOfCourses")" class="btn btn-danger m-1">Tillbaka till kurslistan</a> *@
+        </div>
     </div>
 }
 

@@ -1,16 +1,10 @@
-﻿using APLMatchMaker.Server.Models;
-using APLMatchMaker.Server.Repositories;
-using APLMatchMaker.Shared.DTOs.StudentsDTOs;
-using APLMatchMaker.Server.Exceptions;
-using AutoMapper;
-using APLMatchMaker.Server.ResourceParameters;
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.Options;
+﻿using APLMatchMaker.Server.Exceptions;
 using APLMatchMaker.Server.Helpers;
+using APLMatchMaker.Server.Models;
+using APLMatchMaker.Server.Repositories;
+using APLMatchMaker.Server.ResourceParameters;
+using APLMatchMaker.Shared.DTOs.StudentsDTOs;
+using AutoMapper;
 
 namespace APLMatchMaker.Server.Services
 {

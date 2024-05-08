@@ -15,7 +15,8 @@ namespace APLMatchMaker.Client.Pages
         public int Id { get; set; }
 
         public CompanyDetailsDTO? companyDetails = new();
-        //private CompanyForListDTO companyDetails = new CompanyForListDTO();
+        
+
 
         public string? ErrorMessage { get; set; }
 
@@ -25,7 +26,7 @@ namespace APLMatchMaker.Client.Pages
             try
             {
                 var response = await Http!.GetFromJsonAsync<CompanyDetailsHelper>($"api/company/{Id}");
-                //companyDetails = await Http!.GetFromJsonAsync<CompanyForListDTO>($"api/company/{Id}");
+                
 
                 if (response != null)
                 {

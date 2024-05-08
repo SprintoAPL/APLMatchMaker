@@ -15,6 +15,10 @@ else if (!string.IsNullOrEmpty(ErrorMessage))
 else
 {
     <CompanyDetailsComponent Company="Company" />
-    <a href="@($"/company")" class="btn btn-info m-1">Till listan</a>
-    <button class="btn btn-danger" @onclick="Delete">Radera</button>
+
+   
+
+    <a href="@($"/company")" class="btn btn-secondary  me-lg-3 "> <i class="bi bi-x-lg"></i> Avbryt</a>
+    
+    <button class="btn btn-danger" @onclick="Delete"> <span class="bi bi-trash bi-2x "></span> Radera</button>
 }

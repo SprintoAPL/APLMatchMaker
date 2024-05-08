@@ -1,0 +1,29 @@
+﻿@using APLMatchMaker.Shared.DTOs.CompanyDTOs
+@using APLMatchMaker.Client.Components
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Projekt</th>
+            <th scope="col">Namn</th>
+            @* <th scope="col">Start</th>
+            <th scope="col">Slut</th> *@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var intern in Internships)
+        {
+            <tr>
+                <td scope="row"><a href="#">@intern.ProjectName</a></td>
+                <td scope="row"><a href="#">@intern.FullName</a></td>
+                @* <td scope="row">@intern.StartDate.ToString("yyyy-MM-dd")</td>
+                <td scope="row">@intern.EndDate.ToString("yyyy-MM-dd")</td> *@
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public ICollection<CompanyInternshipsShortListDTO> Internships { get; set; } = new List<CompanyInternshipsShortListDTO>();
+}

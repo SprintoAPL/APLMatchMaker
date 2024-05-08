@@ -5,15 +5,7 @@
 @using APLMatchMaker.Client.Helpers
 @using APLMatchMaker.Shared.DTOs.CompanyDTOs
 
-<h3>Företag</h3>
 
-
-@* @if (companyDetails == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{ *@
 @if (companyDetails == null && ErrorMessage == null)
 {
     <p>Hämtar....</p>
@@ -24,13 +16,24 @@ else if (ErrorMessage != null)
 }
 else
 {
+    <div class="studentContainer">
+        <div class="btn-group" style="margin: 1rem 20.5rem ">
+            <a href="@($"companyedit/{companyDetails!.Id}")" class="btn btn-primary"><i class="bi bi-pencil bi-2x"></i> Redigera</a>
+            <a href="@($"companydelete/{companyDetails.Id}")" class="btn btn-danger"><i class="bi bi-trash bi-2x"></i> Radera</a>
+            <a href="@($"/company")" class="btn btn-secondary"><i class="bi bi-caret-left bi-2x"></i> Tillbaka</a>
+        </div>
+    
+    @* <a href="@($"/company")" class="btn btn-outline-primary">  <span class="bi bi-arrow-left "></span> Tillbaka till listan</a>
+    <a href="@($"companyedit/{companyDetails!.Id}")" class="btn btn-outline-warning m-2 "><span class="bi bi-pen bi-2x"></span> Redigera</a>
+    <a href="@($"companydelete/{companyDetails.Id}")" class="btn btn-danger  m-2"> <span class="bi bi-trash bi-2x"></span> Ta bort</a> *@
+    </div>
     <CompanyDetailsComponent Company="companyDetails" />
 
-    <a href="@($"/company")" class="btn btn-outline-primary">Tillbaka till företags listan</a>
+
 
     <br />
 
     <br />
-    @* <p> Debug code ID:@Id  <br /> CD: @companyDetails.ToString</p> *@
+    
 }
 

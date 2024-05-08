@@ -34,6 +34,7 @@ namespace APLMatchMaker.Shared.DTOs.StudentsDTOs
         public string? Language { get; set; }
         public string? Nationality { get; set; }
         public string? Miscellaneous { get; set; }
+        public bool HasEngagement { get; set; }
 
 
         // Navigation properties.

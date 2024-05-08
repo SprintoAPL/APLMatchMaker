@@ -25,13 +25,12 @@ p {
     border-radius: 6px;
 }
 
-.avatar {
+.avatarLogo {
     position: absolute;
-    width: 150px;
+    width: 800px;
     height: 150px;
-    transform: translate(-250%, -100%); /*Center the div*/
+    transform: translate(-0%, -120%); /*Center the div*/
     background-color: white;
-    border-radius: 50%;
     z-index:1;
 }
 

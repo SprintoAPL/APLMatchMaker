@@ -20,7 +20,7 @@ else
         <p><strong>Slut datum: </strong>@CourseToDelete.EndDate.ToString("yyyy-MM-dd")</p>
         <p><strong>Bekräfta genom att klicka på Ta bort knappen.</strong></p>
         <button class="btn btn-danger" @onclick="Delete">Ta bort</button>
-        <a href="@($"/ListOfCourses")" class="btn btn-primary m-1">Avbryta</a>
+        <a href="@($"/coursedetails/{Id}")" class="btn btn-secondary">Avbryta</a>
     </div>
 }
 

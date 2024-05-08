@@ -1,22 +1,40 @@
 ﻿@page "/company"
 @using APLMatchMaker.Shared
+@using APLMatchMaker.Client.Components
+
 
 <h3>Företag</h3>
 <br />
 
-<div class="form-group">
-    <a class="btn btn-success" href="company/add"><i class="oi oi-plus"></i> Registrera Bolag </a>
+@* <div class="row mb-3">  
+    <div class="   form-control-lg  ">
+        <a class="btn btn-success float-lg-start m-1" href="companyadd"><i class="oi oi-plus"> </i> Registrera företag </a>
+        <a class="btn btn-warning float-lg-start m-1" @onclick="AllCompanies"><i class="bi bi-arrow-clockwise"></i> Alla Företag </a>
+        
+        <button class="btn btn-primary float-end  m-1" @onclick="Search2">
+            <i class="oi oi-magnifying-glass" title="search" aria-hidden="true"></i>
+        </button>
+   
+        <input class="deletable  float-end m-1 " type="search" @bind-value="searchText" onkeyup="" placeholder="Sök företag... "> </input>
+
+    </div>
+</div> *@
+
+<div class="row mb-3">
+    <div class="   form-control-lg ">
+        <input class="deletable" type="search" @bind-value="searchText" onkeyup="" placeholder="Sök företag... "> </input>
+        <button class="btn btn-primary " @onclick="Search2">
+            <i class="oi oi-magnifying-glass" title="search" aria-hidden="true"></i>
+        </button>
+        <a class="btn btn-success " href="companyadd"><i class="oi oi-plus"> </i> Registrera företag </a>
+        <a class="btn btn-warning " @onclick="AllCompanies"><i class="bi bi-arrow-clockwise"></i> Alla Företag </a>
+
+
+
+    </div>
 </div>
 
-<br>
 
-@* @if (companies == null)
-{
-    <p><em>Loading...</em></p>
-    <p>@errorMessage</p>
-}
-else
-{ *@
 @if (companies == null && errorMessage == null)
 {
     <p>Hämtar...</p>
@@ -33,122 +51,39 @@ else
         <thead>
 
             <tr>
-                <th scope="col">Företag</th>
-                <th scope="col">Org.nummer</th>
-                <th scope="col">E-mail</th>
-                <th scope="col">Telefon</th>
-                @* <th scope="col">Redigera</th>
-                <th scope="col"></th> *@
+                <th scope="col">
+                    <button @onclick='() => SortByColumn("Företag")' class=" btn btn-link">Företag @RenderSortIcon("Företag")</button>
+                </th>       
+                <th scope="col">
+                    <button @onclick='() => SortByColumn("Ort")' class=" btn btn-link">Ort @RenderSortIcon("Ort")</button>
+                </th>             
+                <th scope="col">
+                    <button @onclick='() => SortByColumn("E-post")' class=" btn btn-link">E-post @RenderSortIcon("E-post")</button>
+                </th>               
+                <th scope="col">
+                    <button @onclick='() => SortByColumn("Växel")' class=" btn btn-link">Växel @RenderSortIcon("Växel")</button>
+                </th>
             </tr>
 
         </thead>
 
         <tbody>
-
             @foreach (var company in companies!)
             {
                 <tr>
                     <td scope="row"><a href="@($"companydetails/{company.Id}")">@company.CompanyName</a></td>
-                    <td scope="row">@company.OrganizationNumber</td>
+                    <td scope="row">@company.City</td>
                     <td scope="row">@company.CompanyEmail</td>
                     <td scope="row">@company.Phone</td>
-@*                     <td scope="row">
-                        <a href="@($"editcompany/{company.Id}")" class="btn btn-info m-1"> <span class="bi bi-pencil bi-2x"></span></a>
-                    </td>
-                    <td scope="row">
-                        <a href="@($"companydelete/{company.Id}")" class="btn btn-danger m-1"> <span class="bi bi-trash bi-2x"></span></a>
-                    </td> *@
                 </tr>
             }
         </tbody>
     </table>
-    
+   @* <Pagination></Pagination> *@
+   
 
 
 }
 
-@* <h1>Companies Overview</h1>
-<br />
 
-<div class="form-group">
-    <a class="btn btn-success" href="company/add"><i class="oi oi-plus"></i> Registrera Bolag </a>
-</div>
-
-<br>
-
-
-@if (companies == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table table-striped  align-middle  table-bordered">
-        <thead class="table-primery">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Org Number</th>
-                <th>E-mail</th>
-                <th>Phone</th>
-                <th>Actions</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var company in companies)
-            {
-                <tr>
-                    <td>@company.Companyid</td>
-                    <td>@company.CompanyName</td>
-                    <td>@company.Orgnumber</td>
-                    <td>@company.Email</td>
-                    <td>@company.Phone</td>
-                    <td>
-                        <a href='/company/edit/@company.Companyid' class="btn btn-outline-dark" role="button">
-                            Edit
-                        </a>
-                        <a href='/company/delete/@company.Companyid' class="btn btn-outline-danger" role="button">
-                            Delete
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-
-    </table>
-}
-
-
-@code {
-
-
-
-
-    public record CompanyDTO(int Companyid, string CompanyName, string Orgnumber, string Email, string Phone);
-    public IEnumerable<CompanyDTO>? companies;
-
-
-
-    protected override void OnInitialized()
-    {
-
-        companies = new List<CompanyDTO>
-        {
-            new CompanyDTO(1, "Astra Banana", "21544-541", "MB@Hmail.com","08-254158"),
-            new CompanyDTO(2, "ALBS B", "4585-2251", "LLB@Hmail.com","08-2544158"),
-            new CompanyDTO(3, "Astra Menica", "66988-21","MB@Hmail.com","08-254158"),
-            new CompanyDTO(4, "Bolvo", "89878-123", "TTsB@Hmail.com","08-27774158"),
-            new CompanyDTO(4, "Sancia", "89878-123", "TTsB@Hmail.com","08-277874158"),
-            new CompanyDTO(4, "Afro Beat", "54545-123", "TUsB@Hmail.com","08-28874158"),
-        };
-    }
-
-    // protected async Task SearchCompany()
-    // {
-
-    // }
-
-
-} *@
 

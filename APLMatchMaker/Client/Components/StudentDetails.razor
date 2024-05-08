@@ -1,12 +1,13 @@
 ﻿@using APLMatchMaker.Client.Helpers
 @using APLMatchMaker.Shared.DTOs.StudentsDTOs
 
-<div class="container">
-    <div class="label">
-        <h4>
-            @studentDetails.FirstName @studentDetails.LastName
-        </h4>
-    </div>
+<div class="main-container">
+    <div class="container">
+        <div class="label">
+            <h4>
+                @studentDetails.FirstName @studentDetails.LastName
+            </h4>
+        </div>
     <div class="link-bar">Links to linkedin and so go here</div>
     <div class="avatar"></div>
     @if (studentDetails != null)
@@ -14,12 +15,11 @@
         <div class="details">
             <h2>Elev</h2>
             <p>
-                <b>Namn:</b> @studentDetails.FirstName @studentDetails.LastName<br />
                 <b>Epost:</b> @studentDetails.Email<br />
                 <b>Telefon:</b> @studentDetails.PhoneNumber<br />
                 <b>Personnummer:</b> @studentDetails.StudentSocSecNo<br />
                 <b>Status:</b> @studentDetails.StatusOther<br />
-                <b>Adress:</b> @studentDetails.Address<br />
+                <b>Ort:</b> @studentDetails.Address<br />
                 <b>Kunskapsnivå:</b> @StudentHelper.GetKnowledgeLevelString(studentDetails.KnowledgeLevel)<br />
                 <b>CV:</b> @studentDetails.CV<br />
                 <b>Nationalitet:</b> @studentDetails.Nationality<br />
@@ -32,27 +32,35 @@
         <div class="qualifications">
             <h2>Kvalifikationer</h2>
             <p>
-                <b>Course:</b> @studentDetails.FirstName @studentDetails.LastName<br />
-                <b>Grade:</b> @studentDetails.Email<br />
-                <b>Certificates:</b> @studentDetails.PhoneNumber<br />
-                <b>Tags:</b> @studentDetails.StudentSocSecNo<br />
+                <b>Kurs:</b> @studentDetails.Course?.Name<br />
+                    <b>Betyg:</b><br />
+                    <b>Certifikat:</b><br />
+                    <b>Taggar:</b><br />
             </p>
         </div>
         <div class="space"></div> <!-- Space between divs -->
         <div class="status">
             <h2>Status</h2>
             <p>
-                <b>Status:</b> @studentDetails.FirstName @studentDetails.LastName<br />
-                <b>Internship at:</b> @studentDetails.Email<br />
-                <b>Period:</b> @studentDetails.PhoneNumber<br />
-                <b>History:</b> @studentDetails.StudentSocSecNo<br />
+                <b>Status:</b> 
+                <br />@Status.Statuses.GetValueOrDefault(studentDetails.Status)
+                    @if (studentDetails.Status == 4)
+                    {
+                       <span>&nbsp;</span> @studentDetails.StatusWhen?.ToString("yyyy-MM-dd");
+                    }
+                    <br />
+                    <b>Praktik hos:</b> <br />
+                <b>Period:</b> <br />
+                <b>Historik:</b> <br />
             </p>
         </div>
+
     }
     else
     {
         <p>Inga studentuppgifter hittades.</p>
     }
+</div>
 </div>
 @code {
     [Parameter]

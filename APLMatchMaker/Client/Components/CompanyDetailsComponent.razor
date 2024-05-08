@@ -1,6 +1,47 @@
 ﻿@using APLMatchMaker.Shared.DTOs.CompanyDTOs;
+<div class="container">
+    <div class="label">
+        <h4>
+            @Company.CompanyName
+        </h4>
+    </div>
+    <div class="avatarLogo"></div>
+    <div class="details">
+        <h2>Kontakt</h2>
+        <p>
+        <b>Hemsida:</b> @Company.Website<br />
+        <b>E-post:</b> @Company.CompanyEmail<br />
+        <b>Växel:</b> @Company.Phone<br />
+        </p>
+        <p>
+        <b>Postadress:</b> <br />@Company.PostalAdress<br />
+        @Company.PostalNumber @Company.City<br />
+        <b>Org.Nr:</b> @Company.OrganizationNumber<br />
+        <b>Övrigt:</b> <br />@Company.Notes<br />
+        </p>
 
-<div class="">
+
+    </div>
+
+    <div class="details">
+        <h2>Kontaktpersoner</h2>
+        @if (Company.Contacts != null && Company.Contacts.Count() > 0)
+        {
+            <ContactsShortList Contacts="Company.Contacts" />
+        }
+    </div>
+
+    <div class="details">
+        <h2>Praktikanter</h2>
+        @if (Company.Internships != null && Company.Internships.Count() > 0)
+        {
+            <InternsShortList Internships="Company.Internships"/>
+        }
+    </div>
+</div>
+
+
+@* <div class="">
     <p>
         Namn:&nbsp;@Company.CompanyName
     </p>
@@ -31,4 +72,4 @@
     <p>
         Anteckningar:<br />@Company.Notes
     </p>
-</div>
+</div> *@

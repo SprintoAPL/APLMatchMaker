@@ -45,10 +45,12 @@ h2 {
 }
 
 h3 {
+    margin-top: 10px;
     color: #eaeaea;
     text-align: center;
     /*background-color: #292b2c;*/
     height: 40px;
+    font-family: Tahoma
 /*    border: 0.1rem solid;
     border-color: orange;*/
 }
@@ -63,12 +65,29 @@ h4 {
     font-family: 'Times New Roman', Times, serif
 }
 
+.statistic{
+    text-align:center;
+    color:white;
+    padding: 25px
+}
+
+/*for the navigation links*/
+.studentContainer {
+    display: flex;
+    justify-content: center;
+}
+
+
 main.container {
     color: #788898;
-/*    border-radius: 6px;
-    border: 1px solid;*/
-/*    border-color: grey;
-    background: linear-gradient(0deg, rgba(40,46,50,0.7164040616246498) 19%, rgba(42,44,50,0.7203256302521008) 77%);*/
+    background-color: #34383c;
+    width: 1200px;
+    border-radius: 14px;
+    border: 1px solid;
+    border-color: #877149c1;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    /*background: linear-gradient(0deg, rgba(40,46,50,0.7164040616246498) 19%, rgba(42,44,50,0.7203256302521008) 77%);*/
 }
 
 h1:focus {
@@ -150,6 +169,15 @@ a, .btn-link {
         content: "An error has occurred."
     }
 
+.buttonrow {
+    margin: 0;
+    padding: 1rem;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
 .loading-progress {
     position: relative;
     display: block;
@@ -189,9 +217,10 @@ a, .btn-link {
 }*/
 
 .table {
+    background-size: contain;
     --bs-table-bg: transparent;
     --bs-table-accent-bg: transparent;
-/*    --bs-table-accent-bg: #1f1f21;*/
+    /*    --bs-table-accent-bg: #1f1f21;*/
     /* Text color*/
     --bs-table-striped-color: #212529;
     --bs-table-striped-bg: rgba(0, 0, 0, 0.05); /*rgba(0, 0, 0, 0.05);*/
@@ -200,7 +229,7 @@ a, .btn-link {
     --bs-table-hover-color: #212529;
     --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
     width: 100%;
-    margin-bottom: 10rem;
+    margin-bottom: 5rem;
     color: #e4ecee; /*text color*/
     vertical-align: top;
     border-color: #dee2e6;
@@ -219,29 +248,32 @@ element, excluding any <caption > element.*/
 }
 
     .table > tbody {
-        vertical-align: inherit
+        vertical-align: inherit;
     }
 
     .table > thead {
-        vertical-align: bottom
+        vertical-align: bottom;
+    }
+
+    .table > thead > td {
+        text-align:left;
+        
     }
 
     .table > :not(:last-child) > :last-child > * {
         /*Labels*/
         border-bottom-color: orange;
-        background-color: #2c3239
-        /*background: linear-gradient(0deg, rgba(34,45,50,1) 70%, rgba(46,54,61,1) 100%);*/
-        /*background: linear-gradient(0deg, rgba(44,51,60,1) 46%, rgba(54,60,74,1) 100%);*/
+        background: linear-gradient(0deg, rgba(24,25,25,1) 57%, rgba(33,33,36,1) 97%);
     }
     .table > tbody > :nth-child(even) {
         /*Alternating row colors for tables*/
-        background-color: #292c2f
+        background-color: #292c2f;
     }
     .table > tbody > :nth-child(odd) {
         /*Alternating row colors for tables*/
         background-color: #1e2022
     }
-
+     
 /*.top-row {*/
     /*Top nav bar with links*/
     /*background-color: #0C1321;
