@@ -89,10 +89,10 @@ namespace APLMatchMaker.Client.Pages
                             ? companies.OrderBy(c => c.CompanyName)
                             : companies.OrderByDescending(c => c.CompanyName);
                         break;
-                    case "org.nummer":
+                    case "ort":
                         companies = isAscending
-                            ? companies.OrderBy(c => c.OrganizationNumber)
-                            : companies.OrderByDescending(c => c.OrganizationNumber);
+                            ? companies.OrderBy(c => c.City)
+                            : companies.OrderByDescending(c => c.City);
                         break;
 
                     default:

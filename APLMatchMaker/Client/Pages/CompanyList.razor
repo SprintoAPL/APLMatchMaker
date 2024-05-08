@@ -41,7 +41,7 @@ else
                     <button @onclick='() => SortByColumn("Företag")' class=" btn btn-link">Företag @RenderSortIcon("Företag")</button>
                 </th>       
                 <th scope="col">
-                    <button @onclick='() => SortByColumn("Org.nummer")' class=" btn btn-link">Org.nummer @RenderSortIcon("Org.nummer")</button>
+                    <button @onclick='() => SortByColumn("Ort")' class=" btn btn-link">Ort @RenderSortIcon("Ort")</button>
                 </th>             
                 <th scope="col">
                     <button @onclick='() => SortByColumn("E-post")' class=" btn btn-link">E-post @RenderSortIcon("E-post")</button>
@@ -58,7 +58,7 @@ else
             {
                 <tr>
                     <td scope="row"><a href="@($"companydetails/{company.Id}")">@company.CompanyName</a></td>
-                    <td scope="row">@company.OrganizationNumber</td>
+                    <td scope="row">@company.City</td>
                     <td scope="row">@company.CompanyEmail</td>
                     <td scope="row">@company.Phone</td>
                 </tr>
