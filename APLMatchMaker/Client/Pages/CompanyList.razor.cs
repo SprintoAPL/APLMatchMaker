@@ -65,7 +65,7 @@ namespace APLMatchMaker.Client.Pages
             {
                 return isAscending ? "▲" : "▼";
             }
-            return string.Empty;
+            return "●";
         }
 
         private void SortByColumn(string column)
