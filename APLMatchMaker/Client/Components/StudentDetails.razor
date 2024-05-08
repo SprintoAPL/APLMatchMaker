@@ -15,7 +15,6 @@
         <div class="details">
             <h2>Elev</h2>
             <p>
-                <b>Namn:</b> @studentDetails.FirstName @studentDetails.LastName<br />
                 <b>Epost:</b> @studentDetails.Email<br />
                 <b>Telefon:</b> @studentDetails.PhoneNumber<br />
                 <b>Personnummer:</b> @studentDetails.StudentSocSecNo<br />
@@ -34,19 +33,25 @@
             <h2>Kvalifikationer</h2>
             <p>
                 <b>Kurs:</b> @studentDetails.Course?.Name<br />
-                <b>Betyg:</b> @studentDetails.Email<br />
-                <b>Certifikat:</b> @studentDetails.PhoneNumber<br />
-                <b>Taggar:</b> @studentDetails.StudentSocSecNo<br />
+                    <b>Betyg:</b><br />
+                    <b>Certifikat:</b><br />
+                    <b>Taggar:</b><br />
             </p>
         </div>
         <div class="space"></div> <!-- Space between divs -->
         <div class="status">
             <h2>Status</h2>
             <p>
-                <b>Status:</b> @studentDetails.Status<br />
-                <b>Praktik hos:</b> @studentDetails.Email<br />
-                <b>Period:</b> @studentDetails.PhoneNumber<br />
-                <b>Historik:</b> @studentDetails.StudentSocSecNo<br />
+                <b>Status:</b> 
+                <br />@Status.Statuses.GetValueOrDefault(studentDetails.Status)
+                    @if (studentDetails.Status == 4)
+                    {
+                       <span>&nbsp;</span> @studentDetails.StatusWhen?.ToString("yyyy-MM-dd");
+                    }
+                    <br />
+                    <b>Praktik hos:</b> <br />
+                <b>Period:</b> <br />
+                <b>Historik:</b> <br />
             </p>
         </div>
 
