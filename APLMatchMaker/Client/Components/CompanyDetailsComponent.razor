@@ -32,17 +32,11 @@
     </div>
 
     <div class="details">
-        <h2>Tidigare Praktikanter</h2>
-        <p>
-        <b>Namn:</b> <br />
-        <b>Kurs:</b> <br />
-        <b>Period:</b> <br />
-        <b>Mail:</b> <br />
-        <b>Postort:</b> <br />
-        <b>Övrigt:</b> <br />
-        </p>
-
-
+        <h2>Praktikanter</h2>
+        @if (Company.Internships != null && Company.Internships.Count() > 0)
+        {
+            <InternsShortList Internships="Company.Internships"/>
+        }
     </div>
 </div>
 
