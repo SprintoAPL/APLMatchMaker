@@ -14,8 +14,8 @@
         @foreach (var intern in Internships)
         {
             <tr>
-                <td scope="row">@intern.ProjectName</td>
-                <td scope="row">@intern.FullName</td>
+                <td scope="row"><a href="#">@intern.ProjectName</a></td>
+                <td scope="row"><a href="#">@intern.FullName</a></td>
                 @* <td scope="row">@intern.StartDate.ToString("yyyy-MM-dd")</td>
                 <td scope="row">@intern.EndDate.ToString("yyyy-MM-dd")</td> *@
             </tr>
