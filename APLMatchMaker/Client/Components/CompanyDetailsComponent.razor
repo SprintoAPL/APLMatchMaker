@@ -24,17 +24,11 @@
     </div>
 
     <div class="details">
-        <h2>Praktikanter</h2>
-        <p>
-        <b>Namn:</b> <br />
-        <b>Kurs:</b> <br />
-        <b>Period:</b> <br />
-        <b>Mail:</b> <br />
-        <b>Postort:</b> <br />
-        <b>Övrigt:</b> <br />
-        </p>
-
-
+        <h2>Kontaktpersoner</h2>
+        @if (Company.Contacts != null && Company.Contacts.Count() > 0)
+        {
+            <ContactsShortList Contacts="Company.Contacts" />
+        }
     </div>
 
     <div class="details">
