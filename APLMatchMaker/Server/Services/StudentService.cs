@@ -63,12 +63,12 @@ namespace APLMatchMaker.Server.Services
                 EmailConfirmed = true,
                 PhoneNumber = dto.PhoneNumber!.Trim(),
                 StudentSocSecNo = dto.StudentSocSecNo!.Trim(),
-                Address = dto.Address!.Trim(),
+                Address = dto.City!.Trim(),
                 Language = dto.Language!.Trim(),
                 Nationality = dto.Nationality!.Trim()
             };
 
-            var ok = await _studentRepository.AddAsync(_student, dto.Password);
+            var ok = await _studentRepository.AddAsync(_student);
             ok = ok && await _studentRepository.CompleteAsync();
             if (!ok)
             {

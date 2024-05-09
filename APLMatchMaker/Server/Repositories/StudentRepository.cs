@@ -139,7 +139,7 @@ namespace APLMatchMaker.Server.Repositories
 
 
         //##-< Add one new student >-######################################################
-        public async Task<bool> AddAsync(ApplicationUser _applicationUser, string password)
+        public async Task<bool> AddAsync(ApplicationUser _applicationUser)
         {
             try
             {

@@ -6,8 +6,7 @@ namespace APLMatchMaker.Server.Repositories
 {
     public interface IStudentRepository
     {
-        Task<bool> AddAsync(ApplicationUser _applicationUser, string password);
-        //Task<List<ApplicationUser>> GetAsync();
+        Task<bool> AddAsync(ApplicationUser _applicationUser);
         Task<PagedList<ApplicationUser>> GetAsync(StudentResourceParameters? studentResourceParameters);
         Task<ApplicationUser?> GetAsync(string id);
         Task<bool> RemoveAsync(string id);
