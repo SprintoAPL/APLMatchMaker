@@ -146,7 +146,7 @@ namespace APLMatchMaker.Server.Controllers
 
         // GET: api/student/id
         [HttpGet("{id}", Name = "GetStudent")]  // Singular
-        public async Task<ActionResult<StudentForDetailsDTO>> GetStudentsAsync(string id)
+        public async Task<ActionResult<StudentForDetailsDTO>> GetStudentsAsync(Guid id)
         {
             var student = await _studentService.GetAsync(id);
             if (student == null)
@@ -178,7 +178,7 @@ namespace APLMatchMaker.Server.Controllers
 
         // PUT: api/student/id
         [HttpPut("{id}")]
-        public async Task<ActionResult<StudentForDetailsDTO>> FullyUpdateStudentAsync(string id, StudentForUpdateDTO updatedStudent)
+        public async Task<ActionResult<StudentForDetailsDTO>> FullyUpdateStudentAsync(Guid id, StudentForUpdateDTO updatedStudent)
         {
             var result = await _studentService.UpdateStudentAsync(id, updatedStudent);
             if (result == null)
@@ -194,7 +194,7 @@ namespace APLMatchMaker.Server.Controllers
 
         // PATCH: api/student/id
         [HttpPatch("{id}")]
-        public async Task<ActionResult<StudentForDetailsDTO>> PartiallyUpdateStudentAsync(string id, JsonPatchDocument<StudentForUpdateDTO> _patchDocument)
+        public async Task<ActionResult<StudentForDetailsDTO>> PartiallyUpdateStudentAsync(Guid id, JsonPatchDocument<StudentForUpdateDTO> _patchDocument)
         {
             var _studentToPatch = await _studentService.GetForUpdateAsync(id);
             if (_studentToPatch == null)
@@ -217,7 +217,7 @@ namespace APLMatchMaker.Server.Controllers
 
         // DELETE: api/student/id
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteStudentAsync(string id)
+        public async Task<ActionResult> DeleteStudentAsync(Guid id)
         {
             var hasEngagements = await _studentService.HasEngagementsAsync(id);
 

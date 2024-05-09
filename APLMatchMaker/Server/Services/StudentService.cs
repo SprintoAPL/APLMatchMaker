@@ -38,7 +38,7 @@ namespace APLMatchMaker.Server.Services
 
 
         //##-< Get a single student with id >-#############################################
-        public async Task<StudentForDetailsDTO?> GetAsync(string id)
+        public async Task<StudentForDetailsDTO?> GetAsync(Guid id)
         {
             var _student = await _studentRepository.GetAsync(id);
             if (_student == null)
@@ -80,7 +80,7 @@ namespace APLMatchMaker.Server.Services
 
 
         //##-< Get a single student with id and return as "ForUpdateDTO" >-################
-        public async Task<StudentForUpdateDTO?> GetForUpdateAsync(string id)
+        public async Task<StudentForUpdateDTO?> GetForUpdateAsync(Guid id)
         {
             var _student = await _studentRepository.GetAsync(id);
             if (_student == null)
@@ -93,9 +93,9 @@ namespace APLMatchMaker.Server.Services
 
 
         //##-< Update a student >-#########################################################
-        public async Task<StudentForDetailsDTO?> UpdateStudentAsync(string _id, StudentForUpdateDTO _updatedStudent)
+        public async Task<StudentForDetailsDTO?> UpdateStudentAsync(Guid _id, StudentForUpdateDTO _updatedStudent)
         {
-            if (string.IsNullOrWhiteSpace(_id) || _updatedStudent == null)
+            if ( _id == Guid.Empty || _updatedStudent == null)
             {
                 return null;
             }
@@ -119,7 +119,7 @@ namespace APLMatchMaker.Server.Services
 
 
         //##-< Patch a student >-##########################################################
-        public async Task<StudentForDetailsDTO?> PatchStudentAsync(string _id, StudentForUpdateDTO _studentPatch)
+        public async Task<StudentForDetailsDTO?> PatchStudentAsync(Guid _id, StudentForUpdateDTO _studentPatch)
         {
             var _studentFromRepo = await _studentRepository.GetAsync(_id);
 
@@ -143,7 +143,7 @@ namespace APLMatchMaker.Server.Services
 
 
         //##-< Delete a student with id >-#################################################
-        public async Task<bool> RemoveAsync(string id)
+        public async Task<bool> RemoveAsync(Guid id)
         {
             var result = await _studentRepository.RemoveAsync(id);
             return result;
@@ -160,7 +160,7 @@ namespace APLMatchMaker.Server.Services
 
 
         //##-< Check if the student has engagements >-#####################################
-        public async Task<bool> HasEngagementsAsync(string id)
+        public async Task<bool> HasEngagementsAsync(Guid id)
         {
             return await _studentRepository.HasEngagementsAsync(id);
         }
