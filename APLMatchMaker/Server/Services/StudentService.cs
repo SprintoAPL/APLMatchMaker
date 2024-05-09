@@ -61,11 +61,11 @@ namespace APLMatchMaker.Server.Services
                 Email = dto.Email.ToLower().Trim(),
                 UserName = dto.Email.Trim(),
                 EmailConfirmed = true,
-                PhoneNumber = dto.PhoneNumber!.Trim(),
-                StudentSocSecNo = dto.StudentSocSecNo!.Trim(),
-                Address = dto.City!.Trim(),
-                Language = dto.Language!.Trim(),
-                Nationality = dto.Nationality!.Trim()
+                PhoneNumber = dto.PhoneNumber?.Trim(),
+                StudentSocSecNo = dto.StudentSocSecNo?.Trim(),
+                Address = dto.City?.Trim(),
+                Language = dto.Language?.Trim(),
+                Nationality = dto.Nationality?.Trim()
             };
 
             var ok = await _studentRepository.AddAsync(_student);

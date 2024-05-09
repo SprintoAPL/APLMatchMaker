@@ -11,50 +11,61 @@
 
 <div class="card mt-3">
     <div class="card-body">
+        <EditForm Model="@student">
+            <DataAnnotationsValidator />
 
-        <div class="form-group">
-            <label for="firstName">Förnamn:</label>
-            <input type="text" class="form-control" @bind="student.FirstName" id="firstName" required />
-        </div>
+            <div class="form-group">
+                <label for="firstName">Förnamn:</label>
+                <ValidationMessage For="@(() => student.FirstName)" />
+                <input type="text" class="form-control" @bind="student.FirstName" id="firstName"  />
+            </div>
 
-        <div class="form-group">
-            <label for="lastName">Efternamn:</label>
-            <input type="text" class="form-control" @bind="student.LastName" id="lastName" required />
-        </div>
+            <div class="form-group">
+                <label for="lastName">Efternamn:</label>
+                <input type="text" class="form-control" @bind="student.LastName" id="lastName"  />
+                <ValidationMessage For="@(() => student.LastName)" />
+            </div>
 
-        <div class="form-group">
-            <label for="email">E-post:</label>
-            <input type="email" class="form-control" @bind="student.Email" id="email" required />
-        </div>
+            <div class="form-group">
+                <label for="email">E-post:</label>
+                <input type="email" class="form-control" @bind="student.Email" id="email"  />
+                <ValidationMessage For="@(() => student.Email)" />
+            </div>
 
-        <div class="form-group">
-            <label for="<phonNumber">Telefonnummer:</label>
-            <input type="text" class="form-control" @bind="student.PhoneNumber" id="PhoneNumber" />
-        </div>
+            <div class="form-group">
+                <label for="<phonNumber">Telefonnummer:</label>
+                <input type="text" class="form-control" @bind="student.PhoneNumber" id="PhoneNumber" />
+                <ValidationMessage For="@(() => student.PhoneNumber)" />
+            </div>
 
-        <div class="form-group">
-            <label for="studentSocSecNo">Personnummer:</label>
-            <input type="text" class="form-control" @bind="student.StudentSocSecNo" id="studentSocSecNo" />
-        </div>
+            <div class="form-group">
+                <label for="studentSocSecNo">Personnummer:</label>
+                <input type="text" class="form-control" @bind="student.StudentSocSecNo" id="studentSocSecNo" />
+                <ValidationMessage For="@(() => student.StudentSocSecNo)" />
+            </div>
 
-        <div class="form-group">
-            <label for="address">Ort:</label>
-            <input type="text" class="form-control" @bind="student.City" id="city" />
-        </div>
+            <div class="form-group">
+                <label for="address">Ort:</label>
+                <input type="text" class="form-control" @bind="student.City" id="city" />
+                <ValidationMessage For="@(() => student.City)" />
+            </div>
 
-        <div class="form-group">
-            <label for="language">Språk:</label>
-            <input type="text" class="form-control" @bind="student.Language" id="language" />
-        </div>
+            <div class="form-group">
+                <label for="language">Språk:</label>
+                <input type="text" class="form-control" @bind="student.Language" id="language" />
+                <ValidationMessage For="@(() => student.Language)" />
+            </div>
 
-        <div class="form-group">
-            <label for="nationality">Nationalitet:</label>
-            <input type="text" class="form-control" @bind="student.Nationality" id="nationality" />
-        </div>
+            <div class="form-group">
+                <label for="nationality">Nationalitet:</label>
+                <input type="text" class="form-control" @bind="student.Nationality" id="nationality" />
+                <ValidationMessage For="@(() => student.Nationality)" />
+            </div>
 
-        <div class="btn-group" style="padding: 1rem 0 1rem 0;">
-            <button type="submit" class="btn btn-primary" @onclick="() => CreateStudent(student)"><i class="bi bi-save"></i> Skicka in</button>
-            <button type="button" class="btn btn-secondary ml-2" @onclick="Cancel"><i class="bi bi-caret-left"></i> Avbryt</button>
-        </div>
+            <div class="btn-group" style="padding: 1rem 0 1rem 0;">
+                <button type="submit" class="btn btn-primary" @onclick="() => CreateStudent(student)"><i class="bi bi-save"></i> Skicka in</button>
+                <button type="button" class="btn btn-secondary ml-2" @onclick="Cancel"><i class="bi bi-caret-left"></i> Avbryt</button>
+            </div>
+        </EditForm>
     </div>
 </div>
