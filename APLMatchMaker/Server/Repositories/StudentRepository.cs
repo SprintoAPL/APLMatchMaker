@@ -127,9 +127,9 @@ namespace APLMatchMaker.Server.Repositories
 
 
         //##-< Get one student, by id >-###################################################
-        public async Task<ApplicationUser?> GetAsync(string id)
+        public async Task<ApplicationUser?> GetAsync(Guid id)
         {
-            return await _db.ApplicationUsers.Where(au => au.Id == id && au.IsStudent == true)
+            return await _db.ApplicationUsers.Where(au => au.Id == id.ToString() && au.IsStudent == true)
                 .Include(au => au.Course!).ThenInclude(en => en.Course)
                 .Include(au => au.Internships!).ThenInclude(i => i.Project!).ThenInclude(pr => pr.Company)
                 .Include(au => au.Company)
@@ -139,7 +139,7 @@ namespace APLMatchMaker.Server.Repositories
 
 
         //##-< Add one new student >-######################################################
-        public async Task<bool> AddAsync(ApplicationUser _applicationUser, string password)
+        public async Task<bool> AddAsync(ApplicationUser _applicationUser)
         {
             try
             {
@@ -172,19 +172,14 @@ namespace APLMatchMaker.Server.Repositories
 
 
         //##-< Delete one existing student >-##############################################
-        public async Task<bool> RemoveAsync(string _Id)
+        public async Task<bool> RemoveAsync(Guid _Id)
         {
-            var _au = await _db.ApplicationUsers.FindAsync(_Id);
+            var _au = await _db.ApplicationUsers.FindAsync(_Id.ToString());
 
             if (_au == null)
             {
                 return false;
             }
-
-            //if (await HasEngagementsAsync(_Id))
-            //{
-            //    return false;
-            //}
 
             try
             {
@@ -225,9 +220,9 @@ namespace APLMatchMaker.Server.Repositories
 
 
         //##-< Has engagements >-##########################################################
-        public async Task<bool> HasEngagementsAsync(string id)
+        public async Task<bool> HasEngagementsAsync(Guid id)
         {
-            var student = await _db.ApplicationUsers.Where(au => au.Id == id)
+            var student = await _db.ApplicationUsers.Where(au => au.Id == id.ToString())
                 .Include(au => au.Course)
                 .Include(au => au.Internships)
                 .Include(au => au.Company)
