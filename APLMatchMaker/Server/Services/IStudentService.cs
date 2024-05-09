@@ -9,13 +9,13 @@ namespace APLMatchMaker.Server.Services
     {
         //Task<IEnumerable<StudentForListDTO>> GetAsync();
         Task<(IEnumerable<StudentForListDTO>, PagingFactoids)> GetAsync(StudentResourceParameters? studentResourceParameters);
-        Task<StudentForDetailsDTO?> GetAsync(string id);
-        Task<StudentForUpdateDTO?> GetForUpdateAsync(string id);
+        Task<StudentForDetailsDTO?> GetAsync(Guid id);
+        Task<StudentForUpdateDTO?> GetForUpdateAsync(Guid id);
         Task<StudentForDetailsDTO> PostAsync(StudentForCreateDTO dto);
-        Task<bool> RemoveAsync(string id);
-        Task<bool> HasEngagementsAsync(string id);
+        Task<bool> RemoveAsync(Guid id);
+        Task<bool> HasEngagementsAsync(Guid id);
         Task<bool> EmailExistAsync(string email);
-        Task<StudentForDetailsDTO?> PatchStudentAsync(string id, StudentForUpdateDTO dto);
-        Task<StudentForDetailsDTO?> UpdateStudentAsync(string id, StudentForUpdateDTO dto);
+        Task<StudentForDetailsDTO?> PatchStudentAsync(Guid id, StudentForUpdateDTO dto);
+        Task<StudentForDetailsDTO?> UpdateStudentAsync(Guid id, StudentForUpdateDTO dto);
     }
 }
